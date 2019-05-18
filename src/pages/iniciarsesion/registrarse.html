@@ -1,0 +1,43 @@
+<ion-header>
+</ion-header>
+
+
+<ion-content padding>
+
+  
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label floating style="color: rgba(26, 25, 25, 0.987);" >Correo Electrónico</ion-label>
+        <ion-input type="email" required name="email" [(ngModel)]="user.name"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label floating  style="color: rgba(26, 25, 25, 0.987);">Contraseña</ion-label>
+        <ion-input type="password" required name="password" [(ngModel)]="user.pass"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label floating  style="color: black;" >Repetir contraseña</ion-label>
+        <ion-input type="password" required name="password" [(ngModel)]="user.secondPass"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col  class="botones-redondos">
+      <button ion-button  color="boton"  id="boton" (click)="registerUser()" round>Registrarse</button>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col  class="botones-redondos">
+      <button ion-button  small  color="light"  id="boton" (click)="cancel()" round>Cancel</button>
+    </ion-col>
+  </ion-row>
+</ion-content>

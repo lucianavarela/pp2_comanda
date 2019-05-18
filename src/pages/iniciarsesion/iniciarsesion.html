@@ -1,0 +1,91 @@
+<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+<div id="custom-overlay" [style.display]="splash ? 'flex': 'none'">
+  <div class="flb">
+    <div class="Aligner-item Aligner-item--top">
+    </div>
+    <img src="assets/imgs/logo.png">
+    <div class="Aligner-item Aligner-item--bottom">
+    </div>
+  </div>
+</div>
+<ion-header>
+
+</ion-header>
+
+<ion-content padding>
+  <!--Logo-->
+    <ion-row class="logo-row">
+      <ion-col></ion-col>
+
+        <ion-col [style.align-items]= "center"  >
+          <img  class="logo" src="assets/imgs/logo.png" />
+        </ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+
+  <ion-row>
+    <ion-col col-12 col-md-6 col-xl-3  >
+      <ion-item>
+        <ion-label color="secondary" floating  style="color: black;" >Correo Electrónico</ion-label>
+        <ion-input type="text" required name="email" [(ngModel)]="dataLogin.user"></ion-input>
+      </ion-item>
+    </ion-col>
+   <ion-col>
+      <ion-item col-12 col-md-6 col-xl-3  >
+        <ion-label color="secondary" floating  style="color: black;"  >Contraseña</ion-label>
+        <ion-input type="password" required name="password" [(ngModel)]="dataLogin.pass"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  
+  <ion-row>
+
+        <ion-col class="botones-redondos" col-6 col-md-3 col-xl-3 >
+      <button ion-button  color="boton" id="boton" (click)="singIn()" round>Iniciar Sesión</button>
+    </ion-col>
+  <ion-col class="botones-redondos" col-6 col-md-3 col-xl-3>
+      <button ion-button  color="light" id="boton"  (click)="registerUser()" round >Registrarse</button>
+    </ion-col>
+
+    <ion-col class="botones-redondos" col-12 col-md-1 col-xl-1 >
+     
+      <p>Acceso rapido:</p>
+    </ion-col>
+    <ion-col class="botones-redondos" col-12 col-md-5 col-xl-5 >
+      <button type="button"  style="background-color: rgb(47, 206, 255);"  class="btn-circle btn-lg"  title="Socio" (click)="CargarDefault('S')"  >
+        <ion-thumbnail>
+          <img src="assets/imgs/socio.png">
+        </ion-thumbnail>
+      </button>
+      <button type="button"  style="background-color: rgb(49, 187, 68);"   class="btn-circle btn-lg" title="Bartender" (click)="CargarDefault('B')" >
+        <ion-thumbnail>
+        <img src="assets/imgs/coctel.png">
+      </ion-thumbnail>
+      </button>
+      <button type="button" style="background-color: rgb(248, 244, 15);"  class="btn-circle btn-lg"  title="Cervecero" (click)="CargarDefault('CE')" >
+       <ion-thumbnail>
+        <img src="assets/imgs/cerveza.png">
+      </ion-thumbnail>
+      </button>
+      <button type="button"  style="background-color: rgb(250, 12, 12);"   class="btn-circle btn-lg"  title="Cocinero" (click)="CargarDefault('CO')" >
+        <ion-thumbnail>
+        <img src="assets/imgs/cubiertos.png">
+      </ion-thumbnail>
+      </button>
+      <button type="button" style="background-color: rgb(15, 58, 248);"  class="btn-circle btn-lg"  title="Mozo" (click)="CargarDefault('M')" >
+      <ion-thumbnail>
+        <img src="assets/imgs/mozo.png">
+      </ion-thumbnail>
+      </button>
+    
+    </ion-col>
+   
+   
+
+  </ion-row>
+
+
+
+
+
+</ion-content>
