@@ -18,7 +18,7 @@
 }
 
 .label-md[stacked], .label-md[floating] {
-  color: #40596b;
+  color: #91d7e2;
 }
 
 .loading-md .loading-wrapper {
@@ -45,7 +45,7 @@
 }
 
 .label-md[stacked], .label-md[floating] {
-  color: #40596b;
+  color: #91d7e2;
 }
 
 .loading-md .loading-wrapper {
@@ -18976,23 +18976,23 @@ ion-loading {
 
 .loading-md .spinner-ios line,
 .loading-md .spinner-ios-small line {
-  stroke: #40596b;
+  stroke: #91d7e2;
 }
 
 .loading-md .spinner-bubbles circle {
-  fill: #40596b;
+  fill: #91d7e2;
 }
 
 .loading-md .spinner-circles circle {
-  fill: #40596b;
+  fill: #91d7e2;
 }
 
 .loading-md .spinner-crescent circle {
-  stroke: #40596b;
+  stroke: #91d7e2;
 }
 
 .loading-md .spinner-dots circle {
-  fill: #40596b;
+  fill: #91d7e2;
 }
 
 .loading-wp .loading-wrapper {
@@ -39882,7 +39882,7 @@ ion-navbar.toolbar {
 }
 
 .label-md[stacked], .label-md[floating] {
-  color: #40596b;
+  color: #91d7e2;
 }
 
 .loading-md .loading-wrapper {
@@ -39909,7 +39909,7 @@ ion-navbar.toolbar {
 }
 
 .label-md[stacked], .label-md[floating] {
-  color: #40596b;
+  color: #91d7e2;
 }
 
 .loading-md .loading-wrapper {
@@ -43868,8 +43868,8 @@ ion-icon::before {
 }
 
 .present-alert > div {
-  font-family: 'Ubuntu', sans-serif;
-  background-color: #40596b !important;
+  font-family: "Ubuntu", sans-serif;
+  background-color: #91d7e2 !important;
   text-align: center;
   font-weight: bold;
 }
@@ -43889,8 +43889,8 @@ ion-icon::before {
 }
 
 .confirm-alert > div {
-  font-family: 'Ubuntu', sans-serif;
-  background-color: #40596b !important;
+  font-family: "Ubuntu", sans-serif;
+  background-color: #91d7e2 !important;
   text-align: center;
   font-weight: bold;
 }
@@ -43910,8 +43910,8 @@ ion-icon::before {
 }
 
 .error-alert > div {
-  font-family: 'Ubuntu', sans-serif;
-  background-color: #40596b !important;
+  font-family: "Ubuntu", sans-serif;
+  background-color: #91d7e2 !important;
   text-align: center;
   font-weight: bold;
 }
@@ -43943,7 +43943,7 @@ ion-icon::before {
   -webkit-transform: scale(1);
   transform: scale(1);
   color: #fff;
-  background-color: #40596b;
+  background-color: #91d7e2;
   transition: transform 200ms ease 10ms, opacity 200ms ease 10ms, box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1), background-color 300ms cubic-bezier(0.4, 0, 0.2, 1), color 300ms cubic-bezier(0.4, 0, 0.2, 1), -webkit-transform 200ms ease 10ms, -webkit-box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.14), 0 4px 5px rgba(0, 0, 0, 0.1);
   box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.14), 0 4px 5px rgba(0, 0, 0, 0.1);
@@ -44033,7 +44033,7 @@ page-home #boton {
 }
 
 page-home .scroll-content {
-  background: #40596b;
+  background: #91d7e2;
 }
 
 page-home h1 {
@@ -44112,7 +44112,7 @@ page-home ion-col {
 }
 
 .label-md[stacked], .label-md[floating] {
-  color: #40596b;
+  color: #91d7e2;
 }
 
 .loading-md .loading-wrapper {
@@ -44139,7 +44139,7 @@ page-home ion-col {
 }
 
 .label-md[stacked], .label-md[floating] {
-  color: #40596b;
+  color: #91d7e2;
 }
 
 .loading-md .loading-wrapper {
@@ -47968,11 +47968,11 @@ ion-icon::before {
 }
 
 page-iniciarsesion {
-  background-color: #40596b;
+  background-color: #91d7e2;
 }
 
 page-iniciarsesion .scroll-content {
-  background-color: #40596b;
+  background-color: #91d7e2;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -47987,7 +47987,7 @@ page-iniciarsesion .scroll-content {
   -ms-flex-pack: center;
   justify-content: center;
   padding-bottom: 0px !important;
-  font-family: 'Droid Sans', sans-serif;
+  font-family: "Droid Sans", sans-serif;
 }
 
 ion-thumbnail {
@@ -48008,7 +48008,7 @@ ion-thumbnail {
 }
 
 .flb {
-  background-color: #40596b;
+  background-color: #91d7e2;
   height: 100%;
   width: 100%;
   -webkit-animation: pulse 1s linear forwards;
@@ -48055,11 +48055,19 @@ ion-thumbnail {
 }
 
 .botones-redondos {
-  padding-top: 5px;
   text-align: center;
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
+}
+
+.botones-redondos button {
+  margin: 5px 15px 5px 15px;
+}
+
+.botones-redondos img {
+  -webkit-filter: contrast(40%);
+  filter: contrast(40%);
 }
 
 .logo {

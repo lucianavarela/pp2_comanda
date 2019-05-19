@@ -5,7 +5,7 @@ import { SpinnerHandlerProvider } from './../../providers/spinner-handler/spinne
 import { HomePage } from './../home/home';
 import { RegistrarsePage } from './registrarse';
 import { NativeAudio } from '@ionic-native/native-audio';
-import { Login } from '../../Model/Login';
+import { Login } from '../../models/login';
 import { ErrorsHandlerProvider } from '../../providers/errors-handler/errors-handler';
 
 
@@ -63,9 +63,9 @@ export class IniciarsesionPage {
       let spiner = this.spinnerHandler.presentLoadingCustom();
        spiner.present();
       this.autenticationService.singIn(this.dataLogin.user, this.dataLogin.pass)
-        .then(rerponse => {      
+        .then(response => {      
          
-        this.navCtrl.setRoot(HomePage , { usuario: rerponse }) ;       
+        this.navCtrl.setRoot(HomePage , { usuario: response }) ;       
         })
         .catch(err=>{
           this.errorHandler.mostrarMensajeConfimación("Se produjo un error al ingresar",'Error' );

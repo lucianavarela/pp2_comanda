@@ -231,7 +231,7 @@ var RegistrarsePage = /** @class */ (function () {
     };
     RegistrarsePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-iniciarsesion',template:/*ion-inline-start:"/Users/lucianavarela/Documents/UTN/pp2_comanda/src/pages/iniciarsesion/registrarse.html"*/'<ion-header>\n</ion-header>\n\n\n<ion-content padding>\n\n  \n  <ion-row>\n    <ion-col>\n      <ion-item>\n        <ion-label floating style="color: rgba(26, 25, 25, 0.987);" >Correo Electrónico</ion-label>\n        <ion-input type="email" required name="email" [(ngModel)]="user.name"></ion-input>\n      </ion-item>\n    </ion-col>\n  </ion-row>\n  <ion-row>\n    <ion-col>\n      <ion-item>\n        <ion-label floating  style="color: rgba(26, 25, 25, 0.987);">Contraseña</ion-label>\n        <ion-input type="password" required name="password" [(ngModel)]="user.pass"></ion-input>\n      </ion-item>\n    </ion-col>\n  </ion-row>\n  <ion-row>\n    <ion-col>\n      <ion-item>\n        <ion-label floating  style="color: black;" >Repetir contraseña</ion-label>\n        <ion-input type="password" required name="password" [(ngModel)]="user.secondPass"></ion-input>\n      </ion-item>\n    </ion-col>\n  </ion-row>\n\n  <ion-row>\n    <ion-col  class="botones-redondos">\n      <button ion-button  color="boton"  id="boton" (click)="registerUser()" round>Registrarse</button>\n    </ion-col>\n  </ion-row>\n  <ion-row>\n    <ion-col  class="botones-redondos">\n      <button ion-button  small  color="light"  id="boton" (click)="cancel()" round>Cancel</button>\n    </ion-col>\n  </ion-row>\n</ion-content>'/*ion-inline-end:"/Users/lucianavarela/Documents/UTN/pp2_comanda/src/pages/iniciarsesion/registrarse.html"*/,
+            selector: 'page-iniciarsesion',template:/*ion-inline-start:"/Users/lucianavarela/Documents/UTN/pp2_comanda/src/pages/iniciarsesion/registrarse.html"*/'<ion-header>\n</ion-header>\n\n\n<ion-content padding>\n\n\n  <ion-row>\n    <ion-col>\n      <ion-item>\n        <ion-label floating style="color: rgba(26, 25, 25, 0.987);">Correo Electrónico</ion-label>\n        <ion-input type="email" required name="email" [(ngModel)]="user.name"></ion-input>\n      </ion-item>\n    </ion-col>\n  </ion-row>\n  <ion-row>\n    <ion-col>\n      <ion-item>\n        <ion-label floating style="color: rgba(26, 25, 25, 0.987);">Contraseña</ion-label>\n        <ion-input type="password" required name="password" [(ngModel)]="user.pass"></ion-input>\n      </ion-item>\n    </ion-col>\n  </ion-row>\n  <ion-row>\n    <ion-col>\n      <ion-item>\n        <ion-label floating style="color: black;">Repetir contraseña</ion-label>\n        <ion-input type="password" required name="password" [(ngModel)]="user.secondPass"></ion-input>\n      </ion-item>\n    </ion-col>\n  </ion-row>\n\n  <ion-row>\n    <ion-col class="botones-redondos">\n      <button ion-button color="boton" id="boton" (click)="registerUser()" round>Registrarse</button>\n    </ion-col>\n  </ion-row>\n  <ion-row>\n    <ion-col class="botones-redondos">\n      <button ion-button small color="light" id="boton" (click)="cancel()" round>Cancel</button>\n    </ion-col>\n  </ion-row>\n</ion-content>'/*ion-inline-end:"/Users/lucianavarela/Documents/UTN/pp2_comanda/src/pages/iniciarsesion/registrarse.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_2__providers_authentication_service_authentication_service__["a" /* AuthenticationServiceProvider */],
@@ -380,7 +380,7 @@ var Login = /** @class */ (function () {
     return Login;
 }());
 
-//# sourceMappingURL=Login.js.map
+//# sourceMappingURL=login.js.map
 
 /***/ }),
 
@@ -458,7 +458,7 @@ var configs = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_home__ = __webpack_require__(123);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__registrarse__ = __webpack_require__(239);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_native_audio__ = __webpack_require__(240);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Model_Login__ = __webpack_require__(418);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__models_login__ = __webpack_require__(418);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_errors_handler_errors_handler__ = __webpack_require__(78);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -500,7 +500,7 @@ var IniciarsesionPage = /** @class */ (function () {
         this.selectUserOptions = { title: '' };
         this.selectUserOptions.title = "Usuarios disponibles";
         this.nativeAudio.preloadComplex('inicio', 'assets/sonidos/inicio.mp3', 1, 1, 0);
-        this.dataLogin = new __WEBPACK_IMPORTED_MODULE_7__Model_Login__["a" /* Login */]('', '');
+        this.dataLogin = new __WEBPACK_IMPORTED_MODULE_7__models_login__["a" /* Login */]('', '');
     }
     IniciarsesionPage.prototype.ionViewDidLoad = function () {
         var _this = this;
@@ -519,8 +519,8 @@ var IniciarsesionPage = /** @class */ (function () {
             var spiner = this.spinnerHandler.presentLoadingCustom();
             spiner.present();
             this.autenticationService.singIn(this.dataLogin.user, this.dataLogin.pass)
-                .then(function (rerponse) {
-                _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_4__home_home__["a" /* HomePage */], { usuario: rerponse });
+                .then(function (response) {
+                _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_4__home_home__["a" /* HomePage */], { usuario: response });
             })
                 .catch(function (err) {
                 _this.errorHandler.mostrarMensajeConfimación("Se produjo un error al ingresar", 'Error');
@@ -569,22 +569,22 @@ var IniciarsesionPage = /** @class */ (function () {
                 this.singIn();
                 break;
             case 'B':
-                this.dataLogin = new __WEBPACK_IMPORTED_MODULE_7__Model_Login__["a" /* Login */]('Matias', '1234');
+                this.dataLogin = new __WEBPACK_IMPORTED_MODULE_7__models_login__["a" /* Login */]('Matias', '1234');
                 break;
             case 'CE':
-                this.dataLogin = new __WEBPACK_IMPORTED_MODULE_7__Model_Login__["a" /* Login */]('cervecero', 'cervecero');
+                this.dataLogin = new __WEBPACK_IMPORTED_MODULE_7__models_login__["a" /* Login */]('cervecero', 'cervecero');
                 break;
             case 'CO':
-                this.dataLogin = new __WEBPACK_IMPORTED_MODULE_7__Model_Login__["a" /* Login */]('cocinero', 'cocinero');
+                this.dataLogin = new __WEBPACK_IMPORTED_MODULE_7__models_login__["a" /* Login */]('cocinero', 'cocinero');
                 break;
             case 'M':
-                this.dataLogin = new __WEBPACK_IMPORTED_MODULE_7__Model_Login__["a" /* Login */]('mozo', 'mozo');
+                this.dataLogin = new __WEBPACK_IMPORTED_MODULE_7__models_login__["a" /* Login */]('mozo', 'mozo');
                 break;
         }
     };
     IniciarsesionPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-iniciarsesion',template:/*ion-inline-start:"/Users/lucianavarela/Documents/UTN/pp2_comanda/src/pages/iniciarsesion/iniciarsesion.html"*/'<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">\n<div id="custom-overlay" [style.display]="splash ? \'flex\': \'none\'">\n  <div class="flb">\n    <div class="Aligner-item Aligner-item--top">\n    </div>\n    <img src="assets/imgs/logo.png">\n    <div class="Aligner-item Aligner-item--bottom">\n    </div>\n  </div>\n</div>\n<ion-header>\n\n</ion-header>\n\n<ion-content padding>\n  <!--Logo-->\n    <ion-row class="logo-row">\n      <ion-col></ion-col>\n\n        <ion-col [style.align-items]= "center"  >\n          <img  class="logo" src="assets/imgs/logo.png" />\n        </ion-col>\n        <ion-col></ion-col>\n      </ion-row>\n\n  <ion-row>\n    <ion-col col-12 col-md-6 col-xl-3  >\n      <ion-item>\n        <ion-label color="secondary" floating  style="color: black;" >Correo Electrónico</ion-label>\n        <ion-input type="text" required name="email" [(ngModel)]="dataLogin.user"></ion-input>\n      </ion-item>\n    </ion-col>\n   <ion-col>\n      <ion-item col-12 col-md-6 col-xl-3  >\n        <ion-label color="secondary" floating  style="color: black;"  >Contraseña</ion-label>\n        <ion-input type="password" required name="password" [(ngModel)]="dataLogin.pass"></ion-input>\n      </ion-item>\n    </ion-col>\n  </ion-row>\n  \n  <ion-row>\n\n        <ion-col class="botones-redondos" col-6 col-md-3 col-xl-3 >\n      <button ion-button  color="boton" id="boton" (click)="singIn()" round>Iniciar Sesión</button>\n    </ion-col>\n  <ion-col class="botones-redondos" col-6 col-md-3 col-xl-3>\n      <button ion-button  color="light" id="boton"  (click)="registerUser()" round >Registrarse</button>\n    </ion-col>\n\n    <ion-col class="botones-redondos" col-12 col-md-1 col-xl-1 >\n     \n      <p>Acceso rapido:</p>\n    </ion-col>\n    <ion-col class="botones-redondos" col-12 col-md-5 col-xl-5 >\n      <button type="button"  style="background-color: rgb(47, 206, 255);"  class="btn-circle btn-lg"  title="Socio" (click)="CargarDefault(\'S\')"  >\n        <ion-thumbnail>\n          <img src="assets/imgs/socio.png">\n        </ion-thumbnail>\n      </button>\n      <button type="button"  style="background-color: rgb(49, 187, 68);"   class="btn-circle btn-lg" title="Bartender" (click)="CargarDefault(\'B\')" >\n        <ion-thumbnail>\n        <img src="assets/imgs/coctel.png">\n      </ion-thumbnail>\n      </button>\n      <button type="button" style="background-color: rgb(248, 244, 15);"  class="btn-circle btn-lg"  title="Cervecero" (click)="CargarDefault(\'CE\')" >\n       <ion-thumbnail>\n        <img src="assets/imgs/cerveza.png">\n      </ion-thumbnail>\n      </button>\n      <button type="button"  style="background-color: rgb(250, 12, 12);"   class="btn-circle btn-lg"  title="Cocinero" (click)="CargarDefault(\'CO\')" >\n        <ion-thumbnail>\n        <img src="assets/imgs/cubiertos.png">\n      </ion-thumbnail>\n      </button>\n      <button type="button" style="background-color: rgb(15, 58, 248);"  class="btn-circle btn-lg"  title="Mozo" (click)="CargarDefault(\'M\')" >\n      <ion-thumbnail>\n        <img src="assets/imgs/mozo.png">\n      </ion-thumbnail>\n      </button>\n    \n    </ion-col>\n   \n   \n\n  </ion-row>\n\n\n\n\n\n</ion-content>\n'/*ion-inline-end:"/Users/lucianavarela/Documents/UTN/pp2_comanda/src/pages/iniciarsesion/iniciarsesion.html"*/,
+            selector: 'page-iniciarsesion',template:/*ion-inline-start:"/Users/lucianavarela/Documents/UTN/pp2_comanda/src/pages/iniciarsesion/iniciarsesion.html"*/'<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">\n<div id="custom-overlay" [style.display]="splash ? \'flex\': \'none\'">\n  <div class="flb">\n    <div class="Aligner-item Aligner-item--top">\n    </div>\n    <img src="assets/imgs/logo.png">\n    <div class="Aligner-item Aligner-item--bottom">\n    </div>\n  </div>\n</div>\n<ion-header>\n\n</ion-header>\n\n<ion-content padding>\n  <!--Logo-->\n  <ion-row class="logo-row">\n    <ion-col></ion-col>\n\n    <ion-col [style.align-items]="center">\n      <img class="logo" src="assets/imgs/logo.png" />\n    </ion-col>\n    <ion-col></ion-col>\n  </ion-row>\n\n  <ion-row>\n    <ion-col col-12 col-md-6 col-xl-3>\n      <ion-item>\n        <ion-label color="secondary" floating style="color: black;">Correo Electrónico</ion-label>\n        <ion-input type="text" required name="email" [(ngModel)]="dataLogin.user"></ion-input>\n      </ion-item>\n    </ion-col>\n    <ion-col>\n      <ion-item col-12 col-md-6 col-xl-3>\n        <ion-label color="secondary" floating style="color: black;">Contraseña</ion-label>\n        <ion-input type="password" required name="password" [(ngModel)]="dataLogin.pass"></ion-input>\n      </ion-item>\n    </ion-col>\n  </ion-row>\n\n  <ion-row>\n\n    <ion-col class="botones-redondos" col-6 col-md-3 col-xl-3>\n      <button ion-button color="boton" id="boton" (click)="singIn()" round>Iniciar Sesión</button>\n    </ion-col>\n    <ion-col class="botones-redondos" col-6 col-md-3 col-xl-3>\n      <button ion-button color="light" id="boton" (click)="registerUser()" round>Registrarse</button>\n    </ion-col>\n\n    <ion-col class="botones-redondos" col-12 col-md-1 col-xl-1>\n\n      <p>Acceso rapido:</p>\n    </ion-col>\n    <ion-col class="botones-redondos" col-12 col-md-5 col-xl-5>\n      <button type="button" style="background-color: #ffb4aa;" class="btn-circle btn-lg" title="Socio"\n        (click)="CargarDefault(\'S\')">\n        <ion-thumbnail>\n          <img src="assets/imgs/socio.png">\n        </ion-thumbnail>\n      </button>\n      <button type="button" style="background-color: #fff4a7;" class="btn-circle btn-lg" title="Bartender"\n        (click)="CargarDefault(\'B\')">\n        <ion-thumbnail>\n          <img src="assets/imgs/coctel.png">\n        </ion-thumbnail>\n      </button>\n      <button type="button" style="background-color: #efbdff;" class="btn-circle btn-lg" title="Cervecero"\n        (click)="CargarDefault(\'CE\')">\n        <ion-thumbnail>\n          <img src="assets/imgs/cerveza.png">\n        </ion-thumbnail>\n      </button>\n      <button type="button" style="background-color: #fdd3b6;" class="btn-circle btn-lg" title="Cocinero"\n        (click)="CargarDefault(\'CO\')">\n        <ion-thumbnail>\n          <img src="assets/imgs/cubiertos.png">\n        </ion-thumbnail>\n      </button>\n      <button type="button" style="background-color: #bbf7b4;" class="btn-circle btn-lg" title="Mozo"\n        (click)="CargarDefault(\'M\')">\n        <ion-thumbnail>\n          <img src="assets/imgs/mozo.png">\n        </ion-thumbnail>\n      </button>\n\n    </ion-col>\n\n\n\n  </ion-row>\n\n\n\n\n\n</ion-content>'/*ion-inline-end:"/Users/lucianavarela/Documents/UTN/pp2_comanda/src/pages/iniciarsesion/iniciarsesion.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Platform */],
             __WEBPACK_IMPORTED_MODULE_6__ionic_native_native_audio__["a" /* NativeAudio */],
