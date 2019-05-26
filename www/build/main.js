@@ -1,5 +1,118 @@
 webpackJsonp([4],{
 
+/***/ 123:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ErrorsHandlerProvider; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+/*
+  Generated class for the ErrorsHandlerProvider provider.
+
+  See https://angular.io/guide/dependency-injection for more info on providers
+  and Angular DI.
+*/
+var ErrorsHandlerProvider = /** @class */ (function () {
+    function ErrorsHandlerProvider(alertCtrl) {
+        this.alertCtrl = alertCtrl;
+    }
+    ErrorsHandlerProvider_1 = ErrorsHandlerProvider;
+    ErrorsHandlerProvider.prototype.mostrarError = function (error, title, message) {
+        console.log("ocurrio un error", error);
+        var errorMessage = this.getErrorMessage(error);
+        var alert = this.alertCtrl.create({
+            title: title ? title : "Error!",
+            cssClass: 'error-alert',
+            message: message ? message + errorMessage : errorMessage
+        });
+        alert.present();
+    };
+    ErrorsHandlerProvider.prototype.mostrarErrorLiteral = function (error, title) {
+        var alert = this.alertCtrl.create({
+            title: title ? title : "Error!",
+            message: error,
+            cssClass: 'error-alert'
+        });
+        alert.present();
+    };
+    ErrorsHandlerProvider.prototype.mostrarMensajeConfimación = function (mensaje, title) {
+        var alert = this.alertCtrl.create({
+            title: title ? title : "Error!",
+            subTitle: mensaje,
+            buttons: ['Aceptar'],
+            cssClass: 'present-alert'
+        });
+        alert.present();
+    };
+    ErrorsHandlerProvider.prototype.getErrorMessage = function (error) {
+        var mensaje = "Error desconocido";
+        for (var i = 0; i < ErrorsHandlerProvider_1.knownErrors.length; i++) {
+            if (error.code == ErrorsHandlerProvider_1.knownErrors[i].code) {
+                mensaje = ErrorsHandlerProvider_1.knownErrors[i].message;
+                break;
+            }
+        }
+        return mensaje;
+    };
+    ErrorsHandlerProvider.prototype.presentAlert = function () {
+        var alert = this.alertCtrl.create({
+            title: 'Tutorial',
+            subTitle: 'Presione los botones para escuchar el sonido',
+            buttons: ['Aceptar'],
+            cssClass: 'present-alert'
+        });
+        alert.present();
+    };
+    ErrorsHandlerProvider.knownErrors = [
+        {
+            code: 'auth/email-already-in-use',
+            message: "El correo ya existe"
+        },
+        {
+            code: 'auth/user-not-found',
+            message: "El correo no se encuentra registrado"
+        },
+        {
+            code: 'auth/wrong-password',
+            message: "Contraseña Incorrecta"
+        },
+        {
+            code: "auth/network-request-failed",
+            message: "No hay conexión a internet"
+        },
+        {
+            code: "auth/invalid-email",
+            message: "Correo inválido"
+        },
+        {
+            code: "auth/weak-password",
+            message: "La contraseña debe tener mínimo 6 caracteres"
+        }
+    ];
+    ErrorsHandlerProvider = ErrorsHandlerProvider_1 = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0_ionic_angular__["a" /* AlertController */]])
+    ], ErrorsHandlerProvider);
+    return ErrorsHandlerProvider;
+    var ErrorsHandlerProvider_1;
+}());
+
+//# sourceMappingURL=errors-handler.js.map
+
+/***/ }),
+
 /***/ 150:
 /***/ (function(module, exports) {
 
@@ -30,11 +143,11 @@ var map = {
 		2
 	],
 	"../pages/iniciarsesion/iniciarsesion.module": [
-		442,
+		441,
 		3
 	],
 	"../pages/reservas/reservas.module": [
-		441,
+		442,
 		1
 	]
 };
@@ -60,7 +173,7 @@ module.exports = webpackAsyncContext;
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HttpBaseProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_native_http_ngx__ = __webpack_require__(122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_native_http_ngx__ = __webpack_require__(121);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -104,8 +217,8 @@ var HttpBaseProvider = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_authentication_service_authentication_service__ = __webpack_require__(69);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_spinner_handler_spinner_handler__ = __webpack_require__(77);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_errors_handler_errors_handler__ = __webpack_require__(78);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__home_home__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_errors_handler_errors_handler__ = __webpack_require__(123);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__home_home__ = __webpack_require__(82);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__iniciarsesion__ = __webpack_require__(59);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -207,22 +320,22 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(436);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(82);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_iniciarsesion_iniciarsesion__ = __webpack_require__(59);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_iniciarsesion_registrarse__ = __webpack_require__(239);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_status_bar__ = __webpack_require__(280);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_splash_screen__ = __webpack_require__(281);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__providers_authentication_service_authentication_service__ = __webpack_require__(69);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_errors_handler_errors_handler__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_errors_handler_errors_handler__ = __webpack_require__(123);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_spinner_handler_spinner_handler__ = __webpack_require__(77);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__providers_http_base_http_base__ = __webpack_require__(237);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_angularfire2__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_angularfire2_database_deprecated__ = __webpack_require__(205);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_angularfire2_auth__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_angularfire2_auth__ = __webpack_require__(111);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__globalConfig__ = __webpack_require__(437);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ionic_native_native_audio__ = __webpack_require__(240);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__ionic_native_camera__ = __webpack_require__(438);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ionic_native_http_ngx__ = __webpack_require__(122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ionic_native_http_ngx__ = __webpack_require__(121);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -272,8 +385,8 @@ var AppModule = /** @class */ (function () {
                     links: [
                         { loadChildren: '../pages/alta-cliente/alta-cliente.module#AltaClientePageModule', name: 'AltaClientePage', segment: 'alta-cliente', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/alta-supervisor/alta-supervisor.module#AltaSupervisorPageModule', name: 'AltaSupervisorPage', segment: 'alta-supervisor', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/reservas/reservas.module#ReservasPageModule', name: 'ReservasPage', segment: 'reservas', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/iniciarsesion/iniciarsesion.module#IniciarsesionPageModule', name: 'IniciarsesionPage', segment: 'iniciarsesion', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/iniciarsesion/iniciarsesion.module#IniciarsesionPageModule', name: 'IniciarsesionPage', segment: 'iniciarsesion', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/reservas/reservas.module#ReservasPageModule', name: 'ReservasPage', segment: 'reservas', priority: 'low', defaultHistory: [] }
                     ]
                 }),
                 __WEBPACK_IMPORTED_MODULE_13_angularfire2__["a" /* AngularFireModule */].initializeApp(__WEBPACK_IMPORTED_MODULE_16__globalConfig__["a" /* configs */].firebaseConfig),
@@ -396,11 +509,11 @@ var configs = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_authentication_service_authentication_service__ = __webpack_require__(69);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_spinner_handler_spinner_handler__ = __webpack_require__(77);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_home__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_home__ = __webpack_require__(82);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__registrarse__ = __webpack_require__(239);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_native_audio__ = __webpack_require__(240);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Model_Login__ = __webpack_require__(418);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_errors_handler_errors_handler__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_errors_handler_errors_handler__ = __webpack_require__(123);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -548,11 +661,11 @@ var IniciarsesionPage = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthenticationServiceProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angularfire2_auth__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angularfire2_auth__ = __webpack_require__(111);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_database_deprecated__ = __webpack_require__(205);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__http_base_http_base__ = __webpack_require__(237);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_http_ngx__ = __webpack_require__(122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_http_ngx__ = __webpack_require__(121);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -686,131 +799,17 @@ var SpinnerHandlerProvider = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 78:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ErrorsHandlerProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-/*
-  Generated class for the ErrorsHandlerProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
-var ErrorsHandlerProvider = /** @class */ (function () {
-    function ErrorsHandlerProvider(alertCtrl) {
-        this.alertCtrl = alertCtrl;
-    }
-    ErrorsHandlerProvider_1 = ErrorsHandlerProvider;
-    ErrorsHandlerProvider.prototype.mostrarError = function (error, title, message) {
-        console.log("ocurrio un error", error);
-        var errorMessage = this.getErrorMessage(error);
-        var alert = this.alertCtrl.create({
-            title: title ? title : "Error!",
-            cssClass: 'error-alert',
-            message: message ? message + errorMessage : errorMessage
-        });
-        alert.present();
-    };
-    ErrorsHandlerProvider.prototype.mostrarErrorLiteral = function (error, title) {
-        var alert = this.alertCtrl.create({
-            title: title ? title : "Error!",
-            message: error,
-            cssClass: 'error-alert'
-        });
-        alert.present();
-    };
-    ErrorsHandlerProvider.prototype.mostrarMensajeConfimación = function (mensaje, title) {
-        var alert = this.alertCtrl.create({
-            title: title ? title : "Error!",
-            subTitle: mensaje,
-            buttons: ['Aceptar'],
-            cssClass: 'present-alert'
-        });
-        alert.present();
-    };
-    ErrorsHandlerProvider.prototype.getErrorMessage = function (error) {
-        var mensaje = "Error desconocido";
-        for (var i = 0; i < ErrorsHandlerProvider_1.knownErrors.length; i++) {
-            if (error.code == ErrorsHandlerProvider_1.knownErrors[i].code) {
-                mensaje = ErrorsHandlerProvider_1.knownErrors[i].message;
-                break;
-            }
-        }
-        return mensaje;
-    };
-    ErrorsHandlerProvider.prototype.presentAlert = function () {
-        var alert = this.alertCtrl.create({
-            title: 'Tutorial',
-            subTitle: 'Presione los botones para escuchar el sonido',
-            buttons: ['Aceptar'],
-            cssClass: 'present-alert'
-        });
-        alert.present();
-    };
-    ErrorsHandlerProvider.knownErrors = [
-        {
-            code: 'auth/email-already-in-use',
-            message: "El correo ya existe"
-        },
-        {
-            code: 'auth/user-not-found',
-            message: "El correo no se encuentra registrado"
-        },
-        {
-            code: 'auth/wrong-password',
-            message: "Contraseña Incorrecta"
-        },
-        {
-            code: "auth/network-request-failed",
-            message: "No hay conexión a internet"
-        },
-        {
-            code: "auth/invalid-email",
-            message: "Correo inválido"
-        },
-        {
-            code: "auth/weak-password",
-            message: "La contraseña debe tener mínimo 6 caracteres"
-        }
-    ];
-    ErrorsHandlerProvider = ErrorsHandlerProvider_1 = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0_ionic_angular__["a" /* AlertController */]])
-    ], ErrorsHandlerProvider);
-    return ErrorsHandlerProvider;
-    var ErrorsHandlerProvider_1;
-}());
-
-//# sourceMappingURL=errors-handler.js.map
-
-/***/ }),
-
-/***/ 83:
+/***/ 82:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(111);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_authentication_service_authentication_service__ = __webpack_require__(69);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__iniciarsesion_iniciarsesion__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_errors_handler_errors_handler__ = __webpack_require__(78);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_spinner_handler_spinner_handler__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_spinner_handler_spinner_handler__ = __webpack_require__(77);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -825,13 +824,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+//import { ErrorsHandlerProvider } from '../../providers/errors-handler/errors-handler';
 
-
+//import { AltaClientePage } from '../alta-cliente/alta-cliente';
 var HomePage = /** @class */ (function () {
-    function HomePage(navCtrl, MiAuth, error, autenticationService, alertCtrl, spinnerHandler) {
+    function HomePage(navCtrl, MiAuth, 
+        ////private error : ErrorsHandlerProvider,
+        autenticationService, alertCtrl, spinnerHandler) {
         this.navCtrl = navCtrl;
         this.MiAuth = MiAuth;
-        this.error = error;
         this.autenticationService = autenticationService;
         this.alertCtrl = alertCtrl;
         this.spinnerHandler = spinnerHandler;
@@ -896,10 +897,9 @@ var HomePage = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */],
-            __WEBPACK_IMPORTED_MODULE_5__providers_errors_handler_errors_handler__["a" /* ErrorsHandlerProvider */],
             __WEBPACK_IMPORTED_MODULE_3__providers_authentication_service_authentication_service__["a" /* AuthenticationServiceProvider */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
-            __WEBPACK_IMPORTED_MODULE_6__providers_spinner_handler_spinner_handler__["a" /* SpinnerHandlerProvider */]])
+            __WEBPACK_IMPORTED_MODULE_5__providers_spinner_handler_spinner_handler__["a" /* SpinnerHandlerProvider */]])
     ], HomePage);
     return HomePage;
 }());

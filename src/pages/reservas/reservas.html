@@ -26,19 +26,33 @@
          
         <ion-item  [hidden]="calendario">
           <ion-label>Fecha</ion-label>
-          <ion-datetime display-format="MMMM YYYY" min="2019-05-25" max="2019-10-31"  [(ngModel)]="myDate"></ion-datetime>
+          <ion-datetime display-format="MMMM YYYY" min="2019-05-25" max="2019-10-31"  [(ngModel)]="myDate"  (ionChange)= "seleccionarFecha()"  ></ion-datetime>
         </ion-item>
 
           </ion-col>
 
           <ion-col col-12 col-md-1>
-            <!-- Checkboxes in a List -->
-    <ion-list>
-    <ion-item *ngFor="let entry of form">
-      <ion-label>{{entry.val}}</ion-label>
-      <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
+            <!-- Checkboxes in a List 
+         <ion-list>
+        <ion-radio-group>
+        <ion-list-header>
+        <ion-label>Horarios disponibles:</ion-label>
+        </ion-list-header>
+    <ion-item *ngFor="let entry of form"   [hidden]="turnos">
+     <ion-radio slot="start" value="entry.val" ></ion-radio>
     </ion-item>
-       </ion-list>
+  </ion-radio-group>
+       </ion-list>-->
+
+       <ion-list radio-group>
+
+          <ion-item *ngFor="let entry of form"   [hidden]="turnos">
+              <ion-label>Mesa Disponible :  {{entry.val}}</ion-label>
+              <ion-radio color="orange"></ion-radio>
+          </ion-item>
+      
+               
+        </ion-list>
 
 
           </ion-col>

@@ -3,9 +3,9 @@ import { NavController,AlertController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthenticationServiceProvider } from './../../providers/authentication-service/authentication-service';
 import { IniciarsesionPage } from './../iniciarsesion/iniciarsesion';
-import { ErrorsHandlerProvider } from '../../providers/errors-handler/errors-handler';
+//import { ErrorsHandlerProvider } from '../../providers/errors-handler/errors-handler';
 import { SpinnerHandlerProvider } from './../../providers/spinner-handler/spinner-handler';
-import { AltaClientePage } from '../alta-cliente/alta-cliente';
+//import { AltaClientePage } from '../alta-cliente/alta-cliente';
 
 @Component({
   selector: 'page-home',
@@ -21,7 +21,7 @@ export class HomePage   implements OnInit {
 
   constructor( private navCtrl : NavController,
     private MiAuth: AngularFireAuth,
-    private error : ErrorsHandlerProvider,
+    ////private error : ErrorsHandlerProvider,
     private autenticationService: AuthenticationServiceProvider,
     public alertCtrl: AlertController,
     private spinnerHandler: SpinnerHandlerProvider) {

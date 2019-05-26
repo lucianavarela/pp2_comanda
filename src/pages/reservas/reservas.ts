@@ -23,7 +23,7 @@ export class ReservasPage {
   myDate: String;
   fechaHoy : Date;
   min:string;
-
+  turnos: boolean;
   
 
   constructor(public navCtrl: NavController,
@@ -33,20 +33,19 @@ export class ReservasPage {
     this.calendario= true;
     this.myDate = new Date().toISOString();
     this.fechaHoy = new Date();
-    //this.min= this.fechaHoy.getFullYear()+"-"+this.fechaHoy.getMonth()+"-"+this.fechaHoy.getDate();
-    
+    this.turnos= true;
+   
   
   
   }
   public form = [
-    { val: 'Pepperoni', isChecked: true },
-    { val: 'Sausage', isChecked: false },
-    { val: 'Mushroom', isChecked: false }
+    { val: '12:00', isChecked: false },
+    { val: '13:00', isChecked: false },
+    { val: '14:00', isChecked: false }
   ];
 
   ionViewDidLoad() {
-   // console.log(this.fechaHoy.getFullYear()+"-"+this.fechaHoy.getUTCMonth()+"-"+this.fechaHoy.getDate());
-    
+   
   }
 
 
@@ -58,7 +57,7 @@ export class ReservasPage {
   }
 
   seleccionarFecha(){
-
+    this.turnos= false;
     
   }
   
