@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { HomePage } from '../home/home';
 
 
 /**
@@ -60,7 +61,16 @@ export class ReservasPage {
     this.turnos= false;
     
   }
+
+  reservar(){
+
+  }
   
+
+  cancel(){
+    this.navCtrl.push(HomePage);
+  }
+
   
  
 

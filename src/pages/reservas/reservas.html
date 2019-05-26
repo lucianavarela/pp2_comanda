@@ -22,32 +22,18 @@
        
       </ion-col>
 
-      <ion-col >
+      <ion-col col-12 col-md-6 col-xl-6 >
          
         <ion-item  [hidden]="calendario">
           <ion-label>Fecha</ion-label>
           <ion-datetime display-format="MMMM YYYY" min="2019-05-25" max="2019-10-31"  [(ngModel)]="myDate"  (ionChange)= "seleccionarFecha()"  ></ion-datetime>
         </ion-item>
 
-          </ion-col>
-
-          <ion-col col-12 col-md-1>
-            <!-- Checkboxes in a List 
-         <ion-list>
-        <ion-radio-group>
-        <ion-list-header>
-        <ion-label>Horarios disponibles:</ion-label>
-        </ion-list-header>
-    <ion-item *ngFor="let entry of form"   [hidden]="turnos">
-     <ion-radio slot="start" value="entry.val" ></ion-radio>
-    </ion-item>
-  </ion-radio-group>
-       </ion-list>-->
-
+                   
        <ion-list radio-group>
 
           <ion-item *ngFor="let entry of form"   [hidden]="turnos">
-              <ion-label>Mesa Disponible :  {{entry.val}}</ion-label>
+              <ion-label>Mesa Disponible :  {{entry.val}} hs.</ion-label>
               <ion-radio color="orange"></ion-radio>
           </ion-item>
       
@@ -59,5 +45,14 @@
 
 
     </ion-row>
+
+    <ion-row>
+        <ion-col  class="botones-redondos" [hidden]= "turnos">
+          <button ion-button  color="boton"  id="boton" (click)="regervar()" round>Registrar</button>
+        </ion-col>
+      <ion-col  class="botones-redondos" [hidden]= "turnos">
+          <button ion-button  small  color="light"  id="boton" (click)="cancel()" round>Cancel</button>
+        </ion-col>
+      </ion-row>
 
 </ion-content>
