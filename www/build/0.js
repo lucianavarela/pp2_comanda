@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 446:
+/***/ 439:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AltaSupervisorPageModule", function() { return AltaSupervisorPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__alta_supervisor__ = __webpack_require__(451);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__alta_supervisor__ = __webpack_require__(444);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -38,15 +38,15 @@ var AltaSupervisorPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 451:
+/***/ 444:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AltaSupervisorPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Model_Empleado_1__ = __webpack_require__(452);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_camera__ = __webpack_require__(284);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Model_Empleado_1__ = __webpack_require__(445);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_camera__ = __webpack_require__(282);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_errors_handler_errors_handler__ = __webpack_require__(83);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__home_home__ = __webpack_require__(82);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -118,17 +118,17 @@ var AltaSupervisorPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-alta-supervisor',template:/*ion-inline-start:"/home/user/Escritorio/Pss/pp2_comanda/src/pages/alta-supervisor/alta-supervisor.html"*/'<!--\n  Generated template for the AltaSupervisorPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar color="orange">\n    <ion-title>altaSupervisor</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  \n  <ion-row>\n\n\n    <ion-col col-12 col-md-6  col-sm-6>\n      <ion-item [hidden]= "ocultarA">\n        <ion-label floating style="color: rgba(26, 25, 25, 0.987);" >Nombre</ion-label>\n        <ion-input type="text" required name="nombre" [(ngModel)]="supervisor.nombre" ></ion-input>\n      </ion-item>\n    </ion-col>\n  \n    <ion-col col-12 col-md-6  col-sm-6 [hidden]= "ocultarR">\n      <ion-item>\n        <ion-label floating  style="color: rgba(26, 25, 25, 0.987);">Apellido</ion-label>\n        <ion-input type="text" required name="apellido" [(ngModel)]="supervisor.apellido"></ion-input>\n      </ion-item>\n    </ion-col>\n \n  \n    <ion-col  col-12 col-md-6  col-sm-6 >\n        <ion-item>\n            <ion-label floating  style="color: rgba(26, 25, 25, 0.987);">Dni</ion-label>\n            <ion-input type="numeric" required name="dni" maxlength="8" [(ngModel)]="supervisor.dni"></ion-input>\n          </ion-item>\n    </ion-col>\n\n    <ion-col  col-12 col-md-6  col-sm-6 >\n        <ion-item>\n            <ion-label floating  style="color: rgba(26, 25, 25, 0.987);">Cuil</ion-label>\n            <ion-input type="numberic" required name="cuil" maxlength="11"  [(ngModel)]="supervisor.cuil"></ion-input>\n          </ion-item>\n    </ion-col>\n\n    <ion-col  class="botones-redondos" >\n        <button ion-button  color="boton"  id="boton" (click)="getPicture()" round>[ Tomar Foto ]</button>\n      </ion-col>\n </ion-row>\n  <ion-row>\n    <ion-col  class="botones-redondos" >\n      <button ion-button  color="boton"  id="boton" (click)="registrar()" round>Registrar</button>\n    </ion-col>\n  <ion-col  class="botones-redondos" >\n      <button ion-button  small  color="light"  id="boton" (click)="cancel()" round>Cancel</button>\n    </ion-col>\n  </ion-row>\n</ion-content>'/*ion-inline-end:"/home/user/Escritorio/Pss/pp2_comanda/src/pages/alta-supervisor/alta-supervisor.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_camera__["a" /* Camera */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_camera__["a" /* Camera */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__providers_errors_handler_errors_handler__["a" /* ErrorsHandlerProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__providers_errors_handler_errors_handler__["a" /* ErrorsHandlerProvider */]) === "function" && _d || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_camera__["a" /* Camera */],
+            __WEBPACK_IMPORTED_MODULE_4__providers_errors_handler_errors_handler__["a" /* ErrorsHandlerProvider */]])
     ], AltaSupervisorPage);
     return AltaSupervisorPage;
-    var _a, _b, _c, _d;
 }());
 
 //# sourceMappingURL=alta-supervisor.js.map
 
 /***/ }),
 
-/***/ 452:
+/***/ 445:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

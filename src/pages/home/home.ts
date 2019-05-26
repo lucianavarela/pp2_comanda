@@ -5,7 +5,7 @@ import { AuthenticationServiceProvider } from './../../providers/authentication-
 import { IniciarsesionPage } from './../iniciarsesion/iniciarsesion';
 //import { ErrorsHandlerProvider } from '../../providers/errors-handler/errors-handler';
 import { SpinnerHandlerProvider } from './../../providers/spinner-handler/spinner-handler';
-//import { AltaClientePage } from '../alta-cliente/alta-cliente';
+
 
 @Component({
   selector: 'page-home',
@@ -84,7 +84,7 @@ export class HomePage   implements OnInit {
     {
         nombre: "menu",
         imagen: "assets/imgs/home/menu.png",
-        accion: "menu"
+        accion: "ClienteMenuPage"
     }
 ]
 

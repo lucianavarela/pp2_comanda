@@ -7,7 +7,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import {  IniciarsesionPage } from '../pages/iniciarsesion/iniciarsesion';
 import {  RegistrarsePage } from '../pages/iniciarsesion/registrarse';
-import { AltaClientePage } from '../pages/alta-cliente/alta-cliente';
+import { AltaClientePage } from '../pages/clientes/alta-cliente/alta-cliente';
 
 
 import { StatusBar } from '@ionic-native/status-bar';
