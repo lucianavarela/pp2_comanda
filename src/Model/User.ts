@@ -3,6 +3,7 @@ export class User {
     tipo: string;
     id: string;
     nombre: string;
+    token: string;
 
     constructor(usuario: string, tipo: string, id: string, nombre: string) {
         this.usuario = usuario;

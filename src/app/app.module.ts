@@ -7,7 +7,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import {  IniciarsesionPage } from '../pages/iniciarsesion/iniciarsesion';
 import {  RegistrarsePage } from '../pages/iniciarsesion/registrarse';
-
+import { AltaClientePage } from '../pages/alta-cliente/alta-cliente';
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -41,7 +41,8 @@ import { HTTP } from '@ionic-native/http/ngx';
     MyApp,
     HomePage,
     IniciarsesionPage,
-    RegistrarsePage
+    RegistrarsePage,
+   // AltaClientePage
     
     
     
@@ -60,7 +61,8 @@ import { HTTP } from '@ionic-native/http/ngx';
     MyApp,
     HomePage,
     IniciarsesionPage,
-    RegistrarsePage    
+    RegistrarsePage,
+   // AltaClientePage    
     
   ],
   providers: [
@@ -74,6 +76,7 @@ import { HTTP } from '@ionic-native/http/ngx';
     Camera,
     HttpBaseProvider,
     HTTP
+   
   ]
 })
 export class AppModule {}

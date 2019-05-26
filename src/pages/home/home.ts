@@ -5,7 +5,7 @@ import { AuthenticationServiceProvider } from './../../providers/authentication-
 import { IniciarsesionPage } from './../iniciarsesion/iniciarsesion';
 import { ErrorsHandlerProvider } from '../../providers/errors-handler/errors-handler';
 import { SpinnerHandlerProvider } from './../../providers/spinner-handler/spinner-handler';
-
+import { AltaClientePage } from '../alta-cliente/alta-cliente';
 
 @Component({
   selector: 'page-home',
@@ -54,7 +54,44 @@ export class HomePage   implements OnInit {
     spiner.present();
   }
 
+  
+  listadoIconos: any = [
+    {
+      nombre: "clientes",
+      imagen: "assets/imgs/home/altacliente.png",
+      accion: "AltaClientePage"
+  },
+  {
+    nombre: "reservas",
+    imagen: "assets/imgs/home/reserva.png",
+    accion: "ReservasPage"
+    },
+    {
+        nombre: "pedidos",
+        imagen: "assets/imgs/home/pedidos.png",
+        accion: "PedidosPage"
+    },
+    {
+        nombre: "empleados",
+        imagen: "assets/imgs/home/empleados.png",
+        accion: "EmpleadosPage"
+    },
+    {
+        nombre: "mesas",
+        imagen: "assets/imgs/home/mesas.png",
+        accion: "MesasPage"
+    },
+    {
+        nombre: "menu",
+        imagen: "assets/imgs/home/menu.png",
+        accion: "menu"
+    }
+]
 
+iconosClick(icono){
+  this.navCtrl.push( icono.accion);
+
+}
 
 
   cerrarSesionClick(){
