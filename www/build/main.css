@@ -47651,6 +47651,43 @@ page-alta-cliente ion-col {
   text-align: center;
 }
 
+page-alta-supervisor .scroll-content {
+  background-color: #40596b;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding-bottom: 0px !important;
+  font-family: 'Ubuntu', sans-serif;
+  padding: auto;
+}
+
+page-alta-supervisor .btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 5px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 10px;
+  color: black;
+  border-color: orange;
+}
+
+page-alta-supervisor .btn-circle.btn-lg:hover {
+  background-color: orange;
+  color: white;
+}
+
+page-alta-supervisor .btn-circle.btn-lg:active {
+  background-color: orange;
+  color: white;
+}
+
 page-home .scroll-content {
   background-color: #40596b;
   display: -webkit-box;

@@ -74,7 +74,7 @@ export class HomePage   implements OnInit {
     {
         nombre: "empleados",
         imagen: "assets/imgs/home/empleados.png",
-        accion: "EmpleadosPage"
+        accion: "AltaSupervisorPage"
     },
     {
         nombre: "mesas",

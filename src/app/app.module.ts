@@ -52,7 +52,8 @@ import { HTTP } from '@ionic-native/http/ngx';
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(configs.firebaseConfig),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+   
    
     
   ],

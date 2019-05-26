@@ -29,6 +29,7 @@
     "@ionic-native/status-bar": "~4.20.0",
     "@ionic/storage": "2.2.0",
     "angularfire2": "^5.0.0-rc.3",
+    "brmasker-ionic": "^1.0.12",
     "chart.js": "^2.7.2",
     "cordova-android": "7.1.4",
     "cordova-plugin-advanced-http": "2.0.9",

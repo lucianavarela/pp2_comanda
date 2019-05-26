@@ -1,6 +1,11 @@
-export class Empleado {
+export class Empleado1 {
     public id: number;
     public nombre: string;
+    public apellido: string;
+    public dni: number;
+    public cuil: number;
+    public foto: string;
+    public perfil: string;
     public tipo: string;
     public usuario: string;
     public fechaRegistro: Date;
