@@ -1,0 +1,23 @@
+@import "../../../theme/variables.scss";
+@import url('http://fonts.googleapis.com/css?family=Droid+Sans:400,700');
+
+Page-juego-postre {
+
+
+    .scroll-content{
+        background-color: $first-detail-color;
+        display: flex;
+        flex-direction: column;
+       //justify-content: center;
+        padding-bottom: 0px !important;
+        font-family: 'Ubuntu', sans-serif;
+        padding: auto;
+        color: white;
+    }
+
+    h1{
+        text-align: center;
+    }
+
+
+}

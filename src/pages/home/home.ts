@@ -14,7 +14,7 @@ import { SpinnerHandlerProvider } from './../../providers/spinner-handler/spinne
 export class HomePage   implements OnInit {
 
   usuarioOnline: string = "usuario@usuario.com";
-  
+  logo: boolean;
   
   
 
@@ -26,14 +26,17 @@ export class HomePage   implements OnInit {
     public alertCtrl: AlertController,
     private spinnerHandler: SpinnerHandlerProvider) {
 
+
   }
 
   ionViewDidLoad() {
     this.usuarioOnline = this.MiAuth.auth.currentUser.email;
-    
+    this.esconderLogo();
     
    
   }
+
+  
 
 
   ngOnInit() {
@@ -42,20 +45,18 @@ export class HomePage   implements OnInit {
     
   }
 
-  fotosLindasClick() {
-   
-   let spiner = this.spinnerHandler.presentLoadingCustom();
-   spiner.present();
-  }
 
-  fotosFeasClick() {
-  
-    let spiner = this.spinnerHandler.presentLoadingCustom1();
-    spiner.present();
+ private esconderLogo(){
+
+  if( this.listadoIconos.length >4){
+    this.logo = true;
+  }else{
+    this.logo= false;
   }
+ }
 
   
-  listadoIconos: any = [
+  listadoIconos: Array <any> = [
     {
       nombre: "clientes",
       imagen: "assets/imgs/home/altacliente.png",
@@ -66,6 +67,11 @@ export class HomePage   implements OnInit {
     imagen: "assets/imgs/home/reserva.png",
     accion: "ReservasPage"
     },
+    {
+      nombre: "ahorcado",
+      imagen: "assets/imgs/home/juegoPostre.png",
+      accion: "JuegoPostrePage"
+  },
     {
         nombre: "pedidos",
         imagen: "assets/imgs/home/pedidos.png",

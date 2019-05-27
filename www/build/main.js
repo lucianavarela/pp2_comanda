@@ -1,4 +1,4 @@
-webpackJsonp([5],{
+webpackJsonp([6],{
 
 /***/ 150:
 /***/ (function(module, exports) {
@@ -31,14 +31,18 @@ var map = {
 	],
 	"../pages/clientes/cliente-menu/cliente-menu.module": [
 		441,
+		4
+	],
+	"../pages/clientes/juego-postre/juego-postre.module": [
+		442,
 		3
 	],
 	"../pages/iniciarsesion/iniciarsesion.module": [
-		442,
-		4
+		443,
+		5
 	],
 	"../pages/reservas/reservas.module": [
-		443,
+		444,
 		2
 	]
 };
@@ -277,6 +281,7 @@ var AppModule = /** @class */ (function () {
                         { loadChildren: '../pages/alta-supervisor/alta-supervisor.module#AltaSupervisorPageModule', name: 'AltaSupervisorPage', segment: 'alta-supervisor', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/clientes/alta-cliente/alta-cliente.module#AltaClientePageModule', name: 'AltaClientePage', segment: 'alta-cliente', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/clientes/cliente-menu/cliente-menu.module#ClienteMenuPageModule', name: 'ClienteMenuPage', segment: 'cliente-menu', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/clientes/juego-postre/juego-postre.module#JuegoPostrePageModule', name: 'JuegoPostrePage', segment: 'juego-postre', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/iniciarsesion/iniciarsesion.module#IniciarsesionPageModule', name: 'IniciarsesionPage', segment: 'iniciarsesion', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/reservas/reservas.module#ReservasPageModule', name: 'ReservasPage', segment: 'reservas', priority: 'low', defaultHistory: [] }
                     ]
@@ -740,6 +745,11 @@ var HomePage = /** @class */ (function () {
                 accion: "ReservasPage"
             },
             {
+                nombre: "ahorcado",
+                imagen: "assets/imgs/home/juegoPostre.png",
+                accion: "JuegoPostrePage"
+            },
+            {
                 nombre: "pedidos",
                 imagen: "assets/imgs/home/pedidos.png",
                 accion: "PedidosPage"
@@ -763,17 +773,18 @@ var HomePage = /** @class */ (function () {
     }
     HomePage.prototype.ionViewDidLoad = function () {
         this.usuarioOnline = this.MiAuth.auth.currentUser.email;
+        this.esconderLogo();
     };
     HomePage.prototype.ngOnInit = function () {
         console.log("on init");
     };
-    HomePage.prototype.fotosLindasClick = function () {
-        var spiner = this.spinnerHandler.presentLoadingCustom();
-        spiner.present();
-    };
-    HomePage.prototype.fotosFeasClick = function () {
-        var spiner = this.spinnerHandler.presentLoadingCustom1();
-        spiner.present();
+    HomePage.prototype.esconderLogo = function () {
+        if (this.listadoIconos.length > 4) {
+            this.logo = true;
+        }
+        else {
+            this.logo = false;
+        }
     };
     HomePage.prototype.iconosClick = function (icono) {
         this.navCtrl.push(icono.accion);
@@ -784,7 +795,7 @@ var HomePage = /** @class */ (function () {
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"/home/user/Escritorio/Pss/pp2_comanda/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar color="orange">\n    <ion-title>{{this.usuarioOnline}}</ion-title>\n\n  <ion-buttons end> \n      <button ion-button color="white" id="boton" (click)="cerrarSesionClick()" >   <ion-icon name="log-out"  ></ion-icon></button>  \n  </ion-buttons>   \n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n \n   <ion-grid >\n      \n     <ion-row >\n \n         <ion-col col-12 col-md-2  col-sm-2  offset-md-5 offset-sm-5 >\n             <img  class="logo"  src="assets/imgs/logo.png" /> \n           </ion-col>\n \n         </ion-row >\n           <ion-row >\n       <ion-col class="botones" col-6 col-md-3 col-sm-3   [style.align-items]= "center"  *ngFor="let icono of listadoIconos"  >      \n        <img   [src]="icono.imagen" (click)="iconosClick(icono)" >\n       </ion-col>\n     </ion-row>\n    \n     \n   </ion-grid>\n \n  \n \n \n </ion-content>\n \n\n'/*ion-inline-end:"/home/user/Escritorio/Pss/pp2_comanda/src/pages/home/home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"/home/user/Escritorio/Pss/pp2_comanda/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar color="orange">\n    <ion-title>{{this.usuarioOnline}}</ion-title>\n\n  <ion-buttons end> \n      <button ion-button color="white" id="boton" (click)="cerrarSesionClick()" >   <ion-icon name="log-out"  ></ion-icon></button>  \n  </ion-buttons>   \n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n \n   <ion-grid >\n      \n     <ion-row  [hidden]= "logo">\n \n         <ion-col col-12 col-md-2  col-sm-2  offset-md-5 offset-sm-5 >\n             <img  class="logo"  src="assets/imgs/logo.png" /> \n           </ion-col>\n \n         </ion-row >\n           <ion-row >\n       <ion-col class="botones" col-6 col-md-3 col-sm-3   [style.align-items]= "center"  *ngFor="let icono of listadoIconos"  >      \n        <img   [src]="icono.imagen" (click)="iconosClick(icono)" >\n       </ion-col>\n     </ion-row>\n    \n     \n   </ion-grid>\n \n  \n \n \n </ion-content>\n \n\n'/*ion-inline-end:"/home/user/Escritorio/Pss/pp2_comanda/src/pages/home/home.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */],

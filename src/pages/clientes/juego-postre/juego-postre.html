@@ -1,0 +1,100 @@
+<!--
+  Generated template for the JuegoPostrePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color= "orange" >
+    <ion-title>Ahorcado</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <H1>Ganate un Postre gratis</H1>
+    <ion-grid >
+      
+        <ion-row >
+    
+            <ion-col col-12 col-md-2  col-sm-2  offset-md-5 offset-sm-5 >
+                <img  class="logo"  src="assets/imgs/juegos/ahorcado.png" /> 
+              </ion-col>
+    
+            </ion-row >
+           
+    <ion-list >
+        <ion-grid>
+      <ion-row>
+                <ion-col col-2 *ngFor="let item of palabra">
+        <ion-input type="text" value="{{item}}">{{item}}</ion-input>
+          </ion-col>
+      </ion-row>
+        </ion-grid>
+    </ion-list>
+
+
+    <ion-list>
+        <ion-grid>
+      <ion-row>
+          <ion-col col-12>{{mensaje}}</ion-col>
+      </ion-row>
+        </ion-grid>
+    </ion-list>
+
+    <ion-list>
+        <ion-grid>
+      <ion-row>
+          <ion-col col-6 ><ion-icon name="body" color="orange"></ion-icon> Vidas: {{vidas}}</ion-col>
+          <ion-col col-6>Puntos: {{puntos}}</ion-col>
+      </ion-row>
+        </ion-grid>
+    </ion-list>
+
+
+
+
+
+    <ion-list>
+        <ion-item>
+            <!-- Selector que nos permitirá elegir una letra -->
+            <ion-label>Seleccione una letra</ion-label>
+            <ion-select [(ngModel)]="letra">
+                <ion-option value="A">A</ion-option>
+                <ion-option value="B">B</ion-option>
+                <ion-option value="C">C</ion-option>
+                <ion-option value="D">D</ion-option>
+                <ion-option value="E">E</ion-option>
+                <ion-option value="F">F</ion-option>
+                <ion-option value="G">G</ion-option>
+                <ion-option value="H">H</ion-option>
+                <ion-option value="I">I</ion-option>
+                <ion-option value="J">J</ion-option>
+                <ion-option value="K">K</ion-option>
+                <ion-option value="L">L</ion-option>
+                <ion-option value="M">M</ion-option>
+                <ion-option value="N">N</ion-option>
+                <ion-option value="Ñ">Ñ</ion-option>
+                <ion-option value="O">O</ion-option>
+                <ion-option value="P">P</ion-option>
+                <ion-option value="Q">Q</ion-option>
+                <ion-option value="R">R</ion-option>
+                <ion-option value="S">S</ion-option>
+                <ion-option value="T">T</ion-option>
+                <ion-option value="U">U</ion-option>
+                <ion-option value="V">V</ion-option>
+                <ion-option value="W">W</ion-option>
+                <ion-option value="X">X</ion-option>
+                <ion-option value="Y">Y</ion-option>
+                <ion-option value="Z">Z</ion-option>
+            </ion-select>
+        </ion-item>
+    </ion-list>
+    <ion-col class="botones-redondos" col-12 col-md-3 col-xl-3 >
+    <button *ngIf="vidas!=0 && ganador!=1" ion-button round color="orange" (click)="compruebaLetra()">Seleccionar</button>
+
+    <!-- En caso de no tener vidas, mostramos un botón para reiniciar el juego -->
+    <button *ngIf="vidas==0 || ganador==1" ion-button round (click)="reiniciaJuego()">Jugar de nuevo</button>
+      </ion-col>
+    
+  </ion-grid >
+  </ion-content>
