@@ -7,6 +7,7 @@ import { RegistrarsePage } from './registrarse';
 import { NativeAudio } from '@ionic-native/native-audio';
 import { Login } from '../../Model/Login';
 import { ErrorsHandlerProvider } from '../../providers/errors-handler/errors-handler';
+import { User } from '../../Model/User';
 
 
 /**
@@ -29,6 +30,7 @@ export class IniciarsesionPage {
   selectUserOptions = { title: '' };
 
   dataLogin : Login;
+  usuario : User;
 
   constructor(public platform: Platform,
     public nativeAudio: NativeAudio,
@@ -127,24 +129,39 @@ CargarDefault(tipo: string) {
       this.dataLogin.pass = 'admin';    */ 
       this.dataLogin.user = "admin@admin.com";
       this.dataLogin.pass = "123456";
-      this.singIn(); 
+     // this.singIn(); 
           
+      this.usuario = new User('admin', 'admin','socio');
+      this.navCtrl.setRoot(HomePage , { usuario: this.usuario}) ; 
       break;
     case 'B':
-      this.dataLogin = new Login('Matias', '1234');      
+      this.dataLogin = new Login('Matias', '1234'); 
+      this.usuario = new User('Matias', '1234','bartender');
+      this.navCtrl.setRoot(HomePage , { usuario: this.usuario}) ; 
+           
            
       break;
     case 'CE':
       this.dataLogin = new Login('cervecero', 'cervecero');
+      this.usuario = new User('cervecero', 'cervecero','cervecero');
+      this.navCtrl.setRoot(HomePage , { usuario: this.usuario}) ; 
      
      break;
     case 'CO':
       this.dataLogin = new Login('cocinero', 'cocinero');
+      this.usuario = new User('cocinero', 'cocinero','cocinero');
+      this.navCtrl.setRoot(HomePage , { usuario: this.usuario}) ; 
       
       break;
     case 'M':
       this.dataLogin = new Login('mozo', 'mozo');
-     
+      this.usuario = new User('mozo', 'mozo','mozo');
+      this.navCtrl.setRoot(HomePage , { usuario: this.usuario}) ; 
+      break;
+      case 'CL':
+      this.dataLogin = new Login('cliente', 'cliente');
+      this.usuario = new User('cliente', 'cliente','cliente');
+      this.navCtrl.setRoot(HomePage , { usuario: this.usuario}) ; 
       break;
   }
 }

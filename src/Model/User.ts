@@ -4,11 +4,12 @@ export class User {
     id: string;
     nombre: string;
     token: string;
+    pass: string;
 
-    constructor(usuario: string, tipo: string, id: string, nombre: string) {
+    constructor(usuario: string, pass: string,tipo: string) {
         this.usuario = usuario;
         this.tipo = tipo;
-        this.id = id;
-        this.nombre = nombre;
+        this.pass = pass;
+        
     }
 }
