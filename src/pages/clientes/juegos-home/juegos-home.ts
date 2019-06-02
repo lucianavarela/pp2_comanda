@@ -37,7 +37,7 @@ export class JuegosHomePage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.usuario = new User( "","","");
+    this.usuario = new User( );
     this.usuario = this.navParams.get('usuario');
 
     

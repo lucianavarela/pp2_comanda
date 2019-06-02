@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HTTP } from '@ionic-native/http/ngx';
+import { Login } from '../../Model/Login';
+//import { HTTP } from '@ionic-native/http/ngx';
 
 
 /*
@@ -12,13 +13,25 @@ import { HTTP } from '@ionic-native/http/ngx';
 @Injectable()
 export class HttpBaseProvider {
 
-  urlBase: String = 'https://restaurante-cerizza.herokuapp.com/';
+  //urlBase: String = 'https://restaurante-cerizza.herokuapp.com/';
+  //urlBase: String = 'http://kq000525.ferozo.com/comanda1/';
+  urlBase: String = 'http://kq000525.ferozo.com/API_Comanda/'
 
 
-  constructor(public http: HTTP) {
+  constructor(//public http: HTTP
+    public https:HttpClient 
+   ) {
     console.log('Hello HttpBaseProvider Provider');
   }
 
+  public httpGetP ( url: string) {
+    return this.https.get(this.urlBase+url);  
+    
+  }
 
+  public httpPost(url: string, dataLogin :Login){
+
+    return this.https.post(this.urlBase+url,dataLogin);
+    }
 
 }

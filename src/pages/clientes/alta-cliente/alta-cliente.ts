@@ -4,6 +4,7 @@ import { Cliente } from '../../../Model/Cliente'
 import { HomePage } from '../../home/home';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ErrorsHandlerProvider } from '../../../providers/errors-handler/errors-handler';
+import { User } from '../../../Model/User';
 
 
 /**
@@ -20,7 +21,7 @@ import { ErrorsHandlerProvider } from '../../../providers/errors-handler/errors-
 })
 export class AltaClientePage {
 
- 
+  usuario: User;
   cliente : Cliente;
   ocultarR: boolean = true;
   ocultarA: boolean = true;
@@ -30,7 +31,8 @@ export class AltaClientePage {
     public navParams: NavParams, 
     private camera: Camera,
     private errorHandler: ErrorsHandlerProvider,  ) {
-     
+    this.usuario = new User();
+    this.usuario = this.navParams.get('usuario');
     this.cliente = new Cliente();
     
 

@@ -8,6 +8,7 @@ import { HomePage } from '../pages/home/home';
 import {  IniciarsesionPage } from '../pages/iniciarsesion/iniciarsesion';
 import {  RegistrarsePage } from '../pages/iniciarsesion/registrarse';
 import { AltaClientePage } from '../pages/clientes/alta-cliente/alta-cliente';
+import { PopoverPage } from '../pages/popover/popover';
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -18,6 +19,7 @@ import { AuthenticationServiceProvider } from '../providers/authentication-servi
 import { ErrorsHandlerProvider } from '../providers/errors-handler/errors-handler';
 import { SpinnerHandlerProvider } from '../providers/spinner-handler/spinner-handler';
 import { HttpBaseProvider } from '../providers/http-base/http-base';
+import { HttpClientModule } from '@angular/common/http';
 
 //Firebase
 import { AngularFireModule } from 'angularfire2';
@@ -33,6 +35,9 @@ import { NativeAudio } from '@ionic-native/native-audio';
 //Camara
 import { Camera } from '@ionic-native/camera';
 import { HTTP } from '@ionic-native/http/ngx';
+import { MenuServiceProvider } from '../providers/menu-service/menu-service';
+import { EmpleadoServiceProvider } from '../providers/empleado-service/empleado-service';
+import { MesaServiceProvider } from '../providers/mesa-service/mesa-service';
 
 
 
@@ -42,7 +47,7 @@ import { HTTP } from '@ionic-native/http/ngx';
     HomePage,
     IniciarsesionPage,
     RegistrarsePage,
-   // AltaClientePage
+    PopoverPage
     
     
     
@@ -53,6 +58,7 @@ import { HTTP } from '@ionic-native/http/ngx';
     AngularFireModule.initializeApp(configs.firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    HttpClientModule 
    
    
     
@@ -63,7 +69,7 @@ import { HTTP } from '@ionic-native/http/ngx';
     HomePage,
     IniciarsesionPage,
     RegistrarsePage,
-   // AltaClientePage    
+    PopoverPage   
     
   ],
   providers: [
@@ -76,7 +82,10 @@ import { HTTP } from '@ionic-native/http/ngx';
     NativeAudio,
     Camera,
     HttpBaseProvider,
-    HTTP
+    HTTP,
+    MenuServiceProvider,
+    EmpleadoServiceProvider,
+    MesaServiceProvider
    
   ]
 })

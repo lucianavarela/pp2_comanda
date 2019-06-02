@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
-
+import { User } from '../../Model/User';
+import { MesaServiceProvider } from '../../providers/mesa-service/mesa-service';
 
 /**
  * Generated class for the ReservasPage page.
@@ -19,7 +20,9 @@ import { HomePage } from '../home/home';
 
 export class ReservasPage {
 
-  listadoMesas : Array<any>;
+  usuario: User;
+  mesas: any;
+  listadoMesas :any;
   calendario: boolean;
   myDate: String;
   fechaHoy : Date;
@@ -28,14 +31,16 @@ export class ReservasPage {
   
 
   constructor(public navCtrl: NavController,
-
+    public servicio: MesaServiceProvider,
     public navParams: NavParams) {
-    this.listadoMesas= new Array(1,2,3,4,5,6,7,8,9,10,11,12);
+    this.usuario = new User();
+    this.usuario = this.navParams.get('usuario');
+    this.listadoMesas= new Array ();
+    this.cargarMesas();
     this.calendario= true;
     this.myDate = new Date().toISOString();
     this.fechaHoy = new Date();
     this.turnos= true;
-   
   
   
   }
@@ -46,6 +51,22 @@ export class ReservasPage {
   ];
 
   ionViewDidLoad() {
+    
+  
+   
+  }
+
+  cargarMesas(){
+
+    return this.servicio.listar().
+    subscribe((data) => { // Success
+     this.listadoMesas =data;
+     console.log(this.listadoMesas);   
+   },(error) =>{
+     console.error(error);
+   }
+   );
+
    
   }
 

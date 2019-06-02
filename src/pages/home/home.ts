@@ -6,6 +6,8 @@ import { IniciarsesionPage } from './../iniciarsesion/iniciarsesion';
 //import { ErrorsHandlerProvider } from '../../providers/errors-handler/errors-handler';
 import { SpinnerHandlerProvider } from './../../providers/spinner-handler/spinner-handler';
 import { User } from '../../Model/User';
+import { PopoverController } from 'ionic-angular';
+import { PopoverPage } from '../popover/popover';
 
 
 @Component({
@@ -63,8 +65,9 @@ export class HomePage   implements OnInit {
     private autenticationService: AuthenticationServiceProvider,
     public alertCtrl: AlertController,
     private spinnerHandler: SpinnerHandlerProvider,
-    private navParams : NavParams) {
-      this.usuario = new User( "","","");
+    private navParams : NavParams,
+    public popoverCtrl: PopoverController) {
+      this.usuario = new User();
       this.usuario = this.navParams.get('usuario');
 
    
@@ -82,6 +85,13 @@ export class HomePage   implements OnInit {
     console.log("on init");    
   }
 
+
+  presentPopover(myEvent) {
+    let popover = this.popoverCtrl.create(PopoverPage, { usuario: this.usuario});
+    popover.present({
+      ev: myEvent
+    });
+  }
 
  private esconderLogo(){
   if( this.listadoIconos.length >4){
@@ -105,13 +115,13 @@ iconosClick(icono){
 
 filtrar(){
  
-    if( this.usuario.tipo =="cliente"){     
+    if( this.usuario.tipo =="Cliente"){     
       this.listadoIconos = this.listados
       .filter( listado => listado.nombre == "clientes" || listado.nombre == "menu" || listado.nombre == "juegos" || listado.nombre == "reservas");
-    }else if( this.usuario.tipo == "cocinero" || this.usuario.tipo == "cervecero" ||this.usuario.tipo =="bartender" ){
+    }else if( this.usuario.tipo == "Cocinero" || this.usuario.tipo == "Cervecero" ||this.usuario.tipo =="Bartender" ){
       this.listadoIconos = this.listados
       .filter( listado => listado.nombre == "pedidos" );
-    }else if(  this.usuario.tipo =="socio"){
+    }else if(  this.usuario.tipo =="Socio"){
       this.listadoIconos = this.listados
     }
    

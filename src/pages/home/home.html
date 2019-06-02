@@ -1,12 +1,19 @@
-<ion-header>
-  <ion-navbar color="orange">
-    <ion-title>{{this.usuario.usuario}}</ion-title>
-
-  <ion-buttons end> 
-      <button ion-button color="white" id="boton" (click)="cerrarSesionClick()" >   <ion-icon name="log-out"  ></ion-icon></button>  
-  </ion-buttons>   
+  <ion-header>
+    
+  <ion-navbar color={{this.usuario.estilo}}>
+    <ion-title>La Comanda</ion-title>
+   
+ <ion-buttons end> 
+   <!--  <button ion-button color="white" id="boton" (click)="cerrarSesionClick()" >   <ion-icon name="log-out"  ></ion-icon></button> 
+   -->  <button ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="people"></ion-icon>
+      </button>
+    
+    
+    
+    </ion-buttons>   
   </ion-navbar>
-</ion-header>
+ </ion-header>- 
 
 <ion-content>
  

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { User } from '../../../Model/User';
 
 /**
  * Generated class for the JuegoPostrePage page.
@@ -15,6 +16,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class JuegoPostrePage {
 
+  usuario: User;
+
   letra: string = '';
   nombres: any = ['COCHE', 'MOTO', 'CARTEL', 'COCHECITO', 'RAQUETA'];
   nombreSecreto: any = this.palabraAleatoria(0, (this.nombres.length - 1));
@@ -27,6 +30,8 @@ export class JuegoPostrePage {
   controlLetras = new Array;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.usuario = new User();
+    this.usuario = this.navParams.get('usuario');
     
   }
 

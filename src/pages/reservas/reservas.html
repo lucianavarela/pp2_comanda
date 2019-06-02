@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar color="orange">
+  <ion-navbar color={{this.usuario.estilo}}>
     <ion-title>reservas</ion-title>
   </ion-navbar>
 </ion-header>
@@ -18,7 +18,7 @@
           <p>Seleccione una Mesa:</p>
         </ion-col>
     <ion-col class="botones-redondos" col-12 col-md-3 col-xl-3    >
-        <button type="button"  ion-button outline   class="btn-circle btn-lg"  *ngFor="let mesa of listadoMesas"   (click)="mesasClick(this.mesa)"  >{{this.mesa}}</button>
+        <button type="button"  ion-button outline   class="btn-circle btn-lg"  *ngFor="let mesa of listadoMesas"   (click)="mesasClick(this.mesa)"  >{{this.mesa.codigo}}</button>
        
       </ion-col>
 

@@ -1,3 +1,6 @@
+@import "../../theme/variables.scss";
+@import url('http://fonts.googleapis.com/css?family=Droid+Sans:400,700');
+
 page-reservas {
     
 
@@ -13,7 +16,7 @@ page-reservas {
 
 
   .btn-circle.btn-lg {
-    width: 50px;
+    width: 100px;
     height: 50px;
     padding: 5px  ;
     font-size: 18px;

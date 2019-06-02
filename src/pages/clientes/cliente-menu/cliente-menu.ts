@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+//import { HttpBaseProvider } from '../../../providers/http-base/http-base';
+import { MenuServiceProvider } from '../../../providers/menu-service/menu-service';
+import { Menu } from '../../../Model/Menu';
+import { User } from '../../../Model/User';
 
 /**
  * Generated class for the ClienteMenuPage page.
@@ -14,23 +18,44 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'cliente-menu.html',
 })
 export class ClienteMenuPage {
+  usuario: User;
 
-  items: Array <any>;
+  items: any;
+  //url:string = "http://kq000525.ferozo.com/comanda1/fotos/carta/";
+      url:string= "http://kq000525.ferozo.com/API_Comanda/Fotos/Menu/";
+  
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams,
+    public servicio : MenuServiceProvider) {
+      this.usuario = new User();
+      this.usuario = this.navParams.get('usuario');
+      this.items = new Array ();
+      this.lista();
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
 
-    this.items = [
-      {nombre:'Cerveza', precio:'$60' , tipo: 'Cervezero',
-       imagem:"https://elnueve-compress.s3-accelerate.amazonaws.com/files/1537741874116cerveza-pinta-stout-ale-lagger-vasos.jpg"},
-       {nombre:'Vino', precio:'$100' , tipo: 'Bartender',
-       imagem:"https://borderio.store/wp-content/uploads/2018/05/vino-injusto-malbec-2017-frente-fb-1200.jpg"},
-       {nombre:'Jugo', precio:'$60' , tipo: 'Bartender',
-       imagem:"http://nutricionyvida.cl/wp-content/uploads/jugo.jpg"}
-     ];
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ClienteMenuPage');
+
+   
+    
+    
+
+
   }
+
+  lista(){
+   
+    return this.servicio.listar().
+     subscribe((data) => { // Success
+      this.items =data;   
+    },(error) =>{
+      console.error(error);
+    }
+    );
+  
+   
+   }
 
 }
