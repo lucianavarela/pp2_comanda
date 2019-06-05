@@ -14,7 +14,7 @@ import { Login } from '../../Model/Login';
 export class HttpBaseProvider {
 
   //urlBase: String = 'https://restaurante-cerizza.herokuapp.com/';
-  //urlBase: String = 'http://kq000525.ferozo.com/comanda1/';
+  //urlBase: String = 'http://kq000525.ferozo.com/comanda/';
   urlBase: String = 'http://kq000525.ferozo.com/API_Comanda/'
 
 

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { User } from '../../../Model/User';
+import { HomePage } from '../../home/home';
 
 /**
  * Generated class for the JuegosHomePage page.
@@ -52,6 +53,10 @@ export class JuegosHomePage {
   iconosClick(icono){
     this.navCtrl.push( icono.accion, { usuario: this.usuario});
   
+  }
+
+  cancel(){
+    this.navCtrl.setRoot(HomePage, { usuario: this.usuario }); 
   }
   
   

@@ -63988,6 +63988,10 @@ page-alta-cliente .botonR:active {
   color: white;
 }
 
+page-alta-cliente ion-icon {
+  color: white;
+}
+
 page-alta-cliente ion-col {
   text-align: center;
 }
@@ -67889,6 +67893,10 @@ page-cliente-menu .item-md {
   color: black;
 }
 
+page-cliente-menu ion-icon {
+  color: white;
+}
+
 .form-center-content {
   height: 100%;
   display: -webkit-box;
@@ -71783,6 +71791,10 @@ Page-juego-postre h1 {
   text-align: center;
 }
 
+Page-juego-postre ion-icon {
+  color: white;
+}
+
 .form-center-content {
   height: 100%;
   display: -webkit-box;
@@ -75674,6 +75686,10 @@ page-juegos-home .scroll-content {
   padding-bottom: 0px !important;
   font-family: 'Ubuntu', sans-serif;
   padding: auto;
+}
+
+page-juegos-home ion-icon {
+  color: white;
 }
 
 page-juegos-home ion-col {
@@ -83899,4 +83915,8 @@ page-reservas .item-md {
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
   color: black;
+}
+
+page-reservas ion-icon {
+  color: white;
 }

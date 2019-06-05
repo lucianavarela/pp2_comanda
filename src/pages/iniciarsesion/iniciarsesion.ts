@@ -43,7 +43,7 @@ export class IniciarsesionPage {
     private spinnerHandler: SpinnerHandlerProvider,
     private loginService : EmpleadoServiceProvider) {
     this.selectUserOptions.title = "Usuarios disponibles";
-
+    this.usuario= new User();
     this.nativeAudio.preloadComplex('inicio', 'assets/sonidos/inicio.mp3', 1, 1, 0);
     this.dataLogin = new Login('','');
  
@@ -68,6 +68,7 @@ export class IniciarsesionPage {
        spiner.present();
       this.loginService.loguear( this.dataLogin)
       .subscribe(response => {  
+        console.log(response);
         if (response['Estado'] === 'OK') {
                      
           this.navCtrl.setRoot(HomePage, { usuario: response });  
@@ -81,6 +82,8 @@ export class IniciarsesionPage {
           this.errorHandler.mostrarMensajeConfimación("Se produjo un error al ingresar",'Error' );
     
         }
+
+        spiner.dismiss();
     }  
       
   }
@@ -135,12 +138,15 @@ CargarDefault(tipo: string) {
     case 'S':
       this.dataLogin.user = 'admin';
       this.dataLogin.pass = 'admin';    
-     /* this.dataLogin.user = "admin@admin.com";
-      this.dataLogin.pass = "123456";*/
+     //this.dataLogin.usuario = "admin";
+      //this.dataLogin.clave = "1234";
       this.singIn(); 
           
-      //this.usuario = new User('admin', 'admin','socio');
-      //this.navCtrl.setRoot(HomePage , { usuario: this.usuario}) ; 
+    /* this.usuario.nombre= 'Roberto Carlos';
+     this.usuario.estilo ='default';
+     this.usuario.tipo= 'Socio';      
+     this.navCtrl.setRoot(HomePage , { usuario: this.usuario}) ; 
+     */
       break;
     case 'B':
       this.dataLogin = new Login('Matias', '1234'); 
@@ -169,9 +175,11 @@ CargarDefault(tipo: string) {
       break;
       case 'CL':
       this.dataLogin = new Login('cliente', 'cliente');
-     // this.usuario = new User('cliente', 'cliente','cliente');
-     // this.navCtrl.setRoot(HomePage , { usuario: this.usuario}) ; 
-     this.singIn(); 
+      this.singIn(); 
+    /* this.usuario.nombre= 'Juan Perez';
+     this.usuario.estilo ='default';
+     this.usuario.tipo= 'Cliente';      
+     this.navCtrl.setRoot(HomePage , { usuario: this.usuario}) ; */
       break;
   }
 }

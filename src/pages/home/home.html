@@ -5,7 +5,7 @@
    
  <ion-buttons end> 
    <!--  <button ion-button color="white" id="boton" (click)="cerrarSesionClick()" >   <ion-icon name="log-out"  ></ion-icon></button> 
-   -->  <button ion-button icon-only (click)="presentPopover($event)">
+   -->  <button ion-button icon-only color="white" (click)="presentPopover($event)">
         <ion-icon name="people"></ion-icon>
       </button>
     
@@ -13,7 +13,7 @@
     
     </ion-buttons>   
   </ion-navbar>
- </ion-header>- 
+ </ion-header> 
 
 <ion-content>
  
@@ -27,7 +27,7 @@
  
          </ion-row >
            <ion-row >
-       <ion-col class="botones" col-6 col-md-3 col-sm-3   [style.align-items]= "center"  *ngFor="let icono of listadoIconos"  >      
+       <ion-col class="botones" col-6 col-md-2 col-sm-2   [style.align-items]= "center"  *ngFor="let icono of listadoIconos"  >      
         <img   [src]="icono.imagen" (click)="iconosClick(icono)" >
        </ion-col>
      </ion-row>

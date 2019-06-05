@@ -19,6 +19,8 @@ export class EmpleadoServiceProvider {
 
   public loguear(dataLogin: Login){
 
+   // return this.miHhttp.httpPost("login",dataLogin);
+
     return this.miHhttp.httpPost("empleados/login",dataLogin);
 
   }

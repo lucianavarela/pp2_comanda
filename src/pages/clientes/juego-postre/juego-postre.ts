@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { User } from '../../../Model/User';
+import { HomePage } from '../../home/home';
 
 /**
  * Generated class for the JuegoPostrePage page.
@@ -38,6 +39,10 @@ export class JuegoPostrePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad JuegoPostrePage');
     
+  }
+
+  cancel(){
+    this.navCtrl.setRoot(HomePage, { usuario: this.usuario }); 
   }
 
   // Método que genera una palabra aleatoria comprendida en el array nombres.	

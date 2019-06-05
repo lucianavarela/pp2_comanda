@@ -57,8 +57,10 @@ export class AltaClientePage {
   }
 
   cancel(){
-    this.navCtrl.push(HomePage);
+    this.navCtrl.setRoot(HomePage, { usuario: this.usuario }); 
   }
+
+  
 
   registrarCliente(){
     if(this.validar()){

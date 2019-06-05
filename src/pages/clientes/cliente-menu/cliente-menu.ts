@@ -4,6 +4,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MenuServiceProvider } from '../../../providers/menu-service/menu-service';
 import { Menu } from '../../../Model/Menu';
 import { User } from '../../../Model/User';
+import { HomePage } from '../../home/home';
+import { ErrorsHandlerProvider } from '../../../providers/errors-handler/errors-handler';
+import { SpinnerHandlerProvider } from '../../../providers/spinner-handler/spinner-handler';
 
 /**
  * Generated class for the ClienteMenuPage page.
@@ -26,6 +29,8 @@ export class ClienteMenuPage {
   
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
+    private errorHandler: ErrorsHandlerProvider,
+    private spinnerHandler: SpinnerHandlerProvider,
     public servicio : MenuServiceProvider) {
       this.usuario = new User();
       this.usuario = this.navParams.get('usuario');
@@ -38,20 +43,24 @@ export class ClienteMenuPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad ClienteMenuPage');
 
-   
-    
-    
-
 
   }
 
+  cancel(){
+    this.navCtrl.setRoot(HomePage, { usuario: this.usuario }); 
+  }
+
+
   lista(){
-   
+    let spiner = this.spinnerHandler.presentLoadingCustom();
+    spiner.present();
     return this.servicio.listar().
      subscribe((data) => { // Success
-      this.items =data;   
+      this.items =data;
+      spiner.dismiss();   
     },(error) =>{
-      console.error(error);
+      this.errorHandler.mostrarMensajeConfimación("Se produjo un error al mostrar el menu", error );
+     spiner.dismiss();
     }
     );
   
