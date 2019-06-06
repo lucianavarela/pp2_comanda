@@ -79995,6 +79995,20 @@ p {
   }
 }
 
+page-popover {
+  /*
+    img{
+        text-align: center;
+        padding: auto;
+        margin: auto;
+        display: block;
+    }*/
+}
+
+page-popover ion-avatar {
+  text-align: center;
+}
+
 .form-center-content {
   height: 100%;
   display: -webkit-box;

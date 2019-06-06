@@ -18,6 +18,7 @@ import { IniciarsesionPage } from '../iniciarsesion/iniciarsesion';
 export class PopoverPage {
 
   usuario: User;
+  url:string= "http://kq000525.ferozo.com/API_Comanda/Fotos/Menu/sin_img.jpg";
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController) {

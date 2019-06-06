@@ -1,12 +1,22 @@
-
-
-
 <ion-content>
 <ion-list>
-    <ion-list-header>{{this.usuario.nombre}} - {{this.usuario.tipo}}</ion-list-header>
-    <button ion-item   (click)="close()">Estilo</button>
-    <button ion-item  (click)="cerrarSesionClick()">Salir</button>
-    <button ion-item (click)="close()">cerrar</button>
-   <!-- <button ion-item (click)="close()">GitHub Repo</button>-->
+    
+    <ion-item>
+        <ion-avatar item-end>
+          <img [src]="url"/>
+        </ion-avatar>
+        <h2>{{this.usuario.nombre}}</h2>
+        <p>{{this.usuario.tipo}}</p>
+    </ion-item> 
+    <button ion-item   (click)="close()">Estilo
+        <ion-icon item-end name="color-palette"></ion-icon>
+    </button>
+    <button ion-item >Tomar Foto 
+        <ion-icon item-end name="camera"></ion-icon>
+    </button>
+    <button ion-item  (click)="cerrarSesionClick()">Salir
+        <ion-icon item-end name="log-out"></ion-icon>
+    </button>
+    
   </ion-list>
 </ion-content>
