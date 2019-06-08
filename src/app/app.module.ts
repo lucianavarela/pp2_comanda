@@ -38,6 +38,7 @@ import { HTTP } from '@ionic-native/http/ngx';
 import { MenuServiceProvider } from '../providers/menu-service/menu-service';
 import { EmpleadoServiceProvider } from '../providers/empleado-service/empleado-service';
 import { MesaServiceProvider } from '../providers/mesa-service/mesa-service';
+import { ClienteServiceProvider } from '../providers/cliente-service/cliente-service';
 
 
 
@@ -85,7 +86,8 @@ import { MesaServiceProvider } from '../providers/mesa-service/mesa-service';
     HTTP,
     MenuServiceProvider,
     EmpleadoServiceProvider,
-    MesaServiceProvider
+    MesaServiceProvider,
+    ClienteServiceProvider
    
   ]
 })

@@ -115,7 +115,7 @@ iconosClick(icono){
 
 filtrar(){
  
-    if( this.usuario.tipo =="Cliente"){     
+    if( this.usuario.tipo =="registrado"){     
       this.listadoIconos = this.listados
       .filter( listado => listado.nombre == "clientes" || listado.nombre == "menu" || listado.nombre == "juegos" || listado.nombre == "reservas");
     }else if( this.usuario.tipo == "Cocinero" || this.usuario.tipo == "Cervecero" ||this.usuario.tipo =="Bartender" ){

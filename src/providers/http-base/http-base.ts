@@ -29,9 +29,14 @@ export class HttpBaseProvider {
     
   }
 
-  public httpPost(url: string, dataLogin :Login){
+  public httpPost(url: string, data :Login){
 
-    return this.https.post(this.urlBase+url,dataLogin);
+    return this.https.post(this.urlBase+url,data);
     }
+
+    public httpPosts(url: string, data :any){
+
+      return this.https.post(this.urlBase+url,data);
+      }
 
 }

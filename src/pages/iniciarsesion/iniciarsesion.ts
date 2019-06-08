@@ -138,48 +138,30 @@ CargarDefault(tipo: string) {
     case 'S':
       this.dataLogin.user = 'admin';
       this.dataLogin.pass = 'admin';    
-     //this.dataLogin.usuario = "admin";
-      //this.dataLogin.clave = "1234";
       this.singIn(); 
           
-    /* this.usuario.nombre= 'Roberto Carlos';
-     this.usuario.estilo ='default';
-     this.usuario.tipo= 'Socio';      
-     this.navCtrl.setRoot(HomePage , { usuario: this.usuario}) ; 
-     */
       break;
     case 'B':
       this.dataLogin = new Login('Matias', '1234'); 
-      //this.usuario = new User('Matias', '1234','bartender');
-      //this.navCtrl.setRoot(HomePage , { usuario: this.usuario}) ; 
       this.singIn();      
            
       break;
     case 'CE':
       this.dataLogin = new Login('cervecero', 'cervecero');
-     // this.usuario = new User('cervecero', 'cervecero','cervecero');
-      //this.navCtrl.setRoot(HomePage , { usuario: this.usuario}) ; 
       this.singIn(); 
      break;
     case 'CO':
       this.dataLogin = new Login('cocinero', 'cocinero');
-     // this.usuario = new User('cocinero', 'cocinero','cocinero');
-     // this.navCtrl.setRoot(HomePage , { usuario: this.usuario}) ; 
      this.singIn(); 
       break;
     case 'M':
       this.dataLogin = new Login('mozo', 'mozo');
-     // this.usuario = new User('mozo', 'mozo','mozo');
-     // this.navCtrl.setRoot(HomePage , { usuario: this.usuario}) ; 
+     
      this.singIn(); 
       break;
       case 'CL':
-      this.dataLogin = new Login('cliente', 'cliente');
+      this.dataLogin = new Login('carlos', '1234');
       this.singIn(); 
-    /* this.usuario.nombre= 'Juan Perez';
-     this.usuario.estilo ='default';
-     this.usuario.tipo= 'Cliente';      
-     this.navCtrl.setRoot(HomePage , { usuario: this.usuario}) ; */
       break;
   }
 }
