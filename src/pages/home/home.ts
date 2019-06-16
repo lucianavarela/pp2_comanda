@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController,AlertController } from 'ionic-angular';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { AuthenticationServiceProvider } from './../../providers/authentication-service/authentication-service';
 import { IniciarsesionPage } from './../iniciarsesion/iniciarsesion';
 import { ErrorsHandlerProvider } from '../../providers/errors-handler/errors-handler';
 import { SpinnerHandlerProvider } from './../../providers/spinner-handler/spinner-handler';
+import { AuthService } from '../../providers/authentication-service/auth.service';
 
 
 @Component({
@@ -13,56 +12,38 @@ import { SpinnerHandlerProvider } from './../../providers/spinner-handler/spinne
 })
 export class HomePage   implements OnInit {
 
-  usuarioOnline: string = "usuario@usuario.com";
-  
-  
-  
-
+  usuarioOnline: string = "usuario@usuario.com";  
 
   constructor( private navCtrl : NavController,
-    private MiAuth: AngularFireAuth,
     private error : ErrorsHandlerProvider,
-    private autenticationService: AuthenticationServiceProvider,
+    private autenticationService: AuthService,
     public alertCtrl: AlertController,
-    private spinnerHandler: SpinnerHandlerProvider) {
+    private spinnerHandler: SpinnerHandlerProvider,
+    private authService: AuthService) {
 
   }
 
   ionViewDidLoad() {
-    this.usuarioOnline = this.MiAuth.auth.currentUser.email;
-    
-    
-   
+    this.usuarioOnline = this.authService.getUserInfo().usuario;
   }
 
 
   ngOnInit() {
     console.log("on init");
-  
-    
   }
 
   fotosLindasClick() {
-   
    let spiner = this.spinnerHandler.presentLoadingCustom();
    spiner.present();
   }
 
   fotosFeasClick() {
-  
     let spiner = this.spinnerHandler.presentLoadingCustom1();
     spiner.present();
   }
 
-
-
-
   cerrarSesionClick(){
-    this.autenticationService.logOut();
-    this.navCtrl.push( IniciarsesionPage);
-
-}
-
-
-
+    this.autenticationService.logout();
+    this.navCtrl.push(IniciarsesionPage);
+  }
 }

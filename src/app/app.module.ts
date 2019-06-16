@@ -1,6 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler, NavParams } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 //Paginas
@@ -14,10 +14,13 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 //Servicios
-import { AuthenticationServiceProvider } from '../providers/authentication-service/authentication-service';
 import { ErrorsHandlerProvider } from '../providers/errors-handler/errors-handler';
 import { SpinnerHandlerProvider } from '../providers/spinner-handler/spinner-handler';
-import { HttpBaseProvider } from '../providers/http-base/http-base';
+import { HttpBase } from '../providers/http-base/http-base.service';
+import { HttpClient, HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { SpinnerInterceptor } from '../providers/Interceptors/SpinnerInterceptor';
+import { ErrorInterceptor } from '../providers/Interceptors/ErrorInterceptor';
+import { JwtInterceptor } from '../providers/Interceptors/JWTInterceptor';
 
 //Firebase
 import { AngularFireModule } from 'angularfire2';
@@ -33,7 +36,12 @@ import { NativeAudio } from '@ionic-native/native-audio';
 //Camara
 import { Camera } from '@ionic-native/camera';
 import { HTTP } from '@ionic-native/http/ngx';
+import { AuthService } from '../providers/authentication-service/auth.service';
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 
+export function getAccessToken() {
+  return localStorage.getItem('token');
+}
 
 
 @NgModule({
@@ -51,7 +59,14 @@ import { HTTP } from '@ionic-native/http/ngx';
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(configs.firebaseConfig),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    HttpClientModule,
+    [JwtModule.forRoot({
+      config: {
+        tokenGetter: (getAccessToken),
+        whitelistedDomains: ['https://mauriciocerizza.github.io', 'localhost:4200', 'localhost:8100']
+      }
+    })]
    
     
   ],
@@ -67,13 +82,29 @@ import { HTTP } from '@ionic-native/http/ngx';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthenticationServiceProvider,
     ErrorsHandlerProvider,
     SpinnerHandlerProvider,
     NativeAudio,
     Camera,
-    HttpBaseProvider,
-    HTTP
+    HTTP,
+    AuthService, 
+    HttpBase, 
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: SpinnerInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
+    JwtHelperService
   ]
 })
 export class AppModule {}

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController,AlertController } from 'ionic-angular';
-
-import { AuthenticationServiceProvider } from './../../providers/authentication-service/authentication-service';
 import { SpinnerHandlerProvider } from './../../providers/spinner-handler/spinner-handler';
 import { ErrorsHandlerProvider } from './../../providers/errors-handler/errors-handler';
 import { HomePage } from './../home/home';
 import { IniciarsesionPage } from './iniciarsesion';
+import { AuthService } from '../../providers/authentication-service/auth.service';
+import { EmpleadoService } from '../../providers/empleado.service';
 
 
 @Component({
@@ -17,25 +17,22 @@ export class RegistrarsePage {
     user = { name: '', pass: '', secondPass: '' };
 
     constructor(public navCtrl: NavController,
-        private autenticationService: AuthenticationServiceProvider,
+        private authService: AuthService,
         private errorHandler: ErrorsHandlerProvider,
         private spinnerHandler: SpinnerHandlerProvider,
-        public alertCtrl: AlertController) {
+        public alertCtrl: AlertController,
+        private empleadoService: EmpleadoService) {
     }
 
     registerUser() {
-        if (this.validForm()) {           
-            let spiner =  this.spinnerHandler.presentLoadingCustom();
-            spiner.present();
-            this.autenticationService.registerUser(this.user.name, this.user.pass)
-                .then(response => {
-                    spiner.dismiss();                    
-                    this.navCtrl.setRoot(HomePage, { usuario: response })
-                
-                })
-                .catch(error => {
-                   this.errorHandler.mostrarMensajeConfimación( "Se produjo un error al registrarse", 'Error');
-                })
+        if (this.validForm()) {    
+            this.empleadoService.Registrar(this.user.name, this.user.pass, '', '')
+            .then(response => {                   
+                this.navCtrl.setRoot(HomePage, { usuario: response });                
+            })
+            .catch(error => {
+                this.errorHandler.mostrarMensajeConfimación( "Se produjo un error al registrarse", 'Error');
+            })
         }
     }
 
