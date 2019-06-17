@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="comanda.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Comanda</name>
+    <name>laComanda</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework.com" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
@@ -82,8 +82,8 @@
     <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^4.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
-    <plugin name="cordova-plugin-nativeaudio" spec="3.0.9" />
-    <plugin name="cordova-plugin-camera" spec="4.0.3" />
-    <engine name="android" spec="7.1.4" />
-    <plugin name="cordova-plugin-advanced-http" spec="2.0.9" />
+    <plugin name="cordova-plugin-camera" spec="^4.0.3" />
+    <plugin name="cordova-plugin-vibration" spec="^3.1.0" />
+    <engine name="browser" spec="^5.0.4" />
+    <engine name="android" spec="6.4.0" />
 </widget>
