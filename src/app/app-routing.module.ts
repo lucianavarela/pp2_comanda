@@ -4,13 +4,18 @@ import { IniciarsesionPage } from './pages/iniciarsesion/iniciarsesion.page';
 import { HomePage } from './pages/home/home.page';
 import { RegistrarsePage } from './pages/registrarse/registrarse.page';
 import { AbmEmpleadoPage } from './pages/abm-empleado/abm-empleado.page';
+import { CargaPedidoPage } from './pages/carga-pedido/carga-pedido.page';
+import { EmpleadosPage } from './pages/empleados/empleados.page';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomePage },
   { path: 'login', component: IniciarsesionPage },
   { path: 'register', component: RegistrarsePage },
-  { path: 'abm-empleado', component: AbmEmpleadoPage },
+  { path: 'empleado', component: AbmEmpleadoPage },
+  { path: 'empleado/:id', component: AbmEmpleadoPage },
+  { path: 'carga-pedido', component: CargaPedidoPage },
+  { path: 'empleados', component: EmpleadosPage },
 ];
 
 @NgModule({

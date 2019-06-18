@@ -2,42 +2,38 @@
 </ion-header>
 
 
-<ion-content padding>
-
-
+<ion-content padding color="light">
   <ion-row>
     <ion-col>
       <ion-item>
-        <ion-label floating style="color: rgba(26, 25, 25, 0.987);">Correo Electrónico</ion-label>
-        <ion-input type="email" required name="email" [(ngModel)]="user.name"></ion-input>
+        <ion-input type="email" required name="email" [(ngModel)]="user.name" placeholder="Correo Electrónico">
+        </ion-input>
       </ion-item>
     </ion-col>
   </ion-row>
   <ion-row>
     <ion-col>
       <ion-item>
-        <ion-label floating style="color: rgba(26, 25, 25, 0.987);">Contraseña</ion-label>
-        <ion-input type="password" required name="password" [(ngModel)]="user.pass"></ion-input>
+        <ion-input type="password" required name="password" [(ngModel)]="user.pass" placeholder="Contraseña">
+        </ion-input>
       </ion-item>
     </ion-col>
   </ion-row>
   <ion-row>
     <ion-col>
       <ion-item>
-        <ion-label floating style="color: black;">Repetir contraseña</ion-label>
-        <ion-input type="password" required name="password" [(ngModel)]="user.secondPass"></ion-input>
+        <ion-input type="password" required name="password" [(ngModel)]="user.secondPass"
+          placeholder="Repetir Contraseña"></ion-input>
       </ion-item>
     </ion-col>
   </ion-row>
 
-  <ion-row>
-    <ion-col class="botones-redondos">
-      <button ion-button color="boton" id="boton" (click)="registerUser()" round>Registrarse</button>
+  <ion-row [style.align-items]="center">
+    <ion-col class="botones-redondos" col-6 col-md-3 col-xl-3>
+      <ion-button color="primary" id="boton" (click)="registerUser()" round>Registrarse</ion-button>
     </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col class="botones-redondos">
-      <button ion-button small color="light" id="boton" (click)="cancel()" round>Cancel</button>
+    <ion-col class="botones-redondos" col-6 col-md-3 col-xl-3>
+      <ion-button color="secondary" id="boton" (click)="cancel()" round>Cancel</ion-button>
     </ion-col>
   </ion-row>
 </ion-content>

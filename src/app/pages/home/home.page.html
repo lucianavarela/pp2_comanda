@@ -1,5 +1,12 @@
 <ion-header>
   <ion-toolbar color="primary">
+
+    <ion-buttons slot="start">
+      <ion-button routerLink="/empleados">
+        <ion-icon name="person"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
     <ion-title>{{this.usuarioOnline | uppercase }}</ion-title>
 
     <ion-buttons slot="end">

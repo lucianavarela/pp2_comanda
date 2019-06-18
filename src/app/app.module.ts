@@ -35,9 +35,12 @@ import { SmartAudioService } from './services/smart-audio/smart-audio.service';
 import { JwtInterceptor } from './services/interceptors/JWTInterceptor';
 import { ErrorInterceptor } from './services/interceptors/ErrorInterceptor';
 import { SpinnerInterceptor } from './services/interceptors/SpinnerInterceptor';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, RouteReuseStrategy } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
+import { AbmEmpleadoPage } from './pages/abm-empleado/abm-empleado.page';
+import { CargaPedidoPage } from './pages/carga-pedido/carga-pedido.page';
+import { EmpleadosPage } from './pages/empleados/empleados.page';
 
 
 export function getAccessToken() {
@@ -49,11 +52,15 @@ export function getAccessToken() {
     AppComponent,
     HomePage,
     IniciarsesionPage,
-    RegistrarsePage
+    RegistrarsePage,
+    AbmEmpleadoPage,
+    CargaPedidoPage,
+    EmpleadosPage
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     IonicModule.forRoot(),
     AngularFireModule.initializeApp(configs.firebaseConfig),

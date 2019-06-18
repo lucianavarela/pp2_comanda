@@ -1,14 +1,14 @@
 export class User {
-    usuario: string;
-    tipo: string;
-    id: string;
-    nombre: string;
+  usuario: string;
+  tipo: string;
+  id: string;
+  nombre: string;
   U: any;
 
-    constructor(usuario: string, tipo: string, id: string, nombre: string) {
-        this.usuario = usuario;
-        this.tipo = tipo;
-        this.id = id;
-        this.nombre = nombre;
-    }
+  constructor(usuario: string, tipo: string, id: string, nombre: string) {
+    this.usuario = usuario;
+    this.tipo = tipo;
+    this.id = id;
+    this.nombre = nombre;
+  }
 }

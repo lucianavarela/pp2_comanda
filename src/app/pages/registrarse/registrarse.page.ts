@@ -6,61 +6,62 @@ import { SpinnerHandlerService } from 'src/app/services/spinner-handler/spinner-
 import { EmpleadoService } from 'src/app/services/empleado/empleado.service';
 
 @Component({
-  selector: 'app-registrarse',
-  templateUrl: './registrarse.page.html',
-  styleUrls: ['./registrarse.page.scss'],
+    selector: 'app-registrarse',
+    templateUrl: './registrarse.page.html',
+    styleUrls: ['./registrarse.page.scss'],
 })
 export class RegistrarsePage implements OnInit {
 
 
-  user = { name: '', pass: '', secondPass: '' };
+    user = { name: '', pass: '', secondPass: '' };
 
-  constructor(public navCtrl: NavController,
-      private authService: AuthService,
-      private errorHandler: ErrorHandlerService,
-      private spinnerHandler: SpinnerHandlerService,
-      public alertCtrl: AlertController,
-      private empleadoService: EmpleadoService) {
-  }
+    constructor(public navCtrl: NavController,
+        private authService: AuthService,
+        private errorHandler: ErrorHandlerService,
+        private spinnerHandler: SpinnerHandlerService,
+        public alertCtrl: AlertController,
+        private empleadoService: EmpleadoService) {
+    }
 
-  registerUser() {
-      if (this.validForm()) {    
-          this.empleadoService.Registrar(this.user.name, this.user.pass, '', '')
-          .then(response => {
-            this.navCtrl.navigateForward('home');             
-          })
-          .catch(error => {
-              this.errorHandler.mostrarMensajeConfimación( "Se produjo un error al registrarse", 'Error');
-          })
-      }
-  }
+    registerUser() {
+        if (this.validForm()) {
+            this.empleadoService.Registrar(this.user.name, this.user.pass, '', '')
+                .then(response => {
+                    alert(response)
+                    //this.navCtrl.navigateForward('home');
+                })
+                .catch(error => {
+                    this.errorHandler.mostrarMensajeConfimación("Se produjo un error al registrarse", 'Error');
+                })
+        }
+    }
 
-  cancel(){
-    this.navCtrl.navigateForward('login');
-  }
+    cancel() {
+        this.navCtrl.navigateForward('login');
+    }
 
 
-  private validForm() {
-      if(this.user.name && this.user.pass && this.user.secondPass){
-          if(this.user.pass == this.user.secondPass){
-              if(this.user.pass.length > 5){
-                  return true;
-              }
-              this.errorHandler.mostrarMensajeConfimación( "La contraseña es muy corta", 'Error');
-              
-          }else{
-              this.errorHandler.mostrarMensajeConfimación( "Las contraseñas son diferentes", 'Error');
-              
-          }
-      }else{
-          this.errorHandler.mostrarMensajeConfimación( "Debe completar todos los campos", 'Error');
-              
-      }
-      return false;
+    private validForm() {
+        if (this.user.name && this.user.pass && this.user.secondPass) {
+            if (this.user.pass == this.user.secondPass) {
+                if (this.user.pass.length > 5) {
+                    return true;
+                }
+                this.errorHandler.mostrarMensajeConfimación("La contraseña es muy corta", 'Error');
 
-  }
+            } else {
+                this.errorHandler.mostrarMensajeConfimación("Las contraseñas son diferentes", 'Error');
 
-  ngOnInit() {
-  }
+            }
+        } else {
+            this.errorHandler.mostrarMensajeConfimación("Debe completar todos los campos", 'Error');
+
+        }
+        return false;
+
+    }
+
+    ngOnInit() {
+    }
 
 }
