@@ -26,7 +26,7 @@ export class IniciarsesionPage implements OnInit {
     private errorHandler: ErrorHandlerService,
     public alertCtrl: AlertController) {
     this.selectUserOptions.title = "Usuarios disponibles";
-    this.audioService.preload('inicio', 'assets/sonidos/inicio.mp3');
+    this.audioService.preload('login', 'assets/sonidos/short2.mp3');
     this.dataLogin = new Login('', '');
 
   }
@@ -39,6 +39,7 @@ export class IniciarsesionPage implements OnInit {
       this.authService.Loguear(this.dataLogin)
         .then(response => {
           if (response['Estado'] === 'OK') {
+            this.audioService.play('login');
             localStorage.setItem('token', response['Token']);
             this.navCtrl.navigateForward('home');
           } else {
@@ -68,11 +69,6 @@ export class IniciarsesionPage implements OnInit {
 
 
   }
-
-  play() {
-    this.audioService.play('inicio');
-  }
-
 
   ////nuevo
 
@@ -115,7 +111,7 @@ export class IniciarsesionPage implements OnInit {
 
         break;
       case 'M':
-        this.dataLogin = new Login('mozo', 'mozo');
+        this.dataLogin = new Login('miguelito', 'mozo');
 
         break;
     }

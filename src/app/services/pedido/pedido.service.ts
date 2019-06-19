@@ -19,6 +19,7 @@ export class PedidoService {
   }
 
   public Registrar(idMesa: string, idMenu: number, nombreCliente: string): Promise<Object> {
+    console.log(idMesa, idMenu, nombreCliente)
     const request: Object = {
       id_mesa: idMesa,
       id_menu: idMenu,

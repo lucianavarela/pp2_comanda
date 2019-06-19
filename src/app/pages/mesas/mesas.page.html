@@ -1,0 +1,49 @@
+<ion-header color="primary">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="atras()">
+        <ion-icon name="arrow-round-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Mesas</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="crear()">
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="mesas.length > 0">
+    <ion-list *ngFor="let mesa of mesas">
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3">
+              <ion-label>{{mesa.codigo}}</ion-label>
+            </ion-col>
+            <ion-col size="5">
+              <ion-label>{{mesa.estado}}</ion-label>
+            </ion-col>
+            <ion-col *ngIf="mesa.estado=='Con clientes comiendo'" size="2">
+              <ion-button color="success" (click)="cobrar(mesa.codigo)">
+                <ion-icon name="cash"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col *ngIf="mesa.estado!='Con clientes comiendo'" size="2">
+              <ion-button color="warning" (click)="cerrar(mesa.codigo)">
+                <ion-icon name="power"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col size="2">
+              <ion-button color="danger" (click)="borrar(mesa.codigo)">
+                <ion-icon name="trash"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

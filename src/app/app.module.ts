@@ -9,6 +9,11 @@ import { HomePage } from './pages/home/home.page';
 import { IniciarsesionPage } from './pages/iniciarsesion/iniciarsesion.page';
 import { RegistrarsePage } from './pages/registrarse/registrarse.page';
 import { AppComponent } from './app.component';
+import { AbmEmpleadoPage } from './pages/abm-empleado/abm-empleado.page';
+import { CargaPedidoPage } from './pages/carga-pedido/carga-pedido.page';
+import { EmpleadosPage } from './pages/empleados/empleados.page';
+import { MesasPage } from './pages/mesas/mesas.page';
+import { TatetiPage } from './pages/tateti/tateti.page';
 
 //Servicios
 import { HttpClient, HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -38,9 +43,6 @@ import { SpinnerInterceptor } from './services/interceptors/SpinnerInterceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, RouteReuseStrategy } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
-import { AbmEmpleadoPage } from './pages/abm-empleado/abm-empleado.page';
-import { CargaPedidoPage } from './pages/carga-pedido/carga-pedido.page';
-import { EmpleadosPage } from './pages/empleados/empleados.page';
 
 
 export function getAccessToken() {
@@ -55,7 +57,9 @@ export function getAccessToken() {
     RegistrarsePage,
     AbmEmpleadoPage,
     CargaPedidoPage,
-    EmpleadosPage
+    EmpleadosPage,
+    MesasPage,
+    TatetiPage,
   ],
   imports: [
     BrowserModule,
