@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="atras()">
+        <ion-icon name="arrow-round-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>EMPLEADO</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-content>
+    <form [formGroup]="myForm" (ngSubmit)="saveData()">
+      <ion-list>
+        <ion-item>
+          <ion-icon name="person" item-start></ion-icon>
+          <ion-input formControlName="nombre" type="text" placeholder="Nombre"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="person" item-start></ion-icon>
+          <ion-input formControlName="usuario" type="text" placeholder="Usuario"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="restaurant"></ion-icon>
+          <ion-select formControlName="tipo" placeholder="Tipo">
+            <ion-select-option value="Mozo">Mozo</ion-select-option>
+            <ion-select-option value="Cervecero">Cervecero</ion-select-option>
+            <ion-select-option value="Cocinero">Cocinero</ion-select-option>
+            <ion-select-option value="Bartender">Bartender</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <div *ngIf="id_empleado==null" formGroupName="passwordRetry">
+          <ion-item>
+            <ion-icon name="eye" item-start></ion-icon>
+            <ion-input formControlName="password" type="password" placeholder="Contraseña"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="eye" item-start></ion-icon>
+            <ion-input formControlName="passwordConfirmation" type="password" placeholder="Confirmar contraseña">
+            </ion-input>
+          </ion-item>
+        </div>
+      </ion-list>
+      <div padding>
+        <ion-button block color="primary" type="submit" [disabled]="!myForm.valid">Guardar</ion-button>
+      </div>
+    </form>
+  </ion-content>

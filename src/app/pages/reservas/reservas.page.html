@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>reservas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding color="light">
+
+    <ion-row [style.align-items]="center">
+        <ion-col class="botones-redondos" col-6 col-md-3 col-xl-3 [hidden]="flagCliente" >
+          <ion-list>
+              <ion-item>
+                  <ion-label>Clientes</ion-label>
+                  <ion-select [(ngModel)]="reserva.id" value="Cliente" okText="Aceptar" cancelText="Cancelar">
+                    <ion-select-option *ngFor="let cliente of clientes" value="{{this.cliente.id}}">{{cliente.nombre}}</ion-select-option>
+                  </ion-select>
+                </ion-item>   
+            </ion-list>            
+          </ion-col>
+
+      </ion-row>
+
+    <ion-row [style.align-items]="center">
+        <ion-col class="botones-redondos" col-6 col-md-3 col-xl-3>
+          <ion-button color="tertiary" id="boton" *ngFor="let mesa of listadoMesas"   (click)="mesasClick(this.mesa)" outline>{{this.mesa.codigo}}</ion-button>
+        </ion-col>
+       
+      </ion-row>
+
+      <ion-row>
+          <ion-col col-12 col-md-6 col-xl-6 >
+         
+              <ion-item  [hidden]="calendario">
+                <ion-label>Fecha</ion-label>
+                <ion-datetime displayFormat min="2019-06-01" max="2019-08-31"  [(ngModel)]="myDate"  (ionChange)= "seleccionarFecha()"  ></ion-datetime>
+              </ion-item>
+          </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col [hidden]="turnos" >
+            <ion-list-header>
+               Horarios dispobnibles
+              </ion-list-header>
+            
+            <ion-list radio-group [(ngModel)]="reserva.hora" >
+
+                <ion-item *ngFor="let entry of reservas"   >
+                    <ion-label>Mesa Disponible :  {{entry.hora}} hs.</ion-label>
+                    <ion-radio color="tertiary"  value="entry" ></ion-radio>
+                </ion-item>
+            
+                     
+              </ion-list>
+      
+        </ion-col>
+      </ion-row>
+
+      <ion-row [style.align-items]="center">
+          <ion-col  class="botones-redondos" [hidden]= "turnos">
+            <ion-button color="primary" id="boton" (click)="reservar()" round>Reservar</ion-button >
+          </ion-col>
+        <ion-col  class="botones-redondos" [hidden]= "turnos">
+            <ion-button  color="secondary" id="boton" (click)="cancel()" round>Cancel</ion-button >
+          </ion-col>
+        </ion-row>
+
+
+
+</ion-content>
