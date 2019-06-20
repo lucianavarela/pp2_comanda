@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Captcha } from 'src/app/models/captcha';
+import { Captcha } from '../../models/captcha';
 import { HttpService } from '../http/http.service';
 
 @Injectable({

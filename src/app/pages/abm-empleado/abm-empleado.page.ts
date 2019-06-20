@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Empleado } from 'src/app/models/empleado';
-import { EmpleadoService } from 'src/app/services/empleado/empleado.service';
-import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
+import { Empleado } from '../../models/empleado';
+import { EmpleadoService } from '../../services/empleado/empleado.service';
+import { ErrorHandlerService } from '../../services/error-handler/error-handler.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

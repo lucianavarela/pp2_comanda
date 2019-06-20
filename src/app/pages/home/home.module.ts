@@ -3,10 +3,6 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-<<<<<<< HEAD
-
-=======
->>>>>>> development
 import { HomePage } from './home.page';
 
 @NgModule({
@@ -14,10 +10,6 @@ import { HomePage } from './home.page';
     CommonModule,
     FormsModule,
     IonicModule,
-<<<<<<< HEAD
-=======
-    
->>>>>>> development
     RouterModule.forRoot([
       {
         path: '',

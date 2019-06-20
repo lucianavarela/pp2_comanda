@@ -75,18 +75,13 @@ export class HomePage {
           this.qrScanner.hide();
           scanSub.unsubscribe();
           ionApp.style.display = 'block';
-          console.log(text);
+          console.log(text); // --> text es el mensaje del QR.
         }
       });
       this.qrScanner.show();
       ionApp.style.display = 'none';
     } catch (e) {
-      this.alertCtrl.create({
-        header: 'Error',
-        message: e.message,
-        buttons: ['OK'],
-        cssClass: 'present-alert'
-      });
+      console.log(e) // --> usar el alert/toast que vayamos a usar
     }
   }
 

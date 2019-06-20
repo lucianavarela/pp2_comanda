@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService } from '../http/http.service';
-import { Mesa } from 'src/app/models/mesa';
+import { Mesa } from '../../models/mesa';
 
 @Injectable({
   providedIn: 'root'

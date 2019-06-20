@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { MesaService } from 'src/app/services/mesa/mesa.service';
-import { Mesa } from 'src/app/models/mesa';
-import { Reserva } from 'src/app/models/Reserva';
-import { ReservaService } from 'src/app/services/reserva/reserva.service';
-import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
+import { MesaService } from '../../services/mesa/mesa.service';
+import { Mesa } from '../../models/mesa';
+import { Reserva } from '../../models/reserva';
+import { ReservaService } from '../../services/reserva/reserva.service';
+import { ErrorHandlerService } from '../../services/error-handler/error-handler.service';
 import { NavController } from '@ionic/angular';
-import { User } from 'src/app/models/user';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { ClienteService } from 'src/app/services/cliente/cliente.service';
+import { User } from '../../models/user';
+import { AuthService } from '../../services/auth/auth.service';
+import { ClienteService } from '../../services/cliente/cliente.service';
 
 @Component({
   selector: 'app-reservas',
