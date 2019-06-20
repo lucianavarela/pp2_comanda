@@ -1,7 +1,8 @@
 {
-  "name": "comanda",
+  "name": "laComanda",
   "integrations": {
     "cordova": {}
   },
-  "type": "ionic-angular"
+  "type": "angular",
+  "pro_id": "576273aa"
 }
