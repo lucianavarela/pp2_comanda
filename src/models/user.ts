@@ -3,7 +3,6 @@ export class User {
     tipo: string;
     id: string;
     nombre: string;
-  U: any;
 
     constructor(usuario: string, tipo: string, id: string, nombre: string) {
         this.usuario = usuario;

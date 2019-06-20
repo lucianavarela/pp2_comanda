@@ -1,11 +1,20 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,AlertController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,AlertController, Platform, Spinner } from 'ionic-angular';
+import { AuthenticationServiceProvider } from './../../providers/authentication-service/authentication-service';
+import { SpinnerHandlerProvider } from './../../providers/spinner-handler/spinner-handler';
 import { HomePage } from './../home/home';
 import { RegistrarsePage } from './registrarse';
 import { NativeAudio } from '@ionic-native/native-audio';
-import { Login } from '../../Model/Login';
+import { Login } from '../../models/login';
 import { ErrorsHandlerProvider } from '../../providers/errors-handler/errors-handler';
-import { AuthService } from '../../providers/authentication-service/auth.service';
+
+
+/**
+ * Generated class for the IniciarsesionPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
 
 @IonicPage()
 @Component({
@@ -25,9 +34,10 @@ export class IniciarsesionPage {
     public nativeAudio: NativeAudio,
     public navCtrl : NavController,
     public navParams: NavParams,
-    private authService: AuthService,
+    private autenticationService: AuthenticationServiceProvider,
     private errorHandler: ErrorsHandlerProvider,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    private spinnerHandler: SpinnerHandlerProvider,) {
     this.selectUserOptions.title = "Usuarios disponibles";
 
     this.nativeAudio.preloadComplex('inicio', 'assets/sonidos/inicio.mp3', 1, 1, 0);
@@ -36,23 +46,33 @@ export class IniciarsesionPage {
   }
 
   ionViewDidLoad() {
+
+  
+    if(this.navParams.get('fromApp')){
+      this.splash = false;
+    }else{
+      setTimeout(() => {
+        this.splash = false;
+      }, 4000);
+    }  
+  
   }
 
   singIn() {
     if(this.validForm()){
-      this.authService.Loguear(this.dataLogin)
+      let spiner = this.spinnerHandler.presentLoadingCustom();
+       spiner.present();
+      this.autenticationService.singIn(this.dataLogin.user, this.dataLogin.pass)
         .then(response => {      
-          if (response['Estado'] === 'OK') {
-            localStorage.setItem('token', response['Token']);            
-            this.navCtrl.setRoot(HomePage);  
-          } else {
-            this.errorHandler.mostrarMensajeConfimación(response['Mensaje'],'Error' );
-          }     
+         
+        this.navCtrl.setRoot(HomePage , { usuario: response }) ;       
         })
         .catch(err=>{
-          this.errorHandler.mostrarMensajeConfimación(err['Mensaje'],'Error' );
+          this.errorHandler.mostrarMensajeConfimación("Se produjo un error al ingresar",'Error' );
         })
-    }        
+        spiner.dismiss();
+    }  
+      
   }
 
 
@@ -103,7 +123,12 @@ CargarDefault(tipo: string) {
   
   switch (tipo) {
     case 'S':
-      this.dataLogin = new Login('admin', 'admin');                   
+     /* this.dataLogin.user = 'admin';
+      this.dataLogin.pass = 'admin';    */ 
+      this.dataLogin.user = "admin@admin.com";
+      this.dataLogin.pass = "123456";
+      this.singIn(); 
+          
       break;
     case 'B':
       this.dataLogin = new Login('Matias', '1234');      
