@@ -26,7 +26,11 @@ export class IniciarsesionPage implements OnInit {
     private errorHandler: ErrorHandlerService,
     public alertCtrl: AlertController) {
     this.selectUserOptions.title = "Usuarios disponibles";
+<<<<<<< HEAD
     this.audioService.preload('inicio', 'assets/sonidos/inicio.mp3');
+=======
+    this.audioService.preload('login', 'assets/sonidos/short2.mp3');
+>>>>>>> development
     this.dataLogin = new Login('', '');
 
   }
@@ -39,6 +43,10 @@ export class IniciarsesionPage implements OnInit {
       this.authService.Loguear(this.dataLogin)
         .then(response => {
           if (response['Estado'] === 'OK') {
+<<<<<<< HEAD
+=======
+            this.audioService.play('login');
+>>>>>>> development
             localStorage.setItem('token', response['Token']);
             this.navCtrl.navigateForward('home');
           } else {
@@ -69,11 +77,14 @@ export class IniciarsesionPage implements OnInit {
 
   }
 
+<<<<<<< HEAD
   play() {
     this.audioService.play('inicio');
   }
 
 
+=======
+>>>>>>> development
   ////nuevo
 
   private validarF() {
@@ -101,6 +112,7 @@ export class IniciarsesionPage implements OnInit {
     switch (tipo) {
       case 'S':
         this.dataLogin = new Login('admin', 'admin');
+<<<<<<< HEAD
         this.singIn();
         break;
       case 'B':
@@ -118,6 +130,24 @@ export class IniciarsesionPage implements OnInit {
       case 'M':
         this.dataLogin = new Login('mozo', 'mozo');
         this.singIn();
+=======
+        break;
+      case 'B':
+        this.dataLogin = new Login('Matias', '1234');
+
+        break;
+      case 'CE':
+        this.dataLogin = new Login('cervecero', 'cervecero');
+
+        break;
+      case 'CO':
+        this.dataLogin = new Login('cocinero', 'cocinero');
+
+        break;
+      case 'M':
+        this.dataLogin = new Login('miguelito', 'mozo');
+
+>>>>>>> development
         break;
     }
   }

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
-import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { SpinnerHandlerService } from 'src/app/services/spinner-handler/spinner-handler.service';
-import { User } from 'src/app/models/user';
 import { Router } from '@angular/router';
-
+import { QRScanner } from '@ionic-native/qr-scanner/ngx';
+import { User } from '../../models/user';
+import { ErrorHandlerService } from '../../services/error-handler/error-handler.service';
+import { AuthService } from '../../services/auth/auth.service';
+import { SpinnerHandlerService } from '../../services/spinner-handler/spinner-handler.service';
 
 @Component({
   selector: 'app-home',
@@ -15,57 +15,79 @@ import { Router } from '@angular/router';
 export class HomePage {
 
   usuarioOnline: User;
-  listadoIconos: Array <any> = new Array;
+  listadoIconos: Array<any> = new Array;
   logo: boolean;
 
-  listados: Array <any> = [
+  listados: Array<any> = [
     {
       nombre: "clientes",
-      imagen: "assets/imgs/home/altacliente.png",      
+      imagen: "assets/imgs/home/altacliente.png",
       accion: "alta-cliente"
-  },
-  {
-    nombre: "empleados",
-    imagen: "assets/imgs/home/empleados.png",      
-    accion: "empleados"
-  },
-  {
-    nombre: "reservas",
-    imagen: "assets/imgs/home/reserva.png",
-    accion: "reservas"
+    },
+    {
+      nombre: "empleados",
+      imagen: "assets/imgs/home/empleados.png",
+      accion: "empleados"
+    },
+    {
+      nombre: "reservas",
+      imagen: "assets/imgs/home/reserva.png",
+      accion: "reservas"
     },
     {
       nombre: "ahorcado",
       imagen: "assets/imgs/home/juegoPostre.png",
       accion: "JuegoPostrePage"
-  },
-   {
-        nombre: "pedidos",
-        imagen: "assets/imgs/home/pedidos.png",
-        accion: "carga-pedido"
     },
     {
-        nombre: "menu",
-        imagen: "assets/imgs/home/menu.png",
-        accion: "ClienteMenuPage"
+      nombre: "pedidos",
+      imagen: "assets/imgs/home/pedidos.png",
+      accion: "carga-pedido"
+    },
+    {
+      nombre: "menu",
+      imagen: "assets/imgs/home/menu.png",
+      accion: "ClienteMenuPage"
     },
     {
       nombre: "juegos",
       imagen: "assets/imgs/home/juegos.png",
       accion: "JuegosHomePage"
-  },
+    },
   ]
 
-  
+
 
   constructor(private navCtrl: NavController,
     private error: ErrorHandlerService,
-    private autenticationService: AuthService,
     public alertCtrl: AlertController,
     private spinnerHandler: SpinnerHandlerService,
     private authService: AuthService,
-    private router: Router) {
+    private router: Router,
+    private qrScanner: QRScanner) {
+  }
 
+  scanQr() {
+    try {
+      const ionApp = <HTMLElement>document.getElementsByTagName('ion-app')[0];
+      let scanSub = this.qrScanner.scan().subscribe((text: string) => {
+        if (text) {
+          this.qrScanner.hide();
+          scanSub.unsubscribe();
+          ionApp.style.display = 'block';
+          console.log(text);
+        }
+      });
+      this.qrScanner.show();
+      ionApp.style.display = 'none';
+    } catch (e) {
+      this.alertCtrl.create({
+        header: 'Error',
+        message: e.message,
+        buttons: ['OK'],
+        cssClass: 'present-alert'
+      });
+    }
   }
 
   ionViewWillEnter() {
@@ -80,43 +102,43 @@ export class HomePage {
   }
 
   cerrarSesionClick() {
-    this.autenticationService.logout();
+    this.authService.logout();
     this.navCtrl.navigateForward('login');
   }
 
 
-iconosClick(icono){
- 
-  //this.navCtrl.navigateForward([icono.accion, { usuario: this.usuarioOnline}]);
-  this.router.navigate([icono.accion,{ usuario: this.usuarioOnline}]);
+  iconosClick(icono) {
 
-}
+    //this.navCtrl.navigateForward([icono.accion, { usuario: this.usuarioOnline}]);
+    this.router.navigate([icono.accion, { usuario: this.usuarioOnline }]);
 
-  filtrar(){
- 
-    if( this.usuarioOnline.tipo =="registrado"){     
-      this.listadoIconos = this.listados
-      .filter( listado => listado.nombre == "clientes" || listado.nombre == "menu" || listado.nombre == "juegos" || listado.nombre == "reservas");
-    }else if( this.usuarioOnline.tipo == "Cocinero" || this.usuarioOnline.tipo == "Cervecero" ||this.usuarioOnline.tipo =="Bartender" ){
-      this.listadoIconos = this.listados
-      .filter( listado => listado.nombre == "pedidos" );
-    }else if( this.usuarioOnline.tipo == "Mozo"  ){
-      this.listadoIconos = this.listados
-      .filter( listado => listado.nombre == "pedidos" || listado.nombre == "clientes"|| listado.nombre == "reservas");
-    }
-    else if(  this.usuarioOnline.tipo =="Socio"){
-      this.listadoIconos = this.listados
-    }
-   
-}
-
-
-private esconderLogo(){
-  if( this.listadoIconos.length >4){
-    this.logo = true;
-  }else{
-    this.logo= false;
   }
- }
+
+  filtrar() {
+
+    if (this.usuarioOnline.tipo == "registrado") {
+      this.listadoIconos = this.listados
+        .filter(listado => listado.nombre == "clientes" || listado.nombre == "menu" || listado.nombre == "juegos" || listado.nombre == "reservas");
+    } else if (this.usuarioOnline.tipo == "Cocinero" || this.usuarioOnline.tipo == "Cervecero" || this.usuarioOnline.tipo == "Bartender") {
+      this.listadoIconos = this.listados
+        .filter(listado => listado.nombre == "pedidos");
+    } else if (this.usuarioOnline.tipo == "Mozo") {
+      this.listadoIconos = this.listados
+        .filter(listado => listado.nombre == "pedidos" || listado.nombre == "clientes" || listado.nombre == "reservas");
+    }
+    else if (this.usuarioOnline.tipo == "Socio") {
+      this.listadoIconos = this.listados
+    }
+
+  }
+
+
+  private esconderLogo() {
+    if (this.listadoIconos.length > 4) {
+      this.logo = true;
+    } else {
+      this.logo = false;
+    }
+  }
 
 }

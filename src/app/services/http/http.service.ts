@@ -7,7 +7,10 @@ import { HttpClient} from '@angular/common/http';
 export class HttpService {
 
   urlBase: String = 'https://restaurante-cerizza.herokuapp.com/';
+<<<<<<< HEAD
   urlLea: String = 'http://kq000525.ferozo.com/API_Comanda/'
+=======
+>>>>>>> development
 
   constructor( public http: HttpClient ) {
    }
@@ -45,6 +48,7 @@ export class HttpService {
   private handleError ( error: Response | any ) {
     return error;
   }
+<<<<<<< HEAD
 
 
 ///pasar de base de datos
@@ -58,4 +62,6 @@ export class HttpService {
       return this.http.get(this.urlLea+url);  
       
     }
+=======
+>>>>>>> development
 }

@@ -11,6 +11,11 @@ import { RegistrarsePage } from './pages/registrarse/registrarse.page';
 import { AppComponent } from './app.component';
 import { AltaClientePage } from './pages/clientes/alta-cliente/alta-cliente.page';
 import { ReservasPage }  from './pages/reservas/reservas.page';
+import { AbmEmpleadoPage } from './pages/abm-empleado/abm-empleado.page';
+import { CargaPedidoPage } from './pages/carga-pedido/carga-pedido.page';
+import { EmpleadosPage } from './pages/empleados/empleados.page';
+import { MesasPage } from './pages/mesas/mesas.page';
+import { TatetiPage } from './pages/tateti/tateti.page';
 
 //Servicios
 import { HttpClient, HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -33,16 +38,16 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 //Audio
 import { SmartAudioService } from './services/smart-audio/smart-audio.service';
 
+
 //Interceptors
 import { JwtInterceptor } from './services/interceptors/JWTInterceptor';
 import { ErrorInterceptor } from './services/interceptors/ErrorInterceptor';
 import { SpinnerInterceptor } from './services/interceptors/SpinnerInterceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { RouterModule, RouteReuseStrategy } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
-import { AbmEmpleadoPage } from './pages/abm-empleado/abm-empleado.page';
-import { CargaPedidoPage } from './pages/carga-pedido/carga-pedido.page';
-import { EmpleadosPage } from './pages/empleados/empleados.page';
+import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 
 
 export function getAccessToken() {
@@ -59,7 +64,9 @@ export function getAccessToken() {
     CargaPedidoPage,
     EmpleadosPage,
     AltaClientePage,
-    ReservasPage
+    ReservasPage,
+    MesasPage,
+    TatetiPage,
   ],
   imports: [
     BrowserModule,
@@ -97,6 +104,7 @@ export function getAccessToken() {
     StatusBar,
     SplashScreen,
     Camera,
+    QRScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HTTP_INTERCEPTORS,

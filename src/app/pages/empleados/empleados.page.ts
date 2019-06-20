@@ -28,7 +28,10 @@ export class EmpleadosPage {
         this.empleados = res.filter(function(e){
           return e.estado != 'B';
         });
+<<<<<<< HEAD
         console.log(res)
+=======
+>>>>>>> development
       }
     )
   }
