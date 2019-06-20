@@ -110,9 +110,12 @@ export class AltaClientePage implements OnInit {
     cancel(){
       this.navCtrl.navigateForward('home');
     }
+<<<<<<< HEAD
     
     atras() {
       this.navCtrl.pop();
     }
+=======
+>>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
 
 }

@@ -33,7 +33,11 @@ export class AppComponent {
         this.splash = false;
         this.audioService.play('inicio');
         if (!this.authService.isLogged()) {
+<<<<<<< HEAD
           this.router.navigate(['bienvenido']);
+=======
+          this.router.navigate(['login']);
+>>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
         }
       }, 4000);
     });

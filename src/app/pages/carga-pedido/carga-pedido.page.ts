@@ -1,4 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+import { User } from 'src/app/models/user';
+import { ActivatedRoute } from '@angular/router';
+
+=======
+>>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
 import { NavController } from '@ionic/angular';
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { MenuService } from 'src/app/services/menu/menu.service';
@@ -8,12 +16,43 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/models/user';
 import { Mesa } from 'src/app/models/mesa';
 import { MesaService } from 'src/app/services/mesa/mesa.service';
+<<<<<<< HEAD
+=======
+>>>>>>> development
+>>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
 
 @Component({
   selector: 'app-carga-pedido',
   templateUrl: './carga-pedido.page.html',
   styleUrls: ['./carga-pedido.page.scss'],
 })
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+export class CargaPedidoPage implements OnInit {
+ 
+  usuarioOnline: User;
+
+  
+
+  constructor(private route: ActivatedRoute ) { 
+    //this.usuarioOnline = this.navParams.get('usuario');
+    
+  }
+
+  ionViewWillEnter() {
+    this.route.params.subscribe(params => {
+      this.usuarioOnline = params['usuario']; 
+ });
+  }
+
+  ngOnInit() {
+    
+   
+  }
+
+=======
+>>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
 export class CargaPedidoPage {
   mesas: Mesa[] = [];
   menus: Menu[] = [];
@@ -118,4 +157,8 @@ export class CargaPedidoPage {
   atras() {
     this.navCtrl.pop();
   }
+<<<<<<< HEAD
+=======
+>>>>>>> development
+>>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
 }

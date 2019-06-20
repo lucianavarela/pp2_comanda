@@ -4,11 +4,18 @@ import { Mesa } from 'src/app/models/mesa';
 import { Reserva } from 'src/app/models/Reserva';
 import { ReservaService } from 'src/app/services/reserva/reserva.service';
 import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
+<<<<<<< HEAD
 import { NavController, NavParams } from '@ionic/angular';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
 import { Router, ActivatedRoute } from '@angular/router';
+=======
+import { NavController } from '@ionic/angular';
+import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { ClienteService } from 'src/app/services/cliente/cliente.service';
+>>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
 
 @Component({
   selector: 'app-reservas',
@@ -17,7 +24,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class ReservasPage implements OnInit {
   
+<<<<<<< HEAD
   usuarioOnline: any;// User;
+=======
+  usuarioOnline: User;
+>>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
   listadoMesas  :Mesa[] = [];
   calendario: boolean;
   myDate: String;
@@ -35,7 +46,10 @@ export class ReservasPage implements OnInit {
     public reservaServicio: ReservaService,
     public clienteServicio : ClienteService,
     private errorHandler: ErrorHandlerService,
+<<<<<<< HEAD
     private activeroute : ActivatedRoute,
+=======
+>>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
     private navCtrl: NavController) {
     this.calendario= true;
     this.myDate = new Date().toISOString().substring(0, 10);
@@ -51,6 +65,7 @@ export class ReservasPage implements OnInit {
 
 
   ionViewWillEnter() {
+<<<<<<< HEAD
     this.usuarioOnline = this.authService.token();
     console.log( this.usuarioOnline);
     /*
@@ -59,6 +74,13 @@ export class ReservasPage implements OnInit {
     } else {
       this.navCtrl.navigateForward('login');
     }*/
+=======
+    if (this.authService.isLogged()) {
+      this.usuarioOnline = this.authService.getUserInfo();
+    } else {
+      this.navCtrl.navigateForward('login');
+    }
+>>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
     this.cargarCliente();
     this.cargarMesas();
     //this.reserva.id_usuario= this.usuarioOnline.id; 
@@ -70,7 +92,10 @@ export class ReservasPage implements OnInit {
       subscribe((data) => { // Success
       this.clientes =data;     
       console.log(data);
+<<<<<<< HEAD
       //this.cargarMesas();
+=======
+>>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
       this.flagCliente= false; 
     },(error) =>{
       console.error(error);
@@ -80,7 +105,10 @@ export class ReservasPage implements OnInit {
     );
     }else{
       this.reserva.id_usuario= this.usuarioOnline.id;
+<<<<<<< HEAD
       //this.cargarMesas();
+=======
+>>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
     }
   
   }

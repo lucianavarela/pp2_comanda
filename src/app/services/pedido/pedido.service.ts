@@ -36,7 +36,14 @@ export class PedidoService {
       codigo: codigo,
       minutosEstimados: minutosEstimados
     };
+<<<<<<< HEAD
     console.log(request);
+=======
+<<<<<<< HEAD
+    console.log(request);
+=======
+>>>>>>> development
+>>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
     return this.miHttp.httpPostP('pedido/tomarPedido/', request);
   }
 

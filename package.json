@@ -22,6 +22,13 @@
     "@auth0/angular-jwt": "^2.1.0",
     "@ionic-native/camera": "^5.8.0",
     "@ionic-native/core": "^5.0.0",
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+    "@ionic-native/qr-scanner": "^5.8.0",
+>>>>>>> development
+>>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
     "@ionic-native/splash-screen": "^5.0.0",
     "@ionic-native/status-bar": "^5.0.0",
     "@ionic-native/vibration": "^5.8.0",
@@ -29,12 +36,23 @@
     "@ionic/pro": "2.0.4",
     "@ionic/storage": "^2.2.0",
     "angularfire2": "^5.2.1",
+<<<<<<< HEAD
     "cordova-android": "^8.0.0",
+=======
+    "cordova-android": "6.4.0",
+>>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
     "cordova-browser": "^5.0.4",
     "cordova-plugin-camera": "^4.0.3",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-ionic-keyboard": "^2.1.3",
     "cordova-plugin-ionic-webview": "^4.1.0",
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+    "cordova-plugin-qrscanner": "^3.0.1",
+>>>>>>> development
+>>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
     "cordova-plugin-vibration": "^3.1.0",
@@ -84,7 +102,16 @@
       "cordova-plugin-ionic-webview": {
         "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
       },
+<<<<<<< HEAD
       "cordova-plugin-ionic-keyboard": {}
+=======
+<<<<<<< HEAD
+      "cordova-plugin-ionic-keyboard": {}
+=======
+      "cordova-plugin-ionic-keyboard": {},
+      "cordova-plugin-qrscanner": {}
+>>>>>>> development
+>>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
     },
     "platforms": [
       "browser",
