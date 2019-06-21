@@ -1,14 +1,4 @@
 <ion-header>
-<<<<<<< HEAD
-  <ion-toolbar>
-    <ion-title>carga_pedido</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
-</ion-content>
-=======
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-button (click)="atras()">
@@ -16,12 +6,6 @@
       </ion-button>
     </ion-buttons>
     <ion-title>Nuevo Pedido</ion-title>
-
-    <!--ion-buttons slot="end">
-      <ion-button (click)="cerrarSesionClick()">
-        <ion-icon name="log-out"></ion-icon>
-      </ion-button>
-    </ion-buttons-->
   </ion-toolbar>
 </ion-header>
 
@@ -50,7 +34,8 @@
       <ion-item *ngIf="mesas.length > 0">
         <ion-icon name="pin"></ion-icon>
         <ion-select [(ngModel)]="mesa" placeholder="Mesa" style="max-width: 100%">
-          <ion-select-option *ngFor="let option of mesas" value="{{option.codigo}}">{{option.codigo}}</ion-select-option>
+          <ion-select-option *ngFor="let option of mesas" value="{{option.codigo}}">{{option.codigo}}
+          </ion-select-option>
         </ion-select>
       </ion-item>
     </ion-col>
@@ -58,4 +43,3 @@
 
   <ion-button color="primary" id="boton" (click)="generarPedido()" round>Pedir</ion-button>
 </ion-content>
->>>>>>> development

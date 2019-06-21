@@ -16,4 +16,5 @@ export class Pedido {
     public hora_entrega_real: Time;
     public fecha: Date;
     public importe: string;
+    public es_delivery: number;
 }

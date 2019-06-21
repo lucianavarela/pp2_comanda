@@ -11,9 +11,15 @@
           <ion-list>
               <ion-item>
                   <ion-label>Clientes</ion-label>
-                  <ion-select [(ngModel)]="reserva.id" value="Cliente" okText="Aceptar" cancelText="Cancelar">
+                <!--  <ion-select [(ngModel)]="reserva.id" value="Cliente" okText="Aceptar" cancelText="Cancelar">
                     <ion-select-option *ngFor="let cliente of clientes" value="{{this.cliente.id}}">{{cliente.nombre}}</ion-select-option>
+                  </ion-select>-->
+
+                  <ion-select [(ngModel)]="reserva.id">
+                    <ion-select-option *ngFor="let cliente of clientes" value="{{this.cliente.id}}"    >{{cliente.nombre}}</ion-select-option>
                   </ion-select>
+
+
                 </ion-item>   
             </ion-list>            
           </ion-col>

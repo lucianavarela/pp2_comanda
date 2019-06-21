@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
-import { EmpleadoService } from 'src/app/services/empleado/empleado.service';
+import { ErrorHandlerService } from '../../services/error-handler/error-handler.service';
+import { EmpleadoService } from '../../services/empleado/empleado.service';
 import { NavController } from '@ionic/angular';
-import { Empleado } from 'src/app/models/empleado';
+import { Empleado } from '../../models/empleado';
 
 @Component({
   selector: 'app-empleados',
   templateUrl: './empleados.page.html',
   styleUrls: ['./empleados.page.scss'],
 })
+
 export class EmpleadosPage {
   empleados: Empleado[] = [];
 
@@ -25,13 +26,10 @@ export class EmpleadosPage {
   traerEmpleados() {
     this.empleadoService.Listar().subscribe(
       (res) => {
-        this.empleados = res.filter(function(e){
+        this.empleados = res.filter(function (e) {
           return e.estado != 'B';
         });
-<<<<<<< HEAD
-        console.log(res)
-=======
->>>>>>> development
+        console.log(res);
       }
     )
   }

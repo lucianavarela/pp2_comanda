@@ -38,4 +38,10 @@ export class AuthService {
   isLogged() {
     return localStorage.getItem('token') != null;
   }
+
+  token(){
+    const token = localStorage.getItem('token');
+    const tokenInfo = this.jwt.decodeToken(token);
+    return new User(tokenInfo['usuario'], tokenInfo['tipo'], tokenInfo['id'], tokenInfo['nombre']);
+  }
 }

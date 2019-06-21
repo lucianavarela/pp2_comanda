@@ -75,18 +75,13 @@ export class HomePage {
           this.qrScanner.hide();
           scanSub.unsubscribe();
           ionApp.style.display = 'block';
-          console.log(text);
+          console.log(text); // --> text es el mensaje del QR.
         }
       });
       this.qrScanner.show();
       ionApp.style.display = 'none';
     } catch (e) {
-      this.alertCtrl.create({
-        header: 'Error',
-        message: e.message,
-        buttons: ['OK'],
-        cssClass: 'present-alert'
-      });
+      console.log(e) // --> usar el alert/toast que vayamos a usar
     }
   }
 
@@ -94,7 +89,7 @@ export class HomePage {
     if (this.authService.isLogged()) {
       this.usuarioOnline = this.authService.getUserInfo();
     } else {
-      this.navCtrl.navigateForward('login');
+      this.navCtrl.navigateForward('bienvenido');
     }
     this.filtrar();
     this.esconderLogo();
@@ -103,7 +98,7 @@ export class HomePage {
 
   cerrarSesionClick() {
     this.authService.logout();
-    this.navCtrl.navigateForward('login');
+    this.navCtrl.navigateForward('bienvenido');
   }
 
 
@@ -111,7 +106,6 @@ export class HomePage {
 
     //this.navCtrl.navigateForward([icono.accion, { usuario: this.usuarioOnline}]);
     this.router.navigate([icono.accion, { usuario: this.usuarioOnline }]);
-
   }
 
   filtrar() {

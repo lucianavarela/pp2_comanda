@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/models/user';
-import { Cliente } from 'src/app/models/Cliente';
-import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
-import { ClienteService } from 'src/app/services/cliente/cliente.service';
+import { User } from '../../../models/user';
+import { Cliente } from '../../../models/cliente';
+import { ClienteService } from '../../../services/cliente/cliente.service';
 import { NavController } from '@ionic/angular';
+import { ErrorHandlerService } from '../../../services/error-handler/error-handler.service';
 
 @Component({
   selector: 'app-alta-cliente',
@@ -109,6 +109,10 @@ export class AltaClientePage implements OnInit {
 
     cancel(){
       this.navCtrl.navigateForward('home');
+    }
+    
+    atras() {
+      this.navCtrl.pop();
     }
 
 }

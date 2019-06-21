@@ -1,16 +1,26 @@
+//@import '~@ionic/angular/css/normalize.css';
 @import url("http://fonts.googleapis.com/css?family=Droid+Sans:400,700");
 
 ion-content {
   background-color: red;
 
   .scroll-content {
-    padding-top: 50px;
     background-color: --first-detail-color;
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding-bottom: 0px !important;
     font-family: "Droid Sans", sans-serif;
+  }
+
+  .pagina{
+    background-color: --first-detail-color;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 100px !important;
+    font-family: "Droid Sans", sans-serif;
+
   }
 }
 
@@ -66,7 +76,7 @@ ion-content {
 }
 
 .logo {
-  max-height: 400px;
+  max-height: 200px;
   text-align: center;
   align-content: center;
 }

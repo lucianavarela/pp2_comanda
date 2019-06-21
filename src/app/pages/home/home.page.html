@@ -2,21 +2,12 @@
   <ion-toolbar color="primary">
 
     <ion-buttons slot="start">
-<<<<<<< HEAD
       <ion-button routerLink="/empleados">
         <ion-icon name="person"></ion-icon>
       </ion-button>
     </ion-buttons>
 
-    <ion-title>{{this.usuarioOnline.usuario | uppercase }}</ion-title>
-=======
-      <ion-button>
-        <ion-icon name="hand"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-
-    <ion-title>{{this.usuarioOnline | uppercase }}</ion-title>
->>>>>>> development
+    <ion-title *ngIf="usuarioOnline">{{this.usuarioOnline.usuario | uppercase }}</ion-title>
 
     <ion-buttons slot="end">
       <ion-button (click)="cerrarSesionClick()">
@@ -27,27 +18,25 @@
 </ion-header>
 
 <ion-content padding>
-<<<<<<< HEAD
 
-    <ion-grid >
-        <ion-row  [hidden]= "logo">
- 
-            <ion-col col-12 col-md-2 col-sm-2   [style.align-items]= "center"  >
-                <img  class="logo"  src="assets/imgs/logo.png" /> 
-              </ion-col>
-    
-            </ion-row >
-      
-       
-              <ion-row >
-          <ion-col class="botones" col-6 col-md-6 col-sm-2  [style.align-items]= "center"  *ngFor="let icono of listadoIconos"  >      
-           <img class="iconos"  [src]="icono.imagen" (click)="iconosClick(icono)" >
-          </ion-col>
-        </ion-row>
-       
-        
-      </ion-grid>
+    <ion-grid>
+      <ion-row [hidden]="logo">
 
-=======
->>>>>>> development
+        <ion-col col-12 col-md-2 col-sm-2 [style.align-items]="center">
+          <img class="logo" src="assets/imgs/logo.png" />
+        </ion-col>
+
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col class="botones" col-6 col-md-6 col-sm-2 [style.align-items]="center"
+          *ngFor="let icono of listadoIconos">
+          <img class="iconos" [src]="icono.imagen" (click)="iconosClick(icono)">
+        </ion-col>
+      </ion-row>
+
+
+    </ion-grid>
+
 </ion-content>

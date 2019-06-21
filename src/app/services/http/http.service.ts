@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -7,61 +7,54 @@ import { HttpClient} from '@angular/common/http';
 export class HttpService {
 
   urlBase: String = 'https://restaurante-cerizza.herokuapp.com/';
-<<<<<<< HEAD
   urlLea: String = 'http://kq000525.ferozo.com/API_Comanda/'
-=======
->>>>>>> development
 
-  constructor( public http: HttpClient ) {
-   }
-
-  public httpGetP ( url: string) {
-    return this.http
-    .get( this.urlBase + url )
-    .toPromise()
-    .then( this.extractData )
-    .catch( this.handleError );
+  constructor(public http: HttpClient) {
   }
 
-  public httpDeleteP ( url: string) {
+  public httpGetP(url: string) {
     return this.http
-    .delete( this.urlBase + url )
-    .toPromise()
-    .then( this.extractData )
-    .catch( this.handleError );
+      .get(this.urlBase + url)
+      .toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
   }
 
-  public httpPostP( url: string, request: Object) {
-    return this.http.post( this.urlBase + url, request).toPromise();
+  public httpDeleteP(url: string) {
+    return this.http
+      .delete(this.urlBase + url)
+      .toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
+  }
+
+  public httpPostP(url: string, request: Object) {
+    return this.http.post(this.urlBase + url, request).toPromise();
   }
 
   // tslint:disable-next-line:no-shadowed-variable
-  public httpGetO<T>( url: string) {
-    return this.http.get<T>( this.urlBase + url );
+  public httpGetO<T>(url: string) {
+    return this.http.get<T>(this.urlBase + url);
   }
 
 
-  private extractData ( res: Response ) {
+  private extractData(res: Response) {
     return res.json() || {};
   }
 
-  private handleError ( error: Response | any ) {
+  private handleError(error: Response | any) {
     return error;
   }
-<<<<<<< HEAD
 
+  ///pasar de base de datos
 
-///pasar de base de datos
+  public httpPostL(url: string, data: object) {
 
-  public httpPostL(url: string, data :object){
-  
-    return this.http.post(this.urlLea+url,data);
-    }
+    return this.http.post(this.urlLea + url, data);
+  }
 
-    public httpGetL ( url: string) {
-      return this.http.get(this.urlLea+url);  
-      
-    }
-=======
->>>>>>> development
+  public httpGetL(url: string) {
+    return this.http.get(this.urlLea + url);
+
+  }
 }

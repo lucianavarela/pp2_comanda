@@ -52,7 +52,7 @@ export class AppComponent {
         this.splash = false;
         this.audioService.play('inicio');
         if (!this.authService.isLogged()) {
-          this.router.navigate(['login']);
+          this.router.navigate(['bienvenido']);
         }
       }, 4000);
 >>>>>>> development

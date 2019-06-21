@@ -9,6 +9,8 @@ import { CargaPedidoPage } from './pages/carga-pedido/carga-pedido.page';
 import { EmpleadosPage } from './pages/empleados/empleados.page';
 import { MesasPage } from './pages/mesas/mesas.page';
 import { TatetiPage } from './pages/tateti/tateti.page';
+import { InicioClientePage } from './pages/inicio-cliente/inicio-cliente.page';
+import { BienvenidoPage } from './pages/bienvenido/bienvenido.page';
 
 //Servicios
 import { AuthService } from './services/auth/auth.service';
@@ -51,6 +53,8 @@ export function getAccessToken() {
     ReservasPage,
     MesasPage,
     TatetiPage,
+    InicioClientePage,
+    BienvenidoPage
   ],
   imports: [
     BrowserModule,
