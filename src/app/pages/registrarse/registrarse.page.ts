@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
-import { SpinnerHandlerService } from 'src/app/services/spinner-handler/spinner-handler.service';
-import { EmpleadoService } from 'src/app/services/empleado/empleado.service';
+import { AuthService } from '../../services/auth/auth.service';
+import { ErrorHandlerService } from '../../services/error-handler/error-handler.service';
+import { SpinnerHandlerService } from '../../services/spinner-handler/spinner-handler.service';
+import { EmpleadoService } from '../../services/empleado/empleado.service';
 
 @Component({
     selector: 'app-registrarse',

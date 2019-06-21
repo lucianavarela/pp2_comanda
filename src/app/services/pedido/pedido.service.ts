@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../http/http.service';
-import { Pedido } from 'src/app/models/pedido';
+import { Pedido } from '../../models/pedido';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -36,14 +36,7 @@ export class PedidoService {
       codigo: codigo,
       minutosEstimados: minutosEstimados
     };
-<<<<<<< HEAD
     console.log(request);
-=======
-<<<<<<< HEAD
-    console.log(request);
-=======
->>>>>>> development
->>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
     return this.miHttp.httpPostP('pedido/tomarPedido/', request);
   }
 

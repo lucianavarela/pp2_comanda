@@ -16,11 +16,8 @@ import { CargaPedidoPage } from './pages/carga-pedido/carga-pedido.page';
 import { EmpleadosPage } from './pages/empleados/empleados.page';
 import { MesasPage } from './pages/mesas/mesas.page';
 import { TatetiPage } from './pages/tateti/tateti.page';
-<<<<<<< HEAD
 import { InicioClientePage } from './pages/inicio-cliente/inicio-cliente.page';
 import { BienvenidoPage } from './pages/bienvenido/bienvenido.page';
-=======
->>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
 
 //Servicios
 import { HttpClient, HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -52,11 +49,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { RouterModule, RouteReuseStrategy } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
-<<<<<<< HEAD
-//import { QRScanner } from '@ionic-native/qr-scanner/ngx';
-=======
 import { QRScanner } from '@ionic-native/qr-scanner/ngx';
->>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
 
 
 export function getAccessToken() {
@@ -76,11 +69,8 @@ export function getAccessToken() {
     ReservasPage,
     MesasPage,
     TatetiPage,
-<<<<<<< HEAD
     InicioClientePage,
     BienvenidoPage
-=======
->>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
   ],
   imports: [
     BrowserModule,
@@ -118,11 +108,7 @@ export function getAccessToken() {
     StatusBar,
     SplashScreen,
     Camera,
-<<<<<<< HEAD
-    //QRScanner,
-=======
     QRScanner,
->>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HTTP_INTERCEPTORS,

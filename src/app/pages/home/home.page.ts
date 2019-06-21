@@ -1,11 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
-<<<<<<< HEAD
-//import { QRScanner } from '@ionic-native/qr-scanner/ngx';
-=======
 import { QRScanner } from '@ionic-native/qr-scanner/ngx';
->>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
 import { User } from '../../models/user';
 import { ErrorHandlerService } from '../../services/error-handler/error-handler.service';
 import { AuthService } from '../../services/auth/auth.service';
@@ -68,16 +64,9 @@ export class HomePage {
     private spinnerHandler: SpinnerHandlerService,
     private authService: AuthService,
     private router: Router,
-<<<<<<< HEAD
-    //private qrScanner: QRScanner
-    ) {
-  }
-/*
-=======
     private qrScanner: QRScanner) {
   }
 
->>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
   scanQr() {
     try {
       const ionApp = <HTMLElement>document.getElementsByTagName('ion-app')[0];
@@ -86,34 +75,21 @@ export class HomePage {
           this.qrScanner.hide();
           scanSub.unsubscribe();
           ionApp.style.display = 'block';
-          console.log(text);
+          console.log(text); // --> text es el mensaje del QR.
         }
       });
       this.qrScanner.show();
       ionApp.style.display = 'none';
     } catch (e) {
-      this.alertCtrl.create({
-        header: 'Error',
-        message: e.message,
-        buttons: ['OK'],
-        cssClass: 'present-alert'
-      });
+      console.log(e) // --> usar el alert/toast que vayamos a usar
     }
-<<<<<<< HEAD
-  }*/
-=======
   }
->>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
 
   ionViewWillEnter() {
     if (this.authService.isLogged()) {
       this.usuarioOnline = this.authService.getUserInfo();
     } else {
-<<<<<<< HEAD
-      this.navCtrl.navigateForward('bienvenidos');
-=======
-      this.navCtrl.navigateForward('login');
->>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
+      this.navCtrl.navigateForward('bienvenido');
     }
     this.filtrar();
     this.esconderLogo();
@@ -122,11 +98,7 @@ export class HomePage {
 
   cerrarSesionClick() {
     this.authService.logout();
-<<<<<<< HEAD
-    this.navCtrl.navigateForward('bienvenidos');
-=======
-    this.navCtrl.navigateForward('login');
->>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
+    this.navCtrl.navigateForward('bienvenido');
   }
 
 
@@ -134,11 +106,6 @@ export class HomePage {
 
     //this.navCtrl.navigateForward([icono.accion, { usuario: this.usuarioOnline}]);
     this.router.navigate([icono.accion, { usuario: this.usuarioOnline }]);
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
   }
 
   filtrar() {

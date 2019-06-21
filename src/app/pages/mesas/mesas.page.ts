@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
-import { MesaService } from 'src/app/services/mesa/mesa.service';
+import { ErrorHandlerService } from '../../services/error-handler/error-handler.service';
+import { MesaService } from '../../services/mesa/mesa.service';
 import { NavController } from '@ionic/angular';
-import { Mesa } from 'src/app/models/mesa';
+import { Mesa } from '../../models/mesa';
 
 @Component({
   selector: 'app-mesas',

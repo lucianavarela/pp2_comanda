@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Login } from 'src/app/models/login';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
+import { Login } from '../../models/login';
+import { AuthService } from '../../services/auth/auth.service';
+import { ErrorHandlerService } from '../../services/error-handler/error-handler.service';
 import { Platform, NavController, AlertController } from '@ionic/angular';
-import { SmartAudioService } from 'src/app/services/smart-audio/smart-audio.service';
+import { SmartAudioService } from '../../services/smart-audio/smart-audio.service';
 
 @Component({
   selector: 'app-iniciarsesion',
@@ -25,16 +25,9 @@ export class IniciarsesionPage implements OnInit {
     private authService: AuthService,
     private errorHandler: ErrorHandlerService,
     public alertCtrl: AlertController) {
+
     this.selectUserOptions.title = "Usuarios disponibles";
-<<<<<<< HEAD
     this.audioService.preload('login', 'assets/sonidos/short2.mp3');
-=======
-<<<<<<< HEAD
-    this.audioService.preload('inicio', 'assets/sonidos/inicio.mp3');
-=======
-    this.audioService.preload('login', 'assets/sonidos/short2.mp3');
->>>>>>> development
->>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
     this.dataLogin = new Login('', '');
 
   }
@@ -47,14 +40,7 @@ export class IniciarsesionPage implements OnInit {
       this.authService.Loguear(this.dataLogin)
         .then(response => {
           if (response['Estado'] === 'OK') {
-<<<<<<< HEAD
-            this.audioService.play('bienvenido');
-=======
-<<<<<<< HEAD
-=======
             this.audioService.play('login');
->>>>>>> development
->>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
             localStorage.setItem('token', response['Token']);
             this.navCtrl.navigateForward('home');
           } else {
@@ -70,11 +56,7 @@ export class IniciarsesionPage implements OnInit {
 
 
   registerUser() {
-<<<<<<< HEAD
-    this.navCtrl.navigateForward('bienvenido');
-=======
     this.navCtrl.navigateForward('register');
->>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
   }
 
   private validForm() {
@@ -88,22 +70,6 @@ export class IniciarsesionPage implements OnInit {
 
 
   }
-
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
-  play() {
-    this.audioService.play('inicio');
-  }
-
-
-<<<<<<< HEAD
-=======
-=======
->>>>>>> development
->>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
-  ////nuevo
 
   private validarF() {
     if (this.dataLogin.user != '' && this.dataLogin.pass != '') {
@@ -130,10 +96,6 @@ export class IniciarsesionPage implements OnInit {
     switch (tipo) {
       case 'S':
         this.dataLogin = new Login('admin', 'admin');
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
         this.singIn();
         break;
       case 'B':
@@ -151,27 +113,6 @@ export class IniciarsesionPage implements OnInit {
       case 'M':
         this.dataLogin = new Login('mozo', 'mozo');
         this.singIn();
-<<<<<<< HEAD
-=======
-=======
-        break;
-      case 'B':
-        this.dataLogin = new Login('Matias', '1234');
-
-        break;
-      case 'CE':
-        this.dataLogin = new Login('cervecero', 'cervecero');
-
-        break;
-      case 'CO':
-        this.dataLogin = new Login('cocinero', 'cocinero');
-
-        break;
-      case 'M':
-        this.dataLogin = new Login('miguelito', 'mozo');
-
->>>>>>> development
->>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
         break;
     }
   }

@@ -2,27 +2,12 @@
   <ion-toolbar color="primary">
 
     <ion-buttons slot="start">
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
       <ion-button routerLink="/empleados">
         <ion-icon name="person"></ion-icon>
       </ion-button>
     </ion-buttons>
 
-    <ion-title>{{this.usuarioOnline.usuario | uppercase }}</ion-title>
-<<<<<<< HEAD
-=======
-=======
-      <ion-button>
-        <ion-icon name="hand"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-
-    <ion-title>{{this.usuarioOnline | uppercase }}</ion-title>
->>>>>>> development
->>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
+    <ion-title *ngIf="usuarioOnline">{{this.usuarioOnline.usuario | uppercase }}</ion-title>
 
     <ion-buttons slot="end">
       <ion-button (click)="cerrarSesionClick()">
@@ -33,33 +18,25 @@
 </ion-header>
 
 <ion-content padding>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
 
-    <ion-grid >
-        <ion-row  [hidden]= "logo">
- 
-            <ion-col col-12 col-md-2 col-sm-2   [style.align-items]= "center"  >
-                <img  class="logo"  src="assets/imgs/logo.png" /> 
-              </ion-col>
-    
-            </ion-row >
-      
-       
-              <ion-row >
-          <ion-col class="botones" col-6 col-md-6 col-sm-2  [style.align-items]= "center"  *ngFor="let icono of listadoIconos"  >      
-           <img class="iconos"  [src]="icono.imagen" (click)="iconosClick(icono)" >
-          </ion-col>
-        </ion-row>
-       
-        
-      </ion-grid>
+    <ion-grid>
+      <ion-row [hidden]="logo">
 
-<<<<<<< HEAD
-=======
-=======
->>>>>>> development
->>>>>>> 4a70db876622fa9da8ac067c08ee71be3f426845
+        <ion-col col-12 col-md-2 col-sm-2 [style.align-items]="center">
+          <img class="logo" src="assets/imgs/logo.png" />
+        </ion-col>
+
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col class="botones" col-6 col-md-6 col-sm-2 [style.align-items]="center"
+          *ngFor="let icono of listadoIconos">
+          <img class="iconos" [src]="icono.imagen" (click)="iconosClick(icono)">
+        </ion-col>
+      </ion-row>
+
+
+    </ion-grid>
+
 </ion-content>
