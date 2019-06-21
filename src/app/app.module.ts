@@ -15,9 +15,12 @@ import { AbmEmpleadoPage } from './pages/abm-empleado/abm-empleado.page';
 import { CargaPedidoPage } from './pages/carga-pedido/carga-pedido.page';
 import { EmpleadosPage } from './pages/empleados/empleados.page';
 import { MesasPage } from './pages/mesas/mesas.page';
-import { TatetiPage } from './pages/tateti/tateti.page';
+import { TatetiPage } from './pages/clientes/tateti/tateti.page';
 import { InicioClientePage } from './pages/inicio-cliente/inicio-cliente.page';
 import { BienvenidoPage } from './pages/bienvenido/bienvenido.page';
+import { JuegosHomePage } from './pages/clientes/juegos-home/juegos-home.page';
+import { AhorcadoPage } from './pages/clientes/ahorcado/ahorcado.page';
+import { ActivarClientesPage } from './pages/clientes/activar-clientes/activar-clientes.page';
 
 //Servicios
 import { HttpClient, HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -50,6 +53,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, RouteReuseStrategy } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { QRScanner } from '@ionic-native/qr-scanner/ngx';
+import { PedidosMenuPage } from './pages/pedidos/pedidos-menu/pedidos-menu.page';
+import { TomaPedidoPage } from './pages/pedidos/toma-pedido/toma-pedido.page';
+import { PedidosComponentsModule } from './pages/pedidos/components/pedidos-components.module';
+import { ToastService } from './services/toast/toast.service';
+import { Vibration } from '@ionic-native/vibration/ngx';
 
 
 export function getAccessToken() {
@@ -70,11 +78,17 @@ export function getAccessToken() {
     MesasPage,
     TatetiPage,
     InicioClientePage,
-    BienvenidoPage
+    BienvenidoPage,
+    JuegosHomePage,
+    AhorcadoPage,
+    ActivarClientesPage,
+    PedidosMenuPage,
+    TomaPedidoPage
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    PedidosComponentsModule,
     ReactiveFormsModule,
     AppRoutingModule,
     IonicModule.forRoot(),
@@ -107,6 +121,8 @@ export function getAccessToken() {
     HttpService,
     StatusBar,
     SplashScreen,
+    ToastService,
+    Vibration,
     Camera,
     QRScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

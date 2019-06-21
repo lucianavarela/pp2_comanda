@@ -9,9 +9,14 @@ import { EmpleadosPage } from './pages/empleados/empleados.page';
 import { AltaClientePage } from './pages/clientes/alta-cliente/alta-cliente.page';
 import { ReservasPage } from './pages/reservas/reservas.page';
 import { MesasPage } from './pages/mesas/mesas.page';
-import { TatetiPage } from './pages/tateti/tateti.page';
+import { TatetiPage } from './pages/clientes/tateti/tateti.page';
 import { InicioClientePage } from './pages/inicio-cliente/inicio-cliente.page';
 import { BienvenidoPage } from './pages/bienvenido/bienvenido.page';
+import { JuegosHomePage } from './pages/clientes/juegos-home/juegos-home.page';
+import { AhorcadoPage } from './pages/clientes/ahorcado/ahorcado.page';
+import { ActivarClientesPage } from './pages/clientes/activar-clientes/activar-clientes.page';
+import { PedidosMenuPage } from './pages/pedidos/pedidos-menu/pedidos-menu.page';
+import { TomaPedidoPage } from './pages/pedidos/toma-pedido/toma-pedido.page';
 
 
 
@@ -34,6 +39,11 @@ const routes: Routes = [
   { path: 'alta-cliente', component: AltaClientePage },
   { path: 'inicioCliente', component: InicioClientePage },
   { path: 'bienvenido', component: BienvenidoPage },
+  { path: 'JuegosHome', component: JuegosHomePage },
+  { path: 'ahorcado', component: AhorcadoPage },
+  { path: 'activar-clientes', component: ActivarClientesPage },
+  { path: 'toma-pedido', component: TomaPedidoPage },
+  { path: 'pedidos-menu', component: PedidosMenuPage }
 ];
 
 @NgModule({

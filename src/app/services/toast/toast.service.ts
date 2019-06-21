@@ -19,7 +19,7 @@ export class ToastService {
     })
     .then( res => {
       this.vibration.vibrate(1000);
-      this.smartAudioService.play('error');
+      //this.smartAudioService.play('error');
       res.present();
     });
   }
@@ -34,7 +34,7 @@ export class ToastService {
     })
     .then( res => {
       this.vibration.vibrate(1000);
-      this.smartAudioService.play('confirmation');
+      //this.smartAudioService.play('confirmation');
       res.present();
     });
   }

@@ -12,7 +12,7 @@ export class AuthService {
 
   // store the URL so we can redirect after logging in
   redirectUrl: string;
-
+  usuario: User;
   constructor(public miHttp: HttpService, private jwt: JwtHelperService) {
   }
 
@@ -40,8 +40,10 @@ export class AuthService {
   }
 
   token(){
-    const token = localStorage.getItem('token');
+   // const token = localStorage.getItem('token');
+    const token = localStorage.getItem('dato');
     const tokenInfo = this.jwt.decodeToken(token);
-    return new User(tokenInfo['usuario'], tokenInfo['tipo'], tokenInfo['id'], tokenInfo['nombre']);
+    //return new User(tokenInfo['usuario'], tokenInfo['tipo'], tokenInfo['id'], tokenInfo['nombre']);
+    return tokenInfo;
   }
 }

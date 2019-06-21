@@ -1,0 +1,26 @@
+<ion-header color="primary">
+  <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+          <ion-button (click)="volver()">
+            <ion-icon name="arrow-round-back"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+    <ion-title>juegos</ion-title>
+
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+    <ion-grid  >           
+        <ion-row >
+    <ion-col class="botones" col-12 col-md-4 col-sm-4   [style.align-items]= "center"  *ngFor="let icono of listadoIconos"  >      
+     <img   [src]="icono.imagen" (click)="iconosClick(icono)" >
+    </ion-col>
+  </ion-row>
+ 
+  
+</ion-grid>
+
+</ion-content>

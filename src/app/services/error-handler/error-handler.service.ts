@@ -57,7 +57,7 @@ public mostrarErrorLiteral(error, title?) {
         message: error,
         cssClass: 'error-alert'
     });
-    //alert.present();
+    
 }
 
 

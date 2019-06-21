@@ -1,5 +1,10 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header color="primary">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button (click)="volver()">
+              <ion-icon name="arrow-round-back"></ion-icon>
+            </ion-button>
+          </ion-buttons>
     <ion-title>reservas</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -11,15 +16,9 @@
           <ion-list>
               <ion-item>
                   <ion-label>Clientes</ion-label>
-                <!--  <ion-select [(ngModel)]="reserva.id" value="Cliente" okText="Aceptar" cancelText="Cancelar">
-                    <ion-select-option *ngFor="let cliente of clientes" value="{{this.cliente.id}}">{{cliente.nombre}}</ion-select-option>
-                  </ion-select>-->
-
-                  <ion-select [(ngModel)]="reserva.id">
+                    <ion-select [(ngModel)]="reserva.id">
                     <ion-select-option *ngFor="let cliente of clientes" value="{{this.cliente.id}}"    >{{cliente.nombre}}</ion-select-option>
                   </ion-select>
-
-
                 </ion-item>   
             </ion-list>            
           </ion-col>
@@ -27,18 +26,18 @@
       </ion-row>
 
     <ion-row [style.align-items]="center">
-        <ion-col class="botones-redondos" col-6 col-md-3 col-xl-3>
+        <ion-col class="botones-redondos" col-6 col-md-3 col-xl-3  [hidden]="flagMesa">
           <ion-button color="tertiary" id="boton" *ngFor="let mesa of listadoMesas"   (click)="mesasClick(this.mesa)" outline>{{this.mesa.codigo}}</ion-button>
         </ion-col>
        
       </ion-row>
 
-      <ion-row>
+    <ion-row>
           <ion-col col-12 col-md-6 col-xl-6 >
          
               <ion-item  [hidden]="calendario">
                 <ion-label>Fecha</ion-label>
-                <ion-datetime displayFormat min="2019-06-01" max="2019-08-31"  [(ngModel)]="myDate"  (ionChange)= "seleccionarFecha()"  ></ion-datetime>
+                <ion-datetime displayFormat="MMMM YYYY" min="2019-06-01" max="2019-08-31"  [(ngModel)]="myDate"  (ionChange)= "seleccionarFecha()"  ></ion-datetime>
               </ion-item>
           </ion-col>
       </ion-row>
