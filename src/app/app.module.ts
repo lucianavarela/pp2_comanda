@@ -34,6 +34,24 @@ import { JwtInterceptor } from './services/interceptors/JWTInterceptor';
 import { ErrorInterceptor } from './services/interceptors/ErrorInterceptor';
 import { SpinnerInterceptor } from './services/interceptors/SpinnerInterceptor';
 import { AppComponent } from './app.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
+import { ErrorHandler } from '@angular/core';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { IonicErrorHandler } from 'ionic-angular';
+import { NativeAudio } from '@ionic-native/native-audio';
+import { Camera } from '@ionic-native/camera/ngx';
+import { HTTP } from '@ionic-native/http/ngx';
+import { QRScanner } from '@ionic-native/qr-scanner/ngx';
+import { RouteReuseStrategy } from '@angular/router';
+import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
 
 
 export function getAccessToken() {
@@ -63,7 +81,7 @@ export function getAccessToken() {
     AppRoutingModule,
     IonicModule.forRoot(),
     AngularFireModule.initializeApp(configs.firebaseConfig),
-    AngularFireDatabaseModule,    
+    AngularFireDatabaseModule,
     AngularFireAuthModule,
     HttpClientModule,
     [JwtModule.forRoot({
@@ -93,14 +111,9 @@ export function getAccessToken() {
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthenticationServiceProvider,
-    ErrorsHandlerProvider,
-    SpinnerHandlerProvider,
     NativeAudio,
     Camera,
-    HttpBaseProvider,
     HTTP
-    Camera,
     QRScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
