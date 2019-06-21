@@ -1,39 +1,29 @@
-
- .scroll-content{
-   // background-color: $first-detail-color;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-bottom: 0px !important;
-    font-family: 'Ubuntu', sans-serif;
-    padding: auto;
+.scroll-content {
+  // background-color: $first-detail-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 0px !important;
+  font-family: "Ubuntu", sans-serif;
+  padding: auto;
 }
 
-
-ion-icon{
+ion-icon {
   color: white;
 }
 
+ion-col {
+  text-align: center;
+}
 
-    ion-col{
-
-     text-align: center;
-      
-    }
-
-
-.botones{
+.botones {
   align-content: center;
   text-align: center;
 }
 
-.img {      
-    
-width:  100%;
-height: 100%;
-//  background-size: cover;
-background-repeat: no-repeat;
-
-
-
+ion-img {
+  width: 80%;
+  margin-bottom: 15px;
+  //  background-size: cover;
+  background-repeat: no-repeat;
 }

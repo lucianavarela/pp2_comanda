@@ -36,29 +36,25 @@ export class InicioClientePage implements OnInit {
   }
 
   singIn() {
-    if(this.validForm()){
-     
-      this.authService.loguear( this.dataLogin)
-      .subscribe(response => {  
-        console.log(response);
-        if (response['Estado'] === 'OK') {
-          this.audioService.play('login');
-          localStorage.setItem('token', response['Token']);
-          localStorage.setItem('dato', response['Token']);
-          this.navCtrl.navigateForward('home'); 
-        } else {
-          this.errorHandler.mostrarMensajeConfimación(response['Mensaje'],'Error' );
-        }        
-         
-       // this.navCtrl.setRoot(HomePage , { usuario: rerponse }) ;       
+    if (this.validForm()) {
+      this.authService.loguear(this.dataLogin)
+        .subscribe(response => {
+          console.log(response);
+          if (response['Estado'] === 'OK') {
+            this.audioService.play('login');
+            localStorage.setItem('token', response['Token']);
+            localStorage.setItem('dato', response['Token']);
+            this.navCtrl.navigateForward('home');
+          } else {
+            this.errorHandler.mostrarMensajeConfimación(response['Mensaje'], 'Error');
+          }
+          // this.navCtrl.setRoot(HomePage , { usuario: rerponse }) ;       
         }),
-        (error) =>{
-          this.errorHandler.mostrarMensajeConfimación("Se produjo un error al ingresar",'Error' );
-    
-        }}        
-    }  
-
-
+        (error) => {
+          this.errorHandler.mostrarMensajeConfimación("Se produjo un error al ingresar", 'Error');
+        }
+    }
+  }
 
   private registerUser() {
     this.navCtrl.navigateForward('alta-cliente');
@@ -69,19 +65,9 @@ export class InicioClientePage implements OnInit {
       return true;
     } else {
       this.errorHandler.mostrarMensajeConfimación("Debe llenar todos los campos", 'Error');
-
       return false;
     }
-
-
   }
-
-  play() {
-    this.audioService.play('inicio');
-  }
-
-
-  ////nuevo
 
   private validarF() {
     if (this.dataLogin.user != '' && this.dataLogin.pass != '') {
@@ -97,14 +83,9 @@ export class InicioClientePage implements OnInit {
       //alert.present();
       return false;
     }
-
-
   }
 
-
-
   CargarDefault(tipo: string) {
-
     switch (tipo) {
       case 'S':
         this.dataLogin = new Login('carlos', '1234');
@@ -122,7 +103,6 @@ export class InicioClientePage implements OnInit {
         this.dataLogin = new Login('pedro', '1234');
         this.singIn();
         break;
-      
     }
   }
 
@@ -131,5 +111,5 @@ export class InicioClientePage implements OnInit {
 
   atras() {
     this.navCtrl.navigateForward('bienvenido');
-    }
+  }
 }

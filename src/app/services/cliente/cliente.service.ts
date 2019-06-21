@@ -12,43 +12,30 @@ export class ClienteService {
   constructor(public miHttp: HttpService) { }
 
   public loguear(dataLogin: Login) {
-
     return this.miHttp.httpPostL("clientes/login", dataLogin);
-
   }
 
   public alta(dataCliente: Cliente) {
-
     return this.miHttp.httpPostL("clientes/registrarCliente", dataCliente);
-
   }
 
   public listarRegistrados() {
     return this.miHttp.httpGetL("clientes/listarClientesRegistrados");
   }
 
-
-
-  public listarActivaciones(){
+  public listarActivaciones() {
     return this.miHttp.httpGetL("clientes/listarActivaciones");
   }
 
-  public ActivarCliente(dataCliente: Cliente){
+  public ActivarCliente(dataCliente: Cliente) {
+    return this.miHttp.httpPostL("clientes/activarCliente", dataCliente);
+  }
 
-    return this.miHttp.httpPostL("clientes/activarCliente",dataCliente);
-  
-    }
+  public Activar(dataLogin: Cliente) {
+    return this.miHttp.httpPostL("clientes/activarCliente", dataLogin);
+  }
 
-    public Activar(dataLogin: Cliente){
-    
-      return this.miHttp.httpPostL("clientes/activarCliente",dataLogin);
-  
-    }
-
-    
-    public Listar(): Observable<Cliente[]> {
-      return this.miHttp.httpGetOL<Cliente[]>('clientes/listarActivaciones');
-    }
-  
-
+  public Listar(): Observable<Cliente[]> {
+    return this.miHttp.httpGetOL<Cliente[]>('clientes/listarActivaciones');
+  }
 }

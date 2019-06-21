@@ -49,8 +49,7 @@ export class HttpService {
   ///pasar de base de datos
 
   public httpPostL(url: string, data: object) {
-
-    return this.http.post(this.urlLea + url, data);
+    return this.http.post(this.urlLea + url, data).toPromise();
   }
 
   public httpGetL(url: string) {

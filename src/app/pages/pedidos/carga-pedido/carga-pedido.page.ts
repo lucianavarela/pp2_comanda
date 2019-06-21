@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
-import { PedidoService } from '../../services/pedido/pedido.service';
-import { MenuService } from '../../services/menu/menu.service';
-import { AuthService } from '../../services/auth/auth.service';
-import { User } from '../../models/user';
-import { Mesa } from '../../models/mesa';
-import { MesaService } from '../../services/mesa/mesa.service';
-import { Menu } from '../../models/menu';
+import { PedidoService } from '../../../services/pedido/pedido.service';
+import { MenuService } from '../../../services/menu/menu.service';
+import { AuthService } from '../../../services/auth/auth.service';
+import { User } from '../../../models/user';
+import { Mesa } from '../../../models/mesa';
+import { MesaService } from '../../../services/mesa/mesa.service';
+import { Menu } from '../../../models/menu';
 
 @Component({
   selector: 'app-carga-pedido',
@@ -81,8 +81,10 @@ export class CargaPedidoPage {
   generarPedido() {
     if (this.mesa != "" && this.cliente != "") {
       this.menus_cargados.forEach((menu) => {
-        this.pedidoService.Registrar(this.mesa, menu.id, this.cliente).then(
-          (res) => this.traerPedidos()
+        this.pedidoService.Registrar(this.mesa, menu.id, this.cliente, 0).then(
+          () => {
+            this.navCtrl.navigateForward('home');
+          }
         );
       });
     }

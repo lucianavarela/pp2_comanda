@@ -10,22 +10,22 @@ import { NavController } from '@ionic/angular';
 export class JuegosHomePage implements OnInit {
 
   usuario: User;
-  listadoIconos: Array <any> = [
+  listadoIconos: Array<any> = [
     {
       nombre: "Descuento",
-      imagen: "assets/imgs/home/iconoDescuento.png",      
+      imagen: "assets/imgs/home/iconoDescuento.png",
       accion: "tateti"
-  },
-  {
-    nombre: "bebida",
-    imagen: "assets/imgs/home/iconoBebida.png",
-    accion: "ReservasPage"
+    },
+    {
+      nombre: "bebida",
+      imagen: "assets/imgs/home/iconoBebida.png",
+      accion: "ReservasPage"
     },
     {
       nombre: "ahorcado",
       imagen: "assets/imgs/home/iconoAhorcado.png",
       accion: "ahorcado"
-  }
+    }
   ]
 
 
@@ -34,12 +34,12 @@ export class JuegosHomePage implements OnInit {
   ngOnInit() {
   }
 
-  iconosClick(icono){
+  iconosClick(icono) {
     this.navCtrl.navigateForward(icono.accion);
-  
+
   }
 
- volver(){
+  volver() {
     this.navCtrl.navigateForward('home');
   }
 

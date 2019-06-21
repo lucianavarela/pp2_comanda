@@ -4,7 +4,7 @@ import { IniciarsesionPage } from './pages/iniciarsesion/iniciarsesion.page';
 import { HomePage } from './pages/home/home.page';
 import { RegistrarsePage } from './pages/registrarse/registrarse.page';
 import { AbmEmpleadoPage } from './pages/abm-empleado/abm-empleado.page';
-import { CargaPedidoPage } from './pages/carga-pedido/carga-pedido.page';
+import { CargaPedidoPage } from './pages/pedidos/carga-pedido/carga-pedido.page';
 import { EmpleadosPage } from './pages/empleados/empleados.page';
 import { AltaClientePage } from './pages/clientes/alta-cliente/alta-cliente.page';
 import { ReservasPage } from './pages/reservas/reservas.page';

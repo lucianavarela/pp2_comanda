@@ -12,7 +12,7 @@ import { AppComponent } from './app.component';
 import { AltaClientePage } from './pages/clientes/alta-cliente/alta-cliente.page';
 import { ReservasPage }  from './pages/reservas/reservas.page';
 import { AbmEmpleadoPage } from './pages/abm-empleado/abm-empleado.page';
-import { CargaPedidoPage } from './pages/carga-pedido/carga-pedido.page';
+import { CargaPedidoPage } from './pages/pedidos/carga-pedido/carga-pedido.page';
 import { EmpleadosPage } from './pages/empleados/empleados.page';
 import { MesasPage } from './pages/mesas/mesas.page';
 import { TatetiPage } from './pages/clientes/tateti/tateti.page';
