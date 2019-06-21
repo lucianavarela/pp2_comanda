@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Login } from 'src/app/models/login';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
+import { Login } from '../../models/login';
+import { AuthService } from '../../services/auth/auth.service';
+import { ErrorHandlerService } from '../../services/error-handler/error-handler.service';
 import { Platform, NavController, AlertController } from '@ionic/angular';
-import { SmartAudioService } from 'src/app/services/smart-audio/smart-audio.service';
+import { SmartAudioService } from '../../services/smart-audio/smart-audio.service';
 
 @Component({
   selector: 'app-iniciarsesion',
@@ -25,6 +25,7 @@ export class IniciarsesionPage implements OnInit {
     private authService: AuthService,
     private errorHandler: ErrorHandlerService,
     public alertCtrl: AlertController) {
+
     this.selectUserOptions.title = "Usuarios disponibles";
     this.audioService.preload('login', 'assets/sonidos/short2.mp3');
     this.dataLogin = new Login('', '');
@@ -39,7 +40,7 @@ export class IniciarsesionPage implements OnInit {
       this.authService.Loguear(this.dataLogin)
         .then(response => {
           if (response['Estado'] === 'OK') {
-            this.audioService.play('bienvenido');
+            this.audioService.play('login');
             localStorage.setItem('token', response['Token']);
             this.navCtrl.navigateForward('home');
           } else {
@@ -55,7 +56,7 @@ export class IniciarsesionPage implements OnInit {
 
 
   registerUser() {
-    this.navCtrl.navigateForward('bienvenido');
+    this.navCtrl.navigateForward('register');
   }
 
   private validForm() {
@@ -69,13 +70,6 @@ export class IniciarsesionPage implements OnInit {
 
 
   }
-
-  play() {
-    this.audioService.play('inicio');
-  }
-
-
-  ////nuevo
 
   private validarF() {
     if (this.dataLogin.user != '' && this.dataLogin.pass != '') {

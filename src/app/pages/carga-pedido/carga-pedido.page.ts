@@ -1,19 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
-import { PedidoService } from 'src/app/services/pedido/pedido.service';
-import { MenuService } from 'src/app/services/menu/menu.service';
-import { Pedido } from 'src/app/models/pedido';
-import { Menu } from 'src/app/models/menu';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { User } from 'src/app/models/user';
-import { Mesa } from 'src/app/models/mesa';
-import { MesaService } from 'src/app/services/mesa/mesa.service';
+import { PedidoService } from '../../services/pedido/pedido.service';
+import { MenuService } from '../../services/menu/menu.service';
+import { AuthService } from '../../services/auth/auth.service';
+import { User } from '../../models/user';
+import { Mesa } from '../../models/mesa';
+import { MesaService } from '../../services/mesa/mesa.service';
+import { Menu } from '../../models/menu';
 
 @Component({
   selector: 'app-carga-pedido',
   templateUrl: './carga-pedido.page.html',
   styleUrls: ['./carga-pedido.page.scss'],
 })
+
 export class CargaPedidoPage {
   mesas: Mesa[] = [];
   menus: Menu[] = [];

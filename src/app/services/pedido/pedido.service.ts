@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../http/http.service';
-import { Pedido } from 'src/app/models/pedido';
+import { Pedido } from '../../models/pedido';
 import { Observable } from 'rxjs';
 
 @Injectable({

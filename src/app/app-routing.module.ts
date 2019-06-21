@@ -7,7 +7,7 @@ import { AbmEmpleadoPage } from './pages/abm-empleado/abm-empleado.page';
 import { CargaPedidoPage } from './pages/carga-pedido/carga-pedido.page';
 import { EmpleadosPage } from './pages/empleados/empleados.page';
 import { AltaClientePage } from './pages/clientes/alta-cliente/alta-cliente.page';
-import { ReservasPage }  from './pages/reservas/reservas.page';
+import { ReservasPage } from './pages/reservas/reservas.page';
 import { MesasPage } from './pages/mesas/mesas.page';
 import { TatetiPage } from './pages/clientes/tateti/tateti.page';
 import { InicioClientePage } from './pages/inicio-cliente/inicio-cliente.page';
@@ -25,6 +25,10 @@ const routes: Routes = [
   { path: 'register', component: RegistrarsePage },
   { path: 'empleado', component: AbmEmpleadoPage },
   { path: 'empleado/:id', component: AbmEmpleadoPage },
+  { path: 'carga-pedido', component: CargaPedidoPage },
+  { path: 'empleados', component: EmpleadosPage },
+  { path: 'alta-cliente', component: AltaClientePage },
+  { path: 'reservas', component: ReservasPage },
   { path: 'nuevo_pedido', component: CargaPedidoPage },
   { path: 'empleados', component: EmpleadosPage },
   { path: 'mesas', component: MesasPage },

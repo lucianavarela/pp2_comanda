@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/models/user';
-import { Cliente } from 'src/app/models/Cliente';
-import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
-import { ClienteService } from 'src/app/services/cliente/cliente.service';
+import { User } from '../../../models/user';
+import { Cliente } from '../../../models/cliente';
+import { ClienteService } from '../../../services/cliente/cliente.service';
 import { NavController } from '@ionic/angular';
+<<<<<<< HEAD
 import { ToastService } from 'src/app/services/toast/toast.service';
+=======
+import { ErrorHandlerService } from '../../../services/error-handler/error-handler.service';
+>>>>>>> e1a344b273c643baff69ee9834e77a446f387da9
 
 @Component({
   selector: 'app-alta-cliente',

@@ -36,7 +36,7 @@
       <ion-button color="primary" id="boton" (click)="singIn()" round>Iniciar Sesión</ion-button>
     </ion-col>
     <ion-col class="botones-redondos" col-6 col-md-3 col-xl-3>
-      <ion-button color="secondary" id="boton" (click)="registerUser()" round>Volver</ion-button>
+      <ion-button color="secondary" id="boton" (click)="registerUser()" round>Registrarse</ion-button>
     </ion-col>
   </ion-row>
 
@@ -58,11 +58,10 @@
         (click)="CargarDefault('CO')">
         <img src="assets/imgs/cubiertos.png">
       </button>
-      <button type="button" style="background-color: #81fa81;" class="btn-circle btn-lg" title="Cocinero"
-      (click)="CargarDefault('M')">
-      <img src="assets/imgs/mozo.png">
-    </button>
-     
+      <button type="button" style="background-color: #bbf7b4;" class="btn-circle btn-lg" title="Mozo"
+        (click)="CargarDefault('M')">
+        <img src="assets/imgs/mozo.png">
+      </button>
 
     </ion-col>
 

@@ -10,7 +10,6 @@ import { HomePage } from './home.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    
     RouterModule.forRoot([
       {
         path: '',

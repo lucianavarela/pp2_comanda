@@ -52,7 +52,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { RouterModule, RouteReuseStrategy } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
-//import { QRScanner } from '@ionic-native/qr-scanner/ngx';
+import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 
 
 export function getAccessToken() {
@@ -114,7 +114,7 @@ export function getAccessToken() {
     StatusBar,
     SplashScreen,
     Camera,
-    //QRScanner,
+    QRScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HTTP_INTERCEPTORS,
