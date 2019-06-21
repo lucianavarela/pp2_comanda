@@ -55,17 +55,10 @@ export class HttpService {
 
   public httpGetL(url: string) {
     return this.http.get(this.urlLea + url);
+  }
 
-<<<<<<< HEAD
-    public httpGetL ( url: string) {
-      return this.http.get(this.urlLea+url);  
-      
-    }
-
-    // tslint:disable-next-line:no-shadowed-variable
-  public httpGetOL<T>( url: string) {
-    return this.http.get<T>( this.urlLea + url );
-=======
->>>>>>> e1a344b273c643baff69ee9834e77a446f387da9
+  // tslint:disable-next-line:no-shadowed-variable
+  public httpGetOL<T>(url: string) {
+    return this.http.get<T>(this.urlLea + url);
   }
 }

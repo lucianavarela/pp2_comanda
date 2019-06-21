@@ -53,6 +53,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, RouteReuseStrategy } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { QRScanner } from '@ionic-native/qr-scanner/ngx';
+import { PedidosMenuPage } from './pages/pedidos/pedidos-menu/pedidos-menu.page';
+import { TomaPedidoPage } from './pages/pedidos/toma-pedido/toma-pedido.page';
+import { PedidosComponentsModule } from './pages/pedidos/components/pedidos-components.module';
+import { ToastService } from './services/toast/toast.service';
+import { Vibration } from '@ionic-native/vibration/ngx';
 
 
 export function getAccessToken() {
@@ -76,11 +81,14 @@ export function getAccessToken() {
     BienvenidoPage,
     JuegosHomePage,
     AhorcadoPage,
-    ActivarClientesPage
+    ActivarClientesPage,
+    PedidosMenuPage,
+    TomaPedidoPage
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    PedidosComponentsModule,
     ReactiveFormsModule,
     AppRoutingModule,
     IonicModule.forRoot(),
@@ -113,6 +121,8 @@ export function getAccessToken() {
     HttpService,
     StatusBar,
     SplashScreen,
+    ToastService,
+    Vibration,
     Camera,
     QRScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

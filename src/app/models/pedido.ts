@@ -1,5 +1,14 @@
 import { Time } from '@angular/common';
 
+export enum EstadosPedido {
+    Pediente = "Pediente",
+    EnPreparacion = "En Preparacion",
+    ListoParaServir = "Listo para Servir",
+    Entregado = "Entregado",
+    Cancelado = "Cancelado",
+    Finalizado = "Finalizado"
+}
+
 export class Pedido {
     public codigo: string;
     public estado: string;

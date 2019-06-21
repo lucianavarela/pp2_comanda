@@ -1,0 +1,27 @@
+<ion-title>Cargar tiempo de espera</ion-title>
+
+<app-datos-pedido [pedido]="this.pedido"></app-datos-pedido>
+
+<form [formGroup]="tomaPedidoForm" (ngSubmit)="onPedidoSubmit()">
+  <ion-item>
+    <ion-label position="floating">Tiempo mínimo (en minutos)<ion-text color="danger">*</ion-text>
+    </ion-label>
+    <ion-input required formControlName="tiempo" type="number"></ion-input>
+  </ion-item>
+
+  <ng-container *ngFor="let validation of validationMessages.tiempo">
+    <div
+      *ngIf="tomaPedidoForm.get('tiempo').hasError(validation.type) && (tomaPedidoForm.get('tiempo').dirty || tomaPedidoForm.get('tiempo').touched)">
+      <ion-text color="danger">
+        <p>{{ validation.message }}</p>
+      </ion-text>
+    </div>
+  </ng-container>
+
+  <ion-button class="ion-margin-top" block color="primary" type="submit" [disabled]="tomaPedidoForm.invalid">
+    Tomar Pedido
+  </ion-button>
+  <ion-button class="ion-margin-top" block color="secondary" type="submit" (click)="onCancelarClick()">
+    Cancelar
+  </ion-button>
+</form>

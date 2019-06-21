@@ -43,7 +43,7 @@ export class HomePage {
     {
       nombre: "pedidos",
       imagen: "assets/imgs/home/pedidos.png",
-      accion: "carga-pedido"
+      accion: "pedidos-menu"
     },
     {
       nombre: "menu",

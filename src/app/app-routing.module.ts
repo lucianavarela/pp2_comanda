@@ -15,6 +15,8 @@ import { BienvenidoPage } from './pages/bienvenido/bienvenido.page';
 import { JuegosHomePage } from './pages/clientes/juegos-home/juegos-home.page';
 import { AhorcadoPage } from './pages/clientes/ahorcado/ahorcado.page';
 import { ActivarClientesPage } from './pages/clientes/activar-clientes/activar-clientes.page';
+import { PedidosMenuPage } from './pages/pedidos/pedidos-menu/pedidos-menu.page';
+import { TomaPedidoPage } from './pages/pedidos/toma-pedido/toma-pedido.page';
 
 
 
@@ -40,6 +42,8 @@ const routes: Routes = [
   { path: 'JuegosHome', component: JuegosHomePage },
   { path: 'ahorcado', component: AhorcadoPage },
   { path: 'activar-clientes', component: ActivarClientesPage },
+  { path: 'toma-pedido', component: TomaPedidoPage },
+  { path: 'pedidos-menu', component: PedidosMenuPage }
 ];
 
 @NgModule({

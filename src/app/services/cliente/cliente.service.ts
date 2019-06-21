@@ -28,7 +28,6 @@ export class ClienteService {
   }
 
 
-<<<<<<< HEAD
 
   public listarActivaciones(){
     return this.miHttp.httpGetL("clientes/listarActivaciones");
@@ -51,7 +50,5 @@ export class ClienteService {
       return this.miHttp.httpGetOL<Cliente[]>('clientes/listarActivaciones');
     }
   
-=======
->>>>>>> e1a344b273c643baff69ee9834e77a446f387da9
 
 }
