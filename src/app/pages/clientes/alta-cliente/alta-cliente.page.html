@@ -1,10 +1,10 @@
 <ion-header color="primary">
-    <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-            <ion-button (click)="volver()">
-              <ion-icon name="arrow-round-back"></ion-icon>
-            </ion-button>
-          </ion-buttons>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()">
+        <ion-icon name="arrow-round-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>altaCliente</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -12,53 +12,54 @@
 <ion-content padding color="light">
 
 
-    <ion-row [style.align-items]="center">
-        <ion-col class="botones-redondos">
-          <ion-button color="primary" id="boton" (click)="registradoClick()" round>Registrado</ion-button>
-        </ion-col>
-        <ion-col class="botones-redondos">
-          <ion-button color="tertiary" id="boton" (click)="anonimoClick()" round>Anonimo</ion-button>
-        </ion-col>
-      </ion-row>
+  <ion-row [style.align-items]="center">
+    <ion-col class="botones-redondos">
+      <ion-button color="primary" id="boton" (click)="registradoClick()" round>Registrado</ion-button>
+    </ion-col>
+    <ion-col class="botones-redondos">
+      <ion-button color="tertiary" id="boton" (click)="anonimoClick()" round>Anonimo</ion-button>
+    </ion-col>
+  </ion-row>
 
-    
-        <ion-row>
-            <ion-col>
-              <ion-item [hidden]= "ocultarA">
-               <ion-input type="text" required name="nombre" [(ngModel)]="cliente.nombre" placeholder="Nombre" ></ion-input>
-              </ion-item>
-            </ion-col>
-          </ion-row> 
 
-          <ion-row>
-            <ion-col [hidden]= "ocultarR">
-              <ion-item>
-               <ion-input type="text" required name="apellido" [(ngModel)]="cliente.apellido" placeholder="Apellido"></ion-input>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-          
-          <ion-row>
-            <ion-col  [hidden]= "ocultarR">               
-                    <ion-item>
-                        <ion-input type="numeric" required name="dni" [(ngModel)]="cliente.dni" placeholder="DNI">
-                        </ion-input>
-                      </ion-item>                                     
-            </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col  class="botones-redondos" [hidden]= "ocultarR">
-                <ion-button color="primary" id="boton" (click)="getPicture()" round>[ Tomar Foto ]</ion-button>
-              </ion-col>              
-        </ion-row>      
-         
-          <ion-row [style.align-items]="center">
-            <ion-col  class="botones-redondos" [hidden]= "ocultarA">
-              <ion-button color="primary" id="boton" (click)="registrarCliente()" round>Registrar</ion-button >
-            </ion-col>
-          <ion-col  class="botones-redondos" [hidden]= "ocultarA">
-              <ion-button  color="secondary" id="boton" (click)="atras()" round>Cancel</ion-button >
-            </ion-col>
-          </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item [hidden]="ocultarA">
+        <ion-input type="text" required name="nombre" [(ngModel)]="cliente.nombre" placeholder="Nombre"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col [hidden]="ocultarR">
+      <ion-item>
+        <ion-input type="text" required name="apellido" [(ngModel)]="cliente.apellido" placeholder="Apellido">
+        </ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col [hidden]="ocultarR">
+      <ion-item>
+        <ion-input type="numeric" required name="dni" [(ngModel)]="cliente.dni" placeholder="DNI">
+        </ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="botones-redondos" [hidden]="ocultarR">
+      <ion-button color="primary" id="boton" (click)="getPicture()" round>[ Tomar Foto ]</ion-button>
+    </ion-col>
+  </ion-row>
+
+  <ion-row [style.align-items]="center">
+    <ion-col class="botones-redondos" [hidden]="ocultarA">
+      <ion-button color="primary" id="boton" (click)="registrarCliente()" round>Registrar</ion-button>
+    </ion-col>
+    <ion-col class="botones-redondos" [hidden]="ocultarA">
+      <ion-button color="secondary" id="boton" (click)="atras()" round>Cancel</ion-button>
+    </ion-col>
+  </ion-row>
 
 </ion-content>
