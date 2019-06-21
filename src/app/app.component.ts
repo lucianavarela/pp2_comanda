@@ -1,12 +1,4 @@
 import { Component } from '@angular/core';
-<<<<<<< HEAD
-import { Platform } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-
-import { IniciarsesionPage } from '../pages/iniciarsesion/iniciarsesion';
-=======
->>>>>>> development
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -19,17 +11,6 @@ import { SmartAudioService } from './services/smart-audio/smart-audio.service';
   selector: 'app-root',
   templateUrl: 'app.component.html'
 })
-<<<<<<< HEAD
-export class MyApp {
-  rootPage:any = IniciarsesionPage;
-
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
-    platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
-      splashScreen.hide();
-=======
 export class AppComponent {
   constructor(
     private platform: Platform,
@@ -55,7 +36,6 @@ export class AppComponent {
           this.router.navigate(['bienvenido']);
         }
       }, 4000);
->>>>>>> development
     });
   }
 }

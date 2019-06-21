@@ -10,6 +10,10 @@ export class PedidoService {
   constructor(public miHttp: HttpService) {
   }
 
+  public ListarTodos(): Observable<Pedido[]> {
+    return this.miHttp.httpGetO<Pedido[]>('pedido/listarTodos/');
+  }
+
   public ListarPorMesa(codigoMesa: string): Observable<Pedido[]> {
     return this.miHttp.httpGetO<Pedido[]>('pedido/listarPorMesa/' + codigoMesa);
   }

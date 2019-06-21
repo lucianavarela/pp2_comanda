@@ -1,0 +1,19 @@
+<ion-title>Lista de pedidos en espera</ion-title>
+<ion-grid fixed>
+  <ion-row *ngIf="pedidosList == null || pedidosList.length == 0">
+    <ion-col size="12">No hay pedidos.</ion-col>
+  </ion-row>
+  <ion-row style="align-content: center; align-items: center" *ngFor="let pedido of pedidosList">
+    <ion-col size="8">[{{pedido.mesa}}] {{pedido.descripcion}}</ion-col>
+    <ion-col size="2">
+      <ion-button size="small" (click)="verDetalle(pedido)">
+          <ion-icon slot="icon-only" name="information-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col size="2">
+      <ion-button *ngIf="mostrarBotonTomar" size="small" tooltip="Prueba" (click)="tomarPedido(pedido)">
+        <ion-icon slot="icon-only" name="checkbox-outline"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>

@@ -12,6 +12,8 @@ import { MesasPage } from './pages/mesas/mesas.page';
 import { TatetiPage } from './pages/tateti/tateti.page';
 import { InicioClientePage } from './pages/inicio-cliente/inicio-cliente.page';
 import { BienvenidoPage } from './pages/bienvenido/bienvenido.page';
+import { PedidosMenuPage } from './pages/pedidos/pedidos-menu/pedidos-menu.page';
+import { TomaPedidoPage } from './pages/pedidos/toma-pedido/toma-pedido.page';
 
 
 
@@ -34,6 +36,8 @@ const routes: Routes = [
   { path: 'alta-cliente', component: AltaClientePage },
   { path: 'inicioCliente', component: InicioClientePage },
   { path: 'bienvenido', component: BienvenidoPage },
+  { path: 'toma-pedido', component: TomaPedidoPage },
+  { path: 'pedidos-menu', component: PedidosMenuPage }
 ];
 
 @NgModule({
