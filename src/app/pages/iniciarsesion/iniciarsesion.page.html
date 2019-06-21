@@ -14,7 +14,7 @@
   </ion-row>
 
   <ion-row>
-    <ion-col col-12 col-md-6 col-xl-3>
+    <ion-col>
       <ion-item>
         <ion-input type="text" required name="email" [(ngModel)]="dataLogin.user" placeholder="Correo Electrónico">
         </ion-input>
@@ -24,7 +24,7 @@
 
   <ion-row>
     <ion-col>
-      <ion-item col-12 col-md-6 col-xl-3>
+      <ion-item>
         <ion-input type="password" required name="password" [(ngModel)]="dataLogin.pass" placeholder="Contraseña">
         </ion-input>
       </ion-item>
@@ -32,16 +32,16 @@
   </ion-row>
 
   <ion-row>
-    <ion-col class="botones-redondos" col-6 col-md-3 col-xl-3>
+    <ion-col class="botones-redondos">
       <ion-button color="primary" id="boton" (click)="singIn()" round>Iniciar Sesión</ion-button>
     </ion-col>
-    <ion-col class="botones-redondos" col-6 col-md-3 col-xl-3>
+    <ion-col class="botones-redondos">
       <ion-button color="secondary" id="boton" (click)="registerUser()" round>Registrarse</ion-button>
     </ion-col>
   </ion-row>
 
   <ion-row>
-    <ion-col class="botones-redondos" col-12 col-md-5 col-xl-5>
+    <ion-col class="botones-redondos">
       <button type="button" style="background-color: #ffb4aa;" class="btn-circle btn-lg" title="Socio"
         (click)="CargarDefault('S')">
         <img src="assets/imgs/socio.png">

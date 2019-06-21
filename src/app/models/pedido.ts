@@ -19,7 +19,7 @@ export class Pedido {
     public nombre_cliente: string;
     public nombre_mozo: string;
     public id_mozo: string;
-    public id_encargado: string;
+    public id_encargado: number;
     public hora_inicial: string;
     public hora_entrega_estimada: Time;
     public hora_entrega_real: Time;

@@ -13,17 +13,17 @@
 
 
     <ion-row [style.align-items]="center">
-        <ion-col class="botones-redondos" col-6 col-md-3 col-xl-3>
+        <ion-col class="botones-redondos">
           <ion-button color="primary" id="boton" (click)="registradoClick()" round>Registrado</ion-button>
         </ion-col>
-        <ion-col class="botones-redondos" col-6 col-md-3 col-xl-3>
+        <ion-col class="botones-redondos">
           <ion-button color="tertiary" id="boton" (click)="anonimoClick()" round>Anonimo</ion-button>
         </ion-col>
       </ion-row>
 
     
         <ion-row>
-            <ion-col col-12 col-md-6  col-sm-6>
+            <ion-col>
               <ion-item [hidden]= "ocultarA">
                <ion-input type="text" required name="nombre" [(ngModel)]="cliente.nombre" placeholder="Nombre" ></ion-input>
               </ion-item>
@@ -31,7 +31,7 @@
           </ion-row> 
 
           <ion-row>
-            <ion-col col-12 col-md-6  col-sm-6 [hidden]= "ocultarR">
+            <ion-col [hidden]= "ocultarR">
               <ion-item>
                <ion-input type="text" required name="apellido" [(ngModel)]="cliente.apellido" placeholder="Apellido"></ion-input>
               </ion-item>
@@ -39,7 +39,7 @@
           </ion-row>
           
           <ion-row>
-            <ion-col  col-12 col-md-6  col-sm-6 [hidden]= "ocultarR">               
+            <ion-col  [hidden]= "ocultarR">               
                     <ion-item>
                         <ion-input type="numeric" required name="dni" [(ngModel)]="cliente.dni" placeholder="DNI">
                         </ion-input>

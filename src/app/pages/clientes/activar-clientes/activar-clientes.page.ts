@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
-import { Cliente } from 'src/app/models/Cliente';
+import { Cliente } from 'src/app/models/cliente';
 import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
 import { NavController } from '@ionic/angular';
@@ -11,53 +11,53 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./activar-clientes.page.scss'],
 })
 export class ActivarClientesPage implements OnInit {
- 
- cliente : Cliente;
- empleados  :Cliente[] = [];
 
-  constructor( private navCtrl: NavController,
+  cliente: Cliente;
+  empleados: Cliente[] = [];
+
+  constructor(private navCtrl: NavController,
     private miHttp: ClienteService) {
-      this.cargarClientes();
-     }
+    this.cargarClientes();
+  }
 
   ngOnInit() {
   }
 
-  cargarClientes(){
-   
+  cargarClientes() {
+
     this.miHttp.Listar().
-    subscribe(
-      (res) => {
-        this.empleados= res;
-        console.log(this.empleados);
-        });
-        
-      }
-
-      activar(id) {
-        this.cliente.id= id;
-      /* this.miHttp.Activar(this.cliente).
-       subscribe( 
+      subscribe(
         (res) => {
-          
-          console.log(res);
-          this.cargarClientes();
-          
-          });*/
-          console.log(id);
-        
-      }
-    
-      suspender(id: number) {
-        /*this.empleadoService.Suspender(id).then(
-          (res) => {
-            this.traerEmpleados()
-          }
-        )*/
-      }
+          this.empleados = res;
+          console.log(this.empleados);
+        });
 
-      volver(){
-        this.navCtrl.navigateForward('home');
+  }
+
+  activar(id) {
+    this.cliente.id = id;
+    /* this.miHttp.Activar(this.cliente).
+     subscribe( 
+      (res) => {
+        
+        console.log(res);
+        this.cargarClientes();
+        
+        });*/
+    console.log(id);
+
+  }
+
+  suspender(id: number) {
+    /*this.empleadoService.Suspender(id).then(
+      (res) => {
+        this.traerEmpleados()
       }
+    )*/
+  }
+
+  volver() {
+    this.navCtrl.navigateForward('home');
+  }
 
 }

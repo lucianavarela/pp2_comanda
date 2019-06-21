@@ -25,7 +25,7 @@
     <ion-list >
         <ion-grid>
       <ion-row>
-        <ion-col col-2 *ngFor="let item of palabra">
+        <ion-col *ngFor="let item of palabra">
         <ion-input type="text" >{{item}}</ion-input>
           </ion-col>
       </ion-row>
@@ -36,7 +36,7 @@
     <ion-list>
         <ion-grid>
       <ion-row>
-          <ion-col col-12>{{mensaje}}</ion-col>
+          <ion-col>{{mensaje}}</ion-col>
       </ion-row>
         </ion-grid>
     </ion-list>
@@ -44,8 +44,8 @@
     <ion-list>
         <ion-grid>
       <ion-row>
-          <ion-col col-6 ><ion-icon name="body" color="secondary"></ion-icon> Vidas: {{vidas}}</ion-col>
-          <ion-col col-6>Puntos: {{puntos}}</ion-col>
+          <ion-col><ion-icon name="body" color="secondary"></ion-icon> Vidas: {{vidas}}</ion-col>
+          <ion-col>Puntos: {{puntos}}</ion-col>
       </ion-row>
         </ion-grid>
     </ion-list>
@@ -87,12 +87,12 @@
         </ion-item>
     </ion-list>
     <ion-row [style.align-items]="center">
-        <ion-col class="botones-redondos" col-6 col-md-3 col-xl-3>
+        <ion-col class="botones-redondos">
           <ion-button color="tertiary" *ngIf="vidas!=0 && ganador!=1"  (click)="compruebaLetra()">Seleccionar</ion-button>
         </ion-col>       
       </ion-row>
       <ion-row [style.align-items]="center">
-          <ion-col class="botones-redondos" col-6 col-md-3 col-xl-3>
+          <ion-col class="botones-redondos">
             <ion-button color="secondary"   *ngIf="vidas==0 || ganador==1" ion-button round (click)="reiniciaJuego()">Jugar de nuevo</ion-button>
           </ion-col>       
         </ion-row>

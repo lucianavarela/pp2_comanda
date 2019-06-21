@@ -3,6 +3,7 @@ import { Pedido, EstadosPedido } from '../../../models/pedido';
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { ToastService } from '../../../services/toast/toast.service';
 import { AuthService } from '../../../services/auth/auth.service';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-toma-pedido',

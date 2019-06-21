@@ -15,7 +15,7 @@
 
     <ion-grid  >           
         <ion-row >
-    <ion-col class="botones" col-12 col-md-4 col-sm-4   [style.align-items]= "center"  *ngFor="let icono of listadoIconos"  >      
+    <ion-col class="botones" [style.align-items]= "center"  *ngFor="let icono of listadoIconos"  >      
      <img   [src]="icono.imagen" (click)="iconosClick(icono)" >
     </ion-col>
   </ion-row>
