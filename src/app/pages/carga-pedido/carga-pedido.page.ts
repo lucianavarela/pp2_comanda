@@ -55,34 +55,6 @@ export class CargaPedidoPage {
   traerMenus() {
     this.menuService.Listar().subscribe(
       (res) => {
-        res.forEach(menu => {
-          switch (menu.nombre) {
-            case "Vino":
-              menu.icon = 'wine';
-              break;
-            case "Jugo de Naranja":
-              menu.icon = 'cafe';
-              break;
-            case "Cerveza":
-              menu.icon = 'beer';
-              break;
-            case "Pizza Muzzarella":
-              menu.icon = 'pizza';
-              break;
-            case "Milanesa a la Napolitana":
-              menu.icon = 'restaurant';
-              break;
-            case "Empanadas":
-              menu.icon = 'restaurant';
-              break;
-            case "Canelones":
-              menu.icon = 'restaurant';
-              break;
-            default:
-              menu.icon = '';
-              break;
-          }
-        });
         this.menus = res;
       });
   }

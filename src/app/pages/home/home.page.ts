@@ -35,11 +35,6 @@ export class HomePage {
       accion: "reservas"
     },
     {
-      nombre: "ahorcado",
-      imagen: "assets/imgs/home/juegoPostre.png",
-      accion: "JuegoPostrePage"
-    },
-    {
       nombre: "pedidos",
       imagen: "assets/imgs/home/pedidos.png",
       accion: "carga-pedido"

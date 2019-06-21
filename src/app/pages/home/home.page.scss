@@ -13,55 +13,31 @@
   text-align: center;
 }
 
+.logo {
+  width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .iconos {
   margin: auto;
-  page-home {
-    #boton {
-      text-align: center;
-      height: 20px;
-    }
+}
 
-    font-family: "Ubuntu", sans-serif;
-    h1 {
-      text-align: center;
-      color: white;
-    }
+#boton {
+  text-align: center;
+  height: 20px;
+}
 
-    img {
-      margin: auto;
+img {
+  margin: auto;
 
-      max-height: 20rem;
-      align-content: center;
-      text-align: center;
-      background-color: #4e4e4e;
-    }
+  max-height: 20rem;
+  align-content: center;
+  text-align: center;
+  background-color: #4e4e4e;
+}
 
-    .logo {
-      width: 50%;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  }
-
-  .imgA {
-    margin: auto;
-
-    max-height: 20rem;
-    align-content: center;
-    text-align: center;
-    background-color: #b85e5e;
-  }
-  .imgB {
-    margin: auto;
-
-    max-height: 20rem;
-    align-content: center;
-    text-align: center;
-    background-color: #bec050;
-  }
-
-  ion-col {
-    text-align: center;
-  }
+ion-col {
+  text-align: center;
 }
