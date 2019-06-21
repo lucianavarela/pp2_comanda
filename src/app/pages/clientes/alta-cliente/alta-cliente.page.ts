@@ -4,6 +4,7 @@ import { Cliente } from 'src/app/models/Cliente';
 import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
 import { NavController } from '@ionic/angular';
+import { ToastService } from 'src/app/services/toast/toast.service';
 
 @Component({
   selector: 'app-alta-cliente',
@@ -19,7 +20,7 @@ export class AltaClientePage implements OnInit {
   image: string = null;
 
 
-  constructor( private errorHandler: ErrorHandlerService,private navCtrl: NavController,
+  constructor( private errorHandler: ToastService,private navCtrl: NavController,
     private miHttp: ClienteService) { 
       this.cliente = new Cliente();
     }
@@ -46,7 +47,7 @@ export class AltaClientePage implements OnInit {
       if(this.cliente.nombre != undefined){
         return true;
       }else{
-        this.errorHandler.mostrarMensajeConfimación("Debe completar el campo Nombre",'Error');      
+        this.errorHandler.errorToast("Debe completar el campo Nombre");      
         return false;
       }
 
@@ -57,7 +58,7 @@ export class AltaClientePage implements OnInit {
         if(this.cliente.nombre != '' && this.cliente.apellido != '' && this.cliente.dni != null ){
           return true;
         }else{
-          this.errorHandler.mostrarMensajeConfimación("Debe llenar todos los campos",'Error');      
+          this.errorHandler.errorToast("Debe llenar todos los campos");      
           return false;
         }
     }
@@ -86,28 +87,32 @@ export class AltaClientePage implements OnInit {
        if (response['Estado'] === 'OK') {
           
          this.limpiarCliente();     
-         this.errorHandler.mostrarMensajeConfimación("Se dio de alta correctamente el cliente",'Ok' );
+         this.errorHandler.confirmationToast("Se dio de alta correctamente el cliente" );
        } else {
-         this.errorHandler.mostrarMensajeConfimación(response['Mensaje'],'Error' );
+         this.errorHandler.errorToast(response['Mensaje'] );
        }        
         
       // this.navCtrl.setRoot(HomePage , { usuario: rerponse }) ;       
        }),
        (error) =>{
-         this.errorHandler.mostrarMensajeConfimación("Se produjo un error al ingresar",'Error' );
+         this.errorHandler.errorToast("Se produjo un error al ingresar" );
         
        }
       // spiner.dismiss();
       }else{
         console.log('ERRoR');
-        this.errorHandler.mostrarMensajeConfimación("Debe completar el campo Nombre",'Error'); 
-        this.errorHandler.presentAlert();
+        this.errorHandler.errorToast("Debe completar el campo Nombre"); 
+        
 
       }
 
     }
 
     cancel(){
+      this.navCtrl.navigateForward('home');
+    }
+
+    volver(){
       this.navCtrl.navigateForward('home');
     }
     

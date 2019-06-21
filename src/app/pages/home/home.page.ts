@@ -17,12 +17,13 @@ export class HomePage {
   usuarioOnline: User;
   listadoIconos: Array<any> = new Array;
   logo: boolean;
+ 
 
   listados: Array<any> = [
     {
       nombre: "clientes",
       imagen: "assets/imgs/home/altacliente.png",
-      accion: "alta-cliente"
+      accion: "activar-clientes"
     },
     {
       nombre: "empleados",
@@ -37,7 +38,7 @@ export class HomePage {
     {
       nombre: "ahorcado",
       imagen: "assets/imgs/home/juegoPostre.png",
-      accion: "JuegoPostrePage"
+      accion: "ahorcado"
     },
     {
       nombre: "pedidos",
@@ -52,7 +53,7 @@ export class HomePage {
     {
       nombre: "juegos",
       imagen: "assets/imgs/home/juegos.png",
-      accion: "JuegosHomePage"
+      accion: "JuegosHome"
     },
   ]
 

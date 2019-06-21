@@ -44,6 +44,7 @@ export class InicioClientePage implements OnInit {
         if (response['Estado'] === 'OK') {
           this.audioService.play('login');
           localStorage.setItem('token', response['Token']);
+          localStorage.setItem('dato', response['Token']);
           this.navCtrl.navigateForward('home'); 
         } else {
           this.errorHandler.mostrarMensajeConfimación(response['Mensaje'],'Error' );

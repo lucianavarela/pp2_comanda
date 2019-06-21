@@ -27,6 +27,27 @@ export class ClienteService {
       return this.miHttp.httpGetL("clientes/listarClientesRegistrados");
     }
 
+
+  public listarActivaciones(){
+    return this.miHttp.httpGetL("clientes/listarActivaciones");
+  }
+
+  public ActivarCliente(dataCliente: Cliente){
+
+    return this.miHttp.httpPostL("clientes/activarCliente",dataCliente);
+  
+    }
+
+    public Activar(dataLogin: Cliente){
+    
+      return this.miHttp.httpPostL("clientes/activarCliente",dataLogin);
+  
+    }
+
+    
+    public Listar(): Observable<Cliente[]> {
+      return this.miHttp.httpGetOL<Cliente[]>('clientes/listarActivaciones');
+    }
   
 
 }

@@ -15,9 +15,12 @@ import { AbmEmpleadoPage } from './pages/abm-empleado/abm-empleado.page';
 import { CargaPedidoPage } from './pages/carga-pedido/carga-pedido.page';
 import { EmpleadosPage } from './pages/empleados/empleados.page';
 import { MesasPage } from './pages/mesas/mesas.page';
-import { TatetiPage } from './pages/tateti/tateti.page';
+import { TatetiPage } from './pages/clientes/tateti/tateti.page';
 import { InicioClientePage } from './pages/inicio-cliente/inicio-cliente.page';
 import { BienvenidoPage } from './pages/bienvenido/bienvenido.page';
+import { JuegosHomePage } from './pages/clientes/juegos-home/juegos-home.page';
+import { AhorcadoPage } from './pages/clientes/ahorcado/ahorcado.page';
+import { ActivarClientesPage } from './pages/clientes/activar-clientes/activar-clientes.page';
 
 //Servicios
 import { HttpClient, HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -70,7 +73,10 @@ export function getAccessToken() {
     MesasPage,
     TatetiPage,
     InicioClientePage,
-    BienvenidoPage
+    BienvenidoPage,
+    JuegosHomePage,
+    AhorcadoPage,
+    ActivarClientesPage
   ],
   imports: [
     BrowserModule,

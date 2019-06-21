@@ -19,28 +19,26 @@ export class ReservasPage implements OnInit {
   
   usuarioOnline: any;// User;
   listadoMesas  :Mesa[] = [];
-  calendario: boolean;
+  calendario: boolean= true;
   myDate: String;
   fechaHoy : Date;
   min:string;
-  turnos: boolean;
+  turnos: boolean=true;
   reservas: any;
   elegida: string ;
   reserva: Reserva;
   clientes:any;
   flagCliente: boolean= true;
+  flagMesa: boolean= true;
 
   constructor( private servicioMesa :  MesaService,
     private authService: AuthService,
     public reservaServicio: ReservaService,
     public clienteServicio : ClienteService,
     private errorHandler: ErrorHandlerService,
-    private activeroute : ActivatedRoute,
     private navCtrl: NavController) {
-    this.calendario= true;
     this.myDate = new Date().toISOString().substring(0, 10);
-    this.fechaHoy = new Date();
-    this.turnos= true;
+    this.fechaHoy = new Date();    
     this.reserva= new Reserva();
     
     
@@ -52,7 +50,7 @@ export class ReservasPage implements OnInit {
 
   ionViewWillEnter() {
     this.usuarioOnline = this.authService.token();
-    console.log( this.usuarioOnline);
+    console.log(  this.usuarioOnline);
     /*
   if (this.authService.isLogged()) {
       this.usuarioOnline = this.authService.getUserInfo();
@@ -60,7 +58,7 @@ export class ReservasPage implements OnInit {
       this.navCtrl.navigateForward('login');
     }*/
     this.cargarCliente();
-    this.cargarMesas();
+    //this.cargarMesas();
     //this.reserva.id_usuario= this.usuarioOnline.id; 
   }
 
@@ -80,12 +78,15 @@ export class ReservasPage implements OnInit {
     );
     }else{
       this.reserva.id_usuario= this.usuarioOnline.id;
-      //this.cargarMesas();
+      
+      console.log(this.reserva);
+      this.cargarMesas();
     }
   
   }
 
   cargarMesas(){
+    this.flagMesa= false;
     this.servicioMesa.Listar().subscribe(
       (res) => {
         this.listadoMesas = res;
@@ -142,6 +143,10 @@ export class ReservasPage implements OnInit {
       }
       
       cancel(){
+        this.navCtrl.navigateForward('home');
+      }
+
+      volver(){
         this.navCtrl.navigateForward('home');
       }
   
