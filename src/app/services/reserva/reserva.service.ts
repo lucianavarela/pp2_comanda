@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../http/http.service';
-import { Reserva } from 'src/app/models/Reserva';
+import { Reserva } from 'src/app/models/reserva';
 import { Cliente } from 'src/app/models/Cliente';
 import { Observable } from 'rxjs';
 
