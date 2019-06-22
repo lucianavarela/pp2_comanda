@@ -25,6 +25,7 @@ import { ListaReservasPage } from './pages/reservar/lista-reservas/lista-reserva
 import { AltaSocioPage } from './pages/socio/alta-socio/alta-socio.page';
 import { DeliveryPage } from './pages/clientes/delivery/delivery.page';
 import { EncuestaPage } from './pages/clientes/encuesta/encuesta.page';
+import { EncuestasPage } from './pages/encuesta/encuestas/encuestas.page';
 
 //Servicios
 import { HttpClient, HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -93,7 +94,8 @@ export function getAccessToken() {
     EstadoPedidoPage,
     AltaSocioPage,
     DeliveryPage,
-    EncuestaPage
+    EncuestaPage,
+    EncuestasPage
   ],
   imports: [
     BrowserModule,

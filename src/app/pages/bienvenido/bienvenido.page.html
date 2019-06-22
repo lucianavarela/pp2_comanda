@@ -29,6 +29,17 @@
       <ion-label> Bienvenido a nuestro restaurante</ion-label>
     </ion-col>
   </ion-row>
+  <ion-row [style.align-items]="center">
+      <ion-col class="botones-redondos">
+        <ion-label> Nuestra Aplicacion</ion-label>
+        <ion-label>
+            Si usted es cliente, seleccione la opción correspondiente en los botones que se encuentran debajo.
+          </ion-label>
+          <ion-label>
+            En ella podrá ver los detalles de su pedido, el estado del mismo y el costo a pagar. Al finalizar, se habilitará una breve encuesta de satifacción que usted podrá completar.
+          </ion-label>
+      </ion-col>
+    </ion-row>
 
   <ion-row [style.align-items]="center">
     <ion-col class="botones-redondos">
@@ -38,8 +49,5 @@
       <ion-button color="tertiary" id="boton" routerLink="/login" round>Empleados</ion-button>
     </ion-col>
   </ion-row>
-
-
-
 
 </ion-content>

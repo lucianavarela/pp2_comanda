@@ -40,13 +40,21 @@ export class EncuestaPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    
+        
     this.mesaService.Listar().subscribe(
       (res) => {
         this.mesas = res;
       }
     )
    
+  }
+
+  listarEncuesta(){
+    this.miHttp.Listar().subscribe(
+      (res) => {
+        console.log( res);
+      }
+    )
   }
 
   volver() {
@@ -59,6 +67,7 @@ export class EncuestaPage implements OnInit {
   {
     this.toasterService.errorToast("debe completar todos los campos");
     console.log(this.encuesta);
+   
   }else{
     this.encuesta.idMozo= 72;
     this.encuesta.puntuacionRestaurante= 2;

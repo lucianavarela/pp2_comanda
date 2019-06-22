@@ -79,6 +79,11 @@ export class HomePage {
       imagen: "assets/imgs/home/encuesta.png",
       accion: "encuesta"
     },
+    {
+      nombre: "verEncuestas",
+      imagen: "assets/imgs/home/encuesta.png",
+      accion: "verEncuestas"
+    },
   ]
 
 
@@ -127,7 +132,7 @@ export class HomePage {
     else if (this.usuarioOnline.tipo == "Socio" || this.usuarioOnline.tipo == "Dueño" ) {
       this.listadoIconos = this.listados
         .filter(listado => listado.nombre == "pedidos" || listado.nombre == "clientes" || listado.nombre == "socios"
-          || listado.nombre == "listarReservas" || listado.nombre == "empleados" || listado.nombre == "mesas");
+          || listado.nombre == "listarReservas" || listado.nombre == "empleados" || listado.nombre == "mesas" || listado.nombre == "verEncuestas");
     }
 
   }

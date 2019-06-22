@@ -22,6 +22,7 @@ import { ReservasPage } from './pages/reservar/reservas/reservas.page';
 import { AltaSocioPage } from './pages/socio/alta-socio/alta-socio.page';
 import { DeliveryPage } from './pages/clientes/delivery/delivery.page';
 import { EncuestaPage } from './pages/clientes/encuesta/encuesta.page';
+import { EncuestasPage } from './pages/encuesta/encuestas/encuestas.page';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -51,6 +52,7 @@ const routes: Routes = [
   { path: 'altaSocios', component: AltaSocioPage  },
   { path: 'delivery',component: DeliveryPage },
   { path: 'encuesta', component: EncuestaPage },
+  { path: 'verEncuestas', component: EncuestasPage },
  
 ];
 
