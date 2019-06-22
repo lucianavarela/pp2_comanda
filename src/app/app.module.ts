@@ -22,6 +22,9 @@ import { JuegosHomePage } from './pages/clientes/juegos-home/juegos-home.page';
 import { AhorcadoPage } from './pages/clientes/ahorcado/ahorcado.page';
 import { ActivarClientesPage } from './pages/clientes/activar-clientes/activar-clientes.page';
 import { ListaReservasPage } from './pages/reservar/lista-reservas/lista-reservas.page';
+import { AltaSocioPage } from './pages/socio/alta-socio/alta-socio.page';
+import { DeliveryPage } from './pages/clientes/delivery/delivery.page';
+import { EncuestaPage } from './pages/clientes/encuesta/encuesta.page';
 
 //Servicios
 import { HttpClient, HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -87,7 +90,10 @@ export function getAccessToken() {
     PedidosMenuPage,
     TomaPedidoPage,
     ListaReservasPage,
-    EstadoPedidoPage
+    EstadoPedidoPage,
+    AltaSocioPage,
+    DeliveryPage,
+    EncuestaPage
   ],
   imports: [
     BrowserModule,

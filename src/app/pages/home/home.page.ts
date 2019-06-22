@@ -21,7 +21,7 @@ export class HomePage {
   listados: Array<any> = [
     {
       nombre: "clientes",
-      imagen: "assets/imgs/home/altacliente.png",
+      imagen: "assets/imgs/home/clientes.png",
       accion: "activar-clientes"
     },
     {
@@ -53,6 +53,31 @@ export class HomePage {
       nombre: "listarReservas",
       imagen: "assets/imgs/home/reservas.png",
       accion: "listarReservas"
+    },
+    {
+      nombre: "socios",
+      imagen: "assets/imgs/home/socios.png",
+      accion: "altaSocios"
+    },
+    {
+      nombre: "altaCliente",
+      imagen: "assets/imgs/home/clientes.png",
+      accion: "alta-cliente"
+    },
+    {
+      nombre: "mesas",
+      imagen: "assets/imgs/home/mesas.png",
+      accion: "mesas"
+    },
+    {
+      nombre: "delivery",
+      imagen: "assets/imgs/home/delivery.png",
+      accion: "delivery"
+    },
+    {
+      nombre: "encuesta",
+      imagen: "assets/imgs/home/encuesta.png",
+      accion: "encuesta"
     },
   ]
 
@@ -91,18 +116,18 @@ export class HomePage {
 
     if (this.usuarioOnline.tipo == "registrado") {
       this.listadoIconos = this.listados
-        .filter(listado => listado.nombre == "pedidos" || listado.nombre == "menu" || listado.nombre == "juegos" || listado.nombre == "reservas");
+        .filter(listado => listado.nombre == "pedidos" || listado.nombre == "juegos" || listado.nombre == "reservas" || listado.nombre == "encuesta");
     } else if (this.usuarioOnline.tipo == "Cocinero" || this.usuarioOnline.tipo == "Cervecero" || this.usuarioOnline.tipo == "Bartender") {
       this.listadoIconos = this.listados
         .filter(listado => listado.nombre == "pedidos");
     } else if (this.usuarioOnline.tipo == "Mozo") {
       this.listadoIconos = this.listados
-        .filter(listado => listado.nombre == "pedidos" || listado.nombre == "clientes" || listado.nombre == "reservas");
+        .filter(listado => listado.nombre == "pedidos" || listado.nombre == "clientes" || listado.nombre == "reservas" || listado.nombre == "mesas");
     }
-    else if (this.usuarioOnline.tipo == "Socio") {
+    else if (this.usuarioOnline.tipo == "Socio" || this.usuarioOnline.tipo == "Dueño" ) {
       this.listadoIconos = this.listados
-        .filter(listado => listado.nombre == "pedidos" || listado.nombre == "clientes" //|| listado.nombre == "reservas"
-          || listado.nombre == "listarReservas" || listado.nombre == "empleados");
+        .filter(listado => listado.nombre == "pedidos" || listado.nombre == "clientes" || listado.nombre == "socios"
+          || listado.nombre == "listarReservas" || listado.nombre == "empleados" || listado.nombre == "mesas");
     }
 
   }

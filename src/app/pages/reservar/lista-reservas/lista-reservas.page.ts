@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ReservaService } from 'src/app/services/reserva/reserva.service';
-import { Reserva } from 'src/app/models/reserva';
+import { 
+  Reserva } from 'src/app/models/reserva';
 import { NavController } from '@ionic/angular';
 
 
@@ -27,12 +28,21 @@ export class ListaReservasPage implements OnInit {
 
 
   cargar(){
-    this.reservaServicio.ListarTodos().
+    this.reservaServicio.Listar().
     subscribe(
       (res) => {
         this.reservas = res;
         console.log(this.reservas);
         console.log(res);
+      });
+  }
+
+  traerTodas(){
+    this.reservaServicio.ListarTodos().
+    subscribe(
+      (res) => {
+        this.reservas = res;
+        console.log(this.reservas);
       });
   }
 
