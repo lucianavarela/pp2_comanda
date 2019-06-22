@@ -1,0 +1,76 @@
+<ion-header>
+
+</ion-header>
+
+<ion-content padding color="light">
+  <!--Logo-->
+  <ion-row class="logo-row">
+    <ion-col></ion-col>
+
+    <ion-col [style.align-items]="center">
+      <img class="logo" src="assets/imgs/logo.png" />
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-input type="text" required name="email" [(ngModel)]="dataLogin.user" placeholder="Correo Electrónico">
+        </ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-input type="password" required name="password" [(ngModel)]="dataLogin.pass" placeholder="Contraseña">
+        </ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col class="botones-redondos">
+      <ion-button color="primary" id="boton" (click)="singIn()" round>Iniciar Sesión</ion-button>
+    </ion-col>
+    <ion-col class="botones-redondos">
+      <ion-button color="secondary" id="boton" (click)="registerUser()" round>Registrarse</ion-button>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col class="botones-redondos">
+      <button type="button" style="background-color: #ffb4aa;" class="btn-circle btn-lg" title="Socio"
+        (click)="CargarDefault('S')">
+        <img src="assets/imgs/socio.png">
+      </button>
+      <button type="button" style="background-color: #fff4a7;" class="btn-circle btn-lg" title="Bartender"
+        (click)="CargarDefault('B')">
+        <img src="assets/imgs/coctel.png">
+      </button>
+      <button type="button" style="background-color: #efbdff;" class="btn-circle btn-lg" title="Cervecero"
+        (click)="CargarDefault('CE')">
+        <img src="assets/imgs/cerveza.png">
+      </button>
+      <button type="button" style="background-color: #fdd3b6;" class="btn-circle btn-lg" title="Cocinero"
+        (click)="CargarDefault('CO')">
+        <img src="assets/imgs/cubiertos.png">
+      </button>
+      <button type="button" style="background-color: #bbf7b4;" class="btn-circle btn-lg" title="Mozo"
+        (click)="CargarDefault('M')">
+        <img src="assets/imgs/mozo.png">
+      </button>
+
+    </ion-col>
+
+
+
+  </ion-row>
+
+
+
+
+
+</ion-content>
