@@ -49,7 +49,10 @@ export class HttpService {
   ///pasar de base de datos
 
   public httpPostL(url: string, data: object) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9
     return this.http.post(this.urlLea + url, data);
   }
 
@@ -61,6 +64,7 @@ export class HttpService {
   public httpGetOL<T>(url: string) {
     return this.http.get<T>(this.urlLea + url);
   }
+<<<<<<< HEAD
 
   public httpDeletePL(url: string) {
     return this.http
@@ -77,4 +81,6 @@ export class HttpService {
       .then(this.extractData)
       .catch(this.handleError);
   }
+=======
+>>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9
 }

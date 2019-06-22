@@ -50,11 +50,14 @@ export class HomePage {
       imagen: "assets/imgs/home/juegos.png",
       accion: "JuegosHome"
     },
+<<<<<<< HEAD
     {
       nombre: "listarReservas",
       imagen: "assets/imgs/home/reservas.png",
       accion: "listarReservas"
     },
+=======
+>>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9
   ]
 
 
@@ -89,6 +92,10 @@ export class HomePage {
   ionViewWillEnter() {
     if (this.authService.isLogged()) {
       this.usuarioOnline = this.authService.getUserInfo();
+<<<<<<< HEAD
+=======
+      console.log(this.usuarioOnline.tipo)
+>>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9
     } else {
       this.navCtrl.navigateForward('bienvenido');
     }
@@ -123,8 +130,11 @@ export class HomePage {
     }
     else if (this.usuarioOnline.tipo == "Socio") {
       this.listadoIconos = this.listados
+<<<<<<< HEAD
       .filter(listado => listado.nombre == "pedidos" || listado.nombre == "clientes" //|| listado.nombre == "reservas"
       || listado.nombre == "listarReservas" || listado.nombre == "empleados" );
+=======
+>>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9
     }
 
   }

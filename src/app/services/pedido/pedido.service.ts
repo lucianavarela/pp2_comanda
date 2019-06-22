@@ -22,11 +22,20 @@ export class PedidoService {
     return this.miHttp.httpGetO<Pedido[]>('pedido/listarActivos/');
   }
 
+<<<<<<< HEAD
   public Registrar(idMesa: string, idMenu: number, nombreCliente: string): Promise<Object> {
     const request: Object = {
       id_mesa: idMesa,
       id_menu: idMenu,
       cliente: nombreCliente
+=======
+  public Registrar(idMesa: string, idMenu: number, nombreCliente: string, es_delivery: number): Promise<Object> {
+    const request: Object = {
+      id_mesa: idMesa,
+      id_menu: idMenu,
+      cliente: nombreCliente,
+      es_delivery: es_delivery
+>>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9
     };
     return this.miHttp.httpPostP('pedido/registrar/', request);
   }

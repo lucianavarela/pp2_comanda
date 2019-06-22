@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
  .scroll-content{
    // background-color: $first-detail-color;
@@ -23,10 +24,32 @@ ion-icon{
 
 
 .botones{
+=======
+.scroll-content {
+  // background-color: $first-detail-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 0px !important;
+  font-family: "Ubuntu", sans-serif;
+  padding: auto;
+}
+
+ion-icon {
+  color: white;
+}
+
+ion-col {
+  text-align: center;
+}
+
+.botones {
+>>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9
   align-content: center;
   text-align: center;
 }
 
+<<<<<<< HEAD
 .img {      
     
 width:  100%;
@@ -37,3 +60,11 @@ background-repeat: no-repeat;
 
 
 }
+=======
+ion-img {
+  width: 80%;
+  margin-bottom: 15px;
+  //  background-size: cover;
+  background-repeat: no-repeat;
+}
+>>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9

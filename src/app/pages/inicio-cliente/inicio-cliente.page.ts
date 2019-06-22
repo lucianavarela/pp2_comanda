@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Login } from 'src/app/models/login';
+<<<<<<< HEAD
+=======
+import { AuthService } from 'src/app/services/auth/auth.service';
+>>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9
 import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
 import { Platform, NavController, AlertController } from '@ionic/angular';
 import { SmartAudioService } from 'src/app/services/smart-audio/smart-audio.service';
@@ -35,6 +39,7 @@ export class InicioClientePage implements OnInit {
   }
 
   singIn() {
+<<<<<<< HEAD
     if(this.validForm()){
      
       this.authService.loguear( this.dataLogin)
@@ -58,6 +63,27 @@ export class InicioClientePage implements OnInit {
     }  
 
 
+=======
+    if (this.validForm()) {
+      this.authService.loguear(this.dataLogin)
+        .subscribe(response => {
+          console.log(response);
+          if (response['Estado'] === 'OK') {
+            this.audioService.play('login');
+            localStorage.setItem('token', response['Token']);
+            localStorage.setItem('dato', response['Token']);
+            this.navCtrl.navigateForward('home');
+          } else {
+            this.errorHandler.mostrarMensajeConfimación(response['Mensaje'], 'Error');
+          }
+          // this.navCtrl.setRoot(HomePage , { usuario: rerponse }) ;       
+        }),
+        (error) => {
+          this.errorHandler.mostrarMensajeConfimación("Se produjo un error al ingresar", 'Error');
+        }
+    }
+  }
+>>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9
 
   private registerUser() {
     this.navCtrl.navigateForward('alta-cliente');
@@ -68,6 +94,7 @@ export class InicioClientePage implements OnInit {
       return true;
     } else {
       this.errorHandler.mostrarMensajeConfimación("Debe llenar todos los campos", 'Error');
+<<<<<<< HEAD
 
       return false;
     }
@@ -82,6 +109,12 @@ export class InicioClientePage implements OnInit {
 
   ////nuevo
 
+=======
+      return false;
+    }
+  }
+
+>>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9
   private validarF() {
     if (this.dataLogin.user != '' && this.dataLogin.pass != '') {
       return true;
@@ -96,6 +129,7 @@ export class InicioClientePage implements OnInit {
       //alert.present();
       return false;
     }
+<<<<<<< HEAD
 
 
   }
@@ -104,6 +138,11 @@ export class InicioClientePage implements OnInit {
 
   CargarDefault(tipo: string) {
 
+=======
+  }
+
+  CargarDefault(tipo: string) {
+>>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9
     switch (tipo) {
       case 'S':
         this.dataLogin = new Login('carlos', '1234');
@@ -121,7 +160,10 @@ export class InicioClientePage implements OnInit {
         this.dataLogin = new Login('pedro', '1234');
         this.singIn();
         break;
+<<<<<<< HEAD
       
+=======
+>>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9
     }
   }
 
@@ -130,5 +172,9 @@ export class InicioClientePage implements OnInit {
 
   atras() {
     this.navCtrl.navigateForward('bienvenido');
+<<<<<<< HEAD
     }
+=======
+  }
+>>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9
 }

@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../http/http.service';
+<<<<<<< HEAD
 import { Reserva } from 'src/app/models/Reserva';
 import { Cliente } from 'src/app/models/Cliente';
 import { Observable } from 'rxjs';
+=======
+>>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +29,7 @@ export class ReservaService {
 
 
 
+<<<<<<< HEAD
       public ListarTodos(): Observable<Reserva[]> {
         return this.miHttp.httpGetOL<Reserva[]>('reservas/listar');
       }
@@ -35,4 +39,6 @@ export class ReservaService {
       }
 
 
+=======
+>>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9
 }
