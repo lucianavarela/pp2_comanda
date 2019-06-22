@@ -113,4 +113,8 @@ export class IniciarsesionPage implements OnInit {
   ngOnInit() {
   }
 
+  volver() {
+    this.navCtrl.navigateForward('bienvenido');
+  }
+
 }

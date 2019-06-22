@@ -66,6 +66,18 @@ export class ReservasPage {
   
   }
 
+
+  reset(){
+    this.reserva.id_reserva= null;
+    this.reserva.id_usuario = null;
+    this.reserva.fecha= "";
+    this.reserva.hora="";
+    this.calendario= true;
+    this.turnos= true;
+    this.flagCliente= true;
+    this.flagMesa= true; 
+  }
+
   cargarCliente(){   
       this.clienteServicio.ListarTodos().
       subscribe((data) => { // Success
@@ -116,6 +128,7 @@ export class ReservasPage {
       selectedHora(data){
         this.reserva.hora= data.hora;
         this,this.reserva.id_reserva= data.id_reserva;
+        console.log(this.reserva);
        
       }
     
@@ -125,6 +138,7 @@ export class ReservasPage {
         subscribe((data) => { // Success
           this.toasterService.confirmationToast( "Cargada para el dia: "+this.reserva.fecha+" a las: "+
           this.reserva.hora+"hs.");
+          this.reset();
           this.cancel();   
         console.log(data);
       },(error) =>{

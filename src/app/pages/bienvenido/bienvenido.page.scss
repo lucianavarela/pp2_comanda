@@ -1,10 +1,14 @@
 //@import '~@ionic/angular/css/normalize.css';
 @import url("http://fonts.googleapis.com/css?family=Droid+Sans:400,700");
 
-ion-content {
+ion-content{
+  --ion-background-color:#91d7e2;
+}
+
+  
 
   .scroll-content {
-    background-color: --first-detail-color;
+    background-color:  #91d7e2;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -13,14 +17,14 @@ ion-content {
   }
 
   .pagina {
-    background-color: --first-detail-color;
+    background-color:  #91d7e2;
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding-bottom: 100px !important;
     font-family: "Droid Sans", sans-serif;
   }
-}
+
 
 /*animacion*/
 #custom-overlay {
@@ -34,7 +38,7 @@ ion-content {
   background-color: #002a3e;
 }
 .flb {
-  background-color: --first-detail-color;
+  background-color:  #91d7e2;
   height: 100%;
   width: 100%;
   animation: pulse 1s linear forwards;
