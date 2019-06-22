@@ -4,7 +4,7 @@ import { NavController } from '@ionic/angular';
 
 import { ActivatedRoute } from '@angular/router';
 import { Mesa } from 'src/app/models/mesa';
-import { Reserva } from 'src/app/models/Reserva';
+import { Reserva } from 'src/app/models/reserva';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { User } from 'src/app/models/user';
 import { MesaService } from 'src/app/services/mesa/mesa.service';

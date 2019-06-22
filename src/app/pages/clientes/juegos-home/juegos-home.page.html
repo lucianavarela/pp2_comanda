@@ -1,40 +1,16 @@
 <ion-header color="primary">
   <ion-toolbar color="primary">
-<<<<<<< HEAD
-      <ion-buttons slot="start">
-          <ion-button (click)="volver()">
-            <ion-icon name="arrow-round-back"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-    <ion-title>juegos</ion-title>
-
-    
-=======
     <ion-buttons slot="start">
       <ion-button (click)="volver()">
         <ion-icon name="arrow-round-back"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>juegos</ion-title>
->>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
 
-<<<<<<< HEAD
-    <ion-grid  >           
-        <ion-row >
-    <ion-col class="botones" [style.align-items]= "center"  *ngFor="let icono of listadoIconos"  >      
-     <img   [src]="icono.imagen" (click)="iconosClick(icono)" >
-    </ion-col>
-  </ion-row>
- 
-  
-</ion-grid>
-
-</ion-content>
-=======
   <ion-grid>
     <ion-row size='12' class="botones" [style.align-items]="center" *ngFor="let icono of listadoIconos">
       <ion-img [src]="icono.imagen" (click)="iconosClick(icono)"></ion-img>
@@ -42,4 +18,3 @@
   </ion-grid>
 
 </ion-content>
->>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9

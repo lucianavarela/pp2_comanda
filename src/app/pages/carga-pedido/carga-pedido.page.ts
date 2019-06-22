@@ -81,7 +81,7 @@ export class CargaPedidoPage {
   generarPedido() {
     if (this.mesa != "" && this.cliente != "") {
       this.menus_cargados.forEach((menu) => {
-        this.pedidoService.Registrar(this.mesa, menu.id, this.cliente).then(
+        this.pedidoService.Registrar(this.mesa, menu.id, this.cliente, 0).then(
           (res) => this.traerPedidos()
         );
       });

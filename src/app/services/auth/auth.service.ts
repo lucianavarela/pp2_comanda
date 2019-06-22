@@ -40,17 +40,9 @@ export class AuthService {
   }
 
   token(){
-<<<<<<< HEAD
     const token = localStorage.getItem('token');
-    //const token = localStorage.getItem('dato');
-    const tokenInfo = this.jwt.decodeToken(token);
-    return new User(tokenInfo['usuario'], tokenInfo['tipo'], tokenInfo['id'], tokenInfo['nombre']);
-=======
-   // const token = localStorage.getItem('token');
-    const token = localStorage.getItem('dato');
     const tokenInfo = this.jwt.decodeToken(token);
     //return new User(tokenInfo['usuario'], tokenInfo['tipo'], tokenInfo['id'], tokenInfo['nombre']);
->>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9
     return tokenInfo;
   }
 }

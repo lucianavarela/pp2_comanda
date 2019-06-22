@@ -22,6 +22,8 @@ export class AppComponent {
   ) {
     this.initializeApp();
     this.audioService.preload('inicio', 'assets/sonidos/bubbly.wav');
+    this.audioService.preload('error', 'assets/sonidos/error.wav');
+    this.audioService.preload('success', 'assets/sonidos/short.wav');
   }
   splash: boolean = true;
 

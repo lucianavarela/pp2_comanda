@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { User } from 'src/app/models/user';
-<<<<<<< HEAD
 import { ToastService } from 'src/app/services/toast/toast.service';
-=======
->>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9
 
 @Component({
   selector: 'app-ahorcado',
@@ -26,11 +23,7 @@ export class AhorcadoPage implements OnInit {
   ganador: number = 0;
   controlLetras = new Array;
 
-<<<<<<< HEAD
   constructor(public navCtrl: NavController,private toasterService: ToastService) { }
-=======
-  constructor(public navCtrl: NavController) { }
->>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9
 
   ngOnInit() {
   }
@@ -77,10 +70,7 @@ export class AhorcadoPage implements OnInit {
 
             this.palabra[posicionTotal] = letraMayusculas;
             this.mensaje = 'Genial, la letra ' + letraMayusculas + ' está en la palabra secreta.';
-<<<<<<< HEAD
             this.toasterService.confirmationToast(this.mensaje);
-=======
->>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9
 
             // Sumamos puntos
             if (this.controlLetras.indexOf(letraMayusculas) == -1) {
@@ -88,10 +78,7 @@ export class AhorcadoPage implements OnInit {
             }
             else { 
                 this.mensaje = 'La letra ' + letraMayusculas + ' fue seleccionada anteriormente.';
-<<<<<<< HEAD
                 this.toasterService.errorToast(this.mensaje);
-=======
->>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9
             }
 
             contador++;
@@ -125,10 +112,7 @@ export class AhorcadoPage implements OnInit {
 
           // Mostramos un mensaje indicando el fallo.					
           this.mensaje = 'Fallo, la letra ' + letraMayusculas + ' no está en la palabra secreta, recuerda que te quedan ' + this.vidas + ' vidas.';
-<<<<<<< HEAD
           this.toasterService.errorToast(this.mensaje);
-=======
->>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9
         }
         else { 
           // Damos el juego por finalizado, el jugador pierde.
@@ -142,10 +126,7 @@ export class AhorcadoPage implements OnInit {
     }
     else {
       this.mensaje = 'Seleccione una letra del listado.';
-<<<<<<< HEAD
       this.toasterService.errorToast(this.mensaje);
-=======
->>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9
     }
   }
 
@@ -174,19 +155,13 @@ export class AhorcadoPage implements OnInit {
     if (valor == 'pierde') { 
 	    // Mostramos el mensaje como que el juego ha terminado
 	    this.mensaje = 'Perdiste!, Inténtalo de nuevo. Has conseguido un total de ' + this.puntos + ' puntos. La palabra secreta es ' + this.nombreSecreto;
-<<<<<<< HEAD
       this.toasterService.errorToast(this.mensaje);
-=======
->>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9
     }
 
     // Ganador
     if (valor == 'gana') { 
       this.mensaje = 'Te Ganaste un Postre Gratis!, Has acertado la palabra secreta. Has conseguido un total de ' + this.puntos + ' puntos.';
-<<<<<<< HEAD
       this.toasterService.confirmationToast(this.mensaje);
-=======
->>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9
       this.ganador = 1;
     }		
   }

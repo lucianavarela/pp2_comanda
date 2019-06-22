@@ -17,11 +17,11 @@ export class ToastService {
       closeButtonText: 'Cerrar',
       duration: 2000
     })
-    .then( res => {
-      this.vibration.vibrate(1000);
-      //this.smartAudioService.play('error');
-      res.present();
-    });
+      .then(res => {
+        this.vibration.vibrate(1000);
+        this.smartAudioService.play('error');
+        res.present();
+      });
   }
 
   confirmationToast(message: string) {
@@ -32,10 +32,10 @@ export class ToastService {
       closeButtonText: 'Cerrar',
       duration: 2000
     })
-    .then( res => {
-      this.vibration.vibrate(1000);
-      //this.smartAudioService.play('confirmation');
-      res.present();
-    });
+      .then(res => {
+        this.vibration.vibrate(1000);
+        this.smartAudioService.play('success');
+        res.present();
+      });
   }
 }

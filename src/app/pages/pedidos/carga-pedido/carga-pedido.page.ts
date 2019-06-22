@@ -43,6 +43,9 @@ export class CargaPedidoPage {
         });
       }
     )
+    if (this.usuario.tipo == 'registrado') {
+      this.cliente = this.usuario.usuario;
+    }
   }
 
   traerPedidos() {

@@ -10,15 +10,9 @@ import { IniciarsesionPage } from './pages/iniciarsesion/iniciarsesion.page';
 import { RegistrarsePage } from './pages/registrarse/registrarse.page';
 import { AppComponent } from './app.component';
 import { AltaClientePage } from './pages/clientes/alta-cliente/alta-cliente.page';
-<<<<<<< HEAD
 import { ReservasPage }  from './pages/reservar/reservas/reservas.page';
 import { AbmEmpleadoPage } from './pages/abm-empleado/abm-empleado.page';
-import { CargaPedidoPage } from './pages/carga-pedido/carga-pedido.page';
-=======
-import { ReservasPage }  from './pages/reservas/reservas.page';
-import { AbmEmpleadoPage } from './pages/abm-empleado/abm-empleado.page';
 import { CargaPedidoPage } from './pages/pedidos/carga-pedido/carga-pedido.page';
->>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9
 import { EmpleadosPage } from './pages/empleados/empleados.page';
 import { MesasPage } from './pages/mesas/mesas.page';
 import { TatetiPage } from './pages/clientes/tateti/tateti.page';
@@ -27,10 +21,7 @@ import { BienvenidoPage } from './pages/bienvenido/bienvenido.page';
 import { JuegosHomePage } from './pages/clientes/juegos-home/juegos-home.page';
 import { AhorcadoPage } from './pages/clientes/ahorcado/ahorcado.page';
 import { ActivarClientesPage } from './pages/clientes/activar-clientes/activar-clientes.page';
-<<<<<<< HEAD
 import { ListaReservasPage } from './pages/reservar/lista-reservas/lista-reservas.page';
-=======
->>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9
 
 //Servicios
 import { HttpClient, HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -68,6 +59,7 @@ import { TomaPedidoPage } from './pages/pedidos/toma-pedido/toma-pedido.page';
 import { PedidosComponentsModule } from './pages/pedidos/components/pedidos-components.module';
 import { ToastService } from './services/toast/toast.service';
 import { Vibration } from '@ionic-native/vibration/ngx';
+import { EstadoPedidoPage } from './pages/pedidos/estado-pedido/estado-pedido.page';
 
 
 export function getAccessToken() {
@@ -93,12 +85,9 @@ export function getAccessToken() {
     AhorcadoPage,
     ActivarClientesPage,
     PedidosMenuPage,
-<<<<<<< HEAD
     TomaPedidoPage,
-    ListaReservasPage
-=======
-    TomaPedidoPage
->>>>>>> 36842c07f72f71a041ec8512967f0933f1fe0ae9
+    ListaReservasPage,
+    EstadoPedidoPage
   ],
   imports: [
     BrowserModule,

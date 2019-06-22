@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReservaService } from 'src/app/services/reserva/reserva.service';
-import { Reserva } from 'src/app/models/Reserva';
+import { Reserva } from 'src/app/models/reserva';
 import { NavController } from '@ionic/angular';
 
 

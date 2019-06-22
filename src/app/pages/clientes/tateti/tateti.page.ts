@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, NavController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
+import { ToastService } from 'src/app/services/toast/toast.service';
+import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
 
 export class JuegoTaTeTi {
   spot1: string = '';
@@ -109,8 +111,7 @@ export class TatetiPage {
   isEnd: boolean = false;
   thinking: boolean = false;
 
-  constructor(public alertCtrl: AlertController,
-    public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, private errorHandler: ErrorHandlerService) {
     this.nuevoJuego = new JuegoTaTeTi();
   }
 
@@ -165,20 +166,8 @@ export class TatetiPage {
     this.isEnd = this.nuevoJuego.verificar();
     if (this.isEnd) {
       if (this.nuevoJuego.gano) {
-        let alert = this.alertCtrl.create({
-          header: 'FELICITACIONES',
-          message: "Ganaste 10% de descuento",
-          buttons: ['OK'],
-          cssClass: 'present-alert'
-        }).then(
-          (alert) => {
-            alert.present();
-            setTimeout(function () {
-              alert.dismiss();
-            }, 2000);
-            this.navCtrl.navigateForward('home');
-          }
-        );
+        this.errorHandler.mostrarMensajeConfimación('Ganaste 10% de descuento');
+        this.navCtrl.navigateForward('home');
       }
     }
   }

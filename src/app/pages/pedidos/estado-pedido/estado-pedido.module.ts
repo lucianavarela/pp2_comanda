@@ -5,12 +5,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ReservasPage } from './reservas.page';
+import { EstadoPedidoPage } from './estado-pedido.page';
+import { PedidosComponentsModule } from '../components/pedidos-components.module';
 
 const routes: Routes = [
   {
     path: '',
-    component: ReservasPage
+    component: EstadoPedidoPage
   }
 ];
 
@@ -19,8 +20,9 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    PedidosComponentsModule
   ],
-  declarations: [ReservasPage]
+  declarations: [EstadoPedidoPage]
 })
-export class ReservasPageModule {}
+export class EstadoPedidoPageModule {}
