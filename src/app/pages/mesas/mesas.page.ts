@@ -14,9 +14,7 @@ export class MesasPage {
 
   constructor(
     public navCtrl: NavController,
-    public mesaService: MesaService,
-    private errorHandler: ErrorHandlerService,
-  ) { }
+    public mesaService: MesaService) { }
 
   ionViewWillEnter() {
     this.traerMesas();

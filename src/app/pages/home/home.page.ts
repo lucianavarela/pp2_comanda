@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 import { User } from '../../models/user';
 import { ErrorHandlerService } from '../../services/error-handler/error-handler.service';
 import { AuthService } from '../../services/auth/auth.service';
@@ -55,30 +54,8 @@ export class HomePage {
 
 
   constructor(private navCtrl: NavController,
-    private error: ErrorHandlerService,
-    public alertCtrl: AlertController,
-    private spinnerHandler: SpinnerHandlerService,
     private authService: AuthService,
-    private router: Router,
-    private qrScanner: QRScanner) {
-  }
-
-  scanQr() {
-    try {
-      const ionApp = <HTMLElement>document.getElementsByTagName('ion-app')[0];
-      let scanSub = this.qrScanner.scan().subscribe((text: string) => {
-        if (text) {
-          this.qrScanner.hide();
-          scanSub.unsubscribe();
-          ionApp.style.display = 'block';
-          console.log(text); // --> text es el mensaje del QR.
-        }
-      });
-      this.qrScanner.show();
-      ionApp.style.display = 'none';
-    } catch (e) {
-      console.log(e) // --> usar el alert/toast que vayamos a usar
-    }
+    private router: Router) {
   }
 
   ionViewWillEnter() {
@@ -109,7 +86,7 @@ export class HomePage {
 
     if (this.usuarioOnline.tipo == "registrado") {
       this.listadoIconos = this.listados
-        .filter(listado => listado.nombre == "clientes" || listado.nombre == "menu" || listado.nombre == "juegos" || listado.nombre == "reservas");
+        .filter(listado => listado.nombre == "pedidos" || listado.nombre == "menu" || listado.nombre == "juegos" || listado.nombre == "reservas");
     } else if (this.usuarioOnline.tipo == "Cocinero" || this.usuarioOnline.tipo == "Cervecero" || this.usuarioOnline.tipo == "Bartender") {
       this.listadoIconos = this.listados
         .filter(listado => listado.nombre == "pedidos");

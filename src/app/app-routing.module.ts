@@ -17,17 +17,19 @@ import { AhorcadoPage } from './pages/clientes/ahorcado/ahorcado.page';
 import { ActivarClientesPage } from './pages/clientes/activar-clientes/activar-clientes.page';
 import { PedidosMenuPage } from './pages/pedidos/pedidos-menu/pedidos-menu.page';
 import { TomaPedidoPage } from './pages/pedidos/toma-pedido/toma-pedido.page';
+import { EstadoPedidoPage } from './pages/pedidos/estado-pedido/estado-pedido.page';
 
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'bienvenido', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomePage },
   { path: 'login', component: IniciarsesionPage },
   { path: 'register', component: RegistrarsePage },
   { path: 'empleado', component: AbmEmpleadoPage },
   { path: 'empleado/:id', component: AbmEmpleadoPage },
   { path: 'carga-pedido', component: CargaPedidoPage },
+  { path: 'estado-pedido', component: EstadoPedidoPage },
   { path: 'empleados', component: EmpleadosPage },
   { path: 'alta-cliente', component: AltaClientePage },
   { path: 'reservas', component: ReservasPage },

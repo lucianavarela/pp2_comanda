@@ -58,6 +58,7 @@ import { TomaPedidoPage } from './pages/pedidos/toma-pedido/toma-pedido.page';
 import { PedidosComponentsModule } from './pages/pedidos/components/pedidos-components.module';
 import { ToastService } from './services/toast/toast.service';
 import { Vibration } from '@ionic-native/vibration/ngx';
+import { EstadoPedidoPage } from './pages/pedidos/estado-pedido/estado-pedido.page';
 
 
 export function getAccessToken() {
@@ -83,7 +84,8 @@ export function getAccessToken() {
     AhorcadoPage,
     ActivarClientesPage,
     PedidosMenuPage,
-    TomaPedidoPage
+    TomaPedidoPage,
+    EstadoPedidoPage
   ],
   imports: [
     BrowserModule,

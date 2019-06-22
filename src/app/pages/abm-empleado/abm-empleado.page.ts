@@ -32,10 +32,11 @@ export class AbmEmpleadoPage implements OnInit {
         this.myForm.value.nombre,
         this.myForm.value.tipo)
         .then(response => {
-          this.navCtrl.navigateForward('empleados');
+          this.errorHandler.mostrarMensajeConfimación('Empleado creado')
+          this.navCtrl.navigateForward('/empleados');
         })
         .catch(error => {
-          this.errorHandler.mostrarMensajeConfimación("Se produjo un error al registrarse", 'Error');
+          this.errorHandler.mostrarMensajeError(error);
         })
     } else {
       this.empleadoService.Modificar(this.myForm.value.usuario,
@@ -43,10 +44,11 @@ export class AbmEmpleadoPage implements OnInit {
         this.myForm.value.nombre,
         this.myForm.value.tipo)
         .then(response => {
-          this.navCtrl.navigateForward('empleados');
+          this.errorHandler.mostrarMensajeConfimación('Empleado creado')
+          this.navCtrl.navigateForward('/empleados');
         })
         .catch(error => {
-          this.errorHandler.mostrarMensajeConfimación("Se produjo un error al registrarse", 'Error');
+          this.errorHandler.mostrarMensajeError(error);
         })
     }
   }

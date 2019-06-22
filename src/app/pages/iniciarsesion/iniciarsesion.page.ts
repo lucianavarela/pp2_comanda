@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Login } from '../../models/login';
 import { AuthService } from '../../services/auth/auth.service';
 import { ErrorHandlerService } from '../../services/error-handler/error-handler.service';
-import { Platform, NavController, AlertController } from '@ionic/angular';
+import { Platform, NavController } from '@ionic/angular';
 import { SmartAudioService } from '../../services/smart-audio/smart-audio.service';
+import { ToastService } from 'src/app/services/toast/toast.service';
 
 @Component({
   selector: 'app-iniciarsesion',
@@ -23,8 +24,7 @@ export class IniciarsesionPage implements OnInit {
     public audioService: SmartAudioService,
     public navCtrl: NavController,
     private authService: AuthService,
-    private errorHandler: ErrorHandlerService,
-    public alertCtrl: AlertController) {
+    private errorHandler: ErrorHandlerService) {
 
     this.selectUserOptions.title = "Usuarios disponibles";
     this.audioService.preload('login', 'assets/sonidos/short2.mp3');
@@ -44,11 +44,11 @@ export class IniciarsesionPage implements OnInit {
             localStorage.setItem('token', response['Token']);
             this.navCtrl.navigateForward('home');
           } else {
-            this.errorHandler.mostrarMensajeConfimación(response['Mensaje'], 'Error');
+            this.errorHandler.mostrarMensajeError(response['Mensaje']);
           }
         })
         .catch(err => {
-          this.errorHandler.mostrarMensajeConfimación(err['Mensaje'], 'Error');
+          this.errorHandler.mostrarMensajeError(err['Mensaje']);
         })
     }
   }
@@ -63,7 +63,7 @@ export class IniciarsesionPage implements OnInit {
     if (this.dataLogin.user != '' && this.dataLogin.pass != '') {
       return true;
     } else {
-      this.errorHandler.mostrarMensajeConfimación("Debe llenar todos los campos", 'Error');
+      this.errorHandler.mostrarMensajeError("Debe llenar todos los campos");
 
       return false;
     }
@@ -75,14 +75,7 @@ export class IniciarsesionPage implements OnInit {
     if (this.dataLogin.user != '' && this.dataLogin.pass != '') {
       return true;
     } else {
-      //let alert = 
-      this.alertCtrl.create({
-        header: 'Error',
-        message: "Debe llenar todos los campos",
-        buttons: ['Aceptar'],
-        cssClass: 'present-alert'
-      });
-      //alert.present();
+      this.errorHandler.mostrarMensajeError("Debe llenar todos los campos");
       return false;
     }
 

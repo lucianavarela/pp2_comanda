@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Login } from 'src/app/models/login';
-import { AuthService } from 'src/app/services/auth/auth.service';
 import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
-import { Platform, NavController, AlertController } from '@ionic/angular';
+import { Platform, NavController } from '@ionic/angular';
 import { SmartAudioService } from 'src/app/services/smart-audio/smart-audio.service';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
 
@@ -24,8 +23,7 @@ export class InicioClientePage implements OnInit {
     public audioService: SmartAudioService,
     public navCtrl: NavController,
     private authService: ClienteService,
-    private errorHandler: ErrorHandlerService,
-    public alertCtrl: AlertController) {
+    private errorHandler: ErrorHandlerService) {
     this.selectUserOptions.title = "Usuarios disponibles";
     this.audioService.preload('login', 'assets/sonidos/short2.mp3');
     this.dataLogin = new Login('', '');
@@ -46,12 +44,12 @@ export class InicioClientePage implements OnInit {
             localStorage.setItem('dato', response['Token']);
             this.navCtrl.navigateForward('home');
           } else {
-            this.errorHandler.mostrarMensajeConfimación(response['Mensaje'], 'Error');
+            this.errorHandler.mostrarMensajeError(response['Mensaje']);
           }
           // this.navCtrl.setRoot(HomePage , { usuario: rerponse }) ;       
         }),
         (error) => {
-          this.errorHandler.mostrarMensajeConfimación("Se produjo un error al ingresar", 'Error');
+          this.errorHandler.mostrarMensajeError("Se produjo un error al ingresar");
         }
     }
   }
@@ -64,7 +62,7 @@ export class InicioClientePage implements OnInit {
     if (this.dataLogin.user != '' && this.dataLogin.pass != '') {
       return true;
     } else {
-      this.errorHandler.mostrarMensajeConfimación("Debe llenar todos los campos", 'Error');
+      this.errorHandler.mostrarMensajeError("Debe llenar todos los campos");
       return false;
     }
   }
@@ -73,14 +71,7 @@ export class InicioClientePage implements OnInit {
     if (this.dataLogin.user != '' && this.dataLogin.pass != '') {
       return true;
     } else {
-      //let alert = 
-      this.alertCtrl.create({
-        header: 'Error',
-        message: "Debe llenar todos los campos",
-        buttons: ['Aceptar'],
-        cssClass: 'present-alert'
-      });
-      //alert.present();
+      this.errorHandler.mostrarMensajeError("Debe llenar todos los campos");
       return false;
     }
   }

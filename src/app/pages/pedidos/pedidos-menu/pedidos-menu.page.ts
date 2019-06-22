@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-pedidos-menu',
@@ -8,8 +10,12 @@ import { Router } from '@angular/router';
 })
 
 export class PedidosMenuPage implements OnInit {
+  usuario: User;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private authService: AuthService) {
+    this.usuario = this.authService.getUserInfo();
+  }
 
   ngOnInit() {
   }

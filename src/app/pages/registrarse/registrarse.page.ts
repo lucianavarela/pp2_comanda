@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, AlertController } from '@ionic/angular';
-import { AuthService } from '../../services/auth/auth.service';
+import { NavController } from '@ionic/angular';
 import { ErrorHandlerService } from '../../services/error-handler/error-handler.service';
-import { SpinnerHandlerService } from '../../services/spinner-handler/spinner-handler.service';
 import { EmpleadoService } from '../../services/empleado/empleado.service';
 
 @Component({
@@ -16,10 +14,7 @@ export class RegistrarsePage implements OnInit {
     user = { name: '', pass: '', secondPass: '' };
 
     constructor(public navCtrl: NavController,
-        private authService: AuthService,
         private errorHandler: ErrorHandlerService,
-        private spinnerHandler: SpinnerHandlerService,
-        public alertCtrl: AlertController,
         private empleadoService: EmpleadoService) {
     }
 
@@ -27,11 +22,11 @@ export class RegistrarsePage implements OnInit {
         if (this.validForm()) {
             this.empleadoService.Registrar(this.user.name, this.user.pass, '', '')
                 .then(response => {
-                    alert(response)
-                    //this.navCtrl.navigateForward('home');
+                    this.errorHandler.mostrarMensajeConfimación("Usuario registrado")
+                    this.navCtrl.navigateForward('home');
                 })
                 .catch(error => {
-                    this.errorHandler.mostrarMensajeConfimación("Se produjo un error al registrarse", 'Error');
+                    this.errorHandler.mostrarMensajeError(error);
                 })
         }
     }
@@ -47,14 +42,14 @@ export class RegistrarsePage implements OnInit {
                 if (this.user.pass.length > 5) {
                     return true;
                 }
-                this.errorHandler.mostrarMensajeConfimación("La contraseña es muy corta", 'Error');
+                this.errorHandler.mostrarMensajeError("La contraseña es muy corta");
 
             } else {
-                this.errorHandler.mostrarMensajeConfimación("Las contraseñas son diferentes", 'Error');
+                this.errorHandler.mostrarMensajeError("Las contraseñas son diferentes");
 
             }
         } else {
-            this.errorHandler.mostrarMensajeConfimación("Debe completar todos los campos", 'Error');
+            this.errorHandler.mostrarMensajeError("Debe completar todos los campos");
 
         }
         return false;

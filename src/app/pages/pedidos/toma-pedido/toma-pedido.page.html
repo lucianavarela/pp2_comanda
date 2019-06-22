@@ -3,13 +3,14 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
-    <ion-title>Toma de Pedidos</ion-title>
+    <ion-title *ngIf="usuario.tipo!='Mozo'">Toma de Pedidos</ion-title>
+    <ion-title *ngIf="usuario.tipo=='Mozo'">Servir Pedidos Listos</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content padding>
   <app-lista-pedidos *ngIf="!mostrarCargarTiempo && pedidoEnPreparacion == null" [pedidosList]="this.pedidosList" 
-  (pedidoSeleccionado)="seleccionarPedido($event)" (pedidoTomado)="tomarPedido($event)"
-  [mostrarBotonTomar]="this.usuario.tipo != 'Socio'"></app-lista-pedidos>
+  (pedidoSeleccionado)="seleccionarPedido($event)" (pedidoTomado)="tomarPedido($event)" (pedidoEntregado)="entregarPedido($event)"
+  [mostrarBotonTomar]="this.usuario.tipo != 'Socio'" [paraEntregar]="this.usuario.tipo == 'Mozo'"></app-lista-pedidos>
   <app-cargar-tiempo *ngIf="mostrarCargarTiempo" [pedido]="this.pedidoSeleccionado" (onCancelar)="actualizarListaPedidos()" 
   (onSubmit)="cargarTiempo($event)"></app-cargar-tiempo>  
   <app-datos-pedido *ngIf="!mostrarCargarTiempo" [pedido]="pedidoSeleccionado"></app-datos-pedido>

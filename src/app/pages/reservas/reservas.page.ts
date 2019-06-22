@@ -72,7 +72,7 @@ export class ReservasPage {
           this.flagCliente = false;
         }, (error) => {
           console.error(error);
-          this.errorHandler.mostrarMensajeConfimación("Se produjo un error al mostrar las reservas ", 'Error');
+          this.errorHandler.mostrarMensajeError("Error al mostrar reservas ");
 
         }
         );
@@ -111,7 +111,7 @@ export class ReservasPage {
         console.log(data);
       }, (error) => {
         console.error(error);
-        this.errorHandler.mostrarMensajeConfimación("Se produjo un error al mostrar las reservas ", 'Error');
+        this.errorHandler.mostrarMensajeError("Error al mostrar reservas ");
 
       }
       );
@@ -128,18 +128,14 @@ export class ReservasPage {
     console.log(this.reserva);
     return this.reservaServicio.reserverMesa(this.reserva).
       subscribe((data) => { // Success
-        this.errorHandler.mostrarMensajeConfimación("Cargada para el dia: " + this.reserva.fecha + " a las: " +
-          this.reserva.hora + "hs.", 'Reserva');
+        this.errorHandler.mostrarMensajeConfimación("Reserva realizada");
         this.cancel();
         console.log(data);
       }, (error) => {
         console.error(error);
-        this.errorHandler.mostrarMensajeConfimación("Se produjo un error al carga la reservas ", 'Error');
-
+        this.errorHandler.mostrarMensajeError("Error al reservar");
       }
       );
-
-
   }
 
   cancel() {
