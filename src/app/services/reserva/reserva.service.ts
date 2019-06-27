@@ -32,4 +32,17 @@ export class ReservaService {
   public ListarTodos(): Observable<Reserva[]> {
     return this.miHttp.httpGetOL<Reserva[]>('reservas/listarTodas');
   }
+
+  public Activar(id: number): Promise<Object> {
+    return this.miHttp.httpGetPL('reservas/activar/' + id);
+  }
+
+  public Baja(id: number): Promise<Object> {
+    return this.miHttp.httpDeletePL('reservas/' + id);
+  }
+  
+  public Suspender(id: number): Promise<Object> {
+    return this.miHttp.httpDeletePL('reservas/suspender/' + id);
+  }
+
 }

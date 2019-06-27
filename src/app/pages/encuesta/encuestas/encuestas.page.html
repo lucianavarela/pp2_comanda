@@ -29,7 +29,7 @@
                 </ion-col>
                 <ion-col size="4">
                     <ion-label >Mesa: {{encuesta.codigoMesa}}</ion-label>
-                    <ion-label >{{encuesta.fecha}}</ion-label>
+                    <ion-label >{{encuesta.fecha.substr(0,10)}}</ion-label>
                     <ion-label > <ion-icon name="star-half"></ion-icon></ion-label>
                      </ion-col>             
                  </ion-row>
@@ -39,9 +39,11 @@
       </div>
 
       <div *ngIf="encuestas.length === 0">
-          <ion-col size="4">
-              <ion-label >No Encuestas</ion-label>
-            </ion-col>
+          <ion-col size="12">
+            
+              <ion-button color="success" expand="full">No hay Encuestas!!!!</ion-button>
+              </ion-col>
+  
       </div>
 
 </ion-content>

@@ -24,15 +24,32 @@
                 <ion-col  size="2">
                   <img src="assets/imgs/reserv.png">
                 </ion-col>
-                <ion-col size="4">
+                <ion-col size="6">
                   <ion-label >{{reserva.nombre_cliente}}</ion-label>
-                  <ion-label >{{reserva.codigo_mesa}}</ion-label>
-                  
-                </ion-col>
-                <ion-col size="4">
-                    <ion-label >{{reserva.fecha}}</ion-label>
-                    <ion-label >{{reserva.hora}} Hs. </ion-label>
-                  </ion-col>             
+                  <ion-label >{{reserva.codigo_mesa}}</ion-label>                  
+                  <ion-label >{{reserva.fecha.substr(0,10)}}</ion-label>
+                 <ion-label >{{reserva.hora}} Hs. </ion-label>
+                  </ion-col>  
+                  <ion-col *ngIf="reserva.estado=='I'" size="2">
+                    <ion-button color="success" (click)="activar(reserva.id_reserva)"  >
+                      <ion-icon name="walk"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+                  <ion-col *ngIf="reserva.estado=='A'" size="2">
+                    <ion-button color="primary" (click)="suspender(reserva.id_reserva)">
+                      <ion-icon name="man"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+                  <ion-col *ngIf="reserva.estado=='B'" size="2">
+                    <ion-button color="primary" >
+                      <ion-icon name="close"></ion-icon>
+                    </ion-button>
+                  </ion-col> 
+                  <ion-col size="2">
+                    <ion-button color="danger" (click)="borrar(reserva.id_reserva)">
+                      <ion-icon name="trash"></ion-icon>
+                    </ion-button>
+                  </ion-col>          
               </ion-row>
             </ion-grid>
           </ion-item>
@@ -40,8 +57,9 @@
       </div>
 
       <div *ngIf="reservas.length === 0">
-          <ion-col size="4">
-              <ion-label >No hay reservas para hoy</ion-label>
+          <ion-col size="12">
+            
+            <ion-button color="success" expand="full">No hay reservas para hoy!!!!</ion-button>
             </ion-col>
 
         </div>

@@ -61,6 +61,16 @@ export class ClienteService {
     public Suspender(id: number): Promise<Object> {
       return this.miHttp.httpDeletePL('clientes/suspender/' + id);
     }
+
+    public CargarMesa(dataCliente : Cliente){
+
+      return this.miHttp.httpPostL("clientes/Mesa",dataCliente);
+    
+    }
+
+    public SacarMesa(mesa: string): Promise<Object> {
+        return this.miHttp.httpDeletePL('clientes/Mesa/' + mesa);
+    }
   
 
 }

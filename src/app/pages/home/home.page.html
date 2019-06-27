@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="primary">
 
-    <ion-title *ngIf="usuarioOnline">{{this.usuarioOnline.usuario | uppercase }}</ion-title>
+    <ion-title *ngIf="usuarioOnline">{{this.usuarioOnline.nombre }}</ion-title>
 
     <ion-buttons slot="end">
       <ion-button (click)="cerrarSesionClick()">
