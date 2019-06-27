@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { ToastService } from 'src/app/services/toast/toast.service';
-//import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { EsperaService } from 'src/app/services/espera/espera.service';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { ClienteService } from 'src/app/services/cliente/cliente.service';
 
 @Component({
   selector: 'app-home-qr',
@@ -14,90 +14,69 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 })
 export class HomeQrPage implements OnInit {
 
-  usuarioOnline:  User;
+  usuarioOnline: any;
   listadoIconos: Array<any> = [
     {
-      nombre: "Espera",
-      imagen: "assets/imgs/home/qrEspera.png",
+      nombre: "Tomar Mesa",
+      accion: "mesa"
+    },
+    {
+      nombre: "Lista de espera",
       accion: "espera"
     },
-    
+
   ]
 
-  constructor(private errorHandler: ToastService,private navCtrl: NavController,public esperaServicio: EsperaService,
+  constructor(private errorHandler: ToastService,
+    private navCtrl: NavController,
+    public esperaServicio: EsperaService,
     private barcodeScanner: BarcodeScanner,
-    private authService: AuthService) { } //private qrScanner: QRScanner,) { }
+    private clienteService: ClienteService,
+    private authService: AuthService) {
+
+  }
 
   ngOnInit() {
   }
 
   ionViewWillEnter() {
     this.usuarioOnline = this.authService.token();
-    console.log(  this.usuarioOnline);
-         
+    console.log(this.usuarioOnline);
   }
 
-
-  Accion(qr : string) {
-    switch (qr) {
-      case 'espera':
+  Accion(qr: string) {
+    if (qr == 'LISTA DE ESPERA') {
       this.esperaServicio.alta(this.usuarioOnline).
-      subscribe((data) => { // Success
-        this.errorHandler.confirmationToast(data["Mensaje"]);
-         
-      console.log(data);
-    },(error) =>{
-      console.error(error);
-      this.errorHandler.errorToast("Se produjo un error al carga la lista ");
-             
+        subscribe((data) => {
+          this.errorHandler.confirmationToast(data["Mensaje"]);
+          console.log(data);
+        }, (error) => {
+          console.error(error);
+          this.errorHandler.errorToast("Se produjo un error al carga la lista ");
+        });
+    } else if (qr.indexOf('MESA-') > -1) {
+      this.usuarioOnline.mesa = qr.replace('MESA-', '');
+      this.clienteService.CargarMesa(this.usuarioOnline).
+        subscribe((data) => {
+          this.errorHandler.confirmationToast(data["Mensaje"]);
+        }, (error) => {
+          this.errorHandler.errorToast("Se produjo un error al carga la lista ");
+        });
+    } else {
+      this.errorHandler.errorToast("No es un Qr valido");
     }
-    );
-       
-      break;
-      default:
-      this.errorHandler.errorToast("no es un Qr valido");
-      break;
-     
-    }
-
   }
 
-/*
   scanQr() {
- 
-   try {
-      const ionApp = <HTMLElement>document.getElementsByTagName('ion-app')[0];
-      let scanSub = this.qrScanner.scan().subscribe((text: string) => {
-        if (text) {
-          this.qrScanner.hide();
-          scanSub.unsubscribe();
-          ionApp.style.display = 'block';
-          this.Accion(text);
-        }
-      });
-      this.qrScanner.show();
-      ionApp.style.display = 'none';
-    } catch (e) {
-      this.errorHandler.errorToast(e);
-      
-    }
-    
-  }*/
-  scanQr(){
     this.barcodeScanner.scan().then(barcodeData => {
       console.log('Barcode data', barcodeData);
-    
       this.Accion(barcodeData.text);
-      }).catch(e => {
-      //console.log('Error', err);
+    }).catch(e => {
       this.errorHandler.errorToast(e);
-      });
+    });
   }
 
-
-
-  volver(){
+  volver() {
     this.navCtrl.navigateForward('home');
   }
-
 }

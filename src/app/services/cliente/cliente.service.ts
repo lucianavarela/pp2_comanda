@@ -29,48 +29,46 @@ export class ClienteService {
 
 
 
-  public listarActivaciones(){
+  public listarActivaciones() {
     return this.miHttp.httpGetL("clientes/listarActivaciones");
   }
 
-  public ActivarCliente(dataCliente: Cliente){
+  public ActivarCliente(dataCliente: Cliente) {
 
-    return this.miHttp.httpPostL("clientes/activarCliente",dataCliente);
-  
-    }
+    return this.miHttp.httpPostL("clientes/activarCliente", dataCliente);
 
-    
-    public Activar(id: number): Promise<Object> {
-      return this.miHttp.httpGetPL('clientes/activarCliente/' + id);
-    }
-
-    
-    public Listar(): Observable<Cliente[]> {
-      return this.miHttp.httpGetOL<Cliente[]>('clientes/listarActivaciones');
-    }
+  }
 
 
-    public ListarTodos(): Observable<Cliente[]> {
-      return this.miHttp.httpGetOL<Cliente[]>('clientes/listar');
-    }
+  public Activar(id: number): Promise<Object> {
+    return this.miHttp.httpGetPL('clientes/activarCliente/' + id);
+  }
 
-    public Baja(id: number): Promise<Object> {
-      return this.miHttp.httpDeletePL('clientes/' + id);
-    }
-    
-    public Suspender(id: number): Promise<Object> {
-      return this.miHttp.httpDeletePL('clientes/suspender/' + id);
-    }
 
-    public CargarMesa(dataCliente : Cliente){
+  public Listar(): Observable<Cliente[]> {
+    return this.miHttp.httpGetOL<Cliente[]>('clientes/listarActivaciones');
+  }
 
-      return this.miHttp.httpPostL("clientes/Mesa",dataCliente);
-    
-    }
 
-    public SacarMesa(mesa: string): Promise<Object> {
-        return this.miHttp.httpDeletePL('clientes/Mesa/' + mesa);
-    }
-  
+  public ListarTodos(): Observable<Cliente[]> {
+    return this.miHttp.httpGetOL<Cliente[]>('clientes/listar');
+  }
+
+  public Baja(id: number): Promise<Object> {
+    return this.miHttp.httpDeletePL('clientes/' + id);
+  }
+
+  public Suspender(id: number): Promise<Object> {
+    return this.miHttp.httpDeletePL('clientes/suspender/' + id);
+  }
+
+  public CargarMesa(dataCliente: Cliente) {
+    return this.miHttp.httpPostL("clientes/Mesa", dataCliente);
+  }
+
+  public SacarMesa(mesa: string): Promise<Object> {
+    return this.miHttp.httpDeletePL('clientes/Mesa/' + mesa);
+  }
+
 
 }
