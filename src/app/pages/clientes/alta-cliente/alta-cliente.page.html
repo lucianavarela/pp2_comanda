@@ -48,9 +48,17 @@
     </ion-col>
   </ion-row>
   <ion-row>
-    <ion-col [hidden]="ocultarA">
+    <ion-col [hidden]="ocultarR">
       <ion-item>
         <ion-input type="email" required name="email" [(ngModel)]="cliente.mail" placeholder="Correo Electrónico">
+        </ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col [hidden]="ocultarA">
+      <ion-item>
+        <ion-input type="text" required name="usuario" [(ngModel)]="cliente.usuario" placeholder="Usuario">
         </ion-input>
       </ion-item>
     </ion-col>
