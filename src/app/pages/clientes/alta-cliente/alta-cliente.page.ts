@@ -5,7 +5,8 @@ import { ClienteService } from '../../../services/cliente/cliente.service';
 import { NavController } from '@ionic/angular';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { ErrorHandlerService } from '../../../services/error-handler/error-handler.service';
-import { QRScanner } from '@ionic-native/qr-scanner/ngx';
+//import { QRScanner } from '@ionic-native/qr-scanner/ngx';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx'
 
 @Component({
   selector: 'app-alta-cliente',
@@ -22,7 +23,8 @@ export class AltaClientePage implements OnInit {
   secondPass: string;
 
 
-  constructor( private errorHandler: ToastService,private navCtrl: NavController,private qrScanner: QRScanner,
+  constructor( private errorHandler: ToastService,private navCtrl: NavController,//private qrScanner: QRScanner,
+    private barcodeScanner: BarcodeScanner,
     private miHttp: ClienteService) { 
       this.cliente = new Cliente();
       this.limpiarCliente();
@@ -133,26 +135,28 @@ export class AltaClientePage implements OnInit {
       this.navCtrl.navigateForward('inicioCliente');
     }
 
-    scanQr() {
-      try {
-        const ionApp = <HTMLElement>document.getElementsByTagName('ion-app')[0];
-        let scanSub = this.qrScanner.scan().subscribe((text: string) => {
-          if (text) {
-            this.qrScanner.hide();
-            scanSub.unsubscribe();
-            ionApp.style.display = 'block';
-            this.errorHandler.confirmationToast(text);
-          }
+    leer(){
+      this.barcodeScanner.scan({ "formats": "PDF_417" }).then(barcodeData => {
+        console.log('Barcode data', barcodeData);
+        //this.errorHandler.confirmationToast(barcodeData.text);
+        this.cargarDatosDni(barcodeData);
+        }).catch(err => {
+        console.log('Error', err);
         });
-        this.qrScanner.show();
-        ionApp.style.display = 'none';
-      } catch (e) {
-      // console.log(e) // --> usar el alert/toast que vayamos a usar
-        this.errorHandler.errorToast(e);
-      }
     }
+
+    cargarDatosDni(datos: any) {
+      let parsedData = datos.text.split('@');
+      let nombre = parsedData[2].toString();
+      let apellido = parsedData[1].toString();
+      let dni: number = +parsedData[4];
   
-    
+      this.cliente.apellido= apellido;
+      this.cliente.nombre= nombre;
+      this.cliente.dni= dni;
+    }
+
+      
     
 
 }

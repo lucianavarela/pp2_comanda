@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { PedidoService } from '../../../services/pedido/pedido.service';
 import { MesaService } from '../../../services/mesa/mesa.service';
-import { QRScanner } from '@ionic-native/qr-scanner/ngx';
+//import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 import { Mesa } from 'src/app/models/mesa';
 import { Pedido } from 'src/app/models/pedido';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 @Component({
   selector: 'app-estado-pedido',
@@ -22,7 +23,8 @@ export class EstadoPedidoPage {
     private navCtrl: NavController,
     private pedidoService: PedidoService,
     private mesaService: MesaService,
-    private qrScanner: QRScanner
+    private barcodeScanner: BarcodeScanner,
+    //private qrScanner: QRScanner
   ) {
   }
 
@@ -45,7 +47,7 @@ export class EstadoPedidoPage {
       });
   }
 
-  scanQr() {
+  /*scanQr() {
     try {
       const ionApp = <HTMLElement>document.getElementsByTagName('ion-app')[0];
       let scanSub = this.qrScanner.scan().subscribe((text: string) => {
@@ -61,7 +63,18 @@ export class EstadoPedidoPage {
     } catch (e) {
       console.log(e) // --> usar el alert/toast que vayamos a usar
     }
+  }*/
+  scanQr() {
+    this.barcodeScanner.scan().then(barcodeData => {
+      console.log('Barcode data', barcodeData);
+      this.mesa= barcodeData.text;
+      this.traerPedidos();
+      }).catch(err => {
+      console.log('Error', err);
+      });
+
   }
+
 
   atras() {
     this.navCtrl.pop();

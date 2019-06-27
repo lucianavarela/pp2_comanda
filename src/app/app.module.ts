@@ -46,6 +46,7 @@ import { configs } from './../globalConfig';
 //Camara
 import { Camera } from '@ionic-native/camera/ngx';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 //Audio
 import { SmartAudioService } from './services/smart-audio/smart-audio.service';
@@ -59,7 +60,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { RouterModule, RouteReuseStrategy } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
-import { QRScanner } from '@ionic-native/qr-scanner/ngx';
+//import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 import { PedidosMenuPage } from './pages/pedidos/pedidos-menu/pedidos-menu.page';
 import { TomaPedidoPage } from './pages/pedidos/toma-pedido/toma-pedido.page';
 import { PedidosComponentsModule } from './pages/pedidos/components/pedidos-components.module';
@@ -140,7 +141,8 @@ export function getAccessToken() {
     ToastService,
     Vibration,
     Camera,
-    QRScanner,
+    //QRScanner,
+    BarcodeScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HTTP_INTERCEPTORS,

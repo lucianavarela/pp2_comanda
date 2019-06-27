@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { ToastService } from 'src/app/services/toast/toast.service';
-import { QRScanner } from '@ionic-native/qr-scanner/ngx';
+//import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { EsperaService } from 'src/app/services/espera/espera.service';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 @Component({
   selector: 'app-home-qr',
@@ -24,7 +25,8 @@ export class HomeQrPage implements OnInit {
   ]
 
   constructor(private errorHandler: ToastService,private navCtrl: NavController,public esperaServicio: EsperaService,
-    private qrScanner: QRScanner, private authService: AuthService,) { }
+    private barcodeScanner: BarcodeScanner,
+    private authService: AuthService) { } //private qrScanner: QRScanner,) { }
 
   ngOnInit() {
   }
@@ -60,7 +62,7 @@ export class HomeQrPage implements OnInit {
 
   }
 
-
+/*
   scanQr() {
  
    try {
@@ -80,6 +82,16 @@ export class HomeQrPage implements OnInit {
       
     }
     
+  }*/
+  scanQr(){
+    this.barcodeScanner.scan().then(barcodeData => {
+      console.log('Barcode data', barcodeData);
+    
+      this.Accion(barcodeData.text);
+      }).catch(e => {
+      //console.log('Error', err);
+      this.errorHandler.errorToast(e);
+      });
   }
 
 
