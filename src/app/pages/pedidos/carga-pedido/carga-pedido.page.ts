@@ -35,7 +35,6 @@ export class CargaPedidoPage {
 
   ionViewWillEnter() {
     this.traerMenus();
-    this.traerPedidos();
     this.mesaService.Listar().subscribe(
       (res) => {
         this.mesas = res.filter((mesa) => {
@@ -46,13 +45,6 @@ export class CargaPedidoPage {
     if (this.usuario.tipo == 'registrado') {
       this.cliente = this.usuario.usuario;
     }
-  }
-
-  traerPedidos() {
-    this.pedidoService.ListarActivosPorSector().subscribe(
-      (res) => {
-        console.log(res);
-      });
   }
 
   traerMenus() {
