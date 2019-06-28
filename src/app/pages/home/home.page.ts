@@ -13,7 +13,7 @@ import { SpinnerHandlerService } from '../../services/spinner-handler/spinner-ha
 })
 export class HomePage {
 
-  usuarioOnline: User;
+  usuarioOnline: any;
   listadoIconos: Array<any> = new Array;
   logo: boolean;
 
@@ -105,7 +105,7 @@ export class HomePage {
 
   ionViewWillEnter() {
     if (this.authService.isLogged()) {
-      this.usuarioOnline = this.authService.getUserInfo();
+      this.usuarioOnline = this.authService.token();
       console.log(this.usuarioOnline.tipo)
     } else {
       this.navCtrl.navigateForward('bienvenido');

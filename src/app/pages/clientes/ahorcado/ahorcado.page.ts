@@ -10,7 +10,7 @@ import { ToastService } from 'src/app/services/toast/toast.service';
 })
 export class AhorcadoPage implements OnInit {
 
-  usuario: User;
+  usuario: any;
 
   letra: string = '';
   nombres: any = ['COCHE', 'MOTO', 'CARTEL', 'COCHECITO', 'RAQUETA'];

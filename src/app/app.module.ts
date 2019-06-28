@@ -44,7 +44,6 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { configs } from './../globalConfig';
 
 //Camara
-import { Camera } from '@ionic-native/camera/ngx';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
@@ -60,7 +59,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { RouterModule, RouteReuseStrategy } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
-//import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 import { PedidosMenuPage } from './pages/pedidos/pedidos-menu/pedidos-menu.page';
 import { TomaPedidoPage } from './pages/pedidos/toma-pedido/toma-pedido.page';
 import { PedidosComponentsModule } from './pages/pedidos/components/pedidos-components.module';
@@ -140,8 +138,6 @@ export function getAccessToken() {
     SplashScreen,
     ToastService,
     Vibration,
-    Camera,
-    //QRScanner,
     BarcodeScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {

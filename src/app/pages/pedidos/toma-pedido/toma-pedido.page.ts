@@ -15,12 +15,12 @@ export class TomaPedidoPage implements OnInit {
   pedidosList: Pedido[];
   pedidoSeleccionado: Pedido;
   pedidoEnPreparacion: Pedido;
-  usuario: User;
+  usuario: any;
   mostrarCargarTiempo: boolean;
 
   constructor(private pedidoService: PedidoService, private errorHandler: ErrorHandlerService,
     private authService: AuthService) {
-    this.usuario = this.authService.getUserInfo();
+    this.usuario = this.authService.token();
     console.log(this.usuario);
     this.actualizarListaPedidos();
   }

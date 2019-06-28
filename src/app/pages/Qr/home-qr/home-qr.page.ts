@@ -6,10 +6,13 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { EsperaService } from 'src/app/services/espera/espera.service';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
+import { MenuService } from 'src/app/services/menu/menu.service';
+import { PedidoService } from 'src/app/services/pedido/pedido.service';
 
 @Component({
   selector: 'app-home-qr',
   templateUrl: './home-qr.page.html',
+  styleUrls: ['./home-qr.page.scss'],
 })
 export class HomeQrPage implements OnInit {
 
@@ -31,6 +34,8 @@ export class HomeQrPage implements OnInit {
     public esperaServicio: EsperaService,
     private barcodeScanner: BarcodeScanner,
     private clienteService: ClienteService,
+    private menuService: MenuService,
+    private pedidoService: PedidoService,
     private authService: AuthService) {
   }
 
@@ -49,20 +54,55 @@ export class HomeQrPage implements OnInit {
         subscribe((data) => {
           this.errorHandler.confirmationToast(data["Mensaje"]);
           console.log(data);
+          this.volver();
         }, (error) => {
           console.error(error);
           this.errorHandler.errorToast("Se produjo un error al carga la lista ");
+          this.volver();
         });
     } else if (qr.indexOf('MESA-') > -1) {
       this.usuarioOnline.mesa = qr.replace('MESA-', '');
       this.clienteService.CargarMesa(this.usuarioOnline).
         subscribe((data) => {
           this.errorHandler.confirmationToast(data["Mensaje"]);
+          this.volver();
         }, (error) => {
           this.errorHandler.errorToast("Se produjo un error al carga la lista ");
+          this.volver();
         });
     } else {
-      this.errorHandler.errorToast("No es un Qr valido");
+      this.menuService.GetMenu(qr).subscribe(menu => {
+        if (menu && this.usuarioOnline.tipo == 'registrado') {
+          this.clienteService.GetCliente(this.usuarioOnline.id).subscribe(cliente => {
+            if (cliente.mesa) {
+              this.pedidoService.Registrar(cliente.mesa, menu.id, cliente.nombre, 0)
+                .then(
+                  (res: any) => {
+                    if (res.Estado == 'OK') {
+                      this.errorHandler.confirmationToast('Pedido registrado!');
+                      this.volver();
+                    } else {
+                      this.errorHandler.errorToast(res.Mensaje);
+                      this.volver();
+                    }
+                  }
+                )
+                .catch(
+                  (e) => {
+                    this.errorHandler.errorToast(e);
+                    this.volver();
+                  }
+                )
+            } else {
+              this.errorHandler.errorToast('Debe estar ingresado en una mesa para realizar pedidos');
+              this.volver();
+            }
+          });
+        } else {
+          this.errorHandler.errorToast("No es un Qr valido");
+          this.volver();
+        }
+      });
     }
   }
 
@@ -72,6 +112,7 @@ export class HomeQrPage implements OnInit {
       this.Accion(barcodeData.text);
     }).catch(e => {
       this.errorHandler.errorToast(e);
+      this.volver();
     });
   }
 
