@@ -8,14 +8,19 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
 import { MenuService } from 'src/app/services/menu/menu.service';
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
+import { MesaService } from 'src/app/services/mesa/mesa.service';
+import { Mesa } from 'src/app/models/mesa';
+import { Cliente } from 'src/app/models/cliente';
 
 @Component({
   selector: 'app-home-qr',
   templateUrl: './home-qr.page.html',
-  styleUrls: ['./home-qr.page.scss'],
 })
 export class HomeQrPage implements OnInit {
 
+  listadoMesas: Mesa[] = [];
+  mesa: any;
+  cliente: Cliente;
   usuarioOnline: any;
   listadoIconos: Array<any> = [
     {
@@ -26,7 +31,6 @@ export class HomeQrPage implements OnInit {
       nombre: "Lista de espera",
       accion: "espera"
     },
-
   ]
 
   constructor(private errorHandler: ToastService,
@@ -36,7 +40,10 @@ export class HomeQrPage implements OnInit {
     private clienteService: ClienteService,
     private menuService: MenuService,
     private pedidoService: PedidoService,
+    private servicioMesa: MesaService,
     private authService: AuthService) {
+    this.mesa = new Mesa();
+    this.cliente = new Cliente();
   }
 
   ngOnInit() {
@@ -44,8 +51,11 @@ export class HomeQrPage implements OnInit {
 
   ionViewWillEnter() {
     this.usuarioOnline = this.authService.token();
+    this.cliente.id = this.usuarioOnline.id;
     console.log(this.usuarioOnline);
     this.scanQr();
+    // this.cargarMesas();
+
   }
 
   Accion(qr: string) {
@@ -109,11 +119,30 @@ export class HomeQrPage implements OnInit {
   scanQr() {
     this.barcodeScanner.scan().then(barcodeData => {
       console.log('Barcode data', barcodeData);
-      this.Accion(barcodeData.text);
+      this.Accion(barcodeData.text.toUpperCase());
     }).catch(e => {
       this.errorHandler.errorToast(e);
-      this.volver();
     });
+  }
+
+  cargarMesas() {
+    this.servicioMesa.Listar().subscribe(
+      (res) => {
+        this.listadoMesas = res;
+        console.log(this.listadoMesas);
+      });
+
+  }
+
+  verificarMesa(cogido_mesa: string) {
+    let respuesta = false;
+    this.mesa = this.listadoMesas
+      .filter(listado => listado.codigo == cogido_mesa)
+    if (this.mesa.estado == "Cerrada") {
+      respuesta = true;
+    }
+    console.log(this.mesa);
+    return respuesta
   }
 
   volver() {

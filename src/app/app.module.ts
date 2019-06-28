@@ -68,6 +68,8 @@ import { EstadoPedidoPage } from './pages/pedidos/estado-pedido/estado-pedido.pa
 import { AltaMenuPage } from './pages/abm-menu/alta-menu/alta-menu.page';
 import { ImagesService } from 'src/app/services/fotos/images.service';
 import { MenuService } from './services/menu/menu.service';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 
 
 export function getAccessToken() {
@@ -144,6 +146,8 @@ export function getAccessToken() {
     MenuService,
     Vibration,
     BarcodeScanner,
+    Geolocation,
+    NativeGeocoder,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HTTP_INTERCEPTORS,

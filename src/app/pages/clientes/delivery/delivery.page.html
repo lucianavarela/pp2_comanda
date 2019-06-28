@@ -1,9 +1,62 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>delivery</ion-title>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-button (click)="atras()">
+          <ion-icon name="arrow-round-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    <ion-title>delivery - {{cliente}}</ion-title>
+    
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+    <div>
+        <ion-chip *ngFor="let menu of menus" (click)="agregarMenu(menu.id)">
+          <ion-icon *ngIf="menu.sector=='Cervecero'" name="beer"></ion-icon>
+          <ion-icon *ngIf="menu.sector=='Cocinero'" name="restaurant"></ion-icon>
+          <ion-icon *ngIf="menu.sector=='Bartender'" name="wine"></ion-icon>
+          <ion-label>{{menu.nombre}}</ion-label>
+        </ion-chip>
+      </div>
+      <div id="menus_cargados">
+        <ion-chip color="success" *ngFor="let menu of menus_cargados">
+          <ion-icon *ngIf="menu.sector=='Cervecero'" name="beer"></ion-icon>
+          <ion-icon *ngIf="menu.sector=='Cocinero'" name="restaurant"></ion-icon>
+          <ion-icon *ngIf="menu.sector=='Bartender'" name="wine"></ion-icon>
+          <ion-label>{{menu.nombre}}</ion-label>
+          <ion-icon name="close-circle" (click)="eliminarMenu(menu.id)"></ion-icon>
+        </ion-chip>
+      </div>
+     <!-- <ion-row *ngIf="usuario!=null">
+        <ion-col size="6">
+          <ion-item>
+            <ion-icon name="person" item-start></ion-icon>
+            <ion-input [(ngModel)]="cliente" type="text" placeholder="Cliente"></ion-input>
+          </ion-item>
+        </ion-col>
+       
+      </ion-row>-->
+     
+      <ion-col [style.align-items]="center">    
+      <ion-button color="primary" id="boton" (click)="generarPedido()" round>Pedir</ion-button>
+      </ion-col>
+      <ion-col text-end>
+          <ion-button (click)="loadMap()" shape="round" fill="outline">
+            <ion-icon slot="start" name="locate"></ion-icon>
+            Donde Estoy
+          </ion-button>
+        </ion-col>
+
+      <div class="map-wrapper">
+          <div id="map_center">
+            <img src="../../assets/imgs/marcador.png" />
+          </div>
+          <div #map id="map"></div>
+        </div>
+        <div id="address">
+          <span>{{address}}</span>
+        </div>
 
 </ion-content>

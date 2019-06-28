@@ -12,4 +12,5 @@ export class Cliente {
     public pass: string;
     public mail: string;
     public mesa : string;
+    public usuario : string;
 }
