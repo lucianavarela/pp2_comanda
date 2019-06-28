@@ -9,7 +9,7 @@ import { Mesa } from '../../../models/mesa';
 import { MesaService } from '../../../services/mesa/mesa.service';
 import { Menu } from '../../../models/menu';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
+import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
  
 declare var google;
 
@@ -130,7 +130,7 @@ export class DeliveryPage implements OnInit{
     };
  
     this.nativeGeocoder.reverseGeocode(lattitude, longitude, options)
-      .then((result: NativeGeocoderReverseResult[]) => {
+      .then((result: NativeGeocoderResult[]) => {
         this.address = "";
         let responseAddress = [];
         for (let [key, value] of Object.entries(result[0])) {
