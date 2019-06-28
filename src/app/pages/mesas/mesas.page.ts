@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ErrorHandlerService } from '../../services/error-handler/error-handler.service';
 import { MesaService } from '../../services/mesa/mesa.service';
 import { NavController } from '@ionic/angular';
-import { Mesa } from '../../models/mesa';
+import { Mesa, EstadosMesa } from '../../models/mesa';
 
 @Component({
   selector: 'app-mesas',
@@ -54,7 +54,7 @@ export class MesasPage {
   }
 
   cerrar(codigo: string) {
-    this.mesaService.CambiarEstadoCerrada(codigo).then(
+    this.mesaService.CambiarEstado(codigo, EstadosMesa.Cerrada).then(
       (res) => {
         this.traerMesas()
       }

@@ -42,7 +42,7 @@ export class HomePage {
     {
       nombre: "menu",
       imagen: "assets/imgs/home/menu.png",
-      accion: "ClienteMenuPage"
+      accion: "alta-menu"
     },
     {
       nombre: "juegos",
@@ -92,9 +92,12 @@ export class HomePage {
     if (this.usuarioOnline.tipo == "registrado") {
       this.listadoIconos = this.listados
         .filter(listado => listado.nombre == "pedidos" || listado.nombre == "menu" || listado.nombre == "juegos" || listado.nombre == "reservas");
-    } else if (this.usuarioOnline.tipo == "Cocinero" || this.usuarioOnline.tipo == "Cervecero" || this.usuarioOnline.tipo == "Bartender") {
+    } else if (this.usuarioOnline.tipo == "Cervecero") {
       this.listadoIconos = this.listados
         .filter(listado => listado.nombre == "pedidos");
+    } else if (this.usuarioOnline.tipo == "Cocinero" || this.usuarioOnline.tipo == "Bartender") {
+      this.listadoIconos = this.listados
+        .filter(listado => listado.nombre == "pedidos" || listado.nombre == "menu"); 
     } else if (this.usuarioOnline.tipo == "Mozo") {
       this.listadoIconos = this.listados
         .filter(listado => listado.nombre == "pedidos" || listado.nombre == "clientes" || listado.nombre == "reservas");

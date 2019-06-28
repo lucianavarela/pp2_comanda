@@ -29,7 +29,9 @@ export class HttpService {
   }
 
   public httpPostP(url: string, request: Object) {
-    return this.http.post(this.urlBase + url, request).toPromise();
+    let post = this.http.post(this.urlBase + url, request);
+    console.log(post);
+    return post.toPromise();
   }
 
   // tslint:disable-next-line:no-shadowed-variable

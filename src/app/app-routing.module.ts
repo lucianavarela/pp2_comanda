@@ -19,6 +19,7 @@ import { TomaPedidoPage } from './pages/pedidos/toma-pedido/toma-pedido.page';
 import { ListaReservasPage } from './pages/reservar/lista-reservas/lista-reservas.page';
 import { EstadoPedidoPage } from './pages/pedidos/estado-pedido/estado-pedido.page';
 import { ReservasPage } from './pages/reservar/reservas/reservas.page';
+import { AltaMenuPage } from './pages/abm-menu/alta-menu/alta-menu.page';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -44,7 +45,9 @@ const routes: Routes = [
   { path: 'activar-clientes', component: ActivarClientesPage },
   { path: 'toma-pedido', component: TomaPedidoPage },
   { path: 'pedidos-menu', component: PedidosMenuPage },
-  { path: 'listarReservas',  component: ListaReservasPage }
+  { path: 'listarReservas',  component: ListaReservasPage },
+  { path: 'alta-menu', component: AltaMenuPage }
+
 ];
 
 @NgModule({
