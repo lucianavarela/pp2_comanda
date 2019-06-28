@@ -10,7 +10,6 @@ import { ClienteService } from 'src/app/services/cliente/cliente.service';
 @Component({
   selector: 'app-home-qr',
   templateUrl: './home-qr.page.html',
-  styleUrls: ['./home-qr.page.scss'],
 })
 export class HomeQrPage implements OnInit {
 
@@ -33,7 +32,6 @@ export class HomeQrPage implements OnInit {
     private barcodeScanner: BarcodeScanner,
     private clienteService: ClienteService,
     private authService: AuthService) {
-
   }
 
   ngOnInit() {
@@ -42,6 +40,7 @@ export class HomeQrPage implements OnInit {
   ionViewWillEnter() {
     this.usuarioOnline = this.authService.token();
     console.log(this.usuarioOnline);
+    this.scanQr();
   }
 
   Accion(qr: string) {
