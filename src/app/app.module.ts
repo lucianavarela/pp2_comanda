@@ -65,6 +65,9 @@ import { PedidosComponentsModule } from './pages/pedidos/components/pedidos-comp
 import { ToastService } from './services/toast/toast.service';
 import { Vibration } from '@ionic-native/vibration/ngx';
 import { EstadoPedidoPage } from './pages/pedidos/estado-pedido/estado-pedido.page';
+import { AltaMenuPage } from './pages/abm-menu/alta-menu/alta-menu.page';
+import { ImagesService } from 'src/app/services/fotos/images.service';
+import { MenuService } from './services/menu/menu.service';
 
 
 export function getAccessToken() {
@@ -98,7 +101,8 @@ export function getAccessToken() {
     EncuestaPage,
     EncuestasPage,
     ListaEsperaPage,
-    HomeQrPage
+    HomeQrPage,
+    AltaMenuPage
   ],
   imports: [
     BrowserModule,
@@ -133,10 +137,11 @@ export function getAccessToken() {
     SmartAudioService,
     HttpService,
     AuthService,
-    HttpService,
     StatusBar,
     SplashScreen,
     ToastService,
+    ImagesService,
+    MenuService,
     Vibration,
     BarcodeScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

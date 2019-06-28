@@ -21,3 +21,9 @@ export class Menu {
         }
     }
 }
+
+export enum Sector {
+    // Sector = idSector
+    Cocina = 3,
+    BarraTragos = 1
+}
