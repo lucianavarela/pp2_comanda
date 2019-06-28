@@ -5,7 +5,8 @@
           <ion-icon name="arrow-round-back"></ion-icon>
         </ion-button>
       </ion-buttons>
-    <ion-title>delivery</ion-title>
+    <ion-title>delivery - {{cliente}}</ion-title>
+    
   </ion-toolbar>
 </ion-header>
 
@@ -28,7 +29,7 @@
           <ion-icon name="close-circle" (click)="eliminarMenu(menu.id)"></ion-icon>
         </ion-chip>
       </div>
-      <ion-row *ngIf="usuario!=null">
+     <!-- <ion-row *ngIf="usuario!=null">
         <ion-col size="6">
           <ion-item>
             <ion-icon name="person" item-start></ion-icon>
@@ -36,9 +37,26 @@
           </ion-item>
         </ion-col>
        
-      </ion-row>
+      </ion-row>-->
+     
       <ion-col [style.align-items]="center">    
       <ion-button color="primary" id="boton" (click)="generarPedido()" round>Pedir</ion-button>
       </ion-col>
+      <ion-col text-end>
+          <ion-button (click)="loadMap()" shape="round" fill="outline">
+            <ion-icon slot="start" name="locate"></ion-icon>
+            Donde Estoy
+          </ion-button>
+        </ion-col>
+
+      <div class="map-wrapper">
+          <div id="map_center">
+            <img src="../../assets/imgs/marcador.png" />
+          </div>
+          <div #map id="map"></div>
+        </div>
+        <div id="address">
+          <span>{{address}}</span>
+        </div>
 
 </ion-content>

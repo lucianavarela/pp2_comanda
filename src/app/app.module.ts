@@ -68,6 +68,9 @@ import { ToastService } from './services/toast/toast.service';
 import { Vibration } from '@ionic-native/vibration/ngx';
 import { EstadoPedidoPage } from './pages/pedidos/estado-pedido/estado-pedido.page';
 
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
+
 
 export function getAccessToken() {
   return localStorage.getItem('token');
@@ -143,6 +146,8 @@ export function getAccessToken() {
     Camera,
     //QRScanner,
     BarcodeScanner,
+    Geolocation,
+    NativeGeocoder,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HTTP_INTERCEPTORS,
