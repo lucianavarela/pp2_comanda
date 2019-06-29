@@ -63,6 +63,7 @@ import { EstadoPedidoPage } from './pages/pedidos/estado-pedido/estado-pedido.pa
 import { AltaMenuPage } from './pages/abm-menu/alta-menu/alta-menu.page';
 import { ImagesService } from 'src/app/services/fotos/images.service';
 import { MenuService } from './services/menu/menu.service';
+import { SimonPage } from './pages/clientes/simon/simon.page';
 
 
 export function getAccessToken() {
@@ -91,7 +92,8 @@ export function getAccessToken() {
     TomaPedidoPage,
     ListaReservasPage,
     EstadoPedidoPage,
-    AltaMenuPage
+    AltaMenuPage,
+    SimonPage
   ],
   imports: [
     BrowserModule,

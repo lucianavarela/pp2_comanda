@@ -20,6 +20,7 @@ import { ListaReservasPage } from './pages/reservar/lista-reservas/lista-reserva
 import { EstadoPedidoPage } from './pages/pedidos/estado-pedido/estado-pedido.page';
 import { ReservasPage } from './pages/reservar/reservas/reservas.page';
 import { AltaMenuPage } from './pages/abm-menu/alta-menu/alta-menu.page';
+import { SimonPage } from './pages/clientes/simon/simon.page';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -46,7 +47,9 @@ const routes: Routes = [
   { path: 'toma-pedido', component: TomaPedidoPage },
   { path: 'pedidos-menu', component: PedidosMenuPage },
   { path: 'listarReservas',  component: ListaReservasPage },
-  { path: 'alta-menu', component: AltaMenuPage }
+  { path: 'alta-menu', component: AltaMenuPage },
+  { path: 'simon', component: SimonPage }
+
 
 ];
 
