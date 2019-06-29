@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Alta de menú</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <form [formGroup]="altaMenuForm" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="floating">Nombre <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input clearInput formControlName="nombre" name="nombre" type="text"></ion-input>
+    </ion-item>
+    <ng-container *ngFor="let validation of validationMessages.nombre">
+      <div
+        *ngIf="altaMenuForm.get('nombre').hasError(validation.type) && (altaMenuForm.get('nombre').dirty || altaMenuForm.get('nombre').touched)">
+        <ion-text color="danger">
+          <p>{{ validation.message }}</p>
+        </ion-text>
+      </div>
+    </ng-container>
+  <br>
+    <ion-item>
+      <ion-label position="floating">Tipo <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-select formControlName="tipo" placeholder="Elige el tipo">
+        <ion-select-option value="3">Plato Comida</ion-select-option>
+        <ion-select-option value="1">Bebida</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ng-container *ngFor="let validation of validationMessages.tipo">
+      <div
+        *ngIf="altaMenuForm.get('tipo').hasError(validation.type) && (altaMenuForm.get('tipo').dirty || altaMenuForm.get('tipo').touched)">
+        <ion-text color="danger">
+          <p>{{ validation.message }}</p>
+        </ion-text>
+      </div>
+    </ng-container>
+    <br>
+    <ion-item>
+      <ion-label position="floating">Precio <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input clearInput formControlName="precio" name="precio" type="number"></ion-input>
+    </ion-item>
+    <ng-container *ngFor="let validation of validationMessages.precio">
+      <div
+        *ngIf="altaMenuForm.get('precio').hasError(validation.type) && (altaMenuForm.get('precio').dirty || altaMenuForm.get('precio').touched)">
+        <ion-text color="danger">
+          <p>{{ validation.message }}</p>
+        </ion-text>
+      </div>
+    </ng-container>
+  <br>
+    <ion-item>
+      <ion-label position="floating">Tiempo promedio de preparación <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input clearInput placeholder="Minutos" formControlName="tiempo_promedio" name="tiempo_promedio" type="number"></ion-input>
+    </ion-item>
+    <ng-container *ngFor="let validation of validationMessages.tiempo_promedio">
+      <div
+        *ngIf="altaMenuForm.get('tiempo_promedio').hasError(validation.type) && (altaMenuForm.get('tiempo_promedio').dirty || altaMenuForm.get('tiempo_promedio').touched)">
+        <ion-text color="danger">
+          <p>{{ validation.message }}</p>
+        </ion-text>
+      </div>
+    </ng-container>
+  <br>
+    <ion-item>
+      <ion-label position="floating">Descripción <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-textarea rows="4" cols="20" placeholder="Ingrese la descripción aquí..."
+        formControlName="descripcion" name="descripcion" type="text"></ion-textarea>
+    </ion-item>
+    <ng-container *ngFor="let validation of validationMessages.descripcion">
+      <div
+        *ngIf="altaMenuForm.get('descripcion').hasError(validation.type) && (altaMenuForm.get('descripcion').dirty || altaMenuForm.get('descripcion').touched)">
+        <ion-text color="danger">
+          <p>{{ validation.message }}</p>
+        </ion-text>
+      </div>
+    </ng-container>
+
+    <ion-button class="ion-margin-top" block color="primary" type="submit" [disabled]="altaMenuForm.invalid">
+      Crear Menú
+    </ion-button>
+    <ion-button class="ion-margin-top" block color="secondary" type="button" (click)="onCancelarClick()"> 
+      Cancelar
+    </ion-button>
+  </form>
+</ion-content>

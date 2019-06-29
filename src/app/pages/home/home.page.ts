@@ -13,7 +13,7 @@ import { SpinnerHandlerService } from '../../services/spinner-handler/spinner-ha
 })
 export class HomePage {
 
-  usuarioOnline: User;
+  usuarioOnline: any;
   listadoIconos: Array<any> = new Array;
   logo: boolean;
 
@@ -42,7 +42,7 @@ export class HomePage {
     {
       nombre: "menu",
       imagen: "assets/imgs/home/menu.png",
-      accion: "ClienteMenuPage"
+      accion: "alta-menu"
     },
     {
       nombre: "juegos",
@@ -115,7 +115,7 @@ export class HomePage {
 
   ionViewWillEnter() {
     if (this.authService.isLogged()) {
-      this.usuarioOnline = this.authService.getUserInfo();
+      this.usuarioOnline = this.authService.token();
       console.log(this.usuarioOnline.tipo)
     } else {
       this.navCtrl.navigateForward('bienvenido');
@@ -141,10 +141,13 @@ export class HomePage {
 
     if ( this.usuarioOnline.tipo == "registrado"  ) {
       this.listadoIconos = this.listados
-        .filter(listado => listado.nombre == "pedidos" || listado.nombre == "delivery" ||  listado.nombre == "juegos" || listado.nombre == "Qr" || listado.nombre == "reservas" || listado.nombre == "encuesta");
+        .filter(listado => listado.nombre == "pedidos" || listado.nombre == "delivery" ||  listado.nombre == "juegos" || listado.nombre == "reservas" || listado.nombre == "encuesta" || listado.nombre == "menu");
     } else if (this.usuarioOnline.tipo == "Cocinero" || this.usuarioOnline.tipo == "Cervecero" || this.usuarioOnline.tipo == "Bartender") {
       this.listadoIconos = this.listados
         .filter(listado => listado.nombre == "pedidos");
+    } else if (this.usuarioOnline.tipo == "Cocinero" || this.usuarioOnline.tipo == "Bartender") {
+      this.listadoIconos = this.listados
+        .filter(listado => listado.nombre == "pedidos" || listado.nombre == "menu"); 
     } else if (this.usuarioOnline.tipo == "Mozo") {
       this.listadoIconos = this.listados
         .filter(listado => listado.nombre == "pedidos" || listado.nombre == "clientes" || listado.nombre == "reservas" || listado.nombre == "mesas");

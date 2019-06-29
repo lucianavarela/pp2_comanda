@@ -5,7 +5,6 @@ import { ClienteService } from '../../../services/cliente/cliente.service';
 import { NavController } from '@ionic/angular';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { ErrorHandlerService } from '../../../services/error-handler/error-handler.service';
-//import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx'
 
 @Component({
@@ -15,7 +14,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx'
 })
 export class AltaClientePage implements OnInit {
   
-  usuario: User;
+  usuario: any;
   cliente : Cliente;
   ocultarR: boolean = true;
   ocultarA: boolean = true;
@@ -23,7 +22,7 @@ export class AltaClientePage implements OnInit {
   secondPass: string;
 
 
-  constructor( private errorHandler: ToastService,private navCtrl: NavController,//private qrScanner: QRScanner,
+  constructor( private errorHandler: ToastService,private navCtrl: NavController,
     private barcodeScanner: BarcodeScanner,
     private miHttp: ClienteService) { 
       this.cliente = new Cliente();
