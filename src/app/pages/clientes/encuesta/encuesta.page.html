@@ -1,0 +1,101 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-button (click)="atras()">
+          <ion-icon name="arrow-round-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    <ion-title>encuesta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  padding >
+
+  <ion-row  [style.align-items]="center">
+
+    <ion-col size="6" [style.align-items]="center">
+        <ion-label >Mesa</ion-label>
+        <ion-item *ngIf="mesas.length > 0">
+          <ion-icon name="pin"></ion-icon>
+          <ion-select [(ngModel)]="encuesta.codigoMesa" placeholder="Mesa" style="max-width: 100%">
+            <ion-select-option *ngFor="let option of mesas" value="{{option.codigo}}">{{option.codigo}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+     <ion-col size= '6' [style.align-items]="center">
+          <ion-label >Puntuación: {{encuesta.puntuacionMesa}}</ion-label>
+          <ion-range  [(ngModel)]="encuesta.puntuacionMesa"  min="1" max="10"   color="secondary">
+              <ion-label slot="start">1</ion-label>
+              <ion-label slot="end">10</ion-label>
+            </ion-range>
+
+      </ion-col>
+    </ion-row>
+
+    
+      
+      <ion-row  [style.align-items]="center">
+
+    <ion-col size="6" [style.align-items]="center">
+        <ion-label >Puntuación Mozo: {{encuesta.puntuacionMozo}}</ion-label>
+        <ion-range  [(ngModel)]="encuesta.puntuacionMozo"  min="1" max="10"   color="secondary">
+            <ion-label slot="start">1</ion-label>
+            <ion-label slot="end">10</ion-label>
+          </ion-range>
+      </ion-col>
+     <ion-col size= '6' [style.align-items]="center">
+          <ion-label >Puntuación Cocina: {{encuesta.puntuacionCocinero}}</ion-label>
+          <ion-range  [(ngModel)]="encuesta.puntuacionCocinero"  min="1" max="10"   color="secondary">
+              <ion-label slot="start">1</ion-label>
+              <ion-label slot="end">10</ion-label>
+            </ion-range>
+
+      </ion-col>
+    </ion-row>
+    <ion-row  [style.align-items]="center">
+
+        <ion-col size="6" [style.align-items]="center">
+            <ion-label >Puntuación : {{puntuacionRestaurante}}</ion-label>
+           
+    <ion-list>
+        <ion-item>
+          <!-- Selector que nos permitirá elegir una letra -->
+          <ion-label>puntuacion Restaurante</ion-label>
+          <ion-select [(ngModel)]="puntuacion_restaurante">
+            <ion-select-option value="1">1</ion-select-option>
+            <ion-select-option value="2">2</ion-select-option>
+            <ion-select-option value="3">3</ion-select-option>
+            <ion-select-option value="4">4</ion-select-option>
+            <ion-select-option value="5">5</ion-select-option>
+            <ion-select-option value="6">6</ion-select-option>
+            <ion-select-option value="7">7</ion-select-option>
+            <ion-select-option value="8">8</ion-select-option>
+            <ion-select-option value="9">9</ion-select-option>
+            <ion-select-option value="10">10</ion-select-option>
+            
+          </ion-select>
+        </ion-item>
+      </ion-list>
+          </ion-col>
+       </ion-row>
+
+       <ion-row  [style.align-items]="center">
+          <ion-col size="6" [style.align-items]="center">
+              <textarea id="mensaje" class="mensaje-container" [(ngModel)]="encuesta.comentario" rows=2 maxlength="40"  placeholder="Escribir mensaje"></textarea>
+            </ion-col>
+       </ion-row>
+        
+         
+  <ion-row [style.align-items]="center">
+      <ion-col class="botones-redondos" [hidden]="ocultarA">
+        <ion-button color="primary" id="boton" (click)="Enviar()" round>Enviar</ion-button>
+      </ion-col>
+      <ion-col class="botones-redondos" [hidden]="ocultarA">
+        <ion-button color="secondary" id="boton" (click)="volver()" round>Cancel</ion-button>
+      </ion-col>
+    </ion-row>    
+         
+       
+
+
+</ion-content>

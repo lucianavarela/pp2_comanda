@@ -11,6 +11,8 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "^8.0.1",
+    "@angular/common": "^7.2.2",
     "@angular/compiler": "5.2.11",
     "@angular/compiler-cli": "^7.2.13",
     "@angular/core": "^7.2.2",
@@ -18,27 +20,28 @@
     "@angular/http": "^7.2.2",
     "@angular/platform-browser": "^7.2.2",
     "@angular/platform-browser-dynamic": "^7.2.2",
-    "@ionic-native/camera": "^5.8.0",
-    "@ionic-native/core": "^5.0.0",
-    "@ionic-native/qr-scanner": "^5.8.0",
-    "@ionic-native/splash-screen": "^5.0.0",
-    "@ionic-native/status-bar": "^5.0.0",
-    "@ionic/storage": "^2.2.0",
-    "angularfire2": "^5.2.1",
-    "cordova-android": "^8.0.0",
-    "cordova-browser": "^5.0.4",
-    "cordova-plugin-camera": "^4.0.3",
-    "@angular/animations": "^8.0.1",
-    "@angular/common": "^7.2.2",
     "@angular/router": "^7.2.2",
     "@auth0/angular-jwt": "^2.1.0",
+    "@ionic-native/barcode-scanner": "^5.8.0",
+    "@ionic-native/camera": "^5.8.0",
+    "@ionic-native/core": "^5.0.0",
+    "@ionic-native/geolocation": "^5.0.0",
+    "@ionic-native/native-geocoder": "^5.0.0",
+    "@ionic-native/splash-screen": "^5.0.0",
+    "@ionic-native/status-bar": "^5.0.0",
     "@ionic-native/vibration": "^5.8.0",
     "@ionic/angular": "^4.1.0",
     "@ionic/pro": "2.0.4",
+    "@ionic/storage": "^2.2.0",
+    "angularfire2": "^5.2.1",
+    "cordova-android": "6.4.0",
+    "cordova-android-support-gradle-release": "^3.0.1",
+    "cordova-browser": "^5.0.4",
     "cordova-plugin-device": "^2.0.2",
+    "cordova-plugin-geolocation": "4.0.1",
     "cordova-plugin-ionic-keyboard": "^2.1.3",
-    "cordova-plugin-ionic-webview": "^4.1.0",
-    "cordova-plugin-qrscanner": "^3.0.1",
+    "cordova-plugin-ionic-webview": "^4.1.1",
+    "cordova-plugin-nativegeocoder": "3.2.2",
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
     "cordova-plugin-vibration": "^3.1.0",
@@ -46,6 +49,7 @@
     "core-js": "^2.5.4",
     "firebase": "^6.2.0",
     "ionic-angular": "^3.9.6",
+    "leaflet": "^1.5.1",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.29"
@@ -79,7 +83,6 @@
   "description": "An Ionic project",
   "cordova": {
     "plugins": {
-      "cordova-plugin-camera": {},
       "cordova-plugin-vibration": {},
       "cordova-plugin-whitelist": {},
       "cordova-plugin-statusbar": {},
@@ -89,7 +92,9 @@
         "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
       },
       "cordova-plugin-ionic-keyboard": {},
-      "cordova-plugin-qrscanner": {}
+      "cordova-android-support-gradle-release": {
+        "ANDROID_SUPPORT_VERSION": "27.+"
+      }
     },
     "platforms": [
       "browser",

@@ -19,6 +19,12 @@ import { TomaPedidoPage } from './pages/pedidos/toma-pedido/toma-pedido.page';
 import { ListaReservasPage } from './pages/reservar/lista-reservas/lista-reservas.page';
 import { EstadoPedidoPage } from './pages/pedidos/estado-pedido/estado-pedido.page';
 import { ReservasPage } from './pages/reservar/reservas/reservas.page';
+import { AltaSocioPage } from './pages/socio/alta-socio/alta-socio.page';
+import { DeliveryPage } from './pages/clientes/delivery/delivery.page';
+import { EncuestaPage } from './pages/clientes/encuesta/encuesta.page';
+import { EncuestasPage } from './pages/encuesta/encuestas/encuestas.page';
+import { ListaEsperaPage } from './pages/lista-espera/lista-espera.page';
+import { HomeQrPage } from './pages/Qr/home-qr/home-qr.page';
 import { AltaMenuPage } from './pages/abm-menu/alta-menu/alta-menu.page';
 import { SimonPage } from './pages/clientes/simon/simon.page';
 
@@ -48,8 +54,14 @@ const routes: Routes = [
   { path: 'pedidos-menu', component: PedidosMenuPage },
   { path: 'listarReservas',  component: ListaReservasPage },
   { path: 'alta-menu', component: AltaMenuPage },
-  { path: 'simon', component: SimonPage }
-
+  { path: 'simon', component: SimonPage },
+  { path: 'altaSocios', component: AltaSocioPage  },
+  { path: 'delivery',component: DeliveryPage },
+  { path: 'encuesta', component: EncuestaPage },
+  { path: 'verEncuestas', component: EncuestasPage },
+  { path: 'lista-espera', component: ListaEsperaPage },
+  { path: 'home-qr',  component: HomeQrPage },
+  { path: 'alta-menu', component: AltaMenuPage }
 
 ];
 

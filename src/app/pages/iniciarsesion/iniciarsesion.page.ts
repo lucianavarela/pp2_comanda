@@ -107,10 +107,18 @@ export class IniciarsesionPage implements OnInit {
         this.dataLogin = new Login('mozo', 'mozo');
         this.singIn();
         break;
+        case 'D':
+        this.dataLogin = new Login('leandro', 'leandro');
+        this.singIn();
+        break;
     }
   }
 
   ngOnInit() {
+  }
+
+  volver() {
+    this.navCtrl.navigateForward('bienvenido');
   }
 
 }

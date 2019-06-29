@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ReservaService } from 'src/app/services/reserva/reserva.service';
-import { Reserva } from 'src/app/models/reserva';
+import { 
+  Reserva } from 'src/app/models/reserva';
 import { NavController } from '@ionic/angular';
 
 
@@ -14,26 +15,62 @@ export class ListaReservasPage implements OnInit {
   reservas: Reserva[] = [];
 
   constructor(public reservaServicio: ReservaService,
-    private navCtrl: NavController) { }
+    private navCtrl: NavController) { 
+      this.cargar();
+    }
 
   ngOnInit() {
    
   }
 
   ionViewWillEnter() {
-    this.cargar();
+    
 
   }
 
 
   cargar(){
-    this.reservaServicio.ListarTodos().
+    this.reservaServicio.Listar().
     subscribe(
       (res) => {
         this.reservas = res;
         console.log(this.reservas);
         console.log(res);
       });
+  }
+
+  traerTodas(){
+    this.reservaServicio.ListarTodos().
+    subscribe(
+      (res) => {
+        this.reservas = res;
+        console.log(this.reservas);
+      });
+  }
+
+  borrar(id: number) {
+    this.reservaServicio.Baja(id).then(
+      (res) => {
+        this.cargar();
+      }
+    )
+  }
+
+  activar(id: number) {   
+    this.reservaServicio.Activar(id)
+    .then(
+      (res) => {
+        this.cargar();
+      }
+    )
+  }
+
+  suspender(id: number) {
+    this.reservaServicio.Suspender(id).then(
+      (res) => {
+        this.cargar();
+      }
+    )
   }
 
   volver(){

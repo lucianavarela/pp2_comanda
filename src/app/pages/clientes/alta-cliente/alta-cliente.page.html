@@ -42,14 +42,51 @@
   <ion-row>
     <ion-col [hidden]="ocultarR">
       <ion-item>
-        <ion-input type="numeric" required name="dni" [(ngModel)]="cliente.dni" placeholder="DNI">
+        <ion-input type="number"  required name="dni" [(ngModel)]="cliente.dni" placeholder="DNI">
         </ion-input>
       </ion-item>
     </ion-col>
   </ion-row>
   <ion-row>
+    <ion-col [hidden]="ocultarR">
+      <ion-item>
+        <ion-input type="email" required name="email" [(ngModel)]="cliente.mail" placeholder="Correo Electrónico">
+        </ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col [hidden]="ocultarA">
+      <ion-item>
+        <ion-input type="text" required name="usuario" [(ngModel)]="cliente.usuario" placeholder="Usuario">
+        </ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col [hidden]="ocultarA">
+      <ion-item>
+        <ion-input type="password" required name="password" [(ngModel)]="cliente.pass" placeholder="Contraseña">
+        </ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row >
+    <ion-col [hidden]="ocultarA">
+      <ion-item>
+        <ion-input type="password" required name="password" [(ngModel)]="secondPass"
+          placeholder="Repetir Contraseña"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row>
     <ion-col class="botones-redondos" [hidden]="ocultarR">
       <ion-button color="primary" id="boton" (click)="getPicture()" round>[ Tomar Foto ]</ion-button>
+    </ion-col>
+    <ion-col class="botones-redondos" [hidden]="ocultarR">
+      <ion-button color="primary" id="boton" (click)="leer()" round>[ Leer Qr ]</ion-button>
     </ion-col>
   </ion-row>
 
@@ -58,7 +95,7 @@
       <ion-button color="primary" id="boton" (click)="registrarCliente()" round>Registrar</ion-button>
     </ion-col>
     <ion-col class="botones-redondos" [hidden]="ocultarA">
-      <ion-button color="secondary" id="boton" (click)="atras()" round>Cancel</ion-button>
+      <ion-button color="secondary" id="boton" (click)="volver()" round>Cancel</ion-button>
     </ion-col>
   </ion-row>
 

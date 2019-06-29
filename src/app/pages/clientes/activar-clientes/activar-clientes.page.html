@@ -1,69 +1,69 @@
 <ion-header color="primary">
-    <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-            <ion-button (click)="volver()">
-              <ion-icon name="arrow-round-back"></ion-icon>
-            </ion-button>
-          </ion-buttons>
-    <ion-title>activarClientes</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()">
+        <ion-icon name="arrow-round-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Administrar Clientes</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-    <div *ngIf="empleados.length > 0">
-        <ion-list *ngFor="let empleado of empleados">
-          <ion-item>
-            <ion-grid>
-              <ion-row>
-                <ion-col *ngIf="empleado.tipo=='registrado'" size="2">
-                  <img src="assets/imgs/inicio/cliente.png">
-                </ion-col>
-                <ion-col *ngIf="empleado.tipo=='Mozo'" size="2">
-                  <img src="assets/imgs/mozo.png">
-                </ion-col>
-                <ion-col *ngIf="empleado.tipo=='Socio'" size="2">
-                  <img src="assets/imgs/socio.png">
-                </ion-col>
-                <ion-col *ngIf="empleado.tipo=='Cocinero'" size="2">
-                  <img src="assets/imgs/cubiertos.png">
-                </ion-col>
-                <ion-col *ngIf="empleado.tipo=='Cervecero'" size="2">
-                  <img src="assets/imgs/cerveza.png">
-                </ion-col>
-                <ion-col size="4">
-                  <ion-label [ngClass]="{'suspended' : empleado.estado=='S'}">{{empleado.nombre}}</ion-label>
-                  <ion-label [ngClass]="{'suspended' : empleado.estado=='S'}">{{empleado.tipo}}</ion-label>
-                </ion-col>
-                <ion-col *ngIf="empleado.estado=='I'" size="2">
-                  <ion-button color="success" (click)="activar(empleado.id)"  >
-                    <ion-icon name="walk"></ion-icon>
-                  </ion-button>
-                </ion-col>
-                <ion-col *ngIf="empleado.estado=='A'" size="2">
-                  <ion-button color="primary" (click)="suspender(empleado.id)">
-                    <ion-icon name="man"></ion-icon>
-                  </ion-button>
-                </ion-col>
-                <ion-col *ngIf="empleado.estado=='B'" size="2">
-                  <ion-button color="primary" >
-                    <ion-icon name="close"></ion-icon>
-                  </ion-button>
-                </ion-col>
-               <!-- <ion-col size="2">
+  <div *ngIf="empleados.length > 0">
+    <ion-list *ngFor="let empleado of empleados">
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col *ngIf="empleado.tipo=='registrado'" size="2">
+              <img src="assets/imgs/inicio/cliente.png">
+            </ion-col>
+            <ion-col *ngIf="empleado.tipo=='Mozo'" size="2">
+              <img src="assets/imgs/mozo.png">
+            </ion-col>
+            <ion-col *ngIf="empleado.tipo=='Socio'" size="2">
+              <img src="assets/imgs/socio.png">
+            </ion-col>
+            <ion-col *ngIf="empleado.tipo=='Cocinero'" size="2">
+              <img src="assets/imgs/cubiertos.png">
+            </ion-col>
+            <ion-col *ngIf="empleado.tipo=='Cervecero'" size="2">
+              <img src="assets/imgs/cerveza.png">
+            </ion-col>
+            <ion-col size="4">
+              <ion-label [ngClass]="{'suspended' : empleado.estado=='S'}">{{empleado.nombre}}</ion-label>
+              <ion-label [ngClass]="{'suspended' : empleado.estado=='S'}">{{empleado.tipo}}</ion-label>
+            </ion-col>
+            <ion-col *ngIf="empleado.estado=='I'" size="2">
+              <ion-button color="success" (click)="activar(empleado.id)">
+                <ion-icon name="walk"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col *ngIf="empleado.estado=='A'" size="2">
+              <ion-button color="primary" (click)="suspender(empleado.id)">
+                <ion-icon name="man"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col *ngIf="empleado.estado=='B'" size="2">
+              <ion-button color="primary">
+                <ion-icon name="close"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <!-- <ion-col size="2">
                   <ion-button color="warning" routerLink="/empleado/{{empleado.id}}">
                     <ion-icon name="create"></ion-icon>
                   </ion-button>
                 </ion-col>-->
-                <ion-col size="2">
-                  <ion-button color="danger" (click)="borrar(empleado.id)">
-                    <ion-icon name="trash"></ion-icon>
-                  </ion-button>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-item>
-        </ion-list>
-      </div>
+            <ion-col size="2">
+              <ion-button color="danger" (click)="borrar(empleado.id)">
+                <ion-icon name="trash"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </div>
 
 </ion-content>

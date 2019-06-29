@@ -22,6 +22,12 @@ import { JuegosHomePage } from './pages/clientes/juegos-home/juegos-home.page';
 import { AhorcadoPage } from './pages/clientes/ahorcado/ahorcado.page';
 import { ActivarClientesPage } from './pages/clientes/activar-clientes/activar-clientes.page';
 import { ListaReservasPage } from './pages/reservar/lista-reservas/lista-reservas.page';
+import { AltaSocioPage } from './pages/socio/alta-socio/alta-socio.page';
+import { DeliveryPage } from './pages/clientes/delivery/delivery.page';
+import { EncuestaPage } from './pages/clientes/encuesta/encuesta.page';
+import { EncuestasPage } from './pages/encuesta/encuestas/encuestas.page';
+import { ListaEsperaPage } from './pages/lista-espera/lista-espera.page';
+import { HomeQrPage } from './pages/Qr/home-qr/home-qr.page';
 
 //Servicios
 import { HttpClient, HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -38,8 +44,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { configs } from './../globalConfig';
 
 //Camara
-import { Camera } from '@ionic-native/camera/ngx';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 //Audio
 import { SmartAudioService } from './services/smart-audio/smart-audio.service';
@@ -53,7 +59,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { RouterModule, RouteReuseStrategy } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
-import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 import { PedidosMenuPage } from './pages/pedidos/pedidos-menu/pedidos-menu.page';
 import { TomaPedidoPage } from './pages/pedidos/toma-pedido/toma-pedido.page';
 import { PedidosComponentsModule } from './pages/pedidos/components/pedidos-components.module';
@@ -64,6 +69,8 @@ import { AltaMenuPage } from './pages/abm-menu/alta-menu/alta-menu.page';
 import { ImagesService } from 'src/app/services/fotos/images.service';
 import { MenuService } from './services/menu/menu.service';
 import { SimonPage } from './pages/clientes/simon/simon.page';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 
 
 export function getAccessToken() {
@@ -93,7 +100,14 @@ export function getAccessToken() {
     ListaReservasPage,
     EstadoPedidoPage,
     AltaMenuPage,
-    SimonPage
+    SimonPage,
+    AltaSocioPage,
+    DeliveryPage,
+    EncuestaPage,
+    EncuestasPage,
+    ListaEsperaPage,
+    HomeQrPage,
+    AltaMenuPage
   ],
   imports: [
     BrowserModule,
@@ -134,8 +148,9 @@ export function getAccessToken() {
     ImagesService,
     MenuService,
     Vibration,
-    Camera,
-    QRScanner,
+    BarcodeScanner,
+    Geolocation,
+    NativeGeocoder,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HTTP_INTERCEPTORS,

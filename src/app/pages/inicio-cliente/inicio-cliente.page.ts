@@ -80,7 +80,7 @@ export class InicioClientePage implements OnInit {
   CargarDefault(tipo: string) {
     switch (tipo) {
       case 'S':
-        this.dataLogin = new Login('carlos', '1234');
+        this.dataLogin = new Login('lelito31', '123456');
         this.singIn();
         break;
       case 'B':

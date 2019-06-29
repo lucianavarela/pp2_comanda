@@ -52,7 +52,7 @@
 
                 <ion-item *ngFor="let entry of reservas"   >
                     <ion-label>Mesa Disponible :  {{entry.hora}} hs.</ion-label>
-                    <ion-radio color="tertiary"  value="entry" ></ion-radio>
+                    <ion-radio color="tertiary"  value="entry" (ionSelect)="selectedHora(entry)" ></ion-radio>
                 </ion-item>
             
                      

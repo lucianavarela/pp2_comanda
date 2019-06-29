@@ -13,7 +13,7 @@ import { SpinnerHandlerService } from '../../services/spinner-handler/spinner-ha
 })
 export class HomePage {
 
-  usuarioOnline: User;
+  usuarioOnline: any;
   listadoIconos: Array<any> = new Array;
   logo: boolean;
 
@@ -21,7 +21,7 @@ export class HomePage {
   listados: Array<any> = [
     {
       nombre: "clientes",
-      imagen: "assets/imgs/home/altacliente.png",
+      imagen: "assets/imgs/home/clientes.png",
       accion: "activar-clientes"
     },
     {
@@ -54,6 +54,56 @@ export class HomePage {
       imagen: "assets/imgs/home/reservas.png",
       accion: "listarReservas"
     },
+    {
+      nombre: "socios",
+      imagen: "assets/imgs/home/socios.png",
+      accion: "altaSocios"
+    },
+    {
+      nombre: "altaCliente",
+      imagen: "assets/imgs/home/clientes.png",
+      accion: "alta-cliente"
+    },
+    {
+      nombre: "mesas",
+      imagen: "assets/imgs/home/mesas.png",
+      accion: "mesas"
+    },
+    {
+      nombre: "delivery",
+      imagen: "assets/imgs/home/delivery.png",
+      accion: "delivery"
+    },
+    {
+      nombre: "encuesta",
+      imagen: "assets/imgs/home/encuesta.png",
+      accion: "encuesta"
+    },
+    {
+      nombre: "verEncuestas",
+      imagen: "assets/imgs/home/encuesta.png",
+      accion: "verEncuestas"
+    },
+    {
+      nombre: "listaEspera",
+      imagen: "assets/imgs/home/espera.png",
+      accion: "lista-espera"
+    },
+    {
+      nombre: "Qr",
+      imagen: "assets/imgs/home/Qrs.png",
+      accion: "home-qr"
+    },
+    {
+      nombre: "Chat",
+      imagen: "assets/imgs/home/chat.png",
+      accion: "chat"
+    },
+    {
+      nombre: "tomarPedido",
+      imagen: "assets/imgs/home/pedidos.png",
+      accion: "pedidos-menu"
+    },
   ]
 
 
@@ -65,7 +115,7 @@ export class HomePage {
 
   ionViewWillEnter() {
     if (this.authService.isLogged()) {
-      this.usuarioOnline = this.authService.getUserInfo();
+      this.usuarioOnline = this.authService.token();
       console.log(this.usuarioOnline.tipo)
     } else {
       this.navCtrl.navigateForward('bienvenido');
@@ -89,10 +139,10 @@ export class HomePage {
 
   filtrar() {
 
-    if (this.usuarioOnline.tipo == "registrado") {
+    if ( this.usuarioOnline.tipo == "registrado"  ) {
       this.listadoIconos = this.listados
-        .filter(listado => listado.nombre == "pedidos" || listado.nombre == "menu" || listado.nombre == "juegos" || listado.nombre == "reservas");
-    } else if (this.usuarioOnline.tipo == "Cervecero") {
+        .filter(listado => listado.nombre == "pedidos" || listado.nombre == "delivery" ||  listado.nombre == "juegos" || listado.nombre == "reservas" || listado.nombre == "encuesta" || listado.nombre == "menu");
+    } else if (this.usuarioOnline.tipo == "Cocinero" || this.usuarioOnline.tipo == "Cervecero" || this.usuarioOnline.tipo == "Bartender") {
       this.listadoIconos = this.listados
         .filter(listado => listado.nombre == "pedidos");
     } else if (this.usuarioOnline.tipo == "Cocinero" || this.usuarioOnline.tipo == "Bartender") {
@@ -100,12 +150,18 @@ export class HomePage {
         .filter(listado => listado.nombre == "pedidos" || listado.nombre == "menu"); 
     } else if (this.usuarioOnline.tipo == "Mozo") {
       this.listadoIconos = this.listados
-        .filter(listado => listado.nombre == "pedidos" || listado.nombre == "clientes" || listado.nombre == "reservas");
+        .filter(listado => listado.nombre == "pedidos" || listado.nombre == "clientes" || listado.nombre == "reservas" || listado.nombre == "mesas");
     }
-    else if (this.usuarioOnline.tipo == "Socio") {
+    else if (this.usuarioOnline.tipo == "Socio" || this.usuarioOnline.tipo == "Dueño" ) {
       this.listadoIconos = this.listados
-        .filter(listado => listado.nombre == "pedidos" || listado.nombre == "clientes" //|| listado.nombre == "reservas"
-          || listado.nombre == "listarReservas" || listado.nombre == "empleados");
+        .filter(listado => listado.nombre == "pedidos" || listado.nombre == "clientes" || listado.nombre == "socios"
+          || listado.nombre == "listarReservas" || listado.nombre == "empleados" || listado.nombre == "mesas" || listado.nombre == "verEncuestas" || listado.nombre == "listaEspera");
+    }else if ( this.usuarioOnline.tipo == "anonimo"  ) {
+      this.listadoIconos = this.listados
+        .filter(listado => listado.nombre == "pedidos" || listado.nombre == "Qr" || listado.nombre == "encuesta");
+    }else if ( this.usuarioOnline.tipo == "Delivery"  ) {
+      this.listadoIconos = this.listados
+        .filter(listado => listado.nombre == "tomarPedido" ||  listado.nombre == "Chat");
     }
 
   }

@@ -15,17 +15,21 @@ export class EncuestaService {
   }
 
   public Registrar(codigoMesa: string, idMozo: number, puntuacion_mesa: number, puntuacion_restaurante: number,
-    puntuacion_mozo: number, puntuacion_cocinero: number, comentario: string, fecha: Date ): Promise<Object> {
+    puntuacion_mozo: number, puntuacion_cocinero: number, comentario: string, fecha: string ): Promise<Object> {
     const request: Object = {
       codigoMesa: codigoMesa,
       idMozo: idMozo,
-      puntuacion_mesa: puntuacion_mesa,
-      puntuacion_restaurante: puntuacion_restaurante,
-      puntuacion_mozo: puntuacion_mozo,
-      puntuacion_cocinero: puntuacion_cocinero,
+      puntuacionMesa: puntuacion_mesa,
+      puntuacionRestaurante: puntuacion_restaurante,
+      puntuacionMozo: puntuacion_mozo,
+      puntuacionCocinero: puntuacion_cocinero,
       comentario: comentario,
       fecha: fecha,
     };
     return this.miHttp.httpPostP('encuesta/registrar/', request);
+  }
+
+  public Enviar( data : Encuesta){
+    return this.miHttp.httpPostP('encuesta/registrar/', data);
   }
 }

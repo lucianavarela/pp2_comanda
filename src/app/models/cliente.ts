@@ -9,4 +9,8 @@ export class Cliente {
     public estado: string;
     public estilo: string;
     public foto: string;
+    public pass: string;
+    public mail: string;
+    public mesa : string;
+    public usuario : string;
 }

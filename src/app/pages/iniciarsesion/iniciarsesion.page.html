@@ -35,6 +35,9 @@
     <ion-col class="botones-redondos">
       <ion-button color="primary" id="boton" (click)="singIn()" round>Iniciar Sesión</ion-button>
     </ion-col>
+    <ion-col class="botones-redondos">
+      <ion-button color="secondary" id="boton" (click)="volver()" round>Cancelar</ion-button>
+    </ion-col>
   </ion-row>
 
   <ion-row>
@@ -59,6 +62,11 @@
         (click)="CargarDefault('M')">
         <img src="assets/imgs/mozo.png">
       </button>
+   
+    <button type="button" style="background-color: #2eb2f0;" class="btn-circle btn-lg" title="Delivery"
+      (click)="CargarDefault('D')">
+      <img src="assets/imgs/delivery.png">
+    </button>
 
     </ion-col>
 

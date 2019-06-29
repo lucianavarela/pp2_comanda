@@ -9,7 +9,7 @@ import { NavController } from '@ionic/angular';
 })
 export class JuegosHomePage implements OnInit {
 
-  usuario: User;
+  usuario: any;
   listadoIconos: Array<any> = [
     {
       nombre: "Descuento",
