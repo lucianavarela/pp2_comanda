@@ -62,7 +62,6 @@ const routes: Routes = [
   { path: 'lista-espera', component: ListaEsperaPage },
   { path: 'home-qr',  component: HomeQrPage },
   { path: 'alta-menu', component: AltaMenuPage }
-
 ];
 
 @NgModule({
