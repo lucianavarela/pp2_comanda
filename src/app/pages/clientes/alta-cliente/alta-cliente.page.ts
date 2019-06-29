@@ -70,7 +70,7 @@ export class AltaClientePage implements OnInit {
          break; 
       } 
       case "anonimo": { 
-        if (this.cliente.nombre != ""  && this.cliente.mail != "" && this.cliente.pass != "" && this.secondPass != "" ) {
+        if (this.cliente.nombre != ""  && this.cliente.usuario != "" && this.cliente.pass != "" && this.secondPass != "" ) {
           if (this.cliente.pass == this.secondPass) {
               if (this.cliente.pass.length > 5) {
                   return true;
@@ -105,6 +105,7 @@ export class AltaClientePage implements OnInit {
     this.cliente.mail="";
     this.cliente.pass= "";
     this.secondPass = "";
+    this.cliente.usuario= "";
   }
 
 

@@ -39,6 +39,16 @@ export class ListaEsperaPage implements OnInit {
     )
   }
 
+  activar(id: number) { 
+    console.log(id);  
+    this.esperaServicio.Activar(id)
+    .then(
+      (res) => {
+        this.traerTodas();
+      }
+    )
+  }
+
   volver(){
     this.navCtrl.navigateForward('home');
   }

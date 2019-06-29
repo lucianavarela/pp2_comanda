@@ -39,7 +39,8 @@ import { SpinnerHandlerService } from './services/spinner-handler/spinner-handle
 //Firebase
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-
+import { environment } from '../environments/environment';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 //configuraciones generales
 import { configs } from './../globalConfig';
 
@@ -112,7 +113,8 @@ export function getAccessToken() {
     ReactiveFormsModule,
     AppRoutingModule,
     IonicModule.forRoot(),
-    AngularFireModule.initializeApp(configs.firebaseConfig),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
     AngularFireAuthModule,
     HttpClientModule,
     [JwtModule.forRoot({
