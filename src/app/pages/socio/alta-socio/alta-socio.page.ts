@@ -95,7 +95,7 @@ export class AltaSocioPage implements OnInit {
   }
 
   atras() {
-    this.navCtrl.pop();
+    this.navCtrl.navigateForward('home')
   }
 
 }

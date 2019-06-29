@@ -14,8 +14,8 @@
     <ion-col size="12">No hay pedidos.</ion-col>
   </ion-row>
   <ion-row size="12" *ngIf="pedidosList.length > 0">
-    <app-datos-pedido *ngFor="let pedido of pedidosList" [pedido]="pedido">
-    </app-datos-pedido>
+    <app-datos-pedido *ngFor="let pedido of pedidosList" [pedido]="pedido"
+      (pedidoConfirmado)="confirmarEntrega($event, pedido)"></app-datos-pedido>
   </ion-row>
 
 </ion-content>

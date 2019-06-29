@@ -86,7 +86,7 @@ export class DeliveryPage implements OnInit{
   generarPedido() {
     if (this.mesa != "" && this.cliente != "") {
       this.menus_cargados.forEach((menu) => {
-        this.pedidoService.Registrar("MES00", menu.id, this.cliente, 1).then(
+        this.pedidoService.Registrar("MES00", menu.id, this.cliente, 1, 0).then(
           () => {
             this.navCtrl.navigateForward('home');
           }
@@ -96,7 +96,7 @@ export class DeliveryPage implements OnInit{
   }
 
   atras() {
-    this.navCtrl.pop();
+    this.navCtrl.navigateForward('home')
   }
 
   loadMap() {

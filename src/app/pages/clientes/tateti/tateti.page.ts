@@ -176,6 +176,6 @@ export class TatetiPage {
   }
 
   atras() {
-    this.navCtrl.pop();
+    this.navCtrl.navigateForward('home')
   }
 }

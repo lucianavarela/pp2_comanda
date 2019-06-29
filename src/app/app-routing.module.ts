@@ -50,6 +50,8 @@ const routes: Routes = [
   { path: 'ahorcado', component: AhorcadoPage },
   { path: 'activar-clientes', component: ActivarClientesPage },
   { path: 'toma-pedido', component: TomaPedidoPage },
+  { path: 'servir', component: TomaPedidoPage },
+  { path: 'autorizar', component: TomaPedidoPage },
   { path: 'pedidos-menu', component: PedidosMenuPage },
   { path: 'listarReservas',  component: ListaReservasPage },
   { path: 'altaSocios', component: AltaSocioPage  },

@@ -59,6 +59,6 @@ export class EmpleadosPage {
   }
 
   atras() {
-    this.navCtrl.pop();
+    this.navCtrl.navigateForward('home')
   }
 }

@@ -8,16 +8,19 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-button *ngIf="usuario.tipo=='Mozo'" expand="full" routerLink="/autorizar">
+    Autorizar Pedidos
+  </ion-button>
   <ion-button expand="full" routerLink="/carga-pedido">
     Agregar Pedido
   </ion-button>
-  <ion-button *ngIf="usuario.tipo!='registrado' && usuario.tipo!='Mozo'" expand="full" routerLink="/toma-pedido" >
-    Tomar Pedido  
+  <ion-button *ngIf="usuario.tipo!='registrado' && usuario.tipo!='Mozo'" expand="full" routerLink="/toma-pedido">
+    Tomar Pedido
   </ion-button>
-  <ion-button *ngIf="usuario.tipo=='Mozo'" expand="full" routerLink="/toma-pedido" >
+  <ion-button *ngIf="usuario.tipo=='Mozo'" expand="full" routerLink="/servir">
     Servir Pedidos Listos
   </ion-button>
-  <ion-button *ngIf="usuario.tipo=='registrado'" expand="full" routerLink="/estado-pedido" >
-    Verificar Estado  
+  <ion-button *ngIf="usuario.tipo=='registrado'" expand="full" routerLink="/estado-pedido">
+    Verificar Estado
   </ion-button>
 </ion-content>

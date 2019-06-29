@@ -9,7 +9,7 @@ import { ClienteService } from 'src/app/services/cliente/cliente.service';
 import { MenuService } from 'src/app/services/menu/menu.service';
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { MesaService } from 'src/app/services/mesa/mesa.service';
-import { Mesa } from 'src/app/models/mesa';
+import { Mesa, EstadosMesa } from 'src/app/models/mesa';
 import { Cliente } from 'src/app/models/cliente';
 
 @Component({
@@ -54,7 +54,7 @@ export class HomeQrPage implements OnInit {
     this.cliente.id = this.usuarioOnline.id;
     console.log(this.usuarioOnline);
     this.scanQr();
-    // this.cargarMesas();
+    this.cargarMesas();
 
   }
 
@@ -71,25 +71,31 @@ export class HomeQrPage implements OnInit {
           this.volver();
         });
     } else if (qr.indexOf('MESA-') > -1) {
-      this.usuarioOnline.mesa = qr.replace('MESA-', '');
-      this.clienteService.CargarMesa(this.usuarioOnline).
-        subscribe((data) => {
-          this.errorHandler.confirmationToast(data["Mensaje"]);
-          this.volver();
-        }, (error) => {
-          this.errorHandler.errorToast("Se produjo un error al carga la lista ");
-          this.volver();
-        });
+      if (this.verificarMesa(qr.replace('MESA-', ''))) {
+        this.usuarioOnline.mesa = qr.replace('MESA-', '');
+        this.clienteService.CargarMesa(this.usuarioOnline).
+          subscribe((data) => {
+            this.errorHandler.confirmationToast(data["Mensaje"]);
+            this.volver();
+          }, (error) => {
+            this.errorHandler.errorToast(error);
+            this.volver();
+          });
+      } else {
+        this.errorHandler.errorToast("Esta mesa no esta libre");
+        this.volver();
+      }
     } else {
       this.menuService.GetMenu(qr).subscribe(menu => {
         if (menu && this.usuarioOnline.tipo == 'registrado') {
           this.clienteService.GetCliente(this.usuarioOnline.id).subscribe(cliente => {
             if (cliente.mesa) {
-              this.pedidoService.Registrar(cliente.mesa, menu.id, cliente.nombre, 0)
+              this.pedidoService.Registrar(cliente.mesa, menu.id, cliente.nombre, 0, 0)
                 .then(
                   (res: any) => {
                     if (res.Estado == 'OK') {
                       this.errorHandler.confirmationToast('Pedido registrado!');
+                      this.servicioMesa.CambiarEstado(cliente.mesa, EstadosMesa.EsperandoPedido);
                       this.volver();
                     } else {
                       this.errorHandler.errorToast(res.Mensaje);
@@ -122,6 +128,7 @@ export class HomeQrPage implements OnInit {
       this.Accion(barcodeData.text.toUpperCase());
     }).catch(e => {
       this.errorHandler.errorToast(e);
+      this.volver();
     });
   }
 
@@ -129,19 +136,16 @@ export class HomeQrPage implements OnInit {
     this.servicioMesa.Listar().subscribe(
       (res) => {
         this.listadoMesas = res;
-        console.log(this.listadoMesas);
       });
 
   }
 
-  verificarMesa(cogido_mesa: string) {
+  verificarMesa(codigo_mesa: string) {
     let respuesta = false;
-    this.mesa = this.listadoMesas
-      .filter(listado => listado.codigo == cogido_mesa)
+    this.mesa = this.listadoMesas.filter(function(listado) {return listado.codigo == codigo_mesa})[0]
     if (this.mesa.estado == "Cerrada") {
       respuesta = true;
     }
-    console.log(this.mesa);
     return respuesta
   }
 

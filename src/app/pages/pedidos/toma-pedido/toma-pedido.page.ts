@@ -4,6 +4,7 @@ import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { AuthService } from '../../../services/auth/auth.service';
 import { User } from 'src/app/models/user';
 import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-toma-pedido',
@@ -17,12 +18,20 @@ export class TomaPedidoPage implements OnInit {
   pedidoEnPreparacion: Pedido;
   usuario: any;
   mostrarCargarTiempo: boolean;
+  mode: string;
 
   constructor(private pedidoService: PedidoService, private errorHandler: ErrorHandlerService,
-    private authService: AuthService) {
+    private authService: AuthService, private activatedRoute: ActivatedRoute) {
     this.usuario = this.authService.token();
     console.log(this.usuario);
     this.actualizarListaPedidos();
+
+    console.log(document.URL);
+    if (document.URL.includes('autorizar')) {
+      this.mode = 'autorizar';
+    } else if (document.URL.includes('servir')) {
+      this.mode = 'servir';
+    }
   }
 
   ngOnInit() {
@@ -30,13 +39,17 @@ export class TomaPedidoPage implements OnInit {
 
   public actualizarListaPedidos() {
     this.mostrarCargarTiempo = false;
-    this.pedidoService.ListarActivosPorSector().subscribe(pedidos => {
+    this.pedidoService.ListarTodos().subscribe(pedidos => {
       if (this.usuario.tipo != "Mozo") {
-        this.pedidosList = pedidos;
+        this.pedidosList = pedidos.filter((p) => {
+          return p.sector == this.usuario.tipo && (p.estado == EstadosPedido.Pendiente || p.estado == EstadosPedido.EnPreparacion)
+            && p.id_mozo != null;
+        });
         this.pedidoSeleccionado = null;
         this.pedidoEnPreparacion = null;
 
         this.pedidosList.forEach(pedido => {
+          console.log(pedido)
           if (pedido.estado == EstadosPedido.EnPreparacion && pedido.id_encargado == this.usuario.id) {
             this.pedidoEnPreparacion = pedido;
             this.pedidoSeleccionado = pedido;
@@ -44,9 +57,15 @@ export class TomaPedidoPage implements OnInit {
           }
         });
       } else {
-        this.pedidosList = pedidos.filter(function (pedido) {
-          return pedido.estado == EstadosPedido.ListoParaServir;
-        })
+        if (this.mode == 'servir') {
+          this.pedidosList = pedidos.filter(function (pedido) {
+            return pedido.estado == EstadosPedido.ListoParaServir;
+          })
+        } else {
+          this.pedidosList = pedidos.filter(function (pedido) {
+            return pedido.id_mozo == null;
+          })
+        }
       }
     });
   }
@@ -57,18 +76,36 @@ export class TomaPedidoPage implements OnInit {
   }
 
   public entregarPedido(pedido: Pedido) {
-    this.pedidoService.Servir(pedido.codigo)
-      .then(response => {
-        console.log(response);
-        this.errorHandler.mostrarMensajeConfimación("Pedido servido exitosamente.");
-      })
-      .catch(error => {
-        console.log(error);
-        this.errorHandler.mostrarMensajeError("Ocurrió un error.");
-      })
-      .finally(() => {
-        this.actualizarListaPedidos();
-      });
+    if (this.mode == 'servir') {
+      this.pedidoService.Servir(pedido.codigo)
+        .then(response => {
+          console.log(response);
+          this.errorHandler.mostrarMensajeConfimación("Pedido servido exitosamente.");
+        })
+        .catch(error => {
+          console.log(error);
+          this.errorHandler.mostrarMensajeError("Ocurrió un error.");
+        })
+        .finally(() => {
+          this.actualizarListaPedidos();
+        });
+    } else {
+      this.pedidoService.CambiarEstado(pedido.codigo, EstadosPedido.Pendiente, this.usuario.id)
+        .then((res: any) => {
+          if (res.Estado == 'OK') {
+            this.errorHandler.mostrarMensajeConfimación("Pedido autorizado exitosamente.");
+          } else {
+            this.errorHandler.mostrarMensajeError(res.Mensaje);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          this.errorHandler.mostrarMensajeError("Ocurrió un error.");
+        })
+        .finally(() => {
+          this.actualizarListaPedidos();
+        });
+    }
   }
 
   public seleccionarPedido(pedido: Pedido) {
@@ -76,7 +113,7 @@ export class TomaPedidoPage implements OnInit {
   }
 
   public terminarPedido() {
-    this.pedidoService.MarcarListoParaServir(this.pedidoEnPreparacion.codigo)
+    this.pedidoService.CambiarEstado(this.pedidoEnPreparacion.codigo, EstadosPedido.ListoParaServir)
       .then(response => {
         console.log(response);
         this.errorHandler.mostrarMensajeConfimación("Pedido marcado como listo para servir.");

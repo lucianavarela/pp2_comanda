@@ -22,10 +22,11 @@ export class PedidoService {
     return this.miHttp.httpGetO<Pedido[]>('pedido/listarActivos/');
   }
 
-  public Registrar(idMesa: string, idMenu: number, nombreCliente: string, es_delivery: number): Promise<Object> {
+  public Registrar(idMesa: string, idMenu: number, nombreCliente: string, es_delivery: number, idMozo: number): Promise<Object> {
     const request: Object = {
       id_mesa: idMesa,
       id_menu: idMenu,
+      id_mozo: idMozo,
       cliente: nombreCliente,
       es_delivery: es_delivery
     };
@@ -51,10 +52,12 @@ export class PedidoService {
     return this.miHttp.httpPostP('pedido/servir/', request);
   }
 
-  public MarcarListoParaServir(codigo: string) {
+  public CambiarEstado(codigo: string, estado: string, mozo?: string) {
     const request: Object = {
-      codigo: codigo
+      codigo: codigo,
+      estado: estado,
+      id_mozo: mozo// ? mozo : 0
     };
-    return this.miHttp.httpPostP('pedido/listoParaServir/', request);
+    return this.miHttp.httpPostP('pedido/cambiarEstado/', request);
   }
 }

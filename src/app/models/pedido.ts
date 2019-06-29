@@ -1,7 +1,7 @@
 import { Time } from '@angular/common';
 
 export enum EstadosPedido {
-    Pediente = "Pediente",
+    Pendiente = "Pendiente",
     EnPreparacion = "En Preparacion",
     ListoParaServir = "Listo para Servir",
     Entregado = "Entregado",

@@ -62,6 +62,6 @@ export class MesasPage {
   }
 
   atras() {
-    this.navCtrl.pop();
+    this.navCtrl.navigateForward('home')
   }
 }

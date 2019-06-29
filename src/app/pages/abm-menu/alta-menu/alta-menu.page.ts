@@ -125,7 +125,7 @@ export class AltaMenuPage implements OnInit {
   }
 
   onCancelarClick() {
-    this.navCtrl.pop();
+    this.navCtrl.navigateForward('home')
   }
 
   private sleep(ms) {

@@ -4,7 +4,7 @@ import { NavController } from '@ionic/angular';
 import { PedidoService } from '../../../services/pedido/pedido.service';
 import { MenuService } from '../../../services/menu/menu.service';
 import { AuthService } from '../../../services/auth/auth.service';
-import { Mesa } from '../../../models/mesa';
+import { Mesa, EstadosMesa } from '../../../models/mesa';
 import { MesaService } from '../../../services/mesa/mesa.service';
 import { Menu } from '../../../models/menu';
 import { ToastService } from 'src/app/services/toast/toast.service';
@@ -85,12 +85,14 @@ export class CargaPedidoPage {
 
   generarPedido() {
     if (this.mesa != "" && this.cliente != "") {
+      let mozo = this.usuario.tipo == 'Mozo' ? this.usuario.id : 0;
       this.menus_cargados.forEach((menu) => {
-        this.pedidoService.Registrar(this.mesa, menu.id, this.cliente, 0)
+        this.pedidoService.Registrar(this.mesa, menu.id, this.cliente, 0, mozo)
           .then(
             (res: any) => {
               if (res.Estado == 'OK') {
                 this.errorHandler.confirmationToast('Pedido registrado!');
+                this.mesaService.CambiarEstado(this.mesa, EstadosMesa.EsperandoPedido);
                 this.navCtrl.navigateForward('home');
               } else {
                 this.errorHandler.errorToast(res.Mensaje);
@@ -105,6 +107,6 @@ export class CargaPedidoPage {
   }
 
   atras() {
-    this.navCtrl.pop();
+    this.navCtrl.navigateForward('home')
   }
 }
