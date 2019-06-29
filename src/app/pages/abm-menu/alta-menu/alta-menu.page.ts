@@ -75,7 +75,8 @@ export class AltaMenuPage implements OnInit {
     for(var i = 0; i < 3; i++) {
       await this.imageService.takePhoto()
       .then(res => {
-        if (res !== 'No Image Selected') {
+        if (res !== 'No Image Selected') {          
+          this.smartAudioService.play('camera');
           fotos.push('data:image/jpg;base64,' + res);
         } 
         else {

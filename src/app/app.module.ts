@@ -39,7 +39,6 @@ import { SpinnerHandlerService } from './services/spinner-handler/spinner-handle
 //Firebase
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-
 //configuraciones generales
 import { configs } from './../globalConfig';
 
@@ -68,8 +67,13 @@ import { EstadoPedidoPage } from './pages/pedidos/estado-pedido/estado-pedido.pa
 import { AltaMenuPage } from './pages/abm-menu/alta-menu/alta-menu.page';
 import { ImagesService } from 'src/app/services/fotos/images.service';
 import { MenuService } from './services/menu/menu.service';
+import { SimonPage } from './pages/clientes/simon/simon.page';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
+import { ChatPage } from './pages/chat/chat.page';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { firebaseConfig } from 'src/environments/environment';
 
 
 export function getAccessToken() {
@@ -98,13 +102,16 @@ export function getAccessToken() {
     TomaPedidoPage,
     ListaReservasPage,
     EstadoPedidoPage,
+    AltaMenuPage,
+    SimonPage,
     AltaSocioPage,
     DeliveryPage,
     EncuestaPage,
     EncuestasPage,
     ListaEsperaPage,
     HomeQrPage,
-    AltaMenuPage
+    AltaMenuPage,
+    ChatPage
   ],
   imports: [
     BrowserModule,
@@ -113,8 +120,11 @@ export function getAccessToken() {
     ReactiveFormsModule,
     AppRoutingModule,
     IonicModule.forRoot(),
-    AngularFireModule.initializeApp(configs.firebaseConfig),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    AngularFirestoreModule,
     HttpClientModule,
     [JwtModule.forRoot({
       config: {

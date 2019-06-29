@@ -25,8 +25,11 @@ export class ReservaService {
     return this.miHttp.httpGetOL<Reserva[]>('reservas/listar');
   }
 
-  public ReservaXMesa(codigo: string): Promise<Object> {
+ /* public ReservaXMesa(codigo: string): Promise<Object> {
     return this.miHttp.httpGetPL('reservas/reservasPorMesa/' + codigo);
+  }*/
+  public ReservaXMesa(codigo: string) {
+    return this.miHttp.httpGetL('reservas/reservasPorMesa/' + codigo);
   }
 
   public ListarTodos(): Observable<Reserva[]> {

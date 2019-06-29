@@ -10,7 +10,10 @@ import { MesaService } from '../../../services/mesa/mesa.service';
 import { Menu } from '../../../models/menu';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
- 
+import { Pedido } from 'src/app/models/pedido';
+import { ToastService } from '../../../services/toast/toast.service';
+import { AuthFireService } from '../../../services/auth.service';
+
 declare var google;
 
 
@@ -19,18 +22,22 @@ declare var google;
   templateUrl: './delivery.page.html',
   styleUrls: ['./delivery.page.scss'],
 })
-export class DeliveryPage implements OnInit{
+export class DeliveryPage implements OnInit {
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;
-  address:string;
-  
+  address: string;
+
   mesas: Mesa[] = [];
   menus: Menu[] = [];
   menus_cargados: Menu[] = [];
   usuario: User;
   mesa: string;
   cliente: string;
+  pedidosCliente: Pedido[];
+  manualAddress: boolean;
+  addressMessage: string;
+  pedidoSeleccionado: Pedido;
 
   constructor(
     private navCtrl: NavController,
@@ -39,9 +46,24 @@ export class DeliveryPage implements OnInit{
     private mesaService: MesaService,
     private auth: AuthService,
     private geolocation: Geolocation,
-    private nativeGeocoder: NativeGeocoder
+    private nativeGeocoder: NativeGeocoder,
+    private toastService: ToastService,
+    private authFireService: AuthFireService
   ) {
     this.usuario = this.auth.getUserInfo();
+    this.manualAddress = false;
+  }
+
+  cargarListas() {
+    this.pedidoSeleccionado = null;
+    this.pedidoService.ListarPorCliente(this.cliente, 1)
+      .subscribe(pedidos => {
+        this.pedidosCliente = pedidos;
+        console.log(this.pedidosCliente);
+      },
+        error => {
+          this.toastService.errorToast(error);
+        });
   }
 
   ngOnInit() {
@@ -49,12 +71,14 @@ export class DeliveryPage implements OnInit{
   }
 
   ionViewWillEnter() {
-  
+
     this.traerMenus();
-   
+
     if (this.usuario.tipo == 'registrado') {
       this.cliente = this.usuario.usuario;
     }
+    console.log(this.cliente);
+    this.cargarListas();
   }
 
   traerMenus() {
@@ -84,15 +108,30 @@ export class DeliveryPage implements OnInit{
   }
 
   generarPedido() {
-    if (this.mesa != "" && this.cliente != "") {
-      this.menus_cargados.forEach((menu) => {
-        this.pedidoService.Registrar("MES00", menu.id, this.cliente, 1, 0).then(
-          () => {
-            this.navCtrl.navigateForward('home');
-          }
-        );
-      });
+    console.log(this.menus_cargados);
+    console.log(this.address);
+    if (this.menus_cargados.length == 0) {
+      this.toastService.errorToast("Debe seleccionar al menos un pedido.");
+      return;
     }
+
+    if (!this.address) {
+      this.toastService.errorToast("Ingrese la dirección.");
+      return;
+    }
+
+    this.menus_cargados.forEach((menu) => {
+      this.pedidoService.Registrar("MES00", menu.id, this.cliente, 1, this.address, 0, this.authFireService.getCurrentUserMail()).then(
+        respuesta => {
+          console.log(respuesta);
+          this.toastService.confirmationToast("Pedido realizado correctamente.");
+          this.cargarListas();
+        }
+      )
+        .catch(error => {
+          this.toastService.errorToast(error);
+        });
+    });
   }
 
   atras() {
@@ -107,50 +146,61 @@ export class DeliveryPage implements OnInit{
         zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
- 
+
       this.getAddressFromCoords(resp.coords.latitude, resp.coords.longitude);
- 
+
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
- 
+
       this.map.addListener('tilesloaded', () => {
-        console.log('accuracy',this.map);
+        console.log('accuracy', this.map);
         this.getAddressFromCoords(this.map.center.lat(), this.map.center.lng())
       });
- 
+
     }).catch((error) => {
       console.log('Error getting location', error);
     });
   }
- 
+
   getAddressFromCoords(lattitude, longitude) {
-    console.log("getAddressFromCoords "+lattitude+" "+longitude);
+    console.log("getAddressFromCoords " + lattitude + " " + longitude);
     let options: NativeGeocoderOptions = {
       useLocale: true,
       maxResults: 5
     };
- 
+
     this.nativeGeocoder.reverseGeocode(lattitude, longitude, options)
       .then((result: NativeGeocoderResult[]) => {
+        this.addressMessage = "";
+        this.manualAddress = false;
         this.address = "";
         let responseAddress = [];
         for (let [key, value] of Object.entries(result[0])) {
-          if(value.length>0)
-          responseAddress.push(value);
- 
+          if (value.length > 0)
+            responseAddress.push(value);
+
         }
         responseAddress.reverse();
         for (let value of responseAddress) {
-          this.address += value+", ";
+          this.address += value + ", ";
         }
         this.address = this.address.slice(0, -2);
       })
-      .catch((error: any) =>{ 
-        this.address = "Direccion no disponible!";
+      .catch((error: any) => {
+        this.addressMessage = "Direccion no disponible! Ingrese manualmente: ";
+        this.manualAddress = true;
       });
- 
+
   }
 
-  
+  public chatOnClick() {
+    this.navCtrl.navigateForward('chat');
+  }
+
+  public seleccionarPedido(pedido: Pedido) {
+    this.pedidoSeleccionado = pedido;
+  }
+
+
 
 
 

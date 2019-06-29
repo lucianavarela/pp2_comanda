@@ -5,6 +5,7 @@ import { AuthService } from '../../../services/auth/auth.service';
 import { User } from 'src/app/models/user';
 import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
 import { ActivatedRoute } from '@angular/router';
+import { AuthFireService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-toma-pedido',
@@ -21,20 +22,33 @@ export class TomaPedidoPage implements OnInit {
   mode: string;
 
   constructor(private pedidoService: PedidoService, private errorHandler: ErrorHandlerService,
-    private authService: AuthService, private activatedRoute: ActivatedRoute) {
+    private authService: AuthService, private activatedRoute: ActivatedRoute, private authFireService: AuthFireService) {
+
     this.usuario = this.authService.token();
     console.log(this.usuario);
-    this.actualizarListaPedidos();
 
-    console.log(document.URL);
     if (document.URL.includes('autorizar')) {
       this.mode = 'autorizar';
     } else if (document.URL.includes('servir')) {
       this.mode = 'servir';
     }
+
+    if (this.usuario.tipo == "Delivery") {
+      this.listarDelivery();
+    }
+    else {
+      this.actualizarListaPedidos();
+    }
   }
 
   ngOnInit() {
+  }
+
+  public listarDelivery() {
+    this.pedidoService.ListarPorDelivery(this.authFireService.getCurrentUserMail())
+      .subscribe(pedidos => {
+        this.pedidosList = pedidos;
+      })
   }
 
   public actualizarListaPedidos() {
@@ -43,7 +57,7 @@ export class TomaPedidoPage implements OnInit {
       if (this.usuario.tipo != "Mozo") {
         this.pedidosList = pedidos.filter((p) => {
           return p.sector == this.usuario.tipo && (p.estado == EstadosPedido.Pendiente || p.estado == EstadosPedido.EnPreparacion)
-            && p.id_mozo != null;
+            && p.id_mozo != 0;
         });
         this.pedidoSeleccionado = null;
         this.pedidoEnPreparacion = null;
@@ -63,7 +77,7 @@ export class TomaPedidoPage implements OnInit {
           })
         } else {
           this.pedidosList = pedidos.filter(function (pedido) {
-            return pedido.id_mozo == null;
+            return pedido.id_mozo == 0;
           })
         }
       }
