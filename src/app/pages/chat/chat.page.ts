@@ -45,6 +45,7 @@ export class ChatPage implements AfterViewInit {
   }
 
   private async init()  {
+    this.pedidos = Array<Pedido>();
     console.log(this.userMail);
     await this.pedidosService.ListarPorDelivery(this.userMail)
     .subscribe(pedidos => {
@@ -53,7 +54,8 @@ export class ChatPage implements AfterViewInit {
 
     this.textService.GetAlltexts().subscribe(texts => {
       this.allMessages = texts.filter(text => {
-        return (text.umail == this.pedidos[0].fire_mail_cliente || text.umail == this.pedidos[0].fire_mail_delivery)
+        return ((this.pedidos.length == 0 && text.umail == this.authService.getCurrentUserMail()) ||
+        (this.pedidos.length != 0 && (text.umail == this.pedidos[0].fire_mail_cliente || text.umail == this.pedidos[0].fire_mail_delivery)));
       });
       this.iniciarColores();
       console.log(this.allMessages);
