@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { DeliveryPage } from './delivery.page';
-import { PedidosComponentsModule } from '../../pedidos/components/pedidos-components.module';
+import { ChatPage } from './chat.page';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 const routes: Routes = [
   {
     path: '',
-    component: DeliveryPage
+    component: ChatPage
   }
 ];
 
@@ -21,8 +21,9 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    PedidosComponentsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
-  declarations: [DeliveryPage]
+  declarations: [ChatPage]
 })
-export class DeliveryPageModule {}
+export class ChatPageModule {}

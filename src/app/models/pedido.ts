@@ -20,10 +20,13 @@ export class Pedido {
     public nombre_mozo: string;
     public id_mozo: string;
     public id_encargado: number;
-    public hora_inicial: string;
+    public hora_inicial: Time;
     public hora_entrega_estimada: Time;
     public hora_entrega_real: Time;
     public fecha: Date;
     public importe: string;
     public es_delivery: number;
+    public direccion_delivery: string;
+    public fire_mail_delivery: string;
+    public fire_mail_cliente: string;
 }

@@ -22,13 +22,17 @@ export class PedidoService {
     return this.miHttp.httpGetO<Pedido[]>('pedido/listarActivos/');
   }
 
-  public Registrar(idMesa: string, idMenu: number, nombreCliente: string, es_delivery: number): Promise<Object> {
+  public Registrar(idMesa: string, idMenu: number, nombreCliente: string, es_delivery: number, direccion_delivery: string = '', id_mozo: number = 0, fire_mail_cliente: string = ''): Promise<Object> {
     const request: Object = {
       id_mesa: idMesa,
       id_menu: idMenu,
       cliente: nombreCliente,
-      es_delivery: es_delivery
+      es_delivery: es_delivery,
+      direccion_delivery: direccion_delivery,
+      id_mozo: id_mozo,
+      fire_mail_cliente: fire_mail_cliente
     };
+    console.log(request);
     return this.miHttp.httpPostP('pedido/registrar/', request);
   }
 
@@ -56,5 +60,34 @@ export class PedidoService {
       codigo: codigo
     };
     return this.miHttp.httpPostP('pedido/listoParaServir/', request);
+  }
+
+  public ListarPorCliente(nombre_cliente: string, es_delivery: number): Observable<Pedido[]> {
+    
+    const request: Object = {
+      nombre_cliente: nombre_cliente,
+      es_delivery: es_delivery
+    };
+
+    return this.miHttp.httpPostO<Pedido[]>('pedido/listarPorCliente/', request);
+  }
+
+  public ListarPorDelivery(fire_mail_delivery: string): Observable<Pedido[]> {
+    
+    const request: Object = {
+      fire_mail_delivery: fire_mail_delivery
+    };
+
+    return this.miHttp.httpPostO<Pedido[]>('pedido/listarPorDelivery/', request);
+  }
+
+  public UpdateDelivery(codigo: string, fire_mail_delivery: string) {
+    
+    const request: Object = {
+      codigo: codigo,
+      fire_mail_delivery: fire_mail_delivery
+    };
+
+    return this.miHttp.httpPostP('pedido/updateDelivery/', request);
   }
 }

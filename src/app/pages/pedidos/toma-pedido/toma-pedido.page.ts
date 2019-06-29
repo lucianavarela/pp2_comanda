@@ -4,6 +4,7 @@ import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { AuthService } from '../../../services/auth/auth.service';
 import { User } from 'src/app/models/user';
 import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
+import { AuthFireService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-toma-pedido',
@@ -19,13 +20,25 @@ export class TomaPedidoPage implements OnInit {
   mostrarCargarTiempo: boolean;
 
   constructor(private pedidoService: PedidoService, private errorHandler: ErrorHandlerService,
-    private authService: AuthService) {
+    private authService: AuthService, private authFireService: AuthFireService) {
     this.usuario = this.authService.token();
     console.log(this.usuario);
-    this.actualizarListaPedidos();
+    if(this.usuario.tipo == "Delivery") {
+      this.listarDelivery();
+    }
+    else {
+      this.actualizarListaPedidos();
+    }
   }
 
   ngOnInit() {
+  }
+
+  public listarDelivery() {
+    this.pedidoService.ListarPorDelivery(this.authFireService.getCurrentUserMail())
+    .subscribe(pedidos => {
+      this.pedidosList = pedidos;
+    })
   }
 
   public actualizarListaPedidos() {

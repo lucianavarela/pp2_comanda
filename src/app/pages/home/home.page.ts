@@ -142,7 +142,7 @@ export class HomePage {
     if ( this.usuarioOnline.tipo == "registrado"  ) {
       this.listadoIconos = this.listados
         .filter(listado => listado.nombre == "pedidos" || listado.nombre == "delivery" ||  listado.nombre == "juegos" || listado.nombre == "reservas" || listado.nombre == "encuesta" || listado.nombre == "menu");
-    } else if (this.usuarioOnline.tipo == "Cocinero" || this.usuarioOnline.tipo == "Cervecero" || this.usuarioOnline.tipo == "Bartender") {
+    } else if (this.usuarioOnline.tipo == "Cervecero") {
       this.listadoIconos = this.listados
         .filter(listado => listado.nombre == "pedidos");
     } else if (this.usuarioOnline.tipo == "Cocinero" || this.usuarioOnline.tipo == "Bartender") {

@@ -71,6 +71,10 @@ import { MenuService } from './services/menu/menu.service';
 import { SimonPage } from './pages/clientes/simon/simon.page';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
+import { ChatPage } from './pages/chat/chat.page';
+import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { firebaseConfig } from '../environments/environment';
 
 
 export function getAccessToken() {
@@ -107,7 +111,8 @@ export function getAccessToken() {
     EncuestasPage,
     ListaEsperaPage,
     HomeQrPage,
-    AltaMenuPage
+    AltaMenuPage,
+    ChatPage
   ],
   imports: [
     BrowserModule,
@@ -116,8 +121,10 @@ export function getAccessToken() {
     ReactiveFormsModule,
     AppRoutingModule,
     IonicModule.forRoot(),
-    AngularFireModule.initializeApp(configs.firebaseConfig),
+    AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    AngularFirestoreModule,
     HttpClientModule,
     [JwtModule.forRoot({
       config: {
