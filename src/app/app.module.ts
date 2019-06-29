@@ -39,7 +39,7 @@ import { SpinnerHandlerService } from './services/spinner-handler/spinner-handle
 //Firebase
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-
+import { environment } from '../environments/environment';
 //configuraciones generales
 import { configs } from './../globalConfig';
 
@@ -72,9 +72,8 @@ import { SimonPage } from './pages/clientes/simon/simon.page';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { ChatPage } from './pages/chat/chat.page';
-import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { firebaseConfig } from '../environments/environment';
 
 
 export function getAccessToken() {
@@ -121,7 +120,8 @@ export function getAccessToken() {
     ReactiveFormsModule,
     AppRoutingModule,
     IonicModule.forRoot(),
-    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFirestoreModule,

@@ -11,6 +11,8 @@ import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { MesaService } from 'src/app/services/mesa/mesa.service';
 import { Mesa } from 'src/app/models/mesa';
 import { Cliente } from 'src/app/models/cliente';
+import { ReservaService } from 'src/app/services/reserva/reserva.service';
+import { Reserva } from 'src/app/models/reserva';
 
 @Component({
   selector: 'app-home-qr',
@@ -18,10 +20,16 @@ import { Cliente } from 'src/app/models/cliente';
 })
 export class HomeQrPage implements OnInit {
 
+  reservas: any;
   listadoMesas: Mesa[] = [];
   mesa: any;
   cliente: Cliente;
   usuarioOnline: any;
+  myDate = new Date();
+  hora1 = new Date('2019-06-28 12:20:00');
+  hora2 = new Date('2019-06-28 13:00:00');
+  flag: boolean = false;
+
   listadoIconos: Array<any> = [
     {
       nombre: "Tomar Mesa",
@@ -38,15 +46,19 @@ export class HomeQrPage implements OnInit {
     public esperaServicio: EsperaService,
     private barcodeScanner: BarcodeScanner,
     private clienteService: ClienteService,
+    private servicioMesa: MesaService,
+    private servicioReserva: ReservaService,
     private menuService: MenuService,
     private pedidoService: PedidoService,
-    private servicioMesa: MesaService,
     private authService: AuthService) {
     this.mesa = new Mesa();
     this.cliente = new Cliente();
   }
 
   ngOnInit() {
+    console.log(this.myDate);
+    console.log(this.hora1);
+    console.log(this.hora2);
   }
 
   ionViewWillEnter() {
@@ -71,15 +83,21 @@ export class HomeQrPage implements OnInit {
           this.volver();
         });
     } else if (qr.indexOf('MESA-') > -1) {
-      this.usuarioOnline.mesa = qr.replace('MESA-', '');
-      this.clienteService.CargarMesa(this.usuarioOnline).
-        subscribe((data) => {
-          this.errorHandler.confirmationToast(data["Mensaje"]);
-          this.volver();
-        }, (error) => {
-          this.errorHandler.errorToast("Se produjo un error al carga la lista ");
-          this.volver();
-        });
+      this.cliente.mesa = qr.replace('MESA-', '');
+
+      this.verificarMesa(this.cliente.mesa);
+      if (this.flag == false) {
+
+        this.clienteService.CargarMesa(this.cliente).
+          subscribe((data) => {
+            this.errorHandler.confirmationToast(data["Mensaje"]);
+          }, (error) => {
+            this.errorHandler.errorToast("Se produjo un error al carga la lista ");
+          });
+
+      } else {
+        this.errorHandler.errorToast("Hay una reserva para esa mesa");
+      }
     } else {
       this.menuService.GetMenu(qr).subscribe(menu => {
         if (menu && this.usuarioOnline.tipo == 'registrado') {
@@ -125,6 +143,36 @@ export class HomeQrPage implements OnInit {
     });
   }
 
+
+
+  verificarReserva(codigo: string) {
+
+    if (this.myDate > this.hora1 && this.hora2 < this.hora2) {
+      let tiempo;
+      let diferencia;
+      this.servicioReserva.ReservaXMesa(codigo)
+        .subscribe(
+          (res) => {
+            this.reservas = res;
+            console.log(this.reservas.length);
+
+            if (this.reservas.length > 0) {
+              this.reservas.forEach(reserva => {
+
+                let horaR = new Date(reserva.fecha.substr(0, 10) + " " + reserva.hora)
+
+                tiempo = this.myDate.getTime() - horaR.getTime();
+                diferencia = Math.floor((tiempo / 1000 / 60) << 0)
+                if (diferencia < 40) {
+                  this.flag = true;
+                }
+              });
+            }
+          }
+        )
+    }
+  }
+
   cargarMesas() {
     this.servicioMesa.Listar().subscribe(
       (res) => {
@@ -141,8 +189,6 @@ export class HomeQrPage implements OnInit {
     if (this.mesa.estado == "Cerrada") {
       respuesta = true;
     }
-    console.log(this.mesa);
-    return respuesta
   }
 
   volver() {
