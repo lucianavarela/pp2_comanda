@@ -46,16 +46,28 @@ export class ChatPage implements AfterViewInit {
 
   private async init()  {
     this.pedidos = Array<Pedido>();
+    let mailCliente = '';
+    let mailDelivery = '';
     console.log(this.userMail);
     await this.pedidosService.ListarPorDelivery(this.userMail)
     .subscribe(pedidos => {
         this.pedidos = pedidos;
+
+        this.pedidos.forEach(pedido => {
+          if (pedido.fire_mail_cliente) {
+            mailCliente = pedido.fire_mail_cliente;
+          }
+
+          if (pedido.fire_mail_delivery) {
+            mailDelivery = pedido.fire_mail_delivery;
+          }
+        });
     });
 
     this.textService.GetAlltexts().subscribe(texts => {
       this.allMessages = texts.filter(text => {
-        return ((this.pedidos.length == 0 && text.umail == this.authService.getCurrentUserMail()) ||
-        (this.pedidos.length != 0 && (text.umail == this.pedidos[0].fire_mail_cliente || text.umail == this.pedidos[0].fire_mail_delivery)));
+        return ((this.pedidos.length == 0 && text.umail == this.userMail) ||
+        (this.pedidos.length != 0 && (text.umail == mailCliente || text.umail == mailDelivery)));
       });
       this.iniciarColores();
       console.log(this.allMessages);
