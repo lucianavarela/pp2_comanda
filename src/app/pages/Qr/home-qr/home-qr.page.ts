@@ -19,25 +19,18 @@ import { Reserva } from 'src/app/models/reserva';
   templateUrl: './home-qr.page.html',
 })
 export class HomeQrPage implements OnInit {
-<<<<<<< HEAD
-  
-  reservas: any;
-  listadoMesas  :Mesa[] = [];
-  mesa : any;
-  cliente : Cliente;
-=======
 
+  reservas: any;
   listadoMesas: Mesa[] = [];
   mesa: any;
   cliente: Cliente;
->>>>>>> f989c198e1ad6b7893d3089fb89a4af77f47b425
   usuarioOnline: any;
-   myDate = new Date();
-   hora1 = new Date( '2019-06-28 12:20:00');
-   hora2 = new Date( '2019-06-28 13:00:00');
-   flag : boolean = false;
- 
-   listadoIconos: Array<any> = [
+  myDate = new Date();
+  hora1 = new Date('2019-06-28 12:20:00');
+  hora2 = new Date('2019-06-28 13:00:00');
+  flag: boolean = false;
+
+  listadoIconos: Array<any> = [
     {
       nombre: "Tomar Mesa",
       accion: "mesa"
@@ -53,14 +46,10 @@ export class HomeQrPage implements OnInit {
     public esperaServicio: EsperaService,
     private barcodeScanner: BarcodeScanner,
     private clienteService: ClienteService,
-<<<<<<< HEAD
-    private servicioMesa :  MesaService,
-    private servicioReserva : ReservaService,
-=======
+    private servicioMesa: MesaService,
+    private servicioReserva: ReservaService,
     private menuService: MenuService,
     private pedidoService: PedidoService,
-    private servicioMesa: MesaService,
->>>>>>> f989c198e1ad6b7893d3089fb89a4af77f47b425
     private authService: AuthService) {
     this.mesa = new Mesa();
     this.cliente = new Cliente();
@@ -77,14 +66,8 @@ export class HomeQrPage implements OnInit {
     this.cliente.id = this.usuarioOnline.id;
     console.log(this.usuarioOnline);
     this.scanQr();
-<<<<<<< HEAD
-  
-    
-   
-=======
     // this.cargarMesas();
 
->>>>>>> f989c198e1ad6b7893d3089fb89a4af77f47b425
   }
 
   Accion(qr: string) {
@@ -100,33 +83,21 @@ export class HomeQrPage implements OnInit {
           this.volver();
         });
     } else if (qr.indexOf('MESA-') > -1) {
-<<<<<<< HEAD
       this.cliente.mesa = qr.replace('MESA-', '');
 
-    this.verificarMesa(this.cliente.mesa);
-    if( this.flag == false){
+      this.verificarMesa(this.cliente.mesa);
+      if (this.flag == false) {
 
-      this.clienteService.CargarMesa(this.cliente).
-      subscribe((data) => {
-        this.errorHandler.confirmationToast(data["Mensaje"]);
-      }, (error) => {
-        this.errorHandler.errorToast("Se produjo un error al carga la lista ");
-      });
+        this.clienteService.CargarMesa(this.cliente).
+          subscribe((data) => {
+            this.errorHandler.confirmationToast(data["Mensaje"]);
+          }, (error) => {
+            this.errorHandler.errorToast("Se produjo un error al carga la lista ");
+          });
 
-    }else{
-      this.errorHandler.errorToast("Hay una reserva para esa mesa");
-    }    
-=======
-      this.usuarioOnline.mesa = qr.replace('MESA-', '');
-      this.clienteService.CargarMesa(this.usuarioOnline).
-        subscribe((data) => {
-          this.errorHandler.confirmationToast(data["Mensaje"]);
-          this.volver();
-        }, (error) => {
-          this.errorHandler.errorToast("Se produjo un error al carga la lista ");
-          this.volver();
-        });
->>>>>>> f989c198e1ad6b7893d3089fb89a4af77f47b425
+      } else {
+        this.errorHandler.errorToast("Hay una reserva para esa mesa");
+      }
     } else {
       this.menuService.GetMenu(qr).subscribe(menu => {
         if (menu && this.usuarioOnline.tipo == 'registrado') {
@@ -172,35 +143,36 @@ export class HomeQrPage implements OnInit {
     });
   }
 
-<<<<<<< HEAD
-       
 
-  verificarMesa(codigo : string){
 
-    if( this.myDate > this.hora1 && this.hora2 < this.hora2){
+  verificarReserva(codigo: string) {
+
+    if (this.myDate > this.hora1 && this.hora2 < this.hora2) {
       let tiempo;
       let diferencia;
-    this.servicioReserva.ReservaXMesa(codigo)
-    .subscribe(
-      (res) => {
-        this.reservas= res;
-        console.log(this.reservas.length);    
-        
-        if(this.reservas.length >0 ){
-          this.reservas.forEach(reserva => {
-            
-        let horaR = new Date(reserva.fecha.substr(0,10)+" "+reserva.hora) 
-      
-            tiempo = this.myDate.getTime() - horaR.getTime();  
-            diferencia= Math.floor((tiempo/1000/60) << 0)          
-            if( diferencia < 40){
-              this.flag = true;              
+      this.servicioReserva.ReservaXMesa(codigo)
+        .subscribe(
+          (res) => {
+            this.reservas = res;
+            console.log(this.reservas.length);
+
+            if (this.reservas.length > 0) {
+              this.reservas.forEach(reserva => {
+
+                let horaR = new Date(reserva.fecha.substr(0, 10) + " " + reserva.hora)
+
+                tiempo = this.myDate.getTime() - horaR.getTime();
+                diferencia = Math.floor((tiempo / 1000 / 60) << 0)
+                if (diferencia < 40) {
+                  this.flag = true;
+                }
+              });
             }
-          });
-        }
-      }
-    )   
-=======
+          }
+        )
+    }
+  }
+
   cargarMesas() {
     this.servicioMesa.Listar().subscribe(
       (res) => {
@@ -216,13 +188,8 @@ export class HomeQrPage implements OnInit {
       .filter(listado => listado.codigo == cogido_mesa)
     if (this.mesa.estado == "Cerrada") {
       respuesta = true;
->>>>>>> f989c198e1ad6b7893d3089fb89a4af77f47b425
     }
   }
-
-
- 
-
 
   volver() {
     this.navCtrl.navigateForward('home');
