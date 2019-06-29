@@ -3,6 +3,7 @@ import { HttpService } from '../http/http.service';
 import { Observable } from 'rxjs';
 import { Login } from '../../models/login';
 import { Cliente } from '../../models/cliente';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -49,6 +50,13 @@ export class ClienteService {
     return this.miHttp.httpGetOL<Cliente[]>('clientes/listarActivaciones');
   }
 
+  public GetCliente(id: number) {
+    return this.ListarTodos().pipe(
+      map(clientes => {
+        return clientes.filter((c) => { return c.id == id })[0];
+      })
+    );
+  }
 
   public ListarTodos(): Observable<Cliente[]> {
     return this.miHttp.httpGetOL<Cliente[]>('clientes/listar');
