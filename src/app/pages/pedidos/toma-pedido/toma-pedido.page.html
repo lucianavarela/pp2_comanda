@@ -3,9 +3,10 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
-    <ion-title *ngIf="usuario.tipo!='Mozo'">Toma de Pedidos</ion-title>
+    <ion-title *ngIf="usuario.tipo!='Mozo'&&mode!='delivery'">Toma de Pedidos</ion-title>
     <ion-title *ngIf="usuario.tipo=='Mozo'&&mode=='servir'">Servir Pedidos Listos</ion-title>
     <ion-title *ngIf="usuario.tipo=='Mozo'&&mode=='autorizar'">Autorizar Pedidos</ion-title>
+    <ion-title *ngIf="mode=='delivery'">Repartir Pedidos</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content padding>
