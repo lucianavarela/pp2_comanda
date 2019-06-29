@@ -19,7 +19,7 @@ export class TomaPedidoPage implements OnInit {
   pedidoEnPreparacion: Pedido;
   usuario: any;
   mostrarCargarTiempo: boolean;
-  mode: string;
+  mode: string = '';
 
   constructor(private pedidoService: PedidoService, private errorHandler: ErrorHandlerService,
     private authService: AuthService, private activatedRoute: ActivatedRoute, private authFireService: AuthFireService) {
@@ -31,14 +31,11 @@ export class TomaPedidoPage implements OnInit {
       this.mode = 'autorizar';
     } else if (document.URL.includes('servir')) {
       this.mode = 'servir';
+    } else if (document.URL.includes('delivery')) {
+      this.mode = 'delivery';
     }
 
-    if (this.usuario.tipo == "Delivery") {
-      this.listarDelivery();
-    }
-    else {
-      this.actualizarListaPedidos();
-    }
+    this.actualizarListaPedidos();
   }
 
   ngOnInit() {
@@ -54,7 +51,7 @@ export class TomaPedidoPage implements OnInit {
   public actualizarListaPedidos() {
     this.mostrarCargarTiempo = false;
     this.pedidoService.ListarTodos().subscribe(pedidos => {
-      if (this.usuario.tipo != "Mozo") {
+      if (this.usuario.tipo != "Mozo" && this.mode == '') {
         this.pedidosList = pedidos.filter((p) => {
           return p.sector == this.usuario.tipo && (p.estado == EstadosPedido.Pendiente || p.estado == EstadosPedido.EnPreparacion)
             && p.id_mozo != 0;
@@ -73,7 +70,11 @@ export class TomaPedidoPage implements OnInit {
       } else {
         if (this.mode == 'servir') {
           this.pedidosList = pedidos.filter(function (pedido) {
-            return pedido.estado == EstadosPedido.ListoParaServir;
+            return pedido.estado == EstadosPedido.ListoParaServir && pedido.es_delivery == 0;
+          })
+        } else if (this.mode == 'delivery') {
+          this.pedidosList = pedidos.filter(function (pedido) {
+            return pedido.estado == EstadosPedido.ListoParaServir && pedido.es_delivery == 1;
           })
         } else {
           this.pedidosList = pedidos.filter(function (pedido) {
@@ -103,7 +104,7 @@ export class TomaPedidoPage implements OnInit {
         .finally(() => {
           this.actualizarListaPedidos();
         });
-    } else {
+    } else if (this.mode == 'autorizar') {
       this.pedidoService.CambiarEstado(pedido.codigo, EstadosPedido.Pendiente, this.usuario.id)
         .then((res: any) => {
           if (res.Estado == 'OK') {
@@ -118,6 +119,23 @@ export class TomaPedidoPage implements OnInit {
         })
         .finally(() => {
           this.actualizarListaPedidos();
+        });
+    } else {
+      this.pedidoService.CambiarEstado(pedido.codigo, EstadosPedido.Entregado, this.usuario.id)
+        .then((res: any) => {
+          if (res.Estado == 'OK') {
+            this.errorHandler.mostrarMensajeConfimación("Pedido autorizado exitosamente.");
+            this.pedidoService.UpdateDelivery(pedido.codigo, this.authFireService.getCurrentUserMail())
+              .then(() => {
+                this.actualizarListaPedidos();
+              });
+          } else {
+            this.errorHandler.mostrarMensajeError(res.Mensaje);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          this.errorHandler.mostrarMensajeError("Ocurrió un error.");
         });
     }
   }

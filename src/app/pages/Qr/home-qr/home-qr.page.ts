@@ -85,7 +85,7 @@ export class HomeQrPage implements OnInit {
         });
     } else if (qr.indexOf('MESA-') > -1) {
       this.verificarReserva(qr.replace('MESA-', ''));
-      if (this.verificarMesa(qr.replace('MESA-', '')) && this.flag) {
+      if (this.verificarMesaCerrada(qr.replace('MESA-', '')) && this.flag) {
         this.usuarioOnline.mesa = qr.replace('MESA-', '');
         this.clienteService.CargarMesa(this.usuarioOnline).
           subscribe((data) => {
@@ -98,6 +98,28 @@ export class HomeQrPage implements OnInit {
           });
       } else {
         this.errorHandler.errorToast("Esta mesa no esta libre");
+        this.volver();
+      }
+    } else if (qr.indexOf('PROPINA-') > -1) {
+      if (this.usuarioOnline.tipo == 'registrado' || this.usuarioOnline.tipo == 'anonimo') {
+        this.clienteService.GetCliente(this.usuarioOnline.id).subscribe(cliente => {
+          if (cliente.mesa) {
+            if (cliente.mesa != null) {
+              if (this.verificarMesaComiendo(cliente.mesa) || cliente.mesa == 'MES00') {
+                this.errorHandler.confirmationToast("Gracias por su propina de " + (qr.replace('PROPINA-', '') + '%!'));
+                this.servicioMesa.CambiarEstado(cliente.mesa, EstadosMesa.Pagando);
+              } else {
+                this.errorHandler.errorToast("Aún quedan pedidos pendientes");
+                this.volver();
+              }
+            } else {
+              this.errorHandler.errorToast("Usted no tiene pedidos activos");
+              this.volver();
+            }
+          }
+        })
+      } else {
+        this.errorHandler.errorToast("Usted no esta habilitado a dejar propina");
         this.volver();
       }
     } else {
@@ -178,10 +200,19 @@ export class HomeQrPage implements OnInit {
       });
   }
 
-  verificarMesa(codigo_mesa: string) {
+  verificarMesaCerrada(codigo_mesa: string) {
     let respuesta = false;
     this.mesa = this.listadoMesas.filter(function (listado) { return listado.codigo == codigo_mesa })[0]
-    if (this.mesa.estado == "Cerrada") {
+    if (this.mesa.estado == EstadosMesa.Cerrada) {
+      respuesta = true;
+    }
+    return respuesta
+  }
+
+  verificarMesaComiendo(codigo_mesa: string) {
+    let respuesta = false;
+    this.mesa = this.listadoMesas.filter(function (listado) { return listado.codigo == codigo_mesa })[0]
+    if (this.mesa.estado == EstadosMesa.Comiendo) {
       respuesta = true;
     }
     return respuesta
