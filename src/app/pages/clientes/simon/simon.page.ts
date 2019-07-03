@@ -62,7 +62,6 @@ export class SimonPage implements OnInit {
 
       await this.sleep(2000);
     }
-    console.log(this.secuencia);
     this.secuenciaTxt = "";
     this.color = Colores.Blanco;
     this.nroIngreso = 0;

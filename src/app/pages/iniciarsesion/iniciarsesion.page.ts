@@ -45,13 +45,11 @@ export class IniciarsesionPage implements OnInit {
           if (response['Estado'] === 'OK') {
             this.authFireService.login(this.dataLogin.user+'@hotmail.com', '123456')
             .then(res => {
-              console.log(res);
               this.audioService.play('login');
               localStorage.setItem('token', response['Token']);
               this.navCtrl.navigateForward('home');
             })
             .catch(error => {
-              console.log(error);
               if (error.code === 'auth/user-not-found') {
                 this.toastService.errorToast('Usuario no encontrado.');
               } else if (error.code === 'auth/wrong-password') {

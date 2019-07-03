@@ -30,7 +30,6 @@ export class HttpService {
 
   public httpPostP(url: string, request: Object) {
     let post = this.http.post(this.urlBase + url, request);
-    console.log(post);
     return post.toPromise();
   }
 

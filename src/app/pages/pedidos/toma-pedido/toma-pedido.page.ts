@@ -25,7 +25,6 @@ export class TomaPedidoPage implements OnInit {
     private authService: AuthService, private activatedRoute: ActivatedRoute, private authFireService: AuthFireService) {
 
     this.usuario = this.authService.token();
-    console.log(this.usuario);
 
     if (document.URL.includes('autorizar')) {
       this.mode = 'autorizar';
@@ -60,7 +59,6 @@ export class TomaPedidoPage implements OnInit {
         this.pedidoEnPreparacion = null;
 
         this.pedidosList.forEach(pedido => {
-          console.log(pedido)
           if (pedido.estado == EstadosPedido.EnPreparacion && pedido.id_encargado == this.usuario.id) {
             this.pedidoEnPreparacion = pedido;
             this.pedidoSeleccionado = pedido;
@@ -78,7 +76,7 @@ export class TomaPedidoPage implements OnInit {
           })
         } else {
           this.pedidosList = pedidos.filter(function (pedido) {
-            return pedido.id_mozo == 0;
+            return pedido.estado == EstadosPedido.Pendiente && pedido.id_mozo == 0;
           })
         }
       }
@@ -94,11 +92,9 @@ export class TomaPedidoPage implements OnInit {
     if (this.mode == 'servir') {
       this.pedidoService.Servir(pedido.codigo)
         .then(response => {
-          console.log(response);
           this.errorHandler.mostrarMensajeConfimación("Pedido servido exitosamente.");
         })
         .catch(error => {
-          console.log(error);
           this.errorHandler.mostrarMensajeError("Ocurrió un error.");
         })
         .finally(() => {
@@ -114,7 +110,6 @@ export class TomaPedidoPage implements OnInit {
           }
         })
         .catch(error => {
-          console.log(error);
           this.errorHandler.mostrarMensajeError("Ocurrió un error.");
         })
         .finally(() => {
@@ -134,7 +129,6 @@ export class TomaPedidoPage implements OnInit {
           }
         })
         .catch(error => {
-          console.log(error);
           this.errorHandler.mostrarMensajeError("Ocurrió un error.");
         });
     }
@@ -147,11 +141,9 @@ export class TomaPedidoPage implements OnInit {
   public terminarPedido() {
     this.pedidoService.CambiarEstado(this.pedidoEnPreparacion.codigo, EstadosPedido.ListoParaServir)
       .then(response => {
-        console.log(response);
         this.errorHandler.mostrarMensajeConfimación("Pedido marcado como listo para servir.");
       })
       .catch(error => {
-        console.log(error);
         this.errorHandler.mostrarMensajeError("Ocurrió un error.");
       })
       .finally(() => {
@@ -162,11 +154,9 @@ export class TomaPedidoPage implements OnInit {
   public cargarTiempo(tiempoEstimado: number) {
     this.pedidoService.TomarPedido(this.pedidoSeleccionado.codigo, tiempoEstimado.toString())
       .then(response => {
-        console.log(response);
         this.errorHandler.mostrarMensajeConfimación("Pedido tomado exitosamente.");
       })
       .catch(error => {
-        console.log(error);
         this.errorHandler.mostrarMensajeError("Ocurrió un error.");
       })
       .finally(() => {

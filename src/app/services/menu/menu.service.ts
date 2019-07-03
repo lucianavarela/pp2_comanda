@@ -20,8 +20,6 @@ export class MenuService {
       descripcion: descripcion,
       fotos: fotos
     };
-
-    console.log(request);
     return this.miHttp.httpPostP('menu/registrar/', request);
   }
 

@@ -25,12 +25,10 @@ export class ListaEsperaPage implements OnInit {
     subscribe(
       (res) => {
         this.listas = res;
-        console.log(this.listas);
       });
   }
 
   borrar(id: number) {
-    console.log(id);
    this.esperaServicio.Baja(id)
     .then(
       (res) => {
@@ -40,7 +38,6 @@ export class ListaEsperaPage implements OnInit {
   }
 
   activar(id: number) { 
-    console.log(id);  
     this.esperaServicio.Activar(id)
     .then(
       (res) => {

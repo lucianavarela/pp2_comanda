@@ -116,7 +116,6 @@ export class HomePage {
   ionViewWillEnter() {
     if (this.authService.isLogged()) {
       this.usuarioOnline = this.authService.token();
-      console.log(this.usuarioOnline.tipo)
     } else {
       this.navCtrl.navigateForward('bienvenido');
     }

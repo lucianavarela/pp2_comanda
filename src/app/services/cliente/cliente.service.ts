@@ -53,6 +53,7 @@ export class ClienteService {
   public GetCliente(id: number) {
     return this.ListarTodos().pipe(
       map(clientes => {
+        console.log(clientes)
         return clientes.filter((c) => { return c.id == id })[0];
       })
     );

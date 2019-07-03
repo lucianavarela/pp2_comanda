@@ -34,8 +34,6 @@ export class ListaReservasPage implements OnInit {
     subscribe(
       (res) => {
         this.reservas = res;
-        console.log(this.reservas);
-        console.log(res);
       });
   }
 
@@ -44,7 +42,6 @@ export class ListaReservasPage implements OnInit {
     subscribe(
       (res) => {
         this.reservas = res;
-        console.log(this.reservas);
       });
   }
 

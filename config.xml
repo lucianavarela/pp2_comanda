@@ -40,6 +40,7 @@
         <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png" />
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
         <preference name="loadUrlTimeoutValue" value="700000" />
+        <resource-file src="google-services.json" target="app/google-services.json" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
@@ -91,7 +92,7 @@
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
     </plugin>
     <plugin name="cordova-plugin-nativegeocoder" spec="3.2.2" />
-    <plugin name="cordova-plugin-fcm-with-dependecy-updated" spec="2.4.0" />
+    <allow-navigation href="http://192.168.0.40:8100" sessionid="18b1e458" />
     <engine name="browser" spec="^5.0.4" />
     <engine name="android" spec="6.4.0" />
 </widget>

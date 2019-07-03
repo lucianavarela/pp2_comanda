@@ -102,26 +102,21 @@ export class AltaMenuPage implements OnInit {
     let precio: number = this.altaMenuForm.get('precio').value;
     let tiempo_promedio: number = this.altaMenuForm.get('tiempo_promedio').value;
     let descripcion: string = this.altaMenuForm.get('descripcion').value;
-    console.log('formulario ok');
 
     await this.menuService.Registrar(nombre, tipo, precio, tiempo_promedio, descripcion, fotos)
     .then(res => {
-      console.log("entro");
-      console.log(res);
       if(res.Estado == 'OK')
       {
         this.altaMenuForm.reset();
-        this.toasterService.confirmationToast('Se ha dado de alta el nuevo producto exitosamente.');
+        this.toasterService.confirmationToast('Alta exitosa!');
       }    
       else
       {
-        this.toasterService.errorToast('Error2: No se ha podido dar de alta el producto:' + res.Mensaje);
+        this.toasterService.errorToast(res.Mensaje);
       }  
     })
     .catch(error => {      
-      console.log("error");
-      console.log(error);
-      this.toasterService.errorToast('Error: No se ha podido dar de alta el producto:' + error.message);
+      this.toasterService.errorToast(error.message);
     });
   }
 

@@ -75,7 +75,6 @@ export class AltaClientePage implements OnInit {
                   return true;
               }
               this.errorHandler.errorToast("La contraseña es muy corta");
-              console.log(this.cliente.pass);
 
           } else {
               this.errorHandler.errorToast("Las contraseñas son diferentes");
@@ -113,7 +112,6 @@ export class AltaClientePage implements OnInit {
     if(this.validarF(this.cliente.tipo)){      
      this.miHttp.alta(this.cliente)
      .subscribe(response => {  
-       console.log(response);
        if (response['Estado'] === 'OK') {          
          this.limpiarCliente();     
          this.errorHandler.confirmationToast("Se dio de alta correctamente el cliente, le llegara un mail para confirmar" );
@@ -137,11 +135,9 @@ export class AltaClientePage implements OnInit {
 
     leer(){
       this.barcodeScanner.scan({ "formats": "PDF_417" }).then(barcodeData => {
-        console.log('Barcode data', barcodeData);
         //this.errorHandler.confirmationToast(barcodeData.text);
         this.cargarDatosDni(barcodeData);
         }).catch(err => {
-        console.log('Error', err);
         });
     }
 

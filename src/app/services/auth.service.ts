@@ -16,11 +16,9 @@ export class AuthFireService {
     }
 
   login(email: string, password: string) {
-    console.log(email + ' ' + password);
     return this.angularFireAuth.auth.signInWithEmailAndPassword(email, password)
       .then(res => {
         this.angularFireAuth.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-        console.log(this.angularFireAuth.auth.currentUser);
         return res;
       });
   }

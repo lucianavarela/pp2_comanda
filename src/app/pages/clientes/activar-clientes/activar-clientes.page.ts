@@ -29,7 +29,6 @@ export class ActivarClientesPage implements OnInit {
       subscribe(
         (res) => {
           this.empleados = res;
-          console.log(this.empleados);
         });
 
   }

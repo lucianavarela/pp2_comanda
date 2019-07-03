@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-buttons *ngIf="usuarioOnline.tipo=='registrado'" slot="start">
+    <ion-buttons *ngIf="usuarioOnline&&usuarioOnline.tipo=='registrado'" slot="start">
       <ion-button routerLink="/home-qr">
         <ion-icon name="barcode"></ion-icon>
       </ion-button>

@@ -57,15 +57,11 @@ export class HomeQrPage implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.myDate);
-    console.log(this.hora1);
-    console.log(this.hora2);
   }
 
   ionViewWillEnter() {
     this.usuarioOnline = this.authService.token();
     this.cliente.id = this.usuarioOnline.id;
-    console.log(this.usuarioOnline);
     this.scanQr();
     this.cargarMesas();
 
@@ -106,8 +102,15 @@ export class HomeQrPage implements OnInit {
           if (cliente.mesa) {
             if (cliente.mesa != null) {
               if (this.verificarMesaComiendo(cliente.mesa) || cliente.mesa == 'MES00') {
-                this.errorHandler.confirmationToast("Gracias por su propina de " + (qr.replace('PROPINA-', '') + '%!'));
-                this.servicioMesa.CambiarEstado(cliente.mesa, EstadosMesa.Pagando);
+                this.servicioMesa.CambiarEstado(cliente.mesa, EstadosMesa.Pagando)
+                  .then(
+                    () => {
+                      this.errorHandler.confirmationToast("Gracias por su propina de " + (qr.replace('PROPINA-', '') + '%!'));
+                      this.volver();
+                    }
+                  ).catch(
+                    (e) => this.errorHandler.errorToast(e)
+                  )
               } else {
                 this.errorHandler.errorToast("Aún quedan pedidos pendientes");
                 this.volver();
@@ -202,8 +205,8 @@ export class HomeQrPage implements OnInit {
 
   verificarMesaCerrada(codigo_mesa: string) {
     let respuesta = false;
-    this.mesa = this.listadoMesas.filter(function (listado) { return listado.codigo == codigo_mesa })[0]
-    if (this.mesa.estado == EstadosMesa.Cerrada) {
+    let mesa = this.listadoMesas.filter(function (listado) { return listado.codigo == codigo_mesa })[0]
+    if (mesa.estado == EstadosMesa.Cerrada) {
       respuesta = true;
     }
     return respuesta
@@ -211,8 +214,9 @@ export class HomeQrPage implements OnInit {
 
   verificarMesaComiendo(codigo_mesa: string) {
     let respuesta = false;
-    this.mesa = this.listadoMesas.filter(function (listado) { return listado.codigo == codigo_mesa })[0]
-    if (this.mesa.estado == EstadosMesa.Comiendo) {
+    let mesa = this.listadoMesas.filter(function (listado) { return listado.codigo == codigo_mesa })[0]
+    console.log(mesa)
+    if (mesa.estado == EstadosMesa.Comiendo) {
       respuesta = true;
     }
     return respuesta

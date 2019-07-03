@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { FCM } from '@ionic-native/fcm/ngx';
 
 //Paginas
 import { HomePage } from './pages/home/home.page';
@@ -157,7 +156,6 @@ export function getAccessToken() {
     MenuService,
     Vibration,
     BarcodeScanner,
-    FCM,
     Geolocation,
     NativeGeocoder,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

@@ -20,7 +20,6 @@ export class MesaService {
     return this.miHttp.httpPostP('mesas/registrar/', request).then( response => {
       if (foto) {
         return this.ActualizarFoto(codigo, foto).catch( error => {
-          console.log(error);
           this.Eliminar(codigo);
         });
       }
