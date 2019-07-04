@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CargaPedidoPage } from './carga-pedido.page';
+import { ChatPage } from './chat.page';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 const routes: Routes = [
   {
     path: '',
-    component: CargaPedidoPage
+    component: ChatPage
   }
 ];
 
@@ -19,8 +20,10 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    FormsModule,
+    ReactiveFormsModule
   ],
-  declarations: [CargaPedidoPage]
+  declarations: [ChatPage]
 })
-export class CargaPedidoPageModule {}
+export class ChatPageModule {}

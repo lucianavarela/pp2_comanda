@@ -23,7 +23,11 @@ export class EsperaService {
   }
 
   public Baja(id: number): Promise<Object> {
-    return this.miHttp.httpDeletePL('/espera/sacar/' + id);
+    return this.miHttp.httpDeletePL('espera/sacar/' + id);
+  }
+
+  public Activar(id: number): Promise<Object> {
+    return this.miHttp.httpGetPL('espera/activar/' + id);
   }
 
 

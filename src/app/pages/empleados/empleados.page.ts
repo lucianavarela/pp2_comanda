@@ -29,7 +29,6 @@ export class EmpleadosPage {
         this.empleados = res.filter(function (e) {
           return e.estado != 'B';
         });
-        console.log(res);
       }
     )
   }
@@ -59,6 +58,6 @@ export class EmpleadosPage {
   }
 
   atras() {
-    this.navCtrl.pop();
+    this.navCtrl.navigateForward('home')
   }
 }

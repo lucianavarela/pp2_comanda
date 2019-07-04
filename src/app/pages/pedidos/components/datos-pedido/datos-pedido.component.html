@@ -10,5 +10,8 @@
     <b>Fecha:</b> {{pedido.fecha}} {{pedido.hora_inicial}}<br>
     <b>Importe:</b> ${{pedido.importe}}<br>
     <b>Hora de entrega estimada:</b> {{pedido.hora_entrega_estimada}}<br>
-  </ion-card-content> 
+    <ion-button *ngIf="pedido.estado=='Entregado'" expand="full" (click)="confirmarEntrega(pedido)">
+      Confirmar Entrega
+    </ion-button>
+  </ion-card-content>
 </ion-card>

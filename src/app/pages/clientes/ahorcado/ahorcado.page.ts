@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { User } from 'src/app/models/user';
 import { ToastService } from 'src/app/services/toast/toast.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { ClienteService } from 'src/app/services/cliente/cliente.service';
+import { Cliente } from 'src/app/models/cliente';
 
 @Component({
   selector: 'app-ahorcado',
@@ -10,7 +13,8 @@ import { ToastService } from 'src/app/services/toast/toast.service';
 })
 export class AhorcadoPage implements OnInit {
 
-  usuario: User;
+  usuario: any;
+  usuarioOnline: User; 
 
   letra: string = '';
   nombres: any = ['COCHE', 'MOTO', 'CARTEL', 'COCHECITO', 'RAQUETA'];
@@ -23,7 +27,8 @@ export class AhorcadoPage implements OnInit {
   ganador: number = 0;
   controlLetras = new Array;
 
-  constructor(public navCtrl: NavController,private toasterService: ToastService) { }
+  constructor(public navCtrl: NavController,private toasterService: ToastService,
+    private authService: AuthService, private  clienteService: ClienteService) { }
 
   ngOnInit() {
   }
@@ -160,8 +165,23 @@ export class AhorcadoPage implements OnInit {
 
     // Ganador
     if (valor == 'gana') { 
-      this.mensaje = 'Te Ganaste un Postre Gratis!, Has acertado la palabra secreta. Has conseguido un total de ' + this.puntos + ' puntos.';
-      this.toasterService.confirmationToast(this.mensaje);
+      //this.mensaje = 'Te Ganaste un Postre Gratis!, Has acertado la palabra secreta. Has conseguido un total de ' + this.puntos + ' puntos.';
+      //this.toasterService.confirmationToast(this.mensaje);
+      let cliente : Cliente = new Cliente();
+      cliente.id = this.usuarioOnline.id;
+      cliente.descuento = "ahorcado";
+     
+     this.clienteService.CargarDescuento(cliente).
+        subscribe((data) => {
+          this.toasterService.confirmationToast(data["Mensaje"]);
+         // this.volver();
+          
+        }, (error) => {
+          this.toasterService.errorToast(error);
+          
+        });
+        //this.volver();
+      
       this.ganador = 1;
     }		
   }

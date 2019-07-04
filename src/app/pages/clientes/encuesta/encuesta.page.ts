@@ -52,7 +52,6 @@ export class EncuestaPage implements OnInit {
   listarEncuesta(){
     this.miHttp.Listar().subscribe(
       (res) => {
-        console.log( res);
       }
     )
   }
@@ -66,7 +65,6 @@ export class EncuestaPage implements OnInit {
   if(this.encuesta.codigoMesa== "" || this.encuesta.comentario == "" )
   {
     this.toasterService.errorToast("debe completar todos los campos");
-    console.log(this.encuesta);
    
   }else{
     this.encuesta.idMozo= 72;
@@ -85,10 +83,6 @@ export class EncuestaPage implements OnInit {
       .catch(err => {
         this.toasterService.errorToast(err['Mensaje']);
       })
-    
-      
-
-    console.log(this.encuesta);
   }
 }
 

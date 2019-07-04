@@ -9,7 +9,7 @@ import { NavController } from '@ionic/angular';
 })
 export class JuegosHomePage implements OnInit {
 
-  usuario: User;
+  usuario: any;
   listadoIconos: Array<any> = [
     {
       nombre: "Descuento",
@@ -19,7 +19,7 @@ export class JuegosHomePage implements OnInit {
     {
       nombre: "bebida",
       imagen: "assets/imgs/home/iconoBebida.png",
-      accion: "ReservasPage"
+      accion: "simon"
     },
     {
       nombre: "ahorcado",

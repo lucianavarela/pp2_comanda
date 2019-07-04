@@ -32,17 +32,17 @@
        
       </ion-row>
 
-    <ion-row>
-          <ion-col>
+    <ion-row >
+          <ion-col [hidden]="calendario" >
          
-              <ion-item  [hidden]="calendario">
+              <ion-item  >
                 <ion-label>Fecha</ion-label>
                 <ion-datetime displayFormat="MMM DD YYYY" min="2019-06-01" max="2019-08-31"  [(ngModel)]="myDate"  (ionChange)= "seleccionarFecha()"  ></ion-datetime>
               </ion-item>
           </ion-col>
       </ion-row>
 
-      <ion-row>
+      <ion-row  >
         <ion-col [hidden]="turnos" >
             <ion-list-header>
                Horarios dispobnibles
