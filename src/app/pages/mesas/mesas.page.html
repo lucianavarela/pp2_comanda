@@ -23,20 +23,20 @@
             <ion-col size="3">
               <ion-label>{{mesa.codigo}}</ion-label>
             </ion-col>
-            <ion-col size="5">
+            <ion-col>
               <ion-label>{{mesa.estado}}</ion-label>
             </ion-col>
             <ion-col *ngIf="mesa.estado=='Con clientes comiendo'" size="2">
-              <ion-button color="success" (click)="cobrar(mesa.codigo)">
+              <ion-button color="warning" (click)="cobrar(mesa.codigo)">
                 <ion-icon name="cash"></ion-icon>
               </ion-button>
             </ion-col>
-            <ion-col *ngIf="mesa.estado!='Con clientes comiendo'" size="2">
-              <ion-button color="warning" (click)="cerrar(mesa.codigo)">
-                <ion-icon name="power"></ion-icon>
+            <ion-col *ngIf="mesa.estado=='Con clientes pagando'" size="2">
+              <ion-button color="success" (click)="cerrar(mesa.codigo)">
+                <ion-icon name="checkmark"></ion-icon>
               </ion-button>
             </ion-col>
-            <ion-col size="2">
+            <ion-col *ngIf="mesa.estado=='Cerrada'" size="2">
               <ion-button color="danger" (click)="borrar(mesa.codigo)">
                 <ion-icon name="trash"></ion-icon>
               </ion-button>

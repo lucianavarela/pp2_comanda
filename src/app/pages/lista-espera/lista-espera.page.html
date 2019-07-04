@@ -19,9 +19,19 @@
                 <ion-col  size="2">
                   <img src="assets/imgs/lista.png">
                 </ion-col>
-                <ion-col size="8">
+                <ion-col size="6">
                   <ion-label >{{lista.usuario}}</ion-label>
                   </ion-col>  
+                  <ion-col *ngIf="lista.estado=='I'" size="2">
+                    <ion-button color="success" (click)="activar(lista.id_cliente)"  >
+                      <ion-icon name="walk"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+                  <ion-col *ngIf="lista.estado=='A'" size="2">
+                    <ion-button color="primary" >
+                      <ion-icon name="man"></ion-icon>
+                    </ion-button>
+                  </ion-col>
                 <ion-col *ngIf="lista.estado=='B'" size="2">
                     <ion-button color="danger" >
                       <ion-icon name="close"></ion-icon>

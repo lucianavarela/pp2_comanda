@@ -18,7 +18,7 @@ export class AuthService {
 
   Loguear(dataLogin: Login) {
     const request: JSON = JSON.parse(JSON.stringify(dataLogin));
-    return this.miHttp.httpPostP('/empleados/login', request);
+    return this.miHttp.httpPostP('empleados/login', request);
   }
 
   logout() {

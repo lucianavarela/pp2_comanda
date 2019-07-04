@@ -4,9 +4,8 @@ import { Cliente } from '../../../models/cliente';
 import { ClienteService } from '../../../services/cliente/cliente.service';
 import { NavController } from '@ionic/angular';
 import { ToastService } from 'src/app/services/toast/toast.service';
-import { ErrorHandlerService } from '../../../services/error-handler/error-handler.service';
-//import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx'
+//import { ImagesService } from 'src/app/services/fotos/images.service';
 
 @Component({
   selector: 'app-alta-cliente',
@@ -15,7 +14,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx'
 })
 export class AltaClientePage implements OnInit {
   
-  usuario: User;
+  usuario: any;
   cliente : Cliente;
   ocultarR: boolean = true;
   ocultarA: boolean = true;
@@ -23,8 +22,8 @@ export class AltaClientePage implements OnInit {
   secondPass: string;
 
 
-  constructor( private errorHandler: ToastService,private navCtrl: NavController,//private qrScanner: QRScanner,
-    private barcodeScanner: BarcodeScanner,
+  constructor( private errorHandler: ToastService,private navCtrl: NavController,
+    private barcodeScanner: BarcodeScanner, //private imageService: ImagesService,
     private miHttp: ClienteService) { 
       this.cliente = new Cliente();
       this.limpiarCliente();
@@ -70,13 +69,12 @@ export class AltaClientePage implements OnInit {
          break; 
       } 
       case "anonimo": { 
-        if (this.cliente.nombre != ""  && this.cliente.mail != "" && this.cliente.pass != "" && this.secondPass != "" ) {
+        if (this.cliente.nombre != ""  && this.cliente.usuario != "" && this.cliente.pass != "" && this.secondPass != "" ) {
           if (this.cliente.pass == this.secondPass) {
               if (this.cliente.pass.length > 5) {
                   return true;
               }
               this.errorHandler.errorToast("La contraseña es muy corta");
-              console.log(this.cliente.pass);
 
           } else {
               this.errorHandler.errorToast("Las contraseñas son diferentes");
@@ -105,6 +103,7 @@ export class AltaClientePage implements OnInit {
     this.cliente.mail="";
     this.cliente.pass= "";
     this.secondPass = "";
+    this.cliente.usuario= "";
   }
 
 
@@ -113,7 +112,6 @@ export class AltaClientePage implements OnInit {
     if(this.validarF(this.cliente.tipo)){      
      this.miHttp.alta(this.cliente)
      .subscribe(response => {  
-       console.log(response);
        if (response['Estado'] === 'OK') {          
          this.limpiarCliente();     
          this.errorHandler.confirmationToast("Se dio de alta correctamente el cliente, le llegara un mail para confirmar" );
@@ -137,11 +135,9 @@ export class AltaClientePage implements OnInit {
 
     leer(){
       this.barcodeScanner.scan({ "formats": "PDF_417" }).then(barcodeData => {
-        console.log('Barcode data', barcodeData);
         //this.errorHandler.confirmationToast(barcodeData.text);
         this.cargarDatosDni(barcodeData);
         }).catch(err => {
-        console.log('Error', err);
         });
     }
 
@@ -155,8 +151,25 @@ export class AltaClientePage implements OnInit {
       this.cliente.nombre= nombre;
       this.cliente.dni= dni;
     }
+/*
+    getPicture()
+    {
+      this.imageService.takePhoto()
+      .then(res => {
+        if (res !== 'No Image Selected') {          
+          //this.smartAudioService.play('camera');
+          this.cliente.foto=  'data:image/jpg;base64,' + res ;
+        } 
+        else {
+          this.errorHandler.errorToast('No tomó la foto.');
+        }
+      })
+      .catch(error => {
+        this.errorHandler.errorToast('Error: No se ha podido cargar la foto. ' + error.message);
+        
+      });
 
-      
+    }      */
     
 
 }

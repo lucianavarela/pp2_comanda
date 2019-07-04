@@ -5,6 +5,7 @@ import { ErrorHandlerService } from '../../services/error-handler/error-handler.
 import { Platform, NavController } from '@ionic/angular';
 import { SmartAudioService } from '../../services/smart-audio/smart-audio.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
+import { AuthFireService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-iniciarsesion',
@@ -24,7 +25,9 @@ export class IniciarsesionPage implements OnInit {
     public audioService: SmartAudioService,
     public navCtrl: NavController,
     private authService: AuthService,
-    private errorHandler: ErrorHandlerService) {
+    private errorHandler: ErrorHandlerService,
+    private toastService: ToastService,
+    private authFireService: AuthFireService) {
 
     this.selectUserOptions.title = "Usuarios disponibles";
     this.audioService.preload('login', 'assets/sonidos/short2.mp3');
@@ -40,9 +43,21 @@ export class IniciarsesionPage implements OnInit {
       this.authService.Loguear(this.dataLogin)
         .then(response => {
           if (response['Estado'] === 'OK') {
-            this.audioService.play('login');
-            localStorage.setItem('token', response['Token']);
-            this.navCtrl.navigateForward('home');
+            this.authFireService.login(this.dataLogin.user+'@hotmail.com', '123456')
+            .then(res => {
+              this.audioService.play('login');
+              localStorage.setItem('token', response['Token']);
+              this.navCtrl.navigateForward('home');
+            })
+            .catch(error => {
+              if (error.code === 'auth/user-not-found') {
+                this.toastService.errorToast('Usuario no encontrado.');
+              } else if (error.code === 'auth/wrong-password') {
+                this.toastService.errorToast('Contraseña incorrecta.');
+              } else {
+                this.toastService.errorToast('Ocurrió un error, contáctese con el administrador.');
+              }
+            });
           } else {
             this.errorHandler.mostrarMensajeError(response['Mensaje']);
           }
@@ -105,6 +120,10 @@ export class IniciarsesionPage implements OnInit {
         break;
       case 'M':
         this.dataLogin = new Login('mozo', 'mozo');
+        this.singIn();
+        break;
+        case 'D':
+        this.dataLogin = new Login('leandro', 'leandro');
         this.singIn();
         break;
     }

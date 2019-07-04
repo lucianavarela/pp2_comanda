@@ -4,5 +4,6 @@ export class Reserva {
     hora: string;
     id_usuario: number;
     codigo_mesa: string;
+    estado : string;
 
 }

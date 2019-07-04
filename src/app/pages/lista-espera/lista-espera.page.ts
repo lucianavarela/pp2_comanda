@@ -25,13 +25,20 @@ export class ListaEsperaPage implements OnInit {
     subscribe(
       (res) => {
         this.listas = res;
-        console.log(this.listas);
       });
   }
 
   borrar(id: number) {
-    console.log(id);
    this.esperaServicio.Baja(id)
+    .then(
+      (res) => {
+        this.traerTodas();
+      }
+    )
+  }
+
+  activar(id: number) { 
+    this.esperaServicio.Activar(id)
     .then(
       (res) => {
         this.traerTodas();

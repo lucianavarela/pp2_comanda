@@ -12,7 +12,6 @@ export class SpinnerHandlerService {
 
   presentLoadingCustom() {       
     this.loadingCtrl.getTop().then(spinner => {
-      console.log("spinner present");
       if (spinner) {
         spinner.present();
       }
@@ -32,7 +31,6 @@ export class SpinnerHandlerService {
 
   dismiss() {
     this.loadingCtrl.getTop().then(spinner => {
-      console.log("spinner dismiss");
       if(spinner) {
         spinner.dismiss();
       }

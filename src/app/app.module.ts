@@ -39,12 +39,10 @@ import { SpinnerHandlerService } from './services/spinner-handler/spinner-handle
 //Firebase
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-
 //configuraciones generales
 import { configs } from './../globalConfig';
 
 //Camara
-import { Camera } from '@ionic-native/camera/ngx';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
@@ -60,13 +58,22 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { RouterModule, RouteReuseStrategy } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
-//import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 import { PedidosMenuPage } from './pages/pedidos/pedidos-menu/pedidos-menu.page';
 import { TomaPedidoPage } from './pages/pedidos/toma-pedido/toma-pedido.page';
 import { PedidosComponentsModule } from './pages/pedidos/components/pedidos-components.module';
 import { ToastService } from './services/toast/toast.service';
 import { Vibration } from '@ionic-native/vibration/ngx';
 import { EstadoPedidoPage } from './pages/pedidos/estado-pedido/estado-pedido.page';
+import { AltaMenuPage } from './pages/abm-menu/alta-menu/alta-menu.page';
+import { ImagesService } from 'src/app/services/fotos/images.service';
+import { MenuService } from './services/menu/menu.service';
+import { SimonPage } from './pages/clientes/simon/simon.page';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
+import { ChatPage } from './pages/chat/chat.page';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { firebaseConfig } from 'src/environments/environment';
 
 
 export function getAccessToken() {
@@ -95,12 +102,16 @@ export function getAccessToken() {
     TomaPedidoPage,
     ListaReservasPage,
     EstadoPedidoPage,
+    AltaMenuPage,
+    SimonPage,
     AltaSocioPage,
     DeliveryPage,
     EncuestaPage,
     EncuestasPage,
     ListaEsperaPage,
-    HomeQrPage
+    HomeQrPage,
+    AltaMenuPage,
+    ChatPage
   ],
   imports: [
     BrowserModule,
@@ -109,8 +120,11 @@ export function getAccessToken() {
     ReactiveFormsModule,
     AppRoutingModule,
     IonicModule.forRoot(),
-    AngularFireModule.initializeApp(configs.firebaseConfig),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    AngularFirestoreModule,
     HttpClientModule,
     [JwtModule.forRoot({
       config: {
@@ -135,14 +149,15 @@ export function getAccessToken() {
     SmartAudioService,
     HttpService,
     AuthService,
-    HttpService,
     StatusBar,
     SplashScreen,
     ToastService,
+    ImagesService,
+    MenuService,
     Vibration,
-    Camera,
-    //QRScanner,
     BarcodeScanner,
+    Geolocation,
+    NativeGeocoder,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HTTP_INTERCEPTORS,

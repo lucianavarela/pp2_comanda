@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar class="header" class="colorVerde">
+    <ion-buttons slot="start">
+      <ion-back-button color="light" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>
+      <span class="title">{{ this.title }}</span>
+      <br>
+      <span class="userMail">{{this.userMail}}</span>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onLogout()">
+        <ion-icon class="icon" name="exit"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<div class="body">
+    <ion-content class="contenido" #contenido>
+        <ion-grid class="chat">
+          <ion-row *ngFor="let message of allMessages">
+            <ion-col size="12">
+              <div class="message"
+                [ngClass]="{'received': message.uid != currentUserId, 'sent': message.uid == currentUserId}">
+                <ion-text *ngIf="message.uid != currentUserId" class="name" [color]="message.color">{{message.uname}}
+                </ion-text>
+                {{message.text}}
+                <span class="metadata"><span class="time">{{message.fechaString}}</span></span>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>  
+      </ion-content>
+      
+      <div class="toolbar transparente vertical-align-content" [ngClass]="{'toolbarConBoton': form.valid}">
+          <form class="transparente" [formGroup]="form">
+            <ion-grid class="transparente vertical-align-content" fixed no-padding>
+              <ion-row class="transparente">
+                <ion-col class="transparente" [size]="form.valid ? 11 : 12">
+                  <ion-item lines="none" color="light">
+                    <ion-icon name="text" slot="start"></ion-icon>
+                    <ion-input clearInput formControlName="text" type="text" placeholder="Escribe un mensaje" maxlength="21">
+                    </ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="1">
+                  <ion-fab-button size="small" [ngClass]="{'colorVerde': this.tipoLista === 1, 'colorAzul': this.tipoLista === 0}" (click)="onSubmitSendMessage()" *ngIf="form.valid">
+                    <ion-icon name="send"></ion-icon>
+                  </ion-fab-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </form>
+        </div>
+</div>

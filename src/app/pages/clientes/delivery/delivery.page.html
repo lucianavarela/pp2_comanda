@@ -1,9 +1,71 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>delivery</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Delivery - {{cliente}}</ion-title>
+
+    <ion-buttons *ngIf="this.pedidosCliente && this.pedidosCliente.length > 0" slot="end">
+         <ion-button (click)="chatOnClick()">
+            <ion-icon slot="icon-only" name="chatboxes"></ion-icon>
+         </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div *ngIf="!this.pedidosCliente || this.pedidosCliente.length == 0">
+
+    <form>
+      <div>
+        <ion-chip *ngFor="let menu of menus" (click)="agregarMenu(menu.id)">
+          <ion-icon *ngIf="menu.sector=='Cervecero'" name="beer"></ion-icon>
+          <ion-icon *ngIf="menu.sector=='Cocinero'" name="restaurant"></ion-icon>
+          <ion-icon *ngIf="menu.sector=='Bartender'" name="wine"></ion-icon>
+          <ion-label>{{menu.nombre}}</ion-label>
+        </ion-chip>
+      </div>
+      <div id="menus_cargados">
+        <ion-chip color="success" *ngFor="let menu of menus_cargados">
+          <ion-icon *ngIf="menu.sector=='Cervecero'" name="beer"></ion-icon>
+          <ion-icon *ngIf="menu.sector=='Cocinero'" name="restaurant"></ion-icon>
+          <ion-icon *ngIf="menu.sector=='Bartender'" name="wine"></ion-icon>
+          <ion-label>{{menu.nombre}}</ion-label>
+          <ion-icon name="close-circle" (click)="eliminarMenu(menu.id)"></ion-icon>
+        </ion-chip>
+      </div>
+
+      <ion-col [style.align-items]="center">
+        <ion-button color="primary" type="button" id="boton" (click)="generarPedido()" round>Pedir</ion-button>
+      </ion-col>
+      <ion-col text-end>
+        <ion-button (click)="loadMap()" shape="round" fill="outline">
+          <ion-icon slot="start" name="locate"></ion-icon>
+          Donde Estoy
+        </ion-button>
+      </ion-col>
+
+      <div class="map-wrapper">
+        <div id="map_center">
+          <img src="../../assets/imgs/marcador.png" />
+        </div>
+        <div #map id="map"></div>
+      </div>
+      <div id="address">
+        <span>{{addressMessage}}</span>
+        <ion-item style="margin-bottom: 20px;" *ngIf="manualAddress">
+          <ion-label position="floating">Dirección</ion-label>
+          <ion-input [(ngModel)]="address" type="text" name="address" required></ion-input>
+        </ion-item>
+      </div>
+    </form>
+  </div>
+
+  <app-lista-pedidos *ngIf="this.pedidosCliente && this.pedidosCliente.length > 0" [mostrarBotonTomar]="false"
+    [paraEntregar]="false" [pedidosList]="pedidosCliente" (pedidoSeleccionado)="seleccionarPedido($event)">
+  </app-lista-pedidos>
+
+  <app-datos-pedido *ngIf="pedidoSeleccionado" [pedido]="pedidoSeleccionado"></app-datos-pedido>
+
 
 </ion-content>
