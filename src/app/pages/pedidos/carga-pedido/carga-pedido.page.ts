@@ -37,14 +37,6 @@ export class CargaPedidoPage {
   }
 
   ionViewWillEnter() {
-    this.traerMenus();
-    this.mesaService.Listar().subscribe(
-      (res) => {
-        this.mesas = res.filter((mesa) => {
-          return mesa.estado == 'Cerrada';
-        });
-      }
-    )
     if (this.usuario.tipo == 'registrado') {
       this.clienteService.GetCliente(this.usuario.id).subscribe(cliente => {
         if (cliente.mesa) {
@@ -54,6 +46,20 @@ export class CargaPedidoPage {
           this.navCtrl.navigateForward('home');
         }
       });
+    } else {
+      this.mesaService.Listar().subscribe(
+        (res) => {
+          this.mesas = res.filter((mesa) => {
+            return mesa.estado != EstadosMesa.Cerrada;
+          });
+          if (this.mesas.length == 0) {
+            this.errorHandler.errorToast('Todas las mesas están vacias');
+            this.atras();
+          } else {
+            this.traerMenus();
+          }
+        }
+      )
     }
   }
 
@@ -84,26 +90,42 @@ export class CargaPedidoPage {
   }
 
   generarPedido() {
-    if (this.mesa != "" && this.cliente != "") {
+    if (this.mesa != "") {
       let mozo = this.usuario.tipo == 'Mozo' ? this.usuario.id : 0;
-      this.menus_cargados.forEach((menu) => {
-        this.pedidoService.Registrar(this.mesa, menu.id, this.cliente, 0, mozo)
-          .then(
-            (res: any) => {
-              if (res.Estado == 'OK') {
-                this.errorHandler.confirmationToast('Pedido registrado!');
-                this.mesaService.CambiarEstado(this.mesa, EstadosMesa.EsperandoPedido);
-                this.navCtrl.navigateForward('home');
-              } else {
-                this.errorHandler.errorToast(res.Mensaje);
-              }
-            }
-          )
-          .catch(
-            (e) => this.errorHandler.errorToast(e)
-          )
-      });
+      if (this.cliente != "") {
+        this.menus_cargados.forEach((menu) => {
+          this.guardarPedido(this.mesa, menu.id, this.cliente, 0, mozo);
+        });
+      } else {
+        this.clienteService.GetClientedeMesa(this.mesa).subscribe(cliente => {
+          if (cliente != undefined) {
+            this.menus_cargados.forEach((menu) => {
+              this.guardarPedido(this.mesa, menu.id, cliente.nombre, 0, mozo);
+            });
+          } else {
+            this.errorHandler.errorToast('Error al cargar el pedido')
+          }
+        });
+      }
     }
+  }
+
+  guardarPedido(mesa, menu, cliente, es_delivery, mozo) {
+    this.pedidoService.Registrar(mesa, menu, cliente, es_delivery, mozo)
+      .then(
+        (res: any) => {
+          if (res.Estado == 'OK') {
+            this.errorHandler.confirmationToast('Pedido registrado!');
+            this.mesaService.CambiarEstado(this.mesa, EstadosMesa.EsperandoPedido);
+            this.navCtrl.navigateForward('home');
+          } else {
+            this.errorHandler.errorToast(res.Mensaje);
+          }
+        }
+      )
+      .catch(
+        (e) => this.errorHandler.errorToast(e)
+      )
   }
 
   atras() {

@@ -72,10 +72,8 @@ export class HomeQrPage implements OnInit {
       this.esperaServicio.alta(this.usuarioOnline).
         subscribe((data) => {
           this.errorHandler.confirmationToast(data["Mensaje"]);
-          console.log(data);
           this.volver();
         }, (error) => {
-          console.error(error);
           this.errorHandler.errorToast("Se produjo un error al carga la lista ");
           this.volver();
         });
@@ -133,7 +131,6 @@ export class HomeQrPage implements OnInit {
               this.pedidoService.Registrar(cliente.mesa, menu.id, cliente.nombre, 0)
                 .then(
                   res => {
-                    console.log(res)
                     this.errorHandler.confirmationToast('Pedido registrado!');
                     this.servicioMesa.CambiarEstado(cliente.mesa, EstadosMesa.EsperandoPedido);
                     this.volver();
@@ -160,7 +157,6 @@ export class HomeQrPage implements OnInit {
 
   scanQr() {
     this.barcodeScanner.scan().then(barcodeData => {
-      console.log('Barcode data', barcodeData);
       this.Accion(barcodeData.text.toUpperCase());
     }).catch(e => {
       this.errorHandler.errorToast(e);
@@ -216,7 +212,6 @@ export class HomeQrPage implements OnInit {
   verificarMesaComiendo(codigo_mesa: string) {
     let respuesta = false;
     let mesa = this.listadoMesas.filter(function (listado) { return listado.codigo == codigo_mesa })[0]
-    console.log(mesa)
     if (mesa.estado == EstadosMesa.Comiendo) {
       respuesta = true;
     }

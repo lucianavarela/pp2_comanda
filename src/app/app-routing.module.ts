@@ -54,7 +54,7 @@ const routes: Routes = [
   { path: 'toma-pedido', component: TomaPedidoPage },
   { path: 'servir', component: TomaPedidoPage },
   { path: 'autorizar', component: TomaPedidoPage },
-  { path: 'delivery', component: TomaPedidoPage },
+  { path: 'deliveryboy', component: TomaPedidoPage },
   { path: 'pedidos-menu', component: PedidosMenuPage },
   { path: 'listarReservas',  component: ListaReservasPage },
   { path: 'alta-menu', component: AltaMenuPage },

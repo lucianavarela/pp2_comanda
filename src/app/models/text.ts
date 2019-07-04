@@ -7,4 +7,5 @@ export class Text {
     fecha: number;
     fechaString: string;
     color: string;
+    pedido: string;
 }

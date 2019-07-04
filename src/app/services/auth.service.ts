@@ -26,7 +26,7 @@ export class AuthFireService {
   logout() {
     this.angularFireAuth.auth.signOut()
       .then(res => {
-        this.router.navigate(['/login']);
+        this.router.navigate(['/bienvenido']);
       });
   }
 
@@ -35,17 +35,18 @@ export class AuthFireService {
   }
 
   getCurrentUserMail(): string {
-    return this.angularFireAuth.auth.currentUser.email;
- 
+    if (this.angularFireAuth.auth.currentUser) {
+      return this.angularFireAuth.auth.currentUser.email;
+    } else {
+      this.logout();
+    }
   }
 
   Registrar(email: string, password: string) {
-    console.log(email + ' ' + password);
     return this.angularFireAuth.auth.createUserWithEmailAndPassword(email, password)
       .then(res => {
       //  this.angularFireAuth.
         //this.angularFireAuth.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-        console.log(this.angularFireAuth.auth.currentUser);
         return res;
       });
   }

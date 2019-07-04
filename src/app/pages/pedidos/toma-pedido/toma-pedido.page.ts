@@ -30,8 +30,8 @@ export class TomaPedidoPage implements OnInit {
       this.mode = 'autorizar';
     } else if (document.URL.includes('servir')) {
       this.mode = 'servir';
-    } else if (document.URL.includes('delivery')) {
-      this.mode = 'delivery';
+    } else if (document.URL.includes('deliveryboy')) {
+      this.mode = 'deliveryboy';
     }
 
     this.actualizarListaPedidos();
@@ -43,7 +43,9 @@ export class TomaPedidoPage implements OnInit {
   public listarDelivery() {
     this.pedidoService.ListarPorDelivery(this.authFireService.getCurrentUserMail())
       .subscribe(pedidos => {
-        this.pedidosList = pedidos;
+        this.pedidosList = pedidos.filter((p) => {
+          return p.estado != EstadosPedido.Cancelado && p.estado != EstadosPedido.Finalizado
+        });
       })
   }
 
@@ -70,10 +72,17 @@ export class TomaPedidoPage implements OnInit {
           this.pedidosList = pedidos.filter(function (pedido) {
             return pedido.estado == EstadosPedido.ListoParaServir && pedido.es_delivery == 0;
           })
-        } else if (this.mode == 'delivery') {
-          this.pedidosList = pedidos.filter(function (pedido) {
-            return pedido.estado == EstadosPedido.ListoParaServir && pedido.es_delivery == 1;
+        } else if (this.mode == 'deliveryboy') {
+          let pedidos_siento_repartidos = pedidos.filter(function (pedido) {
+            return pedido.estado == EstadosPedido.Entregado && pedido.es_delivery == 1;
           })
+          if (pedidos_siento_repartidos.length == 0) {
+            this.pedidosList = pedidos.filter(function (pedido) {
+              return pedido.estado == EstadosPedido.ListoParaServir && pedido.es_delivery == 1;
+            })
+          } else {
+            this.errorHandler.mostrarMensajeError('Aún tenes entregas no finalizadas')
+          }
         } else {
           this.pedidosList = pedidos.filter(function (pedido) {
             return pedido.estado == EstadosPedido.Pendiente && pedido.id_mozo == 0;

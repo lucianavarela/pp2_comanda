@@ -91,11 +91,6 @@ export class HomePage {
       accion: "lista-espera"
     },
     {
-      nombre: "Qr",
-      imagen: "assets/imgs/home/Qrs.png",
-      accion: "home-qr"
-    },
-    {
       nombre: "Chat",
       imagen: "assets/imgs/home/chat.png",
       accion: "chat"
@@ -157,12 +152,11 @@ export class HomePage {
           || listado.nombre == "listarReservas" || listado.nombre == "empleados" || listado.nombre == "mesas" || listado.nombre == "verEncuestas" || listado.nombre == "listaEspera");
     }else if ( this.usuarioOnline.tipo == "anonimo"  ) {
       this.listadoIconos = this.listados
-        .filter(listado => listado.nombre == "pedidos" || listado.nombre == "Qr" || listado.nombre == "encuesta");
+        .filter(listado => listado.nombre == "pedidos" || listado.nombre == "encuesta");
     }else if ( this.usuarioOnline.tipo == "Delivery"  ) {
       this.listadoIconos = this.listados
         .filter(listado => listado.nombre == "tomarPedido" ||  listado.nombre == "Chat");
     }
-
   }
 
 

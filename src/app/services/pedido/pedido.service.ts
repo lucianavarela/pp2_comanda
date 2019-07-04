@@ -83,7 +83,6 @@ export class PedidoService {
   }
 
   public UpdateDelivery(codigo: string, fire_mail_delivery: string) {
-
     const request: Object = {
       codigo: codigo,
       fire_mail_delivery: fire_mail_delivery

@@ -10,7 +10,7 @@ import { MesaService } from '../../../services/mesa/mesa.service';
 import { Menu } from '../../../models/menu';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
-import { Pedido } from 'src/app/models/pedido';
+import { Pedido, EstadosPedido } from 'src/app/models/pedido';
 import { ToastService } from '../../../services/toast/toast.service';
 import { AuthFireService } from '../../../services/auth.service';
 
@@ -58,8 +58,9 @@ export class DeliveryPage implements OnInit {
     this.pedidoSeleccionado = null;
     this.pedidoService.ListarPorCliente(this.cliente, 1)
       .subscribe(pedidos => {
-        this.pedidosCliente = pedidos;
-        console.log(this.pedidosCliente);
+        this.pedidosCliente = pedidos.filter((p) => {
+          return p.estado != EstadosPedido.Finalizado && p.estado != EstadosPedido.Cancelado
+        });
       },
         error => {
           this.toastService.errorToast(error);
@@ -77,7 +78,6 @@ export class DeliveryPage implements OnInit {
     if (this.usuario.tipo == 'registrado') {
       this.cliente = this.usuario.usuario;
     }
-    console.log(this.cliente);
     this.cargarListas();
   }
 
@@ -108,8 +108,6 @@ export class DeliveryPage implements OnInit {
   }
 
   generarPedido() {
-    console.log(this.menus_cargados);
-    console.log(this.address);
     if (this.menus_cargados.length == 0) {
       this.toastService.errorToast("Debe seleccionar al menos un pedido.");
       return;
@@ -123,7 +121,6 @@ export class DeliveryPage implements OnInit {
     this.menus_cargados.forEach((menu) => {
       this.pedidoService.Registrar("MES00", menu.id, this.cliente, 1, this.address, 0, this.authFireService.getCurrentUserMail()).then(
         respuesta => {
-          console.log(respuesta);
           this.toastService.confirmationToast("Pedido realizado correctamente.");
           this.cargarListas();
         }
@@ -152,17 +149,15 @@ export class DeliveryPage implements OnInit {
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
       this.map.addListener('tilesloaded', () => {
-        console.log('accuracy', this.map);
         this.getAddressFromCoords(this.map.center.lat(), this.map.center.lng())
       });
 
     }).catch((error) => {
-      console.log('Error getting location', error);
+      this.toastService.errorToast(error);
     });
   }
 
   getAddressFromCoords(lattitude, longitude) {
-    console.log("getAddressFromCoords " + lattitude + " " + longitude);
     let options: NativeGeocoderOptions = {
       useLocale: true,
       maxResults: 5

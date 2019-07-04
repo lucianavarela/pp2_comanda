@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { ToastService } from '../toast/toast.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class ImagesService {
     correctOrientation: true
   };
 
-  constructor(private camera: Camera) {
+  constructor(private camera: Camera, private errorHandler: ToastService) {
   }
 
   takePhoto() {
@@ -23,7 +24,7 @@ export class ImagesService {
       return res;
     })
     .catch(error => {
-      console.error(error);
+      this.errorHandler.errorToast(error);
       return error;
     });
   }

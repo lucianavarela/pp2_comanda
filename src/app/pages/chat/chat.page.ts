@@ -7,7 +7,8 @@ import { AuthFireService } from 'src/app/services/auth.service';
 import { TextService } from 'src/app/services/text.service';
 import { Text } from '../../models/text';
 import { PedidoService } from '../../services/pedido/pedido.service';
-import { Pedido } from 'src/app/models/pedido';
+import { Pedido, EstadosPedido } from 'src/app/models/pedido';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-chat',
@@ -15,74 +16,64 @@ import { Pedido } from 'src/app/models/pedido';
   styleUrls: ['./chat.page.scss']
 })
 export class ChatPage implements AfterViewInit {
-  title: string;
+  title: string = 'Chat Delivery';
   allMessages: Text[];
+  currentUser: any;
   currentUserId: string;
   form: FormGroup;
   colores: string[] = ['primary', 'secondary', 'tertiary', 'success', 'danger', 'warning'];
   userMail: string;
-  pedidos: Pedido[];
+  pedido: Pedido;
   @ViewChild(IonContent) content: IonContent;
 
   constructor(
     private router: Router,
     private textService: TextService,
     private toastService: ToastService,
-    private authService: AuthFireService,
+    private authFireService: AuthFireService,
     private formBuilder: FormBuilder,
-    private pedidosService: PedidoService
+    private pedidosService: PedidoService,
+    private authService: AuthService
   ) {
     this.form = this.formBuilder.group({
       text: new FormControl('', Validators.required)
     });
-
-    console.log(this.router.url);
-    this.title = 'Chat Delivery';
-    this.currentUserId = this.authService.getCurrentUserId();
-    this.userMail = this.authService.getCurrentUserMail();
-    console.log(this.currentUserId);
-    this.init();
+    this.currentUserId = this.authFireService.getCurrentUserId();
+    this.userMail = this.authFireService.getCurrentUserMail();
+    this.currentUser = this.authService.token();
+    this.updateChat();
   }
 
-  private async init()  {
-    this.pedidos = Array<Pedido>();
-    let mailCliente = '';
-    let mailDelivery = '';
-    console.log(this.userMail);
-    await this.pedidosService.ListarPorDelivery(this.userMail)
-    .subscribe(pedidos => {
-        this.pedidos = pedidos;
+  ngAfterViewInit() {
+  }
 
-        this.pedidos.forEach(pedido => {
-          if (pedido.fire_mail_cliente) {
-            mailCliente = pedido.fire_mail_cliente;
-          }
-
-          if (pedido.fire_mail_delivery) {
-            mailDelivery = pedido.fire_mail_delivery;
-          }
+  private updateChat() {
+    this.pedidosService.ListarTodos()
+      .subscribe(pedidos => {
+        if (this.currentUser.tipo == 'registrado') {
+          this.pedido = pedidos.filter((p) => {
+            return p.estado == EstadosPedido.Entregado && p.es_delivery == 1 && this.userMail == p.fire_mail_cliente
+          })[0];
+        } else {
+          this.pedido = pedidos.filter((p) => {
+            return p.estado == EstadosPedido.Entregado && p.es_delivery == 1 && this.userMail == p.fire_mail_delivery
+          })[0];
+        }
+        this.textService.GetAlltexts().subscribe(texts => {
+          this.allMessages = texts.filter(text => {
+            return text.pedido == this.pedido.codigo;
+          });
+          this.iniciarColores();
+          setTimeout(() => {
+            this.content.scrollToBottom(0);
+          }, 100);
         });
-    });
-
-    this.textService.GetAlltexts().subscribe(texts => {
-      this.allMessages = texts.filter(text => {
-        return ((this.pedidos.length == 0 && text.umail == this.userMail) ||
-        (this.pedidos.length != 0 && (text.umail == mailCliente || text.umail == mailDelivery)));
       });
-      this.iniciarColores();
-      console.log(this.allMessages);
-      setTimeout(() => {
-         this.content.scrollToBottom(0);
-      }, 100);
-    });
-  }
-
-  ngAfterViewInit(): void {
   }
 
   private iniciarColores() {
     let contador = 0;
-    this.allMessages.forEach( message => {
+    this.allMessages.forEach(message => {
       let flag = false;
       const color = this.colores[contador];
       this.allMessages.forEach(message2 => {
@@ -100,14 +91,17 @@ export class ChatPage implements AfterViewInit {
   onSubmitSendMessage() {
     const text: Text = new Text();
     text.uid = this.currentUserId;
-    text.umail = this.authService.getCurrentUserMail();
+    text.umail = this.authFireService.getCurrentUserMail();
     text.uname = text.umail.split('@')[0];
     text.text = this.form.get('text').value;
     text.fecha = new Date().getTime();
+    text.pedido = this.pedido.codigo;
     this.textService
       .save(text)
       .then(() => {
+        this.updateChat();
         this.form.get('text').setValue('');
+        this.content.scrollToBottom(0);
       })
       .catch(error => {
         this.toastService.errorToast(
@@ -117,6 +111,6 @@ export class ChatPage implements AfterViewInit {
   }
 
   onLogout() {
-    this.authService.logout();
+    this.authFireService.logout();
   }
 }
