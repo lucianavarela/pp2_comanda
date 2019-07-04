@@ -2,10 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService } from '../http/http.service';
 import { Mesa, EstadosMesa } from '../../models/mesa';
-<<<<<<< HEAD
 import { Reserva } from 'src/app/models/reserva';
-=======
->>>>>>> da3db6587f56f82eb49d1a4799cc83cc2676566b
 
 @Injectable({
   providedIn: 'root'
