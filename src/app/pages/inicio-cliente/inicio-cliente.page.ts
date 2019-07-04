@@ -51,7 +51,6 @@ export class InicioClientePage implements OnInit {
     if (this.validForm()) {
       this.authService.loguear(this.dataLogin)
         .subscribe(response => {
-          console.log(response);
           if (response['Estado'] === 'OK') {
             this.authFireService.login(this.dataLogin.user+'@gmail.com', '123456')
             .then(res => {

@@ -87,6 +87,10 @@
     <plugin name="cordova-plugin-vibration" spec="^3.1.0" />
     <plugin name="cordova-android-support-gradle-release" spec="^3.0.1">
         <variable name="ANDROID_SUPPORT_VERSION" value="27.+" />
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> da3db6587f56f82eb49d1a4799cc83cc2676566b
     </plugin>
     <plugin name="cordova-plugin-geolocation" spec="4.0.1">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
@@ -96,7 +100,14 @@
     <plugin name="cordova-plugin-camera" spec="4.0.3" />
     <plugin name="phonegap-plugin-barcodescanner" spec="8.1.0">
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="27.+" />
+=======
+>>>>>>> 9ad491c2b5e9d991f9b2d5c437c765f7d676c2a7
     </plugin>
+    <plugin name="cordova-plugin-geolocation" spec="4.0.1">
+        <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
+    </plugin>
+    <plugin name="cordova-plugin-nativegeocoder" spec="3.2.2" />
+    <allow-navigation href="http://192.168.0.40:8100" sessionid="18b1e458" />
     <engine name="browser" spec="^5.0.4" />
     <engine name="android" spec="6.4.0" />
 </widget>
