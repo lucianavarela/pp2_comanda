@@ -28,6 +28,7 @@ import { EncuestaPage } from './pages/clientes/encuesta/encuesta.page';
 import { EncuestasPage } from './pages/encuesta/encuestas/encuestas.page';
 import { ListaEsperaPage } from './pages/lista-espera/lista-espera.page';
 import { HomeQrPage } from './pages/Qr/home-qr/home-qr.page';
+import { DatosMesaPage } from './pages/datos-mesa/datos-mesa.page';
 
 //Servicios
 import { HttpClient, HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -111,7 +112,8 @@ export function getAccessToken() {
     ListaEsperaPage,
     HomeQrPage,
     AltaMenuPage,
-    ChatPage
+    ChatPage,
+    DatosMesaPage
   ],
   imports: [
     BrowserModule,

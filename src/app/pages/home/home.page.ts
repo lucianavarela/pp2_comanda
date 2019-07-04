@@ -100,6 +100,11 @@ export class HomePage {
       imagen: "assets/imgs/home/pedidos.png",
       accion: "pedidos-menu"
     },
+    {
+      nombre: "datosMesa",
+      imagen: "assets/imgs/home/mesas.png",
+      accion: "datos-mesa"
+    },
   ]
 
 
@@ -149,7 +154,7 @@ export class HomePage {
     else if (this.usuarioOnline.tipo == "Socio" || this.usuarioOnline.tipo == "Dueño" ) {
       this.listadoIconos = this.listados
         .filter(listado => listado.nombre == "pedidos" || listado.nombre == "clientes" || listado.nombre == "socios"
-          || listado.nombre == "listarReservas" || listado.nombre == "empleados" || listado.nombre == "mesas" || listado.nombre == "verEncuestas" || listado.nombre == "listaEspera");
+          || listado.nombre == "listarReservas" || listado.nombre == "empleados" || listado.nombre == "datosMesa" || listado.nombre == "mesas" || listado.nombre == "verEncuestas" || listado.nombre == "listaEspera");
     }else if ( this.usuarioOnline.tipo == "anonimo"  ) {
       this.listadoIconos = this.listados
         .filter(listado => listado.nombre == "pedidos" || listado.nombre == "encuesta");

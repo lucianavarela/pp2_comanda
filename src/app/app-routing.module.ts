@@ -28,6 +28,7 @@ import { HomeQrPage } from './pages/Qr/home-qr/home-qr.page';
 import { AltaMenuPage } from './pages/abm-menu/alta-menu/alta-menu.page';
 import { SimonPage } from './pages/clientes/simon/simon.page';
 import { ChatPage } from './pages/chat/chat.page';
+import { DatosMesaPage } from './pages/datos-mesa/datos-mesa.page';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -66,7 +67,8 @@ const routes: Routes = [
   { path: 'lista-espera', component: ListaEsperaPage },
   { path: 'home-qr',  component: HomeQrPage },
   { path: 'alta-menu', component: AltaMenuPage },
-  { path: 'chat', component: ChatPage }
+  { path: 'chat', component: ChatPage },
+  { path: 'datos-mesa', component: DatosMesaPage }
 ];
 
 @NgModule({
