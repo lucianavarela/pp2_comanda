@@ -52,7 +52,7 @@ export class InicioClientePage implements OnInit {
       this.authService.loguear(this.dataLogin)
         .subscribe(response => {
           if (response['Estado'] === 'OK') {
-            this.authFireService.login(this.dataLogin.user + '@gmail.com', '123456')
+            this.authFireService.login(this.dataLogin.user + '@hotmail.com', '123456')
               .then(res => {
                 this.audioService.play('login');
                 localStorage.setItem('token', response['Token']);
