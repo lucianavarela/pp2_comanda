@@ -59,15 +59,20 @@ export class ChatPage implements AfterViewInit {
             return p.estado == EstadosPedido.Entregado && p.es_delivery == 1 && this.userMail == p.fire_mail_delivery
           })[0];
         }
-        this.textService.GetAlltexts().subscribe(texts => {
-          this.allMessages = texts.filter(text => {
-            return text.pedido == this.pedido.codigo;
+        if (this.pedido != undefined) {
+          this.textService.GetAlltexts().subscribe(texts => {
+            this.allMessages = texts.filter(text => {
+              return text.pedido == this.pedido.codigo;
+            });
+            this.iniciarColores();
+            setTimeout(() => {
+              this.content.scrollToBottom(0);
+            }, 100);
           });
-          this.iniciarColores();
-          setTimeout(() => {
-            this.content.scrollToBottom(0);
-          }, 100);
-        });
+        } else {
+          this.toastService.errorToast('Sin pedidos siendo entregados');
+          this.router.navigateByUrl('/home');
+        }
       });
   }
 

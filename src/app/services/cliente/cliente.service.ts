@@ -50,6 +50,13 @@ export class ClienteService {
     return this.miHttp.httpGetOL<Cliente[]>('clientes/listarActivaciones');
   }
 
+  public GetClienteByUsername(usuario: string) {
+    return this.ListarTodos().pipe(
+      map(clientes => {
+        return clientes.filter((c) => { return c.usuario == usuario })[0];
+      })
+    );
+  }
   public GetCliente(id: number) {
     return this.ListarTodos().pipe(
       map(clientes => {
