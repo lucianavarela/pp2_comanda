@@ -34,7 +34,7 @@ export class EncuestasPage implements OnInit {
   }
 
   volver() {
-    this.navCtrl.navigateForward('home');
+    this.navCtrl.navigateForward('/home');
   }
 
 }

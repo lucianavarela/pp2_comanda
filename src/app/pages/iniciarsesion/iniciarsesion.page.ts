@@ -47,7 +47,7 @@ export class IniciarsesionPage implements OnInit {
             .then(res => {
               this.audioService.play('login');
               localStorage.setItem('token', response['Token']);
-              this.navCtrl.navigateForward('home');
+              this.navCtrl.navigateForward('/home');
             })
             .catch(error => {
               if (error.code === 'auth/user-not-found') {

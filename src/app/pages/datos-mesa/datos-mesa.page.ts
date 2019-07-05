@@ -29,7 +29,7 @@ export class DatosMesaPage implements OnInit {
   }
 
   atras() {
-    this.navCtrl.navigateForward('home')
+    this.navCtrl.navigateForward('/home')
   }
 
 

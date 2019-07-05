@@ -132,7 +132,7 @@ export class DeliveryPage implements OnInit {
   }
 
   atras() {
-    this.navCtrl.navigateForward('home')
+    this.navCtrl.navigateForward('/home')
   }
 
   loadMap() {

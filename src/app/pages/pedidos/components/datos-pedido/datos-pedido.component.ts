@@ -28,7 +28,6 @@ export class DatosPedidoComponent implements OnChanges {
         } else {
           this.foto = '/assets/imgs/' + cliente.foto;
         }
-        console.log(this.foto);
       });
     }
   }

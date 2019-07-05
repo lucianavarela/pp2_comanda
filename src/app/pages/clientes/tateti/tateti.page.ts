@@ -196,6 +196,6 @@ export class TatetiPage {
   }
 
   atras() {
-    this.navCtrl.navigateForward('home')
+    this.navCtrl.navigateForward('/home')
   }
 }

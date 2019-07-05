@@ -43,7 +43,7 @@ export class CargaPedidoPage {
           this.mesa = cliente.mesa;
         } else {
           this.errorHandler.errorToast('Debe estar ingresado en una mesa para realizar pedidos');
-          this.navCtrl.navigateForward('home');
+          this.navCtrl.navigateForward('/home');
         }
       });
     } else {
@@ -117,7 +117,7 @@ export class CargaPedidoPage {
           if (res.Estado == 'OK') {
             this.errorHandler.confirmationToast('Pedido registrado!');
             this.mesaService.CambiarEstado(this.mesa, EstadosMesa.EsperandoPedido);
-            this.navCtrl.navigateForward('home');
+            this.navCtrl.navigateForward('/home');
           } else {
             this.errorHandler.errorToast(res.Mensaje);
           }
@@ -129,6 +129,6 @@ export class CargaPedidoPage {
   }
 
   atras() {
-    this.navCtrl.navigateForward('home')
+    this.navCtrl.navigateForward('/home')
   }
 }

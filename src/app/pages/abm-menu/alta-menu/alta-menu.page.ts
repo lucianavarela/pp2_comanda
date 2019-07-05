@@ -38,7 +38,7 @@ export class AltaMenuPage implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private imageService: ImagesService,
     private toasterService: ToastService, private navCtrl: NavController,
-    private menuService: MenuService) { 
+    private menuService: MenuService) {
     this.altaMenuForm = this.formBuilder.group({
       nombre: new FormControl('', Validators.compose([
         Validators.required,
@@ -66,36 +66,36 @@ export class AltaMenuPage implements OnInit {
   }
 
   async onSubmit() {
-    let fotos :string[] = Array<string>();    
+    let fotos: string[] = Array<string>();
     let hayError: Boolean = false;
 
-     this.toasterService.warningToast("Se deberán tomar tres fotos!!! Aguarde...");
+    this.toasterService.warningToast("Se deberán tomar tres fotos!!! Aguarde...");
     await this.sleep(5000);
 
-    for(var i = 0; i < 3; i++) {
+    for (var i = 0; i < 3; i++) {
       await this.imageService.takePhoto()
-      .then(res => {
-        if (res !== 'No Image Selected') {          
-          //this.smartAudioService.play('camera');
-          fotos.push('data:image/jpg;base64,' + res);
-        } 
-        else {
-          this.toasterService.errorToast(
-            'No tomó la foto.'
-          );
-          
-          hayError = true; 
-        }
-      })
-      .catch(error => {
-        this.toasterService.errorToast('Error: No se ha podido cargar la foto. ' + error.message);
-        hayError = true;
-      });
+        .then(res => {
+          if (res !== 'No Image Selected') {
+            //this.smartAudioService.play('camera');
+            fotos.push('data:image/jpg;base64,' + res);
+          }
+          else {
+            this.toasterService.errorToast(
+              'No tomó la foto.'
+            );
+
+            hayError = true;
+          }
+        })
+        .catch(error => {
+          this.toasterService.errorToast('Error: No se ha podido cargar la foto. ' + error.message);
+          hayError = true;
+        });
 
       if (hayError) {
         return;
       }
-    } 
+    }
 
     let nombre: string = this.altaMenuForm.get('nombre').value;
     let tipo: number = this.altaMenuForm.get('tipo').value;
@@ -104,24 +104,22 @@ export class AltaMenuPage implements OnInit {
     let descripcion: string = this.altaMenuForm.get('descripcion').value;
 
     await this.menuService.Registrar(nombre, tipo, precio, tiempo_promedio, descripcion, fotos)
-    .then(res => {
-      if(res.Estado == 'OK')
-      {
-        this.altaMenuForm.reset();
-        this.toasterService.confirmationToast('Alta exitosa!');
-      }    
-      else
-      {
-        this.toasterService.errorToast(res.Mensaje);
-      }  
-    })
-    .catch(error => {      
-      this.toasterService.errorToast(error.message);
-    });
+      .then(res => {
+        if (res.Estado == 'OK') {
+          this.altaMenuForm.reset();
+          this.toasterService.confirmationToast('Alta exitosa!');
+        }
+        else {
+          this.toasterService.errorToast(res.Mensaje);
+        }
+      })
+      .catch(error => {
+        this.toasterService.errorToast(error.message);
+      });
   }
 
   onCancelarClick() {
-    this.navCtrl.navigateForward('home')
+    this.navCtrl.navigateForward('/home')
   }
 
   private sleep(ms) {

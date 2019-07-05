@@ -187,7 +187,7 @@ export class SimonPage implements OnInit {
 
 
   volver(){
-    this.navCtrl.navigateForward('home');
+    this.navCtrl.navigateForward('/home');
   }
 
   public async btnJugarOnClick() {

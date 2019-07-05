@@ -134,7 +134,7 @@ export class AltaClientePage implements OnInit {
   }
 
   cancel() {
-    this.navCtrl.navigateForward('home');
+    this.navCtrl.navigateForward('/home');
   }
 
   volver() {
@@ -163,7 +163,6 @@ export class AltaClientePage implements OnInit {
     this.imageService.takePhoto()
       .then(res => {
         if (res !== 'No Image Selected') {
-          //this.smartAudioService.play('camera');
           this.cliente.foto = 'data:image/jpg;base64,' + res;
         }
         else {

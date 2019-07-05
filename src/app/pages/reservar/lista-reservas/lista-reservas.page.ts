@@ -71,7 +71,7 @@ export class ListaReservasPage implements OnInit {
   }
 
   volver(){
-    this.navCtrl.navigateForward('home');
+    this.navCtrl.navigateForward('/home');
   }
 
 

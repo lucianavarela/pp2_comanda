@@ -58,6 +58,6 @@ export class EmpleadosPage {
   }
 
   atras() {
-    this.navCtrl.navigateForward('home')
+    this.navCtrl.navigateForward('/home')
   }
 }
