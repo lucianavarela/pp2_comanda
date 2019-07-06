@@ -1,10 +1,8 @@
 <ion-header>
     <ion-toolbar color="primary">
-      <ion-buttons slot="start">
-        <ion-button (click)="atras()">
-          <ion-icon name="arrow-round-back"></ion-icon>
-        </ion-button>
-      </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
     <ion-title>encuesta</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -15,11 +13,9 @@
 
     <ion-col size="6" [style.align-items]="center">
         <ion-label >Mesa</ion-label>
-        <ion-item *ngIf="mesas.length > 0">
+        <ion-item >
           <ion-icon name="pin"></ion-icon>
-          <ion-select [(ngModel)]="encuesta.codigoMesa" placeholder="Mesa" style="max-width: 100%">
-            <ion-select-option *ngFor="let option of mesas" value="{{option.codigo}}">{{option.codigo}}</ion-select-option>
-          </ion-select>
+          <ion-label >{{this.mesa}}</ion-label>
         </ion-item>
       </ion-col>
      <ion-col size= '6' [style.align-items]="center">

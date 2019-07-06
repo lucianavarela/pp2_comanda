@@ -10,11 +10,11 @@ import { User } from 'src/app/models/user';
 })
 
 export class PedidosMenuPage implements OnInit {
-  usuario: User;
+  usuario: any;
 
   constructor(private router: Router,
     private authService: AuthService) {
-    this.usuario = this.authService.getUserInfo();
+    this.usuario = this.authService.token();
   }
 
   ngOnInit() {

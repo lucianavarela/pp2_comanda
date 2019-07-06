@@ -25,6 +25,10 @@ import { EncuestaPage } from './pages/clientes/encuesta/encuesta.page';
 import { EncuestasPage } from './pages/encuesta/encuestas/encuestas.page';
 import { ListaEsperaPage } from './pages/lista-espera/lista-espera.page';
 import { HomeQrPage } from './pages/Qr/home-qr/home-qr.page';
+import { AltaMenuPage } from './pages/abm-menu/alta-menu/alta-menu.page';
+import { SimonPage } from './pages/clientes/simon/simon.page';
+import { ChatPage } from './pages/chat/chat.page';
+import { DatosMesaPage } from './pages/datos-mesa/datos-mesa.page';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -49,15 +53,22 @@ const routes: Routes = [
   { path: 'ahorcado', component: AhorcadoPage },
   { path: 'activar-clientes', component: ActivarClientesPage },
   { path: 'toma-pedido', component: TomaPedidoPage },
+  { path: 'servir', component: TomaPedidoPage },
+  { path: 'autorizar', component: TomaPedidoPage },
+  { path: 'deliveryboy', component: TomaPedidoPage },
   { path: 'pedidos-menu', component: PedidosMenuPage },
   { path: 'listarReservas',  component: ListaReservasPage },
+  { path: 'alta-menu', component: AltaMenuPage },
+  { path: 'simon', component: SimonPage },
   { path: 'altaSocios', component: AltaSocioPage  },
   { path: 'delivery',component: DeliveryPage },
   { path: 'encuesta', component: EncuestaPage },
   { path: 'verEncuestas', component: EncuestasPage },
   { path: 'lista-espera', component: ListaEsperaPage },
   { path: 'home-qr',  component: HomeQrPage },
- 
+  { path: 'alta-menu', component: AltaMenuPage },
+  { path: 'chat', component: ChatPage },
+  { path: 'datos-mesa', component: DatosMesaPage }
 ];
 
 @NgModule({

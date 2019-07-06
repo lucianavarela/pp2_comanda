@@ -29,14 +29,18 @@ export class HttpService {
   }
 
   public httpPostP(url: string, request: Object) {
-    return this.http.post(this.urlBase + url, request).toPromise();
+    let post = this.http.post(this.urlBase + url, request);
+    return post.toPromise();
+  }
+
+  public httpPostO<T>(url: string, request: Object) {
+    return this.http.post<T>(this.urlBase + url, request);
   }
 
   // tslint:disable-next-line:no-shadowed-variable
   public httpGetO<T>(url: string) {
     return this.http.get<T>(this.urlBase + url);
   }
-
 
   private extractData(res: Response) {
     return res.json() || {};
@@ -46,7 +50,7 @@ export class HttpService {
     return error;
   }
 
-  ///pasar de base de datos
+  //pasar de base de datos
 
   public httpPostL(url: string, data: object) {
     return this.http.post(this.urlLea + url, data);

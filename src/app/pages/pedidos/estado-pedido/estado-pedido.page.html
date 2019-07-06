@@ -10,19 +10,14 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-item *ngIf="mesas.length > 0">
-    <ion-icon name="pin"></ion-icon>
-    <ion-select [(ngModel)]="mesa" placeholder="Mesa" style="max-width: 100%" (ionChange)="traerPedidos()">
-      <ion-select-option *ngFor="let option of mesas" value="{{option.codigo}}">{{option.codigo}}</ion-select-option>
-    </ion-select>
-  </ion-item>
-
   <ion-row *ngIf="pedidosList == null || pedidosList.length == 0">
-    <ion-col size="12">No hay pedidos.</ion-col>
+    <ion-col size="12">            
+      <ion-button color="success" expand="full">No Tiene Pedidos!!!!</ion-button>
+      </ion-col>
   </ion-row>
   <ion-row size="12" *ngIf="pedidosList.length > 0">
-    <app-datos-pedido *ngFor="let pedido of pedidosList" [pedido]="pedido">
-    </app-datos-pedido>
+    <app-datos-pedido *ngFor="let pedido of pedidosList" [pedido]="pedido"
+      (pedidoConfirmado)="confirmarEntrega($event, pedido)"></app-datos-pedido>
   </ion-row>
 
 </ion-content>

@@ -5,6 +5,8 @@ import { NavController } from '@ionic/angular';
 import { Encuesta } from 'src/app/models/encuesta';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { EncuestaService } from 'src/app/services/encuesta/encuesta.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { ClienteService } from 'src/app/services/cliente/cliente.service';
 
 @Component({
   selector: 'app-encuesta',
@@ -21,12 +23,17 @@ export class EncuestaPage implements OnInit {
   comentario:string;
   fecha: Date;
   encuesta: Encuesta;
+  usuario: any;
+  mesa: string;
+  cliente: string;
   
   
 
-  constructor(private mesaService: MesaService,
-    private navCtrl: NavController, private miHttp : EncuestaService,
+  constructor(private mesaService: MesaService,private auth: AuthService,
+   private navCtrl: NavController, private  miHttp : EncuestaService,private clienteService: ClienteService,
     private toasterService: ToastService) { 
+
+    this.usuario = this.auth.token();
     this.puntuacion_restaurante=1;
     this.encuesta = new Encuesta();
     this.encuesta.puntuacionCocinero=1;
@@ -40,25 +47,28 @@ export class EncuestaPage implements OnInit {
   }
 
   ionViewWillEnter() {
-        
-    this.mesaService.Listar().subscribe(
-      (res) => {
-        this.mesas = res;
+    this.clienteService.GetCliente(this.usuario.id).subscribe(cliente => {
+      if (cliente.mesa) {
+        this.mesa = cliente.mesa;
+        this.encuesta.codigoMesa= this.mesa;
+      } else {
+        this.toasterService.errorToast('Debe estar ingresado en una mesa para realizar la encuesta');
+        this.navCtrl.navigateForward('/home');
       }
-    )
+    });
+   
    
   }
 
   listarEncuesta(){
     this.miHttp.Listar().subscribe(
       (res) => {
-        console.log( res);
       }
     )
   }
 
   volver() {
-    this.navCtrl.navigateForward('home');
+    this.navCtrl.navigateForward('/home');
   }
 
   Enviar(){
@@ -66,7 +76,6 @@ export class EncuestaPage implements OnInit {
   if(this.encuesta.codigoMesa== "" || this.encuesta.comentario == "" )
   {
     this.toasterService.errorToast("debe completar todos los campos");
-    console.log(this.encuesta);
    
   }else{
     this.encuesta.idMozo= 72;
@@ -85,10 +94,6 @@ export class EncuestaPage implements OnInit {
       .catch(err => {
         this.toasterService.errorToast(err['Mensaje']);
       })
-    
-      
-
-    console.log(this.encuesta);
   }
 }
 

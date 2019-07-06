@@ -96,6 +96,6 @@ export class AbmEmpleadoPage implements OnInit {
   }
 
   atras() {
-    this.navCtrl.pop();
+    this.navCtrl.navigateForward('/home')
   }
 }

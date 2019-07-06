@@ -19,17 +19,8 @@
             <ion-col *ngIf="empleado.tipo=='registrado'" size="2">
               <img src="assets/imgs/inicio/cliente.png">
             </ion-col>
-            <ion-col *ngIf="empleado.tipo=='Mozo'" size="2">
-              <img src="assets/imgs/mozo.png">
-            </ion-col>
-            <ion-col *ngIf="empleado.tipo=='Socio'" size="2">
-              <img src="assets/imgs/socio.png">
-            </ion-col>
-            <ion-col *ngIf="empleado.tipo=='Cocinero'" size="2">
-              <img src="assets/imgs/cubiertos.png">
-            </ion-col>
-            <ion-col *ngIf="empleado.tipo=='Cervecero'" size="2">
-              <img src="assets/imgs/cerveza.png">
+            <ion-col *ngIf="empleado.tipo=='anonimo'" size="2">
+              <img src="assets/imgs/desconocido.png">
             </ion-col>
             <ion-col size="4">
               <ion-label [ngClass]="{'suspended' : empleado.estado=='S'}">{{empleado.nombre}}</ion-label>

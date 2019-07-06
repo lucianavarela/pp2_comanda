@@ -11,7 +11,7 @@ export class ListaPedidosComponent implements OnInit {
 
   @Input() pedidosList: Pedido[];
   pedido: Pedido;
-  @Output() pedidoSeleccionado: EventEmitter<Pedido>;  
+  @Output() pedidoSeleccionado: EventEmitter<Pedido>;
   @Output() pedidoTomado: EventEmitter<Pedido>;
   @Output() pedidoEntregado: EventEmitter<Pedido>;
   @Input() mostrarBotonTomar: boolean;
@@ -30,7 +30,7 @@ export class ListaPedidosComponent implements OnInit {
   }
 
   public tomarPedido(pedido: Pedido) {
-    if (pedido.estado == EstadosPedido.ListoParaServir) {
+    if (pedido.estado == EstadosPedido.ListoParaServir || pedido.id_mozo == 0) {
       this.pedidoEntregado.emit(pedido);
     } else {
       this.pedidoTomado.emit(pedido);

@@ -1,5 +1,10 @@
 <ion-header>
   <ion-toolbar color="primary">
+    <ion-buttons *ngIf="usuarioOnline&&(usuarioOnline.tipo=='registrado'||usuarioOnline.tipo=='anonimo')" slot="start">
+      <ion-button routerLink="/home-qr">
+        <ion-icon name="barcode"></ion-icon>
+      </ion-button>
+    </ion-buttons>
 
     <ion-title *ngIf="usuarioOnline">{{this.usuarioOnline.nombre }}</ion-title>
 
@@ -24,7 +29,7 @@
 
 
     <ion-row>
-      <ion-col  class="botones" size="6" [style.align-items]="center" *ngFor="let icono of listadoIconos">
+      <ion-col class="botones" size="6" [style.align-items]="center" *ngFor="let icono of listadoIconos">
         <ion-img class="iconos" [src]="icono.imagen" (click)="iconosClick(icono)"></ion-img>
       </ion-col>
     </ion-row>

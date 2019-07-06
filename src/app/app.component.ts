@@ -18,12 +18,13 @@ export class AppComponent {
     private statusBar: StatusBar,
     private router: Router,
     private authService: AuthService,
-    private audioService: SmartAudioService
+    private audioService: SmartAudioService,
   ) {
     this.initializeApp();
     this.audioService.preload('inicio', 'assets/sonidos/bubbly.wav');
     this.audioService.preload('error', 'assets/sonidos/error.wav');
     this.audioService.preload('success', 'assets/sonidos/short.wav');
+    this.audioService.preload('camera', 'assets/sonidos/camera.mp3');
   }
   splash: boolean = true;
 

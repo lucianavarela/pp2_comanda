@@ -3,6 +3,7 @@ import { HttpService } from '../http/http.service';
 import { Observable } from 'rxjs';
 import { Login } from '../../models/login';
 import { Cliente } from '../../models/cliente';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -49,6 +50,28 @@ export class ClienteService {
     return this.miHttp.httpGetOL<Cliente[]>('clientes/listarActivaciones');
   }
 
+  public GetClienteByUsername(usuario: string) {
+    return this.ListarTodos().pipe(
+      map(clientes => {
+        return clientes.filter((c) => { return c.usuario == usuario })[0];
+      })
+    );
+  }
+  public GetCliente(id: number) {
+    return this.ListarTodos().pipe(
+      map(clientes => {
+        return clientes.filter((c) => { return c.id == id })[0];
+      })
+    );
+  }
+
+  public GetClientedeMesa(mesa:string) {
+    return this.ListarTodos().pipe(
+      map(clientes => {
+        return clientes.filter((c) => { return c.mesa == mesa })[0];
+      })
+    );
+  }
 
   public ListarTodos(): Observable<Cliente[]> {
     return this.miHttp.httpGetOL<Cliente[]>('clientes/listar');
@@ -68,6 +91,14 @@ export class ClienteService {
 
   public SacarMesa(mesa: string): Promise<Object> {
     return this.miHttp.httpDeletePL('clientes/Mesa/' + mesa);
+  }
+
+  public SacarDescuento(id: string): Promise<Object> {
+    return this.miHttp.httpDeletePL('clientes/descuento/' + id);
+  }
+
+  public CargarDescuento(dataCliente: Cliente) {
+    return this.miHttp.httpPostL("clientes/descuento", dataCliente);
   }
 
 

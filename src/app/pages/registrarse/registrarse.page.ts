@@ -23,7 +23,7 @@ export class RegistrarsePage implements OnInit {
             this.empleadoService.Registrar(this.user.name, this.user.pass, '', '')
                 .then(response => {
                     this.errorHandler.mostrarMensajeConfimación("Usuario registrado")
-                    this.navCtrl.navigateForward('home');
+                    this.navCtrl.navigateForward('/home');
                 })
                 .catch(error => {
                     this.errorHandler.mostrarMensajeError(error);

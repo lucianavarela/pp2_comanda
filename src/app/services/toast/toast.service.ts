@@ -38,4 +38,19 @@ export class ToastService {
         res.present();
       });
   }
+
+  warningToast(message: string) {
+    this.toastController.create({
+      message: message,
+      showCloseButton: true,
+      color: 'warning',
+      closeButtonText: 'Cerrar',
+      duration: 5000
+    })
+      .then(res => {
+        this.vibration.vibrate(1000);
+        this.smartAudioService.play('error');
+        res.present();
+      });
+  }
 }

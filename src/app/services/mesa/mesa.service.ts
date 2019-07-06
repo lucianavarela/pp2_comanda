@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService } from '../http/http.service';
 import { Mesa, EstadosMesa } from '../../models/mesa';
+import { Reserva } from 'src/app/models/reserva';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,6 @@ export class MesaService {
     return this.miHttp.httpPostP('mesas/registrar/', request).then( response => {
       if (foto) {
         return this.ActualizarFoto(codigo, foto).catch( error => {
-          console.log(error);
           this.Eliminar(codigo);
         });
       }
@@ -53,4 +53,33 @@ export class MesaService {
   public Cobrar(codigo: String): Promise<any> {
     return this.miHttp.httpGetP('mesas/cobrar/' + codigo);
   }
+
+ 
+  public MenosUsada(): Observable<Reserva> {
+    return this.miHttp.httpGetOL<Reserva>('mesas/MenosUsada/' );
+  }
+
+  public MasFacturada(): Observable<Reserva> {
+    return this.miHttp.httpGetOL<Reserva>('mesas/MasFacturacion/' );
+  }
+  public MenosFacturada(): Observable<Reserva> {
+    return this.miHttp.httpGetOL<Reserva>('mesas/MenosFacturacion/' );
+  }
+
+  public MasImporte(): Observable<Reserva> {
+    return this.miHttp.httpGetOL<Reserva>('mesas/ConFacturaConMasImporte/' );
+  }
+
+  public MenosImporte(): Observable<Reserva> {
+    return this.miHttp.httpGetOL<Reserva>('mesas/ConFacturaConMenosImporte/' );
+  }
+
+  public MejorPuntuacion(): Observable<Reserva> {
+    return this.miHttp.httpGetOL<Reserva>('mesas/ConMejorPuntuacion/' );
+  }
+
+  public PeorPuntuacion(): Observable<Reserva> {
+    return this.miHttp.httpGetOL<Reserva>('mesas/ConPeorPuntuacion/' );
+  }
+
 }

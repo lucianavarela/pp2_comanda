@@ -29,13 +29,12 @@ export class EncuestasPage implements OnInit {
     this.miHttp.Listar().subscribe(
       (res) => {
        this.encuestas= res;
-       console.log(this.encuestas);
       }
     )
   }
 
   volver() {
-    this.navCtrl.navigateForward('home');
+    this.navCtrl.navigateForward('/home');
   }
 
 }

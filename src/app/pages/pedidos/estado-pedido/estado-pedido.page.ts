@@ -2,10 +2,12 @@ import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { PedidoService } from '../../../services/pedido/pedido.service';
 import { MesaService } from '../../../services/mesa/mesa.service';
-//import { QRScanner } from '@ionic-native/qr-scanner/ngx';
-import { Mesa } from 'src/app/models/mesa';
-import { Pedido } from 'src/app/models/pedido';
+import { Mesa, EstadosMesa } from 'src/app/models/mesa';
+import { Pedido, EstadosPedido } from 'src/app/models/pedido';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { ClienteService } from 'src/app/services/cliente/cliente.service';
+import { ToastService } from 'src/app/services/toast/toast.service';
 
 @Component({
   selector: 'app-estado-pedido',
@@ -14,69 +16,75 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 })
 
 export class EstadoPedidoPage {
-  mesas: Mesa[] = [];
   pedidosList: Pedido[] = [];
   mesa: string;
   cliente: string;
+  usuario: any;
 
   constructor(
     private navCtrl: NavController,
     private pedidoService: PedidoService,
     private mesaService: MesaService,
     private barcodeScanner: BarcodeScanner,
-    //private qrScanner: QRScanner
+    private authService: AuthService,
+    private clienteService: ClienteService,
+    private errorHandler: ToastService,
   ) {
   }
 
   ionViewWillEnter() {
-    //this.scanQr();
-    this.traerMesas();
-  }
-
-  traerPedidos() {
-    this.pedidoService.ListarPorMesa(this.mesa).subscribe(
-      (res) => {
-        this.pedidosList = res
-      });
-  }
-
-  traerMesas() {
-    this.mesaService.Listar().subscribe(
-      (res) => {
-        this.mesas = res
-      });
-  }
-
-  /*scanQr() {
-    try {
-      const ionApp = <HTMLElement>document.getElementsByTagName('ion-app')[0];
-      let scanSub = this.qrScanner.scan().subscribe((text: string) => {
-        if (text) {
-          this.qrScanner.hide();
-          scanSub.unsubscribe();
-          ionApp.style.display = 'block';
-          this.traerPedidos();
+    this.usuario = this.authService.token();
+    if (this.usuario.tipo == 'registrado') {
+      this.clienteService.GetCliente(this.usuario.id).subscribe(cliente => {
+        if (cliente.mesa) {
+          this.mesa = cliente.mesa;
+          this.traerPedidos(this.mesa);
+        } else {
+          this.errorHandler.errorToast('Debe estar ingresado en una mesa para realizar pedidos');
+          this.navCtrl.navigateForward('/home');
         }
       });
-      this.qrScanner.show();
-      ionApp.style.display = 'none';
-    } catch (e) {
-      console.log(e) // --> usar el alert/toast que vayamos a usar
     }
-  }*/
-  scanQr() {
-    this.barcodeScanner.scan().then(barcodeData => {
-      console.log('Barcode data', barcodeData);
-      this.mesa= barcodeData.text;
-      this.traerPedidos();
-      }).catch(err => {
-      console.log('Error', err);
-      });
-
   }
 
+  traerPedidos(mesa: string) {
+    this.pedidoService.ListarPorMesa(mesa).subscribe(
+      (res) => {
+        this.pedidosList = res.filter(function (p) {
+          return p.estado != EstadosPedido.Finalizado && p.estado != EstadosPedido.Cancelado
+        })
+      });
+  }
+
+  confirmarEntrega(pedido: Pedido) {
+    this.pedidoService.CambiarEstado(pedido.codigo, EstadosPedido.Finalizado)
+      .then((res: any) => {
+        if (res.Estado == 'OK') {
+          this.errorHandler.confirmationToast("Pedido confirmado exitosamente.");
+          this.pedidoService.ListarPorMesa(this.mesa).subscribe(
+            (res) => {
+              this.pedidosList = res.filter(function (p) {
+                return p.estado != EstadosPedido.Finalizado && p.estado != EstadosPedido.Cancelado
+              })
+              if (this.pedidosList.length == 0) {
+                this.mesaService.CambiarEstado(this.mesa, EstadosMesa.Comiendo).then(
+                  ()=>this.atras()
+                );
+              }
+            });
+        } else {
+          this.errorHandler.errorToast(res.Mensaje);
+        }
+      })
+      .catch(error => {
+        this.errorHandler.errorToast(error);
+      })
+      .finally(() => {
+        this.traerPedidos(this.mesa);
+      });
+  }
 
   atras() {
-    this.navCtrl.pop();
+    this.navCtrl.navigateForward('/home')
   }
 }

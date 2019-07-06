@@ -4,10 +4,11 @@ import { NavController } from '@ionic/angular';
 import { PedidoService } from '../../../services/pedido/pedido.service';
 import { MenuService } from '../../../services/menu/menu.service';
 import { AuthService } from '../../../services/auth/auth.service';
-import { User } from '../../../models/user';
-import { Mesa } from '../../../models/mesa';
+import { Mesa, EstadosMesa } from '../../../models/mesa';
 import { MesaService } from '../../../services/mesa/mesa.service';
 import { Menu } from '../../../models/menu';
+import { ToastService } from 'src/app/services/toast/toast.service';
+import { ClienteService } from 'src/app/services/cliente/cliente.service';
 
 @Component({
   selector: 'app-carga-pedido',
@@ -19,7 +20,7 @@ export class CargaPedidoPage {
   mesas: Mesa[] = [];
   menus: Menu[] = [];
   menus_cargados: Menu[] = [];
-  usuario: User;
+  usuario: any;
   mesa: string;
   cliente: string;
 
@@ -28,22 +29,37 @@ export class CargaPedidoPage {
     private pedidoService: PedidoService,
     private menuService: MenuService,
     private mesaService: MesaService,
-    private auth: AuthService
+    private auth: AuthService,
+    private errorHandler: ToastService,
+    private clienteService: ClienteService
   ) {
-    this.usuario = this.auth.getUserInfo();
+    this.usuario = this.auth.token();
   }
 
   ionViewWillEnter() {
-    this.traerMenus();
-    this.mesaService.Listar().subscribe(
-      (res) => {
-        this.mesas = res.filter((mesa) => {
-          return mesa.estado == 'Cerrada';
-        });
-      }
-    )
     if (this.usuario.tipo == 'registrado') {
-      this.cliente = this.usuario.usuario;
+      this.clienteService.GetCliente(this.usuario.id).subscribe(cliente => {
+        if (cliente.mesa) {
+          this.mesa = cliente.mesa;
+        } else {
+          this.errorHandler.errorToast('Debe estar ingresado en una mesa para realizar pedidos');
+          this.navCtrl.navigateForward('/home');
+        }
+      });
+    } else {
+      this.mesaService.Listar().subscribe(
+        (res) => {
+          this.mesas = res.filter((mesa) => {
+            return mesa.estado != EstadosMesa.Cerrada;
+          });
+          if (this.mesas.length == 0) {
+            this.errorHandler.errorToast('Todas las mesas están vacias');
+            this.atras();
+          } else {
+            this.traerMenus();
+          }
+        }
+      )
     }
   }
 
@@ -74,18 +90,45 @@ export class CargaPedidoPage {
   }
 
   generarPedido() {
-    if (this.mesa != "" && this.cliente != "") {
-      this.menus_cargados.forEach((menu) => {
-        this.pedidoService.Registrar(this.mesa, menu.id, this.cliente, 0).then(
-          () => {
-            this.navCtrl.navigateForward('home');
+    if (this.mesa != "") {
+      let mozo = this.usuario.tipo == 'Mozo' ? this.usuario.id : 0;
+      if (this.cliente != "") {
+        this.menus_cargados.forEach((menu) => {
+          this.guardarPedido(this.mesa, menu.id, this.cliente, 0, mozo);
+        });
+      } else {
+        this.clienteService.GetClientedeMesa(this.mesa).subscribe(cliente => {
+          if (cliente != undefined) {
+            this.menus_cargados.forEach((menu) => {
+              this.guardarPedido(this.mesa, menu.id, cliente.nombre, 0, mozo);
+            });
+          } else {
+            this.errorHandler.errorToast('Error al cargar el pedido')
           }
-        );
-      });
+        });
+      }
     }
   }
 
+  guardarPedido(mesa, menu, cliente, es_delivery, mozo) {
+    this.pedidoService.Registrar(mesa, menu, cliente, es_delivery, mozo)
+      .then(
+        (res: any) => {
+          if (res.Estado == 'OK') {
+            this.errorHandler.confirmationToast('Pedido registrado!');
+            this.mesaService.CambiarEstado(this.mesa, EstadosMesa.EsperandoPedido);
+            this.navCtrl.navigateForward('/home');
+          } else {
+            this.errorHandler.errorToast(res.Mensaje);
+          }
+        }
+      )
+      .catch(
+        (e) => this.errorHandler.errorToast(e)
+      )
+  }
+
   atras() {
-    this.navCtrl.pop();
+    this.navCtrl.navigateForward('/home')
   }
 }

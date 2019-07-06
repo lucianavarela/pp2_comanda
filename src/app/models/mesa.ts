@@ -10,7 +10,7 @@ export enum EstadosMesa {
     // Punto 4 - Se acepta la solicitud y se le asigna la mesa al cliente.
     Asignada = "Asignada", 
     // Punto 7 - Hace el pedido para todos los comensales.
-    ConfirmacionPediente = "Pedido pediente de confirmación",
+    ConfirmacionPendiente = "Pedido pendiente de confirmación",
     // Punto 8 - El mozo acepta el pedido.
     EsperandoPedido = "Con cliente esperando pedido",
     // Punto 9 - Cuando todos los sectores terminaron el pedido.

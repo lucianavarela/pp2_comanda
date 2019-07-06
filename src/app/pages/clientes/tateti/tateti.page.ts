@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
+import { ClienteService } from 'src/app/services/cliente/cliente.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { User } from 'src/app/models/user';
+import { Cliente } from 'src/app/models/cliente';
 
 export class JuegoTaTeTi {
   spot1: string = '';
@@ -110,8 +114,11 @@ export class TatetiPage {
   nuevoJuego: JuegoTaTeTi;
   isEnd: boolean = false;
   thinking: boolean = false;
+  usuarioOnline: User; 
 
-  constructor(public navCtrl: NavController, private errorHandler: ErrorHandlerService) {
+
+  constructor(public navCtrl: NavController, private errorHandler: ToastService, 
+    private authService: AuthService, private  clienteService: ClienteService) {
     this.nuevoJuego = new JuegoTaTeTi();
   }
 
@@ -166,16 +173,29 @@ export class TatetiPage {
     this.isEnd = this.nuevoJuego.verificar();
     if (this.isEnd) {
       if (this.nuevoJuego.gano) {
-        this.errorHandler.mostrarMensajeConfimación('Ganaste 10% de descuento');
-        this.navCtrl.navigateForward('home');
+        let cliente : Cliente = new Cliente();
+        cliente.id = this.usuarioOnline.id;
+        cliente.descuento = "tateti";
+       // this.errorHandler.mostrarMensajeConfimación('Ganaste 10% de descuento');
+       this.clienteService.CargarDescuento(cliente).
+          subscribe((data) => {
+            this.errorHandler.confirmationToast(data["Mensaje"]);
+          //  this.atras();
+            
+          }, (error) => {
+            this.errorHandler.errorToast(error);
+            
+          });
+        
       }
     }
   }
 
   ngOnInit() {
+    this.usuarioOnline = this.authService.token();
   }
 
   atras() {
-    this.navCtrl.pop();
+    this.navCtrl.navigateForward('/home')
   }
 }
