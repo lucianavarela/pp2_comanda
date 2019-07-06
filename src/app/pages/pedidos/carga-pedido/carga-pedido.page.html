@@ -27,7 +27,7 @@
       <ion-icon name="close-circle" (click)="eliminarMenu(menu.id)"></ion-icon>
     </ion-chip>
   </div>
-  <ion-row *ngIf="usuario!=null && usuario.tipo!='registrado' && usuario.tipo!='anonimo'">
+  <ion-row *ngIf="usuario!=null && (usuario.tipo!='registrado' || usuario.tipo!='anonimo')">
     <ion-item *ngIf="mesas.length > 0">
       <ion-icon name="pin"></ion-icon>
       <ion-select [(ngModel)]="mesa" placeholder="Mesa" style="max-width: 100%">
