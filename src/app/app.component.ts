@@ -26,14 +26,14 @@ export class AppComponent {
     this.audioService.preload('success', 'assets/sonidos/short.wav');
     this.audioService.preload('camera', 'assets/sonidos/camera.mp3');
   }
-  splash: boolean = true;
+  showSplash: boolean = true;
 
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       setTimeout(() => {
-        this.splash = false;
+        this.showSplash = false;
         this.audioService.play('inicio');
         if (!this.authService.isLogged()) {
           this.router.navigate(['bienvenido']);
