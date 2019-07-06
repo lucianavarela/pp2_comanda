@@ -135,7 +135,7 @@ export class HomeQrPage implements OnInit {
       }
     } else {
       this.menuService.GetMenu(qr).subscribe(menu => {
-        if (menu && this.usuarioOnline.tipo == 'registrado') {
+        if (menu && this.usuarioOnline.tipo == 'registrado' && this.usuarioOnline.tipo == 'anonimo'  ) {
           this.clienteService.GetCliente(this.usuarioOnline.id).subscribe(cliente => {
             if (cliente.mesa) {
               this.pedidoService.Registrar(cliente.mesa, menu.id, cliente.usuario, 0)
