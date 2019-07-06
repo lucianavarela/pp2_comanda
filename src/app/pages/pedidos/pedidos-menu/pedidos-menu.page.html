@@ -14,7 +14,7 @@
   <ion-button expand="full" *ngIf="usuario.tipo=='Mozo'||usuario.tipo=='registrado'||usuario.tipo=='anonimo'" routerLink="/carga-pedido">
     Agregar Pedido
   </ion-button>
-  <ion-button *ngIf="usuario.tipo!='registrado' && usuario.tipo!='Mozo' && usuario.tipo!='Delivery'" expand="full" routerLink="/toma-pedido">
+  <ion-button *ngIf="usuario.tipo!='registrado' && usuario.tipo!='anonimo' && usuario.tipo!='Mozo' && usuario.tipo!='Delivery'" expand="full" routerLink="/toma-pedido">
     Tomar Pedido
   </ion-button>
   <ion-button *ngIf="usuario.tipo=='Mozo'" expand="full" routerLink="/servir">
