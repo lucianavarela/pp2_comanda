@@ -83,9 +83,15 @@ export class HomeQrPage implements OnInit {
         this.usuarioOnline.mesa = qr.replace('MESA-', '');
         this.clienteService.CargarMesa(this.usuarioOnline).
           subscribe((data) => {
-            this.errorHandler.confirmationToast(data["Mensaje"]);
-            this.servicioMesa.CambiarEstado(this.usuarioOnline.mesa, EstadosMesa.Asignada);
-            this.volver();
+            if(data["Estado"]=="OK"){
+              this.errorHandler.confirmationToast(data["Mensaje"]);
+              this.servicioMesa.CambiarEstado(this.usuarioOnline.mesa, EstadosMesa.Asignada);
+              this.volver();
+            }else{
+              this.errorHandler.confirmationToast(data["Mensaje"]);
+              this.volver();
+            }
+            
           }, (error) => {
             this.errorHandler.errorToast(error);
             this.volver();
