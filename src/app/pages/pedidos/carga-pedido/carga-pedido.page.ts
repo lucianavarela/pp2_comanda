@@ -100,7 +100,7 @@ export class CargaPedidoPage {
         this.clienteService.GetClientedeMesa(this.mesa).subscribe(cliente => {
           if (cliente != undefined) {
             this.menus_cargados.forEach((menu) => {
-              this.guardarPedido(this.mesa, menu.id, cliente.nombre, 0, mozo);
+              this.guardarPedido(this.mesa, menu.id, cliente.usuario, 0, mozo);
             });
           } else {
             this.errorHandler.errorToast('Error al cargar el pedido')

@@ -65,7 +65,8 @@
     [paraEntregar]="false" [pedidosList]="pedidosCliente" (pedidoSeleccionado)="seleccionarPedido($event)">
   </app-lista-pedidos>
 
-  <app-datos-pedido *ngIf="pedidoSeleccionado" [pedido]="pedidoSeleccionado"></app-datos-pedido>
+  <app-datos-pedido *ngIf="pedidoSeleccionado" [pedido]="pedidoSeleccionado"
+      (pedidoConfirmado)="confirmarEntrega($event, pedido)"></app-datos-pedido>
 
 
 </ion-content>

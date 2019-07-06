@@ -33,6 +33,7 @@ export class DatosPedidoComponent implements OnChanges {
   }
 
   confirmarEntrega(pedido: Pedido) {
+    console.log('1', pedido);
     this.pedidoConfirmado.emit(pedido);
   }
 }

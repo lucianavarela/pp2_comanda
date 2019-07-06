@@ -79,7 +79,7 @@ export class HomeQrPage implements OnInit {
         });
     } else if (qr.indexOf('MESA-') > -1) {
       this.verificarReserva(qr.replace('MESA-', ''));
-      if ( this.flag== false ) {
+      if (this.flag == false) {
         this.usuarioOnline.mesa = qr.replace('MESA-', '');
         this.clienteService.CargarMesa(this.usuarioOnline).
           subscribe((data) => {
@@ -117,9 +117,9 @@ export class HomeQrPage implements OnInit {
               this.errorHandler.errorToast("Usted no tiene pedidos activos");
               this.volver();
             }
-          }else{
+          } else {
             this.errorHandler.errorToast("Usted no esta habilitado a dejar propina");
-        this.volver();
+            this.volver();
 
           }
         })
@@ -132,7 +132,7 @@ export class HomeQrPage implements OnInit {
         if (menu && this.usuarioOnline.tipo == 'registrado') {
           this.clienteService.GetCliente(this.usuarioOnline.id).subscribe(cliente => {
             if (cliente.mesa) {
-              this.pedidoService.Registrar(cliente.mesa, menu.id, cliente.nombre, 0)
+              this.pedidoService.Registrar(cliente.mesa, menu.id, cliente.usuario, 0)
                 .then(
                   res => {
                     this.errorHandler.confirmationToast('Pedido registrado!');
@@ -168,7 +168,7 @@ export class HomeQrPage implements OnInit {
     });
   }
 
- 
+
   verificarReserva(codigo: string) {
     let respuesta = false;
     let reservas = this.listadoReservas.filter(function (reserva) { return reserva.codigo_mesa == codigo })

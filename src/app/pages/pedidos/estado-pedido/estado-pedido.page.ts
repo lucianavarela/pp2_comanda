@@ -57,6 +57,7 @@ export class EstadoPedidoPage {
   }
 
   confirmarEntrega(pedido: Pedido) {
+    console.log('2');
     this.pedidoService.CambiarEstado(pedido.codigo, EstadosPedido.Finalizado)
       .then((res: any) => {
         if (res.Estado == 'OK') {
@@ -68,7 +69,7 @@ export class EstadoPedidoPage {
               })
               if (this.pedidosList.length == 0) {
                 this.mesaService.CambiarEstado(this.mesa, EstadosMesa.Comiendo).then(
-                  () => this.atras()
+                  ()=>this.atras()
                 );
               }
             });
