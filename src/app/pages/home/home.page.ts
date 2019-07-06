@@ -102,7 +102,7 @@ export class HomePage {
     },
     {
       nombre: "datosMesa",
-      imagen: "assets/imgs/home/mesas.png",
+      imagen: "assets/imgs/home/mesaEsta.png",
       accion: "datos-mesa"
     },
   ]
