@@ -7,6 +7,9 @@ Esta es una aplicacion mobile para el manejo de tu restaurant!
 Construía con Ionic 4, teniendo como fuente de datos una API en PHP, en conjunto con puntuales funcionalidades en Firebase.
 
 ![alt text](src/assets/imgs/logo.png?raw=true "Title")
+
+
+
 *Practica Profesional Supervisada*
 # Detalles Tecnicos
 
