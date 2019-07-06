@@ -16,7 +16,7 @@ export class HomePage {
   usuarioOnline: any;
   listadoIconos: Array<any> = new Array;
   logo: boolean;
- 
+
 
 
   listados: Array<any> = [
@@ -112,7 +112,7 @@ export class HomePage {
   constructor(private navCtrl: NavController,
     private authService: AuthService,
     private router: Router) {
-      
+
   }
 
   ionViewWillEnter() {
@@ -124,7 +124,7 @@ export class HomePage {
     this.filtrar();
     this.esconderLogo();
     console.log(this.usuarioOnline);
-   }
+  }
 
   cerrarSesionClick() {
     this.authService.logout();
@@ -132,35 +132,34 @@ export class HomePage {
   }
 
 
-  iconosClick(icono) {   
+  iconosClick(icono) {
     this.router.navigate([icono.accion, { usuario: this.usuarioOnline }]);
   }
 
   filtrar() {
 
-    if ( this.usuarioOnline.tipo == "registrado"  ) {
+    if (this.usuarioOnline.tipo == "registrado") {
       this.listadoIconos = this.listados
-        .filter(listado => listado.nombre == "pedidos" || listado.nombre == "delivery" ||  listado.nombre == "juegos" || listado.nombre == "reservas" || listado.nombre == "encuesta" );
+        .filter(listado => listado.nombre == "pedidos" || listado.nombre == "delivery" || listado.nombre == "juegos" || listado.nombre == "reservas" || listado.nombre == "encuesta");
     } else if (this.usuarioOnline.tipo == "Cervecero") {
       this.listadoIconos = this.listados
         .filter(listado => listado.nombre == "pedidos");
     } else if (this.usuarioOnline.tipo == "Cocinero" || this.usuarioOnline.tipo == "Bartender") {
       this.listadoIconos = this.listados
-        .filter(listado => listado.nombre == "pedidos" || listado.nombre == "menu"); 
+        .filter(listado => listado.nombre == "pedidos" || listado.nombre == "menu");
     } else if (this.usuarioOnline.tipo == "Mozo") {
       this.listadoIconos = this.listados
         .filter(listado => listado.nombre == "pedidos" || listado.nombre == "clientes" || listado.nombre == "reservas" || listado.nombre == "mesas");
-    }
-    else if (this.usuarioOnline.tipo == "Socio" || this.usuarioOnline.tipo == "Dueño" ) {
+    } else if (this.usuarioOnline.tipo == "Socio" || this.usuarioOnline.tipo == "Dueño") {
       this.listadoIconos = this.listados
         .filter(listado => listado.nombre == "pedidos" || listado.nombre == "clientes" || listado.nombre == "socios"
           || listado.nombre == "listarReservas" || listado.nombre == "empleados" || listado.nombre == "datosMesa" || listado.nombre == "mesas" || listado.nombre == "verEncuestas" || listado.nombre == "listaEspera");
-    }else if ( this.usuarioOnline.tipo == "anonimo"  ) {
+    } else if (this.usuarioOnline.tipo == "anonimo") {
       this.listadoIconos = this.listados
         .filter(listado => listado.nombre == "pedidos" || listado.nombre == "encuesta");
-    }else if ( this.usuarioOnline.tipo == "Delivery"  ) {
+    } else if (this.usuarioOnline.tipo == "Delivery") {
       this.listadoIconos = this.listados
-        .filter(listado => listado.nombre == "tomarPedido" ||  listado.nombre == "Chat");
+        .filter(listado => listado.nombre == "tomarPedido" || listado.nombre == "Chat");
     }
   }
 
