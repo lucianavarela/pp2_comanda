@@ -37,7 +37,7 @@ export class CargaPedidoPage {
   }
 
   ionViewWillEnter() {
-    if (this.usuario.tipo == 'registrado') {
+    if (this.usuario.tipo == 'registrado' || this.usuario.tipo == 'anonimo' ) {
       this.clienteService.GetCliente(this.usuario.id).subscribe(cliente => {
         if (cliente.mesa) {
           this.mesa = cliente.mesa;
