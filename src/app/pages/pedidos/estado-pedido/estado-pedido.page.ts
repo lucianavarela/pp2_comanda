@@ -68,7 +68,7 @@ export class EstadoPedidoPage {
               })
               if (this.pedidosList.length == 0) {
                 this.mesaService.CambiarEstado(this.mesa, EstadosMesa.Comiendo).then(
-                  ()=>this.atras()
+                  () => this.atras()
                 );
               }
             });
