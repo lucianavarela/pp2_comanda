@@ -137,19 +137,11 @@ export class ReservasPage {
   }
 
   cancel() {
-<<<<<<< HEAD
     this.navCtrl.navigateForward('/home');
   }
 
   volver() {
     this.navCtrl.navigateForward('/home');
-=======
-    this.navCtrl.navigateForward('home');
-  }
-
-  volver() {
-    this.navCtrl.navigateForward('home');
->>>>>>> 57b102bcdc47b6e5377272ddc06798112d80ad0c
   }
 
 

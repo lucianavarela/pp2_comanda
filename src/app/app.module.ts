@@ -75,7 +75,7 @@ import { ChatPage } from './pages/chat/chat.page';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { firebaseConfig } from 'src/environments/environment';
-//import { Camera } from '@ionic-native/camera/ngx';
+import { Camera } from '@ionic-native/camera/ngx';
 
 
 export function getAccessToken() {
@@ -161,7 +161,7 @@ export function getAccessToken() {
     BarcodeScanner,
     Geolocation,
     NativeGeocoder,
-    //Camera,
+    Camera,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HTTP_INTERCEPTORS,

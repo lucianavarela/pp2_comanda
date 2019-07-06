@@ -65,10 +65,6 @@ export class MesasPage {
   }
 
   atras() {
-<<<<<<< HEAD
     this.navCtrl.navigateForward('/home')
-=======
-    this.navCtrl.navigateForward('home')
->>>>>>> 57b102bcdc47b6e5377272ddc06798112d80ad0c
   }
 }

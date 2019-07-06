@@ -43,7 +43,6 @@ export class CargaPedidoPage {
           this.mesa = cliente.mesa;
         } else {
           this.errorHandler.errorToast('Debe estar ingresado en una mesa para realizar pedidos');
-<<<<<<< HEAD
           this.navCtrl.navigateForward('/home');
         }
       });
@@ -61,11 +60,6 @@ export class CargaPedidoPage {
           }
         }
       )
-=======
-          this.navCtrl.navigateForward('home');
-        }
-      });
->>>>>>> 57b102bcdc47b6e5377272ddc06798112d80ad0c
     }
   }
 
@@ -96,7 +90,6 @@ export class CargaPedidoPage {
   }
 
   generarPedido() {
-<<<<<<< HEAD
     if (this.mesa != "") {
       let mozo = this.usuario.tipo == 'Mozo' ? this.usuario.id : 0;
       if (this.cliente != "") {
@@ -114,27 +107,6 @@ export class CargaPedidoPage {
           }
         });
       }
-=======
-    if (this.mesa != "" && this.cliente != "") {
-      let mozo = this.usuario.tipo == 'Mozo' ? this.usuario.id : 0;
-      this.menus_cargados.forEach((menu) => {
-        this.pedidoService.Registrar(this.mesa, menu.id, this.cliente, 0, mozo)
-          .then(
-            (res: any) => {
-              if (res.Estado == 'OK') {
-                this.errorHandler.confirmationToast('Pedido registrado!');
-                this.mesaService.CambiarEstado(this.mesa, EstadosMesa.EsperandoPedido);
-                this.navCtrl.navigateForward('home');
-              } else {
-                this.errorHandler.errorToast(res.Mensaje);
-              }
-            }
-          )
-          .catch(
-            (e) => this.errorHandler.errorToast(e)
-          )
-      });
->>>>>>> 57b102bcdc47b6e5377272ddc06798112d80ad0c
     }
   }
 
@@ -157,10 +129,6 @@ export class CargaPedidoPage {
   }
 
   atras() {
-<<<<<<< HEAD
     this.navCtrl.navigateForward('/home')
-=======
-    this.navCtrl.navigateForward('home')
->>>>>>> 57b102bcdc47b6e5377272ddc06798112d80ad0c
   }
 }

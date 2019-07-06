@@ -41,11 +41,7 @@ export class EstadoPedidoPage {
           this.traerPedidos(this.mesa);
         } else {
           this.errorHandler.errorToast('Debe estar ingresado en una mesa para realizar pedidos');
-<<<<<<< HEAD
           this.navCtrl.navigateForward('/home');
-=======
-          this.navCtrl.navigateForward('home');
->>>>>>> 57b102bcdc47b6e5377272ddc06798112d80ad0c
         }
       });
     }
@@ -89,10 +85,6 @@ export class EstadoPedidoPage {
   }
 
   atras() {
-<<<<<<< HEAD
     this.navCtrl.navigateForward('/home')
-=======
-    this.navCtrl.navigateForward('home')
->>>>>>> 57b102bcdc47b6e5377272ddc06798112d80ad0c
   }
 }

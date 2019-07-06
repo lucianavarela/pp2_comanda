@@ -24,11 +24,7 @@ export class InicioClientePage implements OnInit {
   selectUserOptions = { title: '' };
   dataLogin: Login;
   usuarioOnline: any;
-<<<<<<< HEAD
   reserva: Reserva;
-=======
-  reserva : Reserva;
->>>>>>> 57b102bcdc47b6e5377272ddc06798112d80ad0c
 
 
   constructor(public platform: Platform,
@@ -38,13 +34,8 @@ export class InicioClientePage implements OnInit {
     private tokenService: AuthService,
     private errorHandler: ErrorHandlerService,
     private authFireService: AuthFireService,
-<<<<<<< HEAD
     private reservaService: ReservaService,
     private esperaServicio: EsperaService,
-=======
-    private reservaService : ReservaService,
-    private esperaServicio : EsperaService,
->>>>>>> 57b102bcdc47b6e5377272ddc06798112d80ad0c
     private toastService: ToastService) {
     this.selectUserOptions.title = "Usuarios disponibles";
     this.audioService.preload('login', 'assets/sonidos/short2.mp3');
@@ -61,7 +52,6 @@ export class InicioClientePage implements OnInit {
       this.authService.loguear(this.dataLogin)
         .subscribe(response => {
           if (response['Estado'] === 'OK') {
-<<<<<<< HEAD
             this.authFireService.login(this.dataLogin.user + '@hotmail.com', '123456')
               .then(res => {
                 this.audioService.play('login');
@@ -80,28 +70,6 @@ export class InicioClientePage implements OnInit {
                   this.toastService.errorToast('Ocurrió un error, contáctese con el administrador.');
                 }
               });
-=======
-            this.authFireService.login(this.dataLogin.user+'@gmail.com', '123456')
-            .then(res => {
-              console.log(res);
-              this.audioService.play('login');
-              localStorage.setItem('token', response['Token']);
-              this.navCtrl.navigateForward('home');
-              this.verificarReserva();
-             // this.toastService.errorToast('Bienvenido');
-
-            })
-            .catch(error => {
-              console.log(error);
-              if (error.code === 'auth/user-not-found') {
-                this.toastService.errorToast('Usuario no encontrado.');
-              } else if (error.code === 'auth/wrong-password') {
-                this.toastService.errorToast('Contraseña incorrecta.');
-              } else {
-                this.toastService.errorToast('Ocurrió un error, contáctese con el administrador.');
-              }
-            });
->>>>>>> 57b102bcdc47b6e5377272ddc06798112d80ad0c
           } else {
             this.errorHandler.mostrarMensajeError(response['Mensaje']);
           }
@@ -164,7 +132,6 @@ export class InicioClientePage implements OnInit {
     this.navCtrl.navigateForward('bienvenido');
   }
 
-<<<<<<< HEAD
   private verificarReserva() {
     this.usuarioOnline = this.tokenService.token();
     if (this.usuarioOnline.tipo == "registrado") {
@@ -194,42 +161,6 @@ export class InicioClientePage implements OnInit {
         )
 
     }
-=======
-  private verificarReserva(){
-    this.usuarioOnline = this.tokenService.token();
-    if ( this.usuarioOnline.tipo == "registrado"  ) {
-      this.reservaService.TraerCliente(this.usuarioOnline.id).
-      subscribe(
-        (res) => {
-          if(res){
-          this.reserva= res;
-          let horaR = new Date(this.reserva.fecha.substr(0, 10) + " " + this.reserva.hora)
-          let horaHoy =  new Date();
-          if( horaHoy.getTime() < horaR.getTime()){
-          if(this.reserva.estado == 'I'){
-            this.toastService.warningToast("Usted tiene una reserva para el día de hoy a las: "+this.reserva.hora+
-            "hs, para la mesa: "+this.reserva.codigo_mesa+" sin Autorizar!!!" );
-          }else if( this.reserva.estado == 'A'){
-            this.esperaServicio.alta(this.usuarioOnline).
-             subscribe((data) => {
-          
-          console.log(data);
-          this.toastService.confirmationToast("Usted tiene una reserva para el día de hoy a las: "+this.reserva.hora+
-            "hs, para la mesa: "+this.reserva.codigo_mesa+" Autorizada!!!" );
-         
-           }, (error) => {
-            console.error(error);
-           
-          });
-            
-          }
-          }
-          }
-        }
-      )
-        
-      }
->>>>>>> 57b102bcdc47b6e5377272ddc06798112d80ad0c
   }
 
 

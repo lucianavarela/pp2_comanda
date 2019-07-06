@@ -28,7 +28,6 @@
     </ion-chip>
   </div>
   <ion-row *ngIf="usuario!=null && usuario.tipo!='registrado'">
-<<<<<<< HEAD
     <ion-item *ngIf="mesas.length > 0">
       <ion-icon name="pin"></ion-icon>
       <ion-select [(ngModel)]="mesa" placeholder="Mesa" style="max-width: 100%">
@@ -36,23 +35,6 @@
         </ion-select-option>
       </ion-select>
     </ion-item>
-=======
-    <ion-col size="6">
-      <ion-item>
-        <ion-icon name="person" item-start></ion-icon>
-        <ion-input [(ngModel)]="cliente" type="text" placeholder="Cliente"></ion-input>
-      </ion-item>
-    </ion-col>
-    <ion-col size="6">
-      <ion-item *ngIf="mesas.length > 0">
-        <ion-icon name="pin"></ion-icon>
-        <ion-select [(ngModel)]="mesa" placeholder="Mesa" style="max-width: 100%">
-          <ion-select-option *ngFor="let option of mesas" value="{{option.codigo}}">{{option.codigo}}
-          </ion-select-option>
-        </ion-select>
-      </ion-item>
-    </ion-col>
->>>>>>> 57b102bcdc47b6e5377272ddc06798112d80ad0c
   </ion-row>
 
   <ion-button color="primary" id="boton" (click)="generarPedido()" round>Pedir</ion-button>
