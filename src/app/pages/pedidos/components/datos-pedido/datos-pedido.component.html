@@ -13,7 +13,10 @@
     <b>Fecha:</b> {{pedido.fecha}} {{pedido.hora_inicial}}<br>
     <b>Importe:</b> ${{pedido.importe}}<br>
     <b>Hora de entrega estimada:</b> {{pedido.hora_entrega_estimada}}<br>
+<<<<<<< HEAD
     <b *ngIf="pedido.mesa=='MES00'">Dirección:</b> {{pedido.direccion_delivery}}<br>
+=======
+>>>>>>> 57b102bcdc47b6e5377272ddc06798112d80ad0c
     <ion-button *ngIf="pedido.estado=='Entregado'" expand="full" (click)="confirmarEntrega(pedido)">
       Confirmar Entrega
     </ion-button>

@@ -26,7 +26,11 @@ export class AuthFireService {
   logout() {
     this.angularFireAuth.auth.signOut()
       .then(res => {
+<<<<<<< HEAD
         this.router.navigate(['/bienvenido']);
+=======
+        this.router.navigate(['/login']);
+>>>>>>> 57b102bcdc47b6e5377272ddc06798112d80ad0c
       });
   }
 
@@ -35,6 +39,7 @@ export class AuthFireService {
   }
 
   getCurrentUserMail(): string {
+<<<<<<< HEAD
     if (this.angularFireAuth.auth.currentUser) {
       return this.angularFireAuth.auth.currentUser.email;
     } else {
@@ -43,10 +48,22 @@ export class AuthFireService {
   }
 
   Registrar(email: string, password: string) {
+=======
+    return this.angularFireAuth.auth.currentUser.email;
+ 
+  }
+
+  Registrar(email: string, password: string) {
+    console.log(email + ' ' + password);
+>>>>>>> 57b102bcdc47b6e5377272ddc06798112d80ad0c
     return this.angularFireAuth.auth.createUserWithEmailAndPassword(email, password)
       .then(res => {
       //  this.angularFireAuth.
         //this.angularFireAuth.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+<<<<<<< HEAD
+=======
+        console.log(this.angularFireAuth.auth.currentUser);
+>>>>>>> 57b102bcdc47b6e5377272ddc06798112d80ad0c
         return res;
       });
   }

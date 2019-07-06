@@ -30,8 +30,13 @@ export class TomaPedidoPage implements OnInit {
       this.mode = 'autorizar';
     } else if (document.URL.includes('servir')) {
       this.mode = 'servir';
+<<<<<<< HEAD
     } else if (document.URL.includes('deliveryboy')) {
       this.mode = 'deliveryboy';
+=======
+    } else if (document.URL.includes('delivery')) {
+      this.mode = 'delivery';
+>>>>>>> 57b102bcdc47b6e5377272ddc06798112d80ad0c
     }
 
     this.actualizarListaPedidos();
@@ -43,9 +48,13 @@ export class TomaPedidoPage implements OnInit {
   public listarDelivery() {
     this.pedidoService.ListarPorDelivery(this.authFireService.getCurrentUserMail())
       .subscribe(pedidos => {
+<<<<<<< HEAD
         this.pedidosList = pedidos.filter((p) => {
           return p.estado != EstadosPedido.Cancelado && p.estado != EstadosPedido.Finalizado
         });
+=======
+        this.pedidosList = pedidos;
+>>>>>>> 57b102bcdc47b6e5377272ddc06798112d80ad0c
       })
   }
 
@@ -72,6 +81,7 @@ export class TomaPedidoPage implements OnInit {
           this.pedidosList = pedidos.filter(function (pedido) {
             return pedido.estado == EstadosPedido.ListoParaServir && pedido.es_delivery == 0;
           })
+<<<<<<< HEAD
         } else if (this.mode == 'deliveryboy') {
           let pedidos_siento_repartidos = pedidos.filter(function (pedido) {
             return pedido.estado == EstadosPedido.Entregado && pedido.es_delivery == 1;
@@ -83,6 +93,12 @@ export class TomaPedidoPage implements OnInit {
           } else {
             this.errorHandler.mostrarMensajeError('Aún tenes entregas no finalizadas')
           }
+=======
+        } else if (this.mode == 'delivery') {
+          this.pedidosList = pedidos.filter(function (pedido) {
+            return pedido.estado == EstadosPedido.ListoParaServir && pedido.es_delivery == 1;
+          })
+>>>>>>> 57b102bcdc47b6e5377272ddc06798112d80ad0c
         } else {
           this.pedidosList = pedidos.filter(function (pedido) {
             return pedido.estado == EstadosPedido.Pendiente && pedido.id_mozo == 0;

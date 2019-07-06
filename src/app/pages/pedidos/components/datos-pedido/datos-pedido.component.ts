@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 import { Component, OnInit, Input, EventEmitter, Output, OnChanges } from '@angular/core';
 import { Pedido, EstadosPedido } from 'src/app/models/pedido';
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
+=======
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Pedido, EstadosPedido } from 'src/app/models/pedido';
+import { PedidoService } from 'src/app/services/pedido/pedido.service';
+import { ToastService } from 'src/app/services/toast/toast.service';
+>>>>>>> 57b102bcdc47b6e5377272ddc06798112d80ad0c
 
 @Component({
   selector: 'app-datos-pedido',
@@ -15,6 +22,7 @@ export class DatosPedidoComponent implements OnChanges {
   @Input() pedido: Pedido;
   foto: string;
 
+<<<<<<< HEAD
   constructor(private pedidoService: PedidoService, private errorHandler: ToastService,
     private clienteService: ClienteService) {
     this.pedidoConfirmado = new EventEmitter();
@@ -33,6 +41,15 @@ export class DatosPedidoComponent implements OnChanges {
   }
 
   confirmarEntrega(pedido: Pedido) {
+=======
+  constructor(private pedidoService: PedidoService, private errorHandler: ToastService) {
+    this.pedidoConfirmado = new EventEmitter();
+  }
+
+  ngOnInit() { }
+
+  confirmarEntrega(pedido:Pedido) {
+>>>>>>> 57b102bcdc47b6e5377272ddc06798112d80ad0c
     this.pedidoConfirmado.emit(pedido);
   }
 }
