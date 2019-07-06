@@ -5,7 +5,7 @@ import { PedidoService } from '../../../services/pedido/pedido.service';
 import { MenuService } from '../../../services/menu/menu.service';
 import { AuthService } from '../../../services/auth/auth.service';
 import { User } from '../../../models/user';
-import { Mesa } from '../../../models/mesa';
+import { Mesa, EstadosMesa } from '../../../models/mesa';
 import { MesaService } from '../../../services/mesa/mesa.service';
 import { Menu } from '../../../models/menu';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
@@ -196,8 +196,21 @@ export class DeliveryPage implements OnInit {
   }
 
 
-
-
-
-
+  confirmarEntrega(pedido: Pedido) {
+    this.pedidoService.CambiarEstado(pedido.codigo, EstadosPedido.Finalizado)
+      .then((res: any) => {
+        if (res.Estado == 'OK') {
+          this.toastService.confirmationToast("Pedido entregado exitosamente.");
+          this.atras();
+        } else {
+          this.toastService.errorToast(res.Mensaje);
+        }
+      })
+      .catch(error => {
+        this.toastService.errorToast(error);
+      })
+      .finally(() => {
+        this.atras();
+      });
+  }
 }

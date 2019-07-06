@@ -4,8 +4,8 @@ import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { AuthService } from '../../../services/auth/auth.service';
 import { User } from 'src/app/models/user';
 import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
-import { ActivatedRoute } from '@angular/router';
 import { AuthFireService } from '../../../services/auth.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-toma-pedido',
@@ -22,7 +22,7 @@ export class TomaPedidoPage implements OnInit {
   mode: string = '';
 
   constructor(private pedidoService: PedidoService, private errorHandler: ErrorHandlerService,
-    private authService: AuthService, private activatedRoute: ActivatedRoute, private authFireService: AuthFireService) {
+    private authService: AuthService, private navCtrl: NavController, private authFireService: AuthFireService) {
 
     this.usuario = this.authService.token();
 
@@ -128,10 +128,10 @@ export class TomaPedidoPage implements OnInit {
       this.pedidoService.CambiarEstado(pedido.codigo, EstadosPedido.Entregado, this.usuario.id)
         .then((res: any) => {
           if (res.Estado == 'OK') {
-            this.errorHandler.mostrarMensajeConfimación("Pedido autorizado exitosamente.");
+            this.errorHandler.mostrarMensajeConfimación("Pedido tomado exitosamente.");
             this.pedidoService.UpdateDelivery(pedido.codigo, this.authFireService.getCurrentUserMail())
               .then(() => {
-                this.actualizarListaPedidos();
+                this.navCtrl.navigateForward('/home');
               });
           } else {
             this.errorHandler.mostrarMensajeError(res.Mensaje);
