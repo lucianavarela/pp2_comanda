@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="usuario.tipo!='Mozo'&&mode!='delivery'">Toma de Pedidos</ion-title>
+    <ion-title *ngIf="usuario.tipo=='Mozo'&&mode=='servir'">Servir Pedidos Listos</ion-title>
+    <ion-title *ngIf="usuario.tipo=='Mozo'&&mode=='autorizar'">Autorizar Pedidos</ion-title>
+    <ion-title *ngIf="mode=='delivery'">Repartir Pedidos</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <app-lista-pedidos *ngIf="!mostrarCargarTiempo && pedidoEnPreparacion == null" [pedidosList]="this.pedidosList" 
+  (pedidoSeleccionado)="seleccionarPedido($event)" (pedidoTomado)="tomarPedido($event)" (pedidoEntregado)="entregarPedido($event)"
+  [mostrarBotonTomar]="this.usuario.tipo != 'Socio'" [paraEntregar]="this.usuario.tipo == 'Mozo'"></app-lista-pedidos>
+  <app-cargar-tiempo *ngIf="mostrarCargarTiempo" [pedido]="this.pedidoSeleccionado" (onCancelar)="actualizarListaPedidos()" 
+  (onSubmit)="cargarTiempo($event)"></app-cargar-tiempo>  
+  <app-datos-pedido *ngIf="!mostrarCargarTiempo" [pedido]="pedidoSeleccionado"></app-datos-pedido>
+
+  <ion-button *ngIf="pedidoEnPreparacion != null" expand="full" (click)="terminarPedido()">
+    Terminar Pedido
+  </ion-button>
+</ion-content>

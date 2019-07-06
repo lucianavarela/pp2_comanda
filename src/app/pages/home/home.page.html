@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons *ngIf="usuarioOnline&&(usuarioOnline.tipo=='registrado'||usuarioOnline.tipo=='anonimo')" slot="start">
+      <ion-button routerLink="/home-qr">
+        <ion-icon name="barcode"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title *ngIf="usuarioOnline">{{this.usuarioOnline.nombre }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarSesionClick()">
+        <ion-icon name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-grid>
+    <ion-row [hidden]="logo">
+
+      <ion-col size="12" [style.align-items]="center">
+        <img class="logo" src="assets/imgs/logo.png" />
+      </ion-col>
+
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col class="botones" size="6" [style.align-items]="center" *ngFor="let icono of listadoIconos">
+        <ion-img class="iconos" [src]="icono.imagen" (click)="iconosClick(icono)"></ion-img>
+      </ion-col>
+    </ion-row>
+
+
+  </ion-grid>
+
+</ion-content>

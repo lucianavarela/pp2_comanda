@@ -1,0 +1,21 @@
+<ion-card *ngIf="pedido != null">
+  <ion-card-header>
+    <ion-card-subtitle>Pedido de {{pedido.sector}}</ion-card-subtitle>
+    <ion-card-title>{{pedido.descripcion}}</ion-card-title>
+    <ion-avatar>
+      <ion-img [src]="foto"></ion-img>
+    </ion-avatar>
+  </ion-card-header>
+
+  <ion-card-content>
+    <b *ngIf="pedido.mesa!='MES00'">Mesa:</b> {{pedido.mesa}}<br>
+    <b>Estado:</b> {{pedido.estado}}<br>
+    <b>Fecha:</b> {{pedido.fecha}} {{pedido.hora_inicial}}<br>
+    <b>Importe:</b> ${{pedido.importe}}<br>
+    <b>Hora de entrega estimada:</b> {{pedido.hora_entrega_estimada}}<br>
+    <b *ngIf="pedido.mesa=='MES00'">Dirección:</b> {{pedido.direccion_delivery}}<br>
+    <ion-button *ngIf="pedido.estado=='Entregado'" expand="full" (click)="confirmarEntrega(pedido)">
+      Confirmar Entrega
+    </ion-button>
+  </ion-card-content>
+</ion-card>

@@ -1,0 +1,180 @@
+<ion-header color="primary">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="atras()">
+        <ion-icon name="arrow-round-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>DatosMesa</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    
+        <ion-list *ngFor="let  menosusada of  menosUsadas">
+          <ion-item>
+            <ion-grid>
+               <ion-row [style.align-items]="center">
+                  <ion-title >Mesa Menos Usada</ion-title>
+               </ion-row>
+              <ion-row>
+                <ion-col  size="2">
+                  <img src="assets/imgs/mesar.png">
+                </ion-col>
+                <ion-col  size="1">
+                    <ion-label ></ion-label>
+                  </ion-col>
+                <ion-col size="8">                  
+                    <ion-label >Mesa: {{menosusada.codigoMesa}}</ion-label>
+                    <ion-label >Usos: {{menosusada.cantidad_usos}}</ion-label>
+                    <ion-label > <ion-icon name="star-half"></ion-icon></ion-label>
+                     </ion-col>             
+                 </ion-row>
+            </ion-grid>
+          </ion-item>
+        </ion-list>
+
+
+        <ion-list *ngFor="let  mayorImp of  mayorImportes">
+            <ion-item>
+              <ion-grid>
+                 <ion-row [style.align-items]="center">
+                    <ion-title >Mesa Con Mayor Importe</ion-title>
+                 </ion-row>
+                <ion-row>
+                  <ion-col  size="2">
+                    <img src="assets/imgs/mesar.png">
+                  </ion-col>
+                  <ion-col  size="1">
+                      <ion-label ></ion-label>
+                    </ion-col>
+                  <ion-col size="8">                  
+                      <ion-label >Mesa: {{mayorImp.codigoMesa}}</ion-label>
+                      <ion-label >Importe: ${{mayorImp.importe}}</ion-label>
+                      <ion-label > <ion-icon name="star-half"></ion-icon></ion-label>
+                       </ion-col>             
+                   </ion-row>
+              </ion-grid>
+            </ion-item>
+          </ion-list>
+
+          <ion-row [style.align-items]="center">
+              <ion-title >Mesa Con Menor Importe</ion-title>
+           </ion-row>
+          
+          <ion-list *ngFor="let  menorImp of  menorImportes">
+              <ion-item>
+                <ion-grid>
+                 
+                  <ion-row>
+                    <ion-col  size="2">
+                      <img src="assets/imgs/mesar.png">
+                    </ion-col>
+                    <ion-col  size="1">
+                        <ion-label ></ion-label>
+                      </ion-col>
+                    <ion-col size="8">                  
+                        <ion-label >Mesa: {{menorImp.codigoMesa}}</ion-label>
+                        <ion-label >Importe: ${{menorImp.importe}}</ion-label>
+                        <ion-label > <ion-icon name="star-half"></ion-icon></ion-label>
+                         </ion-col>             
+                     </ion-row>
+                </ion-grid>
+              </ion-item>
+            </ion-list>
+
+            <ion-list *ngFor="let  mayorFacturacion of  mayorFacturaciones">
+                <ion-item>
+                  <ion-grid>
+                     <ion-row [style.align-items]="center">
+                        <ion-title >Mesa Con Mayor Facturacion</ion-title>
+                     </ion-row>
+                    <ion-row>
+                      <ion-col  size="2">
+                        <img src="assets/imgs/mesar.png">
+                      </ion-col>
+                      <ion-col  size="1">
+                          <ion-label ></ion-label>
+                        </ion-col>
+                      <ion-col size="8">                  
+                          <ion-label >Mesa: {{mayorFacturacion.codigoMesa}}</ion-label>
+                          <ion-label >Importe: ${{mayorFacturacion.facturacion_total}}</ion-label>
+                          <ion-label > <ion-icon name="star-half"></ion-icon></ion-label>
+                           </ion-col>             
+                       </ion-row>
+                  </ion-grid>
+                </ion-item>
+              </ion-list>
+
+              <ion-list *ngFor="let  menorFacturacion of  menosFacturaciones">
+                  <ion-item>
+                    <ion-grid>
+                       <ion-row [style.align-items]="center">
+                          <ion-title >Mesa Con Menor Facturacion</ion-title>
+                       </ion-row>
+                      <ion-row>
+                        <ion-col  size="2">
+                          <img src="assets/imgs/mesar.png">
+                        </ion-col>
+                        <ion-col  size="1">
+                            <ion-label ></ion-label>
+                          </ion-col>
+                        <ion-col size="8">                  
+                            <ion-label >Mesa: {{menorFacturacion.codigoMesa}}</ion-label>
+                            <ion-label >Importe: ${{menorFacturacion.facturacion_total}}</ion-label>
+                            <ion-label > <ion-icon name="star-half"></ion-icon></ion-label>
+                             </ion-col>             
+                         </ion-row>
+                    </ion-grid>
+                  </ion-item>
+                </ion-list>
+
+                <ion-list *ngFor="let  mejorPuntuacion of  mejorPuntuaciones">
+                    <ion-item>
+                      <ion-grid>
+                         <ion-row [style.align-items]="center">
+                            <ion-title >Mesa Con Mayor Facturacion</ion-title>
+                         </ion-row>
+                        <ion-row>
+                          <ion-col  size="2">
+                            <img src="assets/imgs/mesar.png">
+                          </ion-col>
+                          <ion-col  size="1">
+                              <ion-label ></ion-label>
+                            </ion-col>
+                          <ion-col size="8">                  
+                              <ion-label >Mesa: {{mejorPuntuacion.codigoMesa}}</ion-label>
+                              <ion-label >Promedio: {{mejorPuntuacion. puntuacion_promedio}}</ion-label>
+                              <ion-label > <ion-icon name="star-half"></ion-icon></ion-label>
+                               </ion-col>             
+                           </ion-row>
+                      </ion-grid>
+                    </ion-item>
+                  </ion-list>
+
+                  <ion-list *ngFor="let  menorPuntuacion of  menorPuntuaciones">
+                      <ion-item>
+                        <ion-grid>
+                           <ion-row [style.align-items]="center">
+                              <ion-title >Mesa Con Menor Facturacion</ion-title>
+                           </ion-row>
+                          <ion-row>
+                            <ion-col  size="2">
+                              <img src="assets/imgs/mesar.png">
+                            </ion-col>
+                            <ion-col  size="1">
+                                <ion-label ></ion-label>
+                              </ion-col>
+                            <ion-col size="8">                  
+                                <ion-label >Mesa: {{menorPuntuacion.codigoMesa}}</ion-label>
+                                <ion-label >Promedio: {{menorPuntuacion. puntuacion_promedio}}</ion-label>
+                                <ion-label > <ion-icon name="star-half"></ion-icon></ion-label>
+                                 </ion-col>             
+                             </ion-row>
+                        </ion-grid>
+                      </ion-item>
+                    </ion-list>
+       
+
+</ion-content>

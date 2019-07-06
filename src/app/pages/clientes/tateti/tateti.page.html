@@ -1,0 +1,50 @@
+<ion-header color="primary">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="atras()">
+        <ion-icon name="arrow-round-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Ta Te Ti</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="secondary">
+  <form name="juego" class="is-centered">
+    <table id="board">
+      <tr>
+        <td (click)="play('1')">
+          <img *ngIf="nuevoJuego.spot1!==''" class="img-game" src="./assets/imgs/{{nuevoJuego.spot1}}.svg" alt="">
+        </td>
+        <td (click)="play('2')">
+          <img *ngIf="nuevoJuego.spot2!==''" class="img-game" src="./assets/imgs/{{nuevoJuego.spot2}}.svg" alt="">
+        </td>
+        <td (click)="play('3')">
+          <img *ngIf="nuevoJuego.spot3!==''" class="img-game" src="./assets/imgs/{{nuevoJuego.spot3}}.svg" alt="">
+        </td>
+      </tr>
+      <tr>
+        <td (click)="play('4')">
+          <img *ngIf="nuevoJuego.spot4!==''" class="img-game" src="./assets/imgs/{{nuevoJuego.spot4}}.svg" alt="">
+        </td>
+        <td (click)="play('5')">
+          <img *ngIf="nuevoJuego.spot5!==''" class="img-game" src="./assets/imgs/{{nuevoJuego.spot5}}.svg" alt="">
+        </td>
+        <td (click)="play('6')">
+          <img *ngIf="nuevoJuego.spot6!==''" class="img-game" src="./assets/imgs/{{nuevoJuego.spot6}}.svg" alt="">
+        </td>
+      </tr>
+      <tr>
+        <td (click)="play('7')">
+          <img *ngIf="nuevoJuego.spot7!==''" class="img-game" src="./assets/imgs/{{nuevoJuego.spot7}}.svg" alt="">
+        </td>
+        <td (click)="play('8')">
+          <img *ngIf="nuevoJuego.spot8!==''" class="img-game" src="./assets/imgs/{{nuevoJuego.spot8}}.svg" alt="">
+        </td>
+        <td (click)="play('9')">
+          <img *ngIf="nuevoJuego.spot9!==''" class="img-game" src="./assets/imgs/{{nuevoJuego.spot9}}.svg" alt="">
+        </td>
+      </tr>
+    </table>
+  </form>
+</ion-content>

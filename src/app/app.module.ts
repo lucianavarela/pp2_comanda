@@ -1,79 +1,184 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { MyApp } from './app.component';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 //Paginas
-import { HomePage } from '../pages/home/home';
-import {  IniciarsesionPage } from '../pages/iniciarsesion/iniciarsesion';
-import {  RegistrarsePage } from '../pages/iniciarsesion/registrarse';
-
-
-
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import { HomePage } from './pages/home/home.page';
+import { IniciarsesionPage } from './pages/iniciarsesion/iniciarsesion.page';
+import { RegistrarsePage } from './pages/registrarse/registrarse.page';
+import { AppComponent } from './app.component';
+import { AltaClientePage } from './pages/clientes/alta-cliente/alta-cliente.page';
+import { ReservasPage }  from './pages/reservar/reservas/reservas.page';
+import { AbmEmpleadoPage } from './pages/abm-empleado/abm-empleado.page';
+import { CargaPedidoPage } from './pages/pedidos/carga-pedido/carga-pedido.page';
+import { EmpleadosPage } from './pages/empleados/empleados.page';
+import { MesasPage } from './pages/mesas/mesas.page';
+import { TatetiPage } from './pages/clientes/tateti/tateti.page';
+import { InicioClientePage } from './pages/inicio-cliente/inicio-cliente.page';
+import { BienvenidoPage } from './pages/bienvenido/bienvenido.page';
+import { JuegosHomePage } from './pages/clientes/juegos-home/juegos-home.page';
+import { AhorcadoPage } from './pages/clientes/ahorcado/ahorcado.page';
+import { ActivarClientesPage } from './pages/clientes/activar-clientes/activar-clientes.page';
+import { ListaReservasPage } from './pages/reservar/lista-reservas/lista-reservas.page';
+import { AltaSocioPage } from './pages/socio/alta-socio/alta-socio.page';
+import { DeliveryPage } from './pages/clientes/delivery/delivery.page';
+import { EncuestaPage } from './pages/clientes/encuesta/encuesta.page';
+import { EncuestasPage } from './pages/encuesta/encuestas/encuestas.page';
+import { ListaEsperaPage } from './pages/lista-espera/lista-espera.page';
+import { HomeQrPage } from './pages/Qr/home-qr/home-qr.page';
+import { DatosMesaPage } from './pages/datos-mesa/datos-mesa.page';
 
 //Servicios
-import { AuthenticationServiceProvider } from '../providers/authentication-service/authentication-service';
-import { ErrorsHandlerProvider } from '../providers/errors-handler/errors-handler';
-import { SpinnerHandlerProvider } from '../providers/spinner-handler/spinner-handler';
-import { HttpBaseProvider } from '../providers/http-base/http-base';
+import { HttpClient, HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthService } from './services/auth/auth.service';
+import { HttpService } from './services/http/http.service';
+import { ErrorHandlerService } from './services/error-handler/error-handler.service';
+import { SpinnerHandlerService } from './services/spinner-handler/spinner-handler.service';
 
 //Firebase
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-
 //configuraciones generales
 import { configs } from './../globalConfig';
 
-//sonido
-import { NativeAudio } from '@ionic-native/native-audio';
-
 //Camara
-import { Camera } from '@ionic-native/camera';
-import { HTTP } from '@ionic-native/http/ngx';
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+
+//Audio
+import { SmartAudioService } from './services/smart-audio/smart-audio.service';
 
 
+//Interceptors
+import { JwtInterceptor } from './services/interceptors/JWTInterceptor';
+import { ErrorInterceptor } from './services/interceptors/ErrorInterceptor';
+import { SpinnerInterceptor } from './services/interceptors/SpinnerInterceptor';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { RouterModule, RouteReuseStrategy } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
+import { PedidosMenuPage } from './pages/pedidos/pedidos-menu/pedidos-menu.page';
+import { TomaPedidoPage } from './pages/pedidos/toma-pedido/toma-pedido.page';
+import { PedidosComponentsModule } from './pages/pedidos/components/pedidos-components.module';
+import { ToastService } from './services/toast/toast.service';
+import { Vibration } from '@ionic-native/vibration/ngx';
+import { EstadoPedidoPage } from './pages/pedidos/estado-pedido/estado-pedido.page';
+import { AltaMenuPage } from './pages/abm-menu/alta-menu/alta-menu.page';
+import { ImagesService } from 'src/app/services/fotos/images.service';
+import { MenuService } from './services/menu/menu.service';
+import { SimonPage } from './pages/clientes/simon/simon.page';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
+import { ChatPage } from './pages/chat/chat.page';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { firebaseConfig } from 'src/environments/environment';
+import { Camera } from '@ionic-native/camera/ngx';
+
+
+export function getAccessToken() {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
   declarations: [
-    MyApp,
+    AppComponent,
     HomePage,
     IniciarsesionPage,
-    RegistrarsePage
-    
-    
-    
+    RegistrarsePage,
+    AbmEmpleadoPage,
+    CargaPedidoPage,
+    EmpleadosPage,
+    AltaClientePage,
+    ReservasPage,
+    MesasPage,
+    TatetiPage,
+    InicioClientePage,
+    BienvenidoPage,
+    JuegosHomePage,
+    AhorcadoPage,
+    ActivarClientesPage,
+    PedidosMenuPage,
+    TomaPedidoPage,
+    ListaReservasPage,
+    EstadoPedidoPage,
+    AltaMenuPage,
+    SimonPage,
+    AltaSocioPage,
+    DeliveryPage,
+    EncuestaPage,
+    EncuestasPage,
+    ListaEsperaPage,
+    HomeQrPage,
+    AltaMenuPage,
+    ChatPage,
+    DatosMesaPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(configs.firebaseConfig),
+    FormsModule,
+    PedidosComponentsModule,
+    ReactiveFormsModule,
+    AppRoutingModule,
+    IonicModule.forRoot(),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
     AngularFireDatabaseModule,
-    AngularFireAuthModule
-   
-    
+    AngularFirestoreModule,
+    HttpClientModule,
+    [JwtModule.forRoot({
+      config: {
+        tokenGetter: (getAccessToken),
+        whitelistedDomains: ['https://mauriciocerizza.github.io', 'localhost:4200', 'localhost:8100']
+      }
+    })]
+
   ],
-  bootstrap: [IonicApp],
+  bootstrap: [AppComponent],
   entryComponents: [
-    MyApp,
+    AppComponent,
     HomePage,
     IniciarsesionPage,
-    RegistrarsePage    
-    
+    RegistrarsePage
+
   ],
   providers: [
+    ErrorHandlerService,
+    ErrorHandler,
+    SpinnerHandlerService,
+    SmartAudioService,
+    HttpService,
+    AuthService,
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthenticationServiceProvider,
-    ErrorsHandlerProvider,
-    SpinnerHandlerProvider,
-    NativeAudio,
+    ToastService,
+    ImagesService,
+    MenuService,
+    Vibration,
+    BarcodeScanner,
+    Geolocation,
+    NativeGeocoder,
     Camera,
-    HttpBaseProvider,
-    HTTP
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: SpinnerInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
+    JwtHelperService
   ]
 })
-export class AppModule {}
+export class AppModule { }

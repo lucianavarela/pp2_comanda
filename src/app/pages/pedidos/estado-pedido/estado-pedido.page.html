@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="atras()">
+        <ion-icon name="arrow-round-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Estado Pedido</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-row *ngIf="pedidosList == null || pedidosList.length == 0">
+    <ion-col size="12">            
+      <ion-button color="success" expand="full">No Tiene Pedidos!!!!</ion-button>
+      </ion-col>
+  </ion-row>
+  <ion-row size="12" *ngIf="pedidosList.length > 0">
+    <app-datos-pedido *ngFor="let pedido of pedidosList" [pedido]="pedido"
+      (pedidoConfirmado)="confirmarEntrega($event, pedido)"></app-datos-pedido>
+  </ion-row>
+
+</ion-content>

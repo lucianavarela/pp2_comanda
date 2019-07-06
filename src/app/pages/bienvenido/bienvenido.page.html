@@ -1,0 +1,53 @@
+<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+<div id="custom-overlay" [style.display]="splash ? 'flex': 'none'">
+  <div class="flb">
+    <div class="Aligner-item Aligner-item--top">
+    </div>
+    <img src="assets/imgs/logo.png">
+    <div class="Aligner-item Aligner-item--bottom">
+    </div>
+  </div>
+</div>
+
+<ion-header>
+
+</ion-header>
+
+<ion-content class="pagina" padding color="light">
+  <!--Logo-->
+  <ion-row class="logo-row">
+    <ion-col></ion-col>
+
+    <ion-col size="8" [style.align-items]="center">
+      <img class="logo" src="assets/imgs/logo.png" />
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
+
+  <ion-row [style.align-items]="center">
+    <ion-col class="botones-redondos">
+      <ion-label> Bienvenido a nuestro restaurante</ion-label>
+    </ion-col>
+  </ion-row>
+  <ion-row [style.align-items]="center">
+      <ion-col class="botones-redondos">
+        <ion-label> Nuestra Aplicacion</ion-label>
+        <ion-label>
+            Si usted es cliente, seleccione la opción correspondiente en los botones que se encuentran debajo.
+          </ion-label>
+          <ion-label>
+            En ella podrá ver los detalles de su pedido, el estado del mismo y el costo a pagar. Al finalizar, se habilitará una breve encuesta de satifacción que usted podrá completar.
+          </ion-label>
+      </ion-col>
+    </ion-row>
+
+  <ion-row [style.align-items]="center">
+    <ion-col class="botones-redondos">
+      <ion-button color="primary" id="boton" routerLink="/inicioCliente" round>Clientes</ion-button>
+    </ion-col>
+    <ion-col class="botones-redondos">
+      <ion-button color="tertiary" id="boton" routerLink="/login" round>Empleados</ion-button>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

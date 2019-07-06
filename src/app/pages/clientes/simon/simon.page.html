@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar [color]="color">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Simón Dice</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="dark" padding>
+
+  <div>
+    <p style="text-align: center; font-weight: bold; font-style: italic; font-size: 20px; ">
+      ¿Podrás memorizar la secuencia? ¡Si lo lográs ganarás un premio!
+    </p>
+    <ion-text [color]="color">
+      <p style="text-align: center; font-weight: bold; font-size: 24px;">
+        {{secuenciaTxt}}
+      </p>
+    </ion-text>
+  </div>
+
+  <div>
+    <ion-fab style="margin-left: 15px;" vertical="center" horizontal="start">
+      <ion-fab-button [disabled]="this.estado != 'Jugando'" color="danger" (click)="btnRedOnClick()">
+        <ion-icon name="paw"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <ion-fab vertical="center" horizontal="center">
+      <ion-fab-button [disabled]="this.estado != 'Jugando'" color="success" (click)="btnGreenOnClick()">
+        <ion-icon name="flower"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <ion-fab style="margin-right: 15px;" vertical="center" horizontal="end">
+      <ion-fab-button [disabled]="this.estado != 'Jugando'" color="primary" (click)="btnBlueOnClick()">
+        <ion-icon name="planet"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+
+  <div>
+    <p *ngIf="this.estado == 'Jugando'" style="text-align: center; font-weight: bold; font-size: 16px; ">
+      Coincidencias: {{secuenciaElegida}}
+    </p>
+
+    <p style="text-align: center; font-weight: bold; font-size: 20px; ">
+      {{mensaje}}
+    </p>
+  </div>
+
+</ion-content>
+
+<ion-footer fixed>
+  <ion-toolbar color="dark">
+    <ion-button style="margin-left: 10px;" [color]="color" fill="solid" (click)="btnJugarOnClick()"
+      *ngIf="this.estado == 'No Jugando'">
+      <ion-icon slot="start" name="logo-game-controller-b"></ion-icon>
+      Jugar
+    </ion-button>
+
+    <ion-button style="margin-left: 10px;" [color]="color" fill="solid" (click)="btnReiniciarOnClick()"
+      *ngIf="this.estado == 'Jugando'">
+      <ion-icon slot="start" name="refresh"></ion-icon>
+      Reiniciar
+    </ion-button>
+
+    <ion-title *ngIf="this.estado == 'Finalizado'" slot="start">Juego Finalizado.</ion-title>
+
+    <ion-title *ngIf="this.estado != 'Finalizado'" slot="end"><ion-icon name="speedometer"></ion-icon> {{this.obtenerDescripcionDificultad()}} | <ion-icon name="heart"></ion-icon> {{numeroVidas}} 
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>
