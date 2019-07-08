@@ -38,7 +38,6 @@ export class DatosMesaPage implements OnInit {
     .subscribe(
       (res) => {
         this.menosUsadas = res;        
-        console.log(this.menosUsadas);        
       }
     )
  
@@ -46,7 +45,6 @@ export class DatosMesaPage implements OnInit {
     .subscribe(
       (res) => {
         this.mayorImportes = res;        
-        console.log(this.mayorImportes);        
       }
     )
  
@@ -54,7 +52,6 @@ export class DatosMesaPage implements OnInit {
     .subscribe(
       (res) => {
         this.menorImportes = res;        
-        console.log(this.menorImportes);        
       }
     )
 
@@ -62,7 +59,6 @@ export class DatosMesaPage implements OnInit {
     .subscribe(
       (res) => {
         this.mayorFacturaciones = res;        
-        console.log(this.mayorFacturaciones);        
       }
     )
 
@@ -70,7 +66,6 @@ export class DatosMesaPage implements OnInit {
     .subscribe(
       (res) => {
         this.menosFacturaciones = res;        
-        console.log(this.menosFacturaciones);        
       }
     )
  
@@ -78,7 +73,6 @@ export class DatosMesaPage implements OnInit {
     .subscribe(
       (res) => {
         this.mejorPuntuaciones= res;        
-        console.log(this.mejorPuntuaciones);        
       }
     )
  
@@ -86,7 +80,6 @@ export class DatosMesaPage implements OnInit {
     .subscribe(
       (res) => {
         this.peorPuntuaciones= res;        
-        console.log(this.peorPuntuaciones);        
       }
     )
   }

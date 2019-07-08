@@ -57,7 +57,6 @@ export class EstadoPedidoPage {
   }
 
   confirmarEntrega(pedido: Pedido) {
-    console.log('2');
     this.pedidoService.CambiarEstado(pedido.codigo, EstadosPedido.Finalizado)
       .then((res: any) => {
         if (res.Estado == 'OK') {

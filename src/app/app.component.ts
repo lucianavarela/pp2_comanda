@@ -25,6 +25,7 @@ export class AppComponent {
     this.audioService.preload('error', 'assets/sonidos/error.wav');
     this.audioService.preload('success', 'assets/sonidos/short.wav');
     this.audioService.preload('camera', 'assets/sonidos/camera.mp3');
+    this.audioService.preload('ding', 'assets/sonidos/ding.wav');
   }
   showSplash: boolean = true;
 

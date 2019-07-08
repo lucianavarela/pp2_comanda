@@ -1,4 +1,15 @@
 #menus_cargados {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+#total_pedido {
+  border-top: 1px solid gray;
+  padding: 1.5rem;
+}
+
+.menu-card {
+  width: 46%;
+  margin: 1rem 2%;
+  display: inline-block;
 }

@@ -120,7 +120,6 @@ export class AltaClientePage implements OnInit {
                 this.errorHandler.confirmationToast("Se dio de alta correctamente el cliente");
               })
               .catch(error => {
-                console.log(error);
                 this.errorHandler.errorToast(error);
               });
           } else {

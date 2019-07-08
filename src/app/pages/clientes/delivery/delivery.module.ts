@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { DeliveryPage } from './delivery.page';
 import { PedidosComponentsModule } from '../../pedidos/components/pedidos-components.module';
+import { DatosMenuComponent } from '../../pedidos/components/datos-menu/datos-menu.component';
 
 const routes: Routes = [
   {
@@ -21,7 +22,8 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    PedidosComponentsModule
+    PedidosComponentsModule,
+    DatosMenuComponent
   ],
   declarations: [DeliveryPage]
 })

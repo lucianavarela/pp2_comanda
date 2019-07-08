@@ -5,11 +5,13 @@ import { DatosPedidoComponent } from './datos-pedido/datos-pedido.component';
 import { CargarTiempoComponent } from './cargar-tiempo/cargar-tiempo.component';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DatosMenuComponent } from './datos-menu/datos-menu.component';
 
 @NgModule({
   declarations: [
     ListaPedidosComponent,
     DatosPedidoComponent,
+    DatosMenuComponent,
     CargarTiempoComponent
   ],
   imports: [
@@ -21,6 +23,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   exports: [
     ListaPedidosComponent,
     DatosPedidoComponent,
+    DatosMenuComponent,
     CargarTiempoComponent
   ]
 })
