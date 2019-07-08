@@ -27,10 +27,10 @@ export class DeliveryPage implements OnInit {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
   address: string;
-
+  total: number = 0;
   mesas: Mesa[] = [];
   menus: Menu[] = [];
-  menus_cargados: Menu[] = [];
+  menus_cargados: any[] = [];
   usuario: User;
   mesa: string;
   cliente: string;
@@ -88,38 +88,37 @@ export class DeliveryPage implements OnInit {
       });
   }
 
-  agregarMenu(id: number) {
-    let index = this.menus.findIndex(x => x.id == id);
-    this.menus_cargados.push(this.menus[index]);
-    this.menus_cargados = this.menus_cargados.sort((a: Menu, b: Menu) => {
-      if (a.nombre > b.nombre) {
-        return 1;
-      }
-      if (a.nombre < b.nombre) {
-        return -1;
-      }
-      return 0;
-    });
+  agregarMenu(menu: Menu) {
+    this.total += menu.precio;
+    let index = this.menus_cargados.findIndex(x => x['menu'].id == menu.id);
+    if (index > -1) {
+      this.menus_cargados[index]['cantidad']++;
+    } else {
+      this.menus_cargados.push({
+        'menu': menu,
+        'cantidad': 1
+      });
+    }
   }
 
-  eliminarMenu(id: number) {
-    let index = this.menus_cargados.findIndex(x => x.id == id);
-    this.menus_cargados.splice(index, 1);
+  eliminarMenu(menu: Menu) {
+    this.total -= menu.precio;
+    let index = this.menus_cargados.findIndex(x => x['menu'].id == menu.id);
+    if (this.menus_cargados[index]['cantidad'] > 1) {
+      this.menus_cargados[index]['cantidad']--;
+    } else {
+      this.menus_cargados.splice(index, 1);
+    }
   }
 
   generarPedido() {
-    if (this.menus_cargados.length == 0) {
-      this.toastService.errorToast("Debe seleccionar al menos un pedido.");
-      return;
-    }
-
     if (!this.address) {
       this.toastService.errorToast("Ingrese la dirección.");
       return;
     }
 
-    this.menus_cargados.forEach((menu) => {
-      this.pedidoService.Registrar("MES00", menu.id, this.cliente, 1, this.address, 0, this.authFireService.getCurrentUserMail()).then(
+    this.menus_cargados.forEach((item) => {
+      this.pedidoService.Registrar("MES00", item.menu.id, this.cliente, 1, this.address, 0, this.authFireService.getCurrentUserMail()).then(
         respuesta => {
           this.toastService.confirmationToast("Pedido realizado correctamente.");
           this.cargarListas();
