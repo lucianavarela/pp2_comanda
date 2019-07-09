@@ -16,7 +16,7 @@ import { ToastService } from 'src/app/services/toast/toast.service';
 })
 
 export class EstadoPedidoPage {
-  pedidosList: Pedido[] = [];
+  pedidosList: Pedido[] = null;
   mesa: string;
   cliente: string;
   usuario: any;
@@ -50,9 +50,7 @@ export class EstadoPedidoPage {
   traerPedidos(mesa: string) {
     this.pedidoService.ListarPorMesa(mesa).subscribe(
       (res) => {
-        this.pedidosList = res.filter(function (p) {
-          return p.estado != EstadosPedido.Finalizado && p.estado != EstadosPedido.Cancelado
-        })
+        this.pedidosList = res;
       });
   }
 
@@ -63,9 +61,7 @@ export class EstadoPedidoPage {
           this.errorHandler.confirmationToast("Pedido confirmado exitosamente.");
           this.pedidoService.ListarPorMesa(this.mesa).subscribe(
             (res) => {
-              this.pedidosList = res.filter(function (p) {
-                return p.estado != EstadosPedido.Finalizado && p.estado != EstadosPedido.Cancelado
-              })
+              this.pedidosList = res;
               if (this.pedidosList.length == 0) {
                 this.mesaService.CambiarEstado(this.mesa, EstadosMesa.Comiendo).then(
                   () => this.atras()
@@ -89,11 +85,10 @@ export class EstadoPedidoPage {
       .then((res: any) => {
         if (res.Estado == 'OK') {
           this.errorHandler.confirmationToast("Pedido cancelado exitosamente.");
-          this.pedidoService.ListarPorMesa(this.mesa).subscribe(
+          this.atras();
+          /*this.pedidoService.ListarPorMesa(this.mesa).subscribe(
             (res) => {
-              this.pedidosList = res.filter(function (p) {
-                return p.estado != EstadosPedido.Finalizado && p.estado != EstadosPedido.Cancelado
-              })
+              this.pedidosList = res;
               if (this.pedidosList.length == 0) {
                 let pedidosFinalizados = res.filter(function (p) {
                   return p.estado == EstadosPedido.Finalizado
@@ -108,9 +103,10 @@ export class EstadoPedidoPage {
                   );
                 }
               }
-            });
+            });*/
         } else {
           this.errorHandler.errorToast(res.Mensaje);
+          this.atras();
         }
       })
       .catch(error => {

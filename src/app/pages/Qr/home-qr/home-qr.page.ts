@@ -88,7 +88,7 @@ export class HomeQrPage implements OnInit {
               this.servicioMesa.CambiarEstado(this.usuarioOnline.mesa, EstadosMesa.Asignada);
               this.volver();
             }else{
-              this.errorHandler.confirmationToast(data["Mensaje"]);
+              this.errorHandler.errorToast(data["Mensaje"]);
               this.volver();
             }
             

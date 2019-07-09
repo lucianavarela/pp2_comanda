@@ -6,6 +6,8 @@ import { User } from 'src/app/models/user';
 import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
 import { AuthFireService } from '../../../services/auth.service';
 import { NavController } from '@ionic/angular';
+import { EstadosMesa } from 'src/app/models/mesa';
+import { MesaService } from 'src/app/services/mesa/mesa.service';
 
 @Component({
   selector: 'app-toma-pedido',
@@ -14,14 +16,14 @@ import { NavController } from '@ionic/angular';
 })
 export class TomaPedidoPage implements OnInit {
 
-  pedidosList: Pedido[];
+  pedidosList: Pedido[] = null;
   pedidoSeleccionado: Pedido;
   pedidoEnPreparacion: Pedido;
   usuario: any;
   mostrarCargarTiempo: boolean;
   mode: string = '';
 
-  constructor(private pedidoService: PedidoService, private errorHandler: ErrorHandlerService,
+  constructor(private pedidoService: PedidoService, private errorHandler: ErrorHandlerService, private mesaService: MesaService,
     private authService: AuthService, private navCtrl: NavController, private authFireService: AuthFireService) {
 
     this.usuario = this.authService.token();
@@ -131,7 +133,7 @@ export class TomaPedidoPage implements OnInit {
             this.errorHandler.mostrarMensajeConfimación("Pedido tomado exitosamente.");
             this.pedidoService.UpdateDelivery(pedido.codigo, this.authFireService.getCurrentUserMail())
               .then(() => {
-                this.navCtrl.navigateForward('/home');
+                this.atras();
               });
           } else {
             this.errorHandler.mostrarMensajeError(res.Mensaje);
@@ -184,5 +186,48 @@ export class TomaPedidoPage implements OnInit {
       .finally(() => {
         this.actualizarListaPedidos();
       });
+  }
+
+  cancelarPedido(pedido: Pedido) {
+    this.pedidoService.Cancelar(pedido.codigo)
+      .then((res) => {
+        if (res.Estado == 'OK') {
+          this.errorHandler.mostrarMensajeConfimación("Pedido cancelado exitosamente.");
+          this.atras();
+          /*this.pedidoService.ListarTodos().subscribe(
+            (res) => {
+              this.pedidosList = res.filter((p)=>{
+                return p.mesa == pedido.mesa;
+              });
+              if (this.pedidosList.length == 0) {
+                let pedidosFinalizados = res.filter(function (p) {
+                  return p.estado == EstadosPedido.Finalizado
+                });
+                if (pedidosFinalizados.length > 0) {
+                  this.mesaService.CambiarEstado(pedido.mesa, EstadosMesa.Comiendo).then(
+                    () => this.atras()
+                  );
+                } else {
+                  this.mesaService.CambiarEstado(pedido.mesa, EstadosMesa.Asignada).then(
+                    () => this.atras()
+                  );
+                }
+              }
+            });*/
+        } else {
+          this.errorHandler.mostrarMensajeError(res.Mensaje);
+          this.atras();
+        }
+      })
+      .catch(error => {
+        this.errorHandler.mostrarMensajeError(error);
+      })
+      .finally(() => {
+        this.actualizarListaPedidos();
+      });
+  }
+
+  atras() {
+    this.navCtrl.navigateForward('/home');
   }
 }

@@ -19,6 +19,7 @@ export class DatosPedidoComponent implements OnChanges {
   constructor(private pedidoService: PedidoService, private errorHandler: ToastService,
     private clienteService: ClienteService) {
     this.pedidoConfirmado = new EventEmitter();
+    this.pedidoCancelado = new EventEmitter();
   }
 
   ngOnChanges() {

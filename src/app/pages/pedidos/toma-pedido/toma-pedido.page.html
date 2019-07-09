@@ -7,9 +7,9 @@
     <ion-title *ngIf="usuario.tipo=='Mozo'&&mode=='servir'">Servir Pedidos Listos</ion-title>
     <ion-title *ngIf="usuario.tipo=='Mozo'&&mode=='autorizar'">Autorizar Pedidos</ion-title>
     <ion-title *ngIf="mode=='delivery'">Repartir Pedidos</ion-title>
-    <ion-buttons *ngIf="usuario.tipo=='Mozo'&&mode=='autorizar'&&pedidosList.length>0" slot="end">
+    <ion-buttons *ngIf="usuario.tipo=='Mozo'&&mode=='autorizar'&&pedidosList!=null&&pedidosList.length>0" slot="end">
       <ion-button (click)="autorizarTodos()">
-          <ion-icon name="checkbox-outline"></ion-icon>
+        <ion-icon name="checkbox-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -21,7 +21,8 @@
     [paraEntregar]="this.usuario.tipo == 'Mozo'"></app-lista-pedidos>
   <app-cargar-tiempo *ngIf="mostrarCargarTiempo" [pedido]="this.pedidoSeleccionado"
     (onCancelar)="actualizarListaPedidos()" (onSubmit)="cargarTiempo($event)"></app-cargar-tiempo>
-  <app-datos-pedido *ngIf="!mostrarCargarTiempo" [pedido]="pedidoSeleccionado"></app-datos-pedido>
+  <app-datos-pedido *ngIf="!mostrarCargarTiempo" [pedido]="pedidoSeleccionado"
+    (pedidoCancelado)="cancelarPedido($event)"></app-datos-pedido>
 
   <ion-button *ngIf="pedidoEnPreparacion != null" expand="full" (click)="terminarPedido()">
     Terminar Pedido

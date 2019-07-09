@@ -1,15 +1,16 @@
-<ion-title>Lista de pedidos en espera</ion-title>
 <ion-grid fixed>
   <ion-row *ngIf="pedidosList == null || pedidosList.length == 0">
-    <ion-col size="12">            
-      <ion-button color="success" expand="full">No hay Pedidos!!!!</ion-button>
-      </ion-col>
+    <ion-col style="text-align: center">
+      <ion-text>
+        <h5 style="color: rgb(150, 150, 150)">SIN PEDIDOS</h5>
+      </ion-text>
+    </ion-col>
   </ion-row>
   <ion-row style="align-content: center; align-items: center" *ngFor="let pedido of pedidosList">
     <ion-col size="8">[{{pedido.mesa}}] {{pedido.descripcion}}</ion-col>
     <ion-col size="2">
       <ion-button size="small" (click)="verDetalle(pedido)">
-          <ion-icon slot="icon-only" name="information-circle-outline"></ion-icon>
+        <ion-icon slot="icon-only" name="information-circle-outline"></ion-icon>
       </ion-button>
     </ion-col>
     <ion-col size="2">
