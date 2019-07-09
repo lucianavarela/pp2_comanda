@@ -57,7 +57,7 @@ export class InicioClientePage implements OnInit {
                 this.audioService.play('login');
                 localStorage.setItem('token', response['Token']);
                 this.navCtrl.navigateForward('/home');
-                this.verificarReserva();
+              //  this.verificarReserva();
                 // this.toastService.errorToast('Bienvenido');
 
               })

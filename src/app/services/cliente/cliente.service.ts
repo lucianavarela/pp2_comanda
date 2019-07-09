@@ -101,5 +101,12 @@ export class ClienteService {
     return this.miHttp.httpPostL("clientes/descuento", dataCliente);
   }
 
+  public TraerDescuento(id: string): Promise<Object> {
+    return this.miHttp.httpGetPL('clientes/descuento/' + id);
+  }
+
+  public TraerCliente(id: string): Promise<Object> {
+    return this.miHttp.httpGetPL('clientes/' + id);
+  }
 
 }
