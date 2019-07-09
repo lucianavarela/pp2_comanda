@@ -172,4 +172,17 @@ export class TomaPedidoPage implements OnInit {
         this.actualizarListaPedidos();
       });
   }
+
+  public autorizarTodos() {
+    this.pedidoService.AutorizarTodosLosPedidos()
+      .then(response => {
+        this.errorHandler.mostrarMensajeConfimación("Pedidos autorizados exitosamente.");
+      })
+      .catch(error => {
+        this.errorHandler.mostrarMensajeError("Ocurrió un error.");
+      })
+      .finally(() => {
+        this.actualizarListaPedidos();
+      });
+  }
 }

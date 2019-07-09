@@ -74,7 +74,7 @@
   </app-lista-pedidos>
 
   <app-datos-pedido *ngIf="pedidoSeleccionado" [pedido]="pedidoSeleccionado"
-    (pedidoConfirmado)="confirmarEntrega($event, pedido)"></app-datos-pedido>
+    (pedidoConfirmado)="confirmarEntrega($event, pedido)" (pedidoCancelado)="cancelarPedido($event, pedido)"></app-datos-pedido>
 
 
 </ion-content>

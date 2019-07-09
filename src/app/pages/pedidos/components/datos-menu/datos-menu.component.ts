@@ -23,7 +23,7 @@ export class DatosMenuComponent implements OnChanges {
   }
 
   seleccionar(menu: Menu) {
-    this.audioService.play('inicio');
+    this.audioService.play('ding');
     this.menuConfirmado.emit(menu)
   }
 }

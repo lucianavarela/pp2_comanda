@@ -1,30 +1,35 @@
 //@import '~@ionic/angular/css/normalize.css';
 @import url("http://fonts.googleapis.com/css?family=Droid+Sans:400,700");
 
-ion-content{
-  --ion-background-color:#91d7e2;
+ion-content {
+  --ion-background-color: #91d7e2;
 }
 
-  
+#botones {
+  margin-top: 3rem;
+}
 
-  .scroll-content {
-    background-color:  #91d7e2;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-bottom: 0px !important;
-    font-family: "Droid Sans", sans-serif;
-  }
+.margin-top {
+  margin-top: 2rem;
+}
 
-  .pagina {
-    background-color:  #91d7e2;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-bottom: 100px !important;
-    font-family: "Droid Sans", sans-serif;
-  }
+.scroll-content {
+  background-color: #91d7e2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 0px !important;
+  font-family: "Droid Sans", sans-serif;
+}
 
+.pagina {
+  background-color: #91d7e2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 100px !important;
+  font-family: "Droid Sans", sans-serif;
+}
 
 /*animacion*/
 #custom-overlay {
@@ -38,7 +43,7 @@ ion-content{
   background-color: #002a3e;
 }
 .flb {
-  background-color:  #91d7e2;
+  background-color: #91d7e2;
   height: 100%;
   width: 100%;
   animation: pulse 1s linear forwards;

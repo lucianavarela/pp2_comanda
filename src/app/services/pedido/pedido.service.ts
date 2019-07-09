@@ -22,7 +22,7 @@ export class PedidoService {
     return this.miHttp.httpGetO<Pedido[]>('pedido/listarActivos/');
   }
 
-  public Registrar(idMesa: string, idMenu: number, nombreCliente: string, es_delivery: number, direccion_delivery: string = '', id_mozo: number = 0, fire_mail_cliente: string = ''): Promise<Object> {
+  public Registrar(idMesa: string, idMenu: number, nombreCliente: string, es_delivery: number, id_mozo: number = 0, direccion_delivery: string = '', fire_mail_cliente: string = ''): Promise<Object> {
     const request: Object = {
       id_mesa: idMesa,
       id_menu: idMenu,
@@ -33,6 +33,10 @@ export class PedidoService {
       fire_mail_cliente: fire_mail_cliente
     };
     return this.miHttp.httpPostP('pedido/registrar/', request);
+  }
+
+  public AutorizarTodosLosPedidos() {
+    return this.miHttp.httpPostP('pedido/autorizarTodos/', {});
   }
 
   public Cancelar(codigo: string) {

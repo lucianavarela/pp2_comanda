@@ -118,7 +118,7 @@ export class DeliveryPage implements OnInit {
     }
 
     this.menus_cargados.forEach((item) => {
-      this.pedidoService.Registrar("MES00", item.menu.id, this.cliente, 1, this.address, 0, this.authFireService.getCurrentUserMail()).then(
+      this.pedidoService.Registrar("MES00", item.menu.id, this.cliente, 1, 0, this.address, this.authFireService.getCurrentUserMail()).then(
         respuesta => {
           this.toastService.confirmationToast("Pedido realizado correctamente.");
           this.cargarListas();
@@ -200,6 +200,25 @@ export class DeliveryPage implements OnInit {
       .then((res: any) => {
         if (res.Estado == 'OK') {
           this.toastService.confirmationToast("Pedido entregado exitosamente.");
+          this.atras();
+        } else {
+          this.toastService.errorToast(res.Mensaje);
+        }
+      })
+      .catch(error => {
+        this.toastService.errorToast(error);
+      })
+      .finally(() => {
+        this.atras();
+      });
+  }
+
+
+  cancelarPedido(pedido: Pedido) {
+    this.pedidoService.Cancelar(pedido.codigo)
+      .then((res: any) => {
+        if (res.Estado == 'OK') {
+          this.toastService.confirmationToast("Pedido cancelado exitosamente.");
           this.atras();
         } else {
           this.toastService.errorToast(res.Mensaje);

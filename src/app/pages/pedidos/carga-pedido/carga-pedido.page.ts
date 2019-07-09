@@ -98,20 +98,32 @@ export class CargaPedidoPage {
   generarPedido() {
     if (this.mesa != "") {
       let mozo = this.usuario.tipo == 'Mozo' ? this.usuario.id : 0;
-      if (this.cliente != "") {
+      if (this.cliente) {
         this.menus_cargados.forEach((item) => {
-          for (let i=0;i<item.cantidad;i++) {
+          for (let i = 0; i < item.cantidad; i++) {
             this.guardarPedido(this.mesa, item.menu.id, this.cliente, 0, mozo);
           }
         });
-        this.mesaService.CambiarEstado(this.mesa, EstadosMesa.EsperandoPedido);
+        this.mesaService.CambiarEstado(this.mesa, EstadosMesa.EsperandoPedido)
+          .then(
+            () => {
+              this.errorHandler.confirmationToast('Pedido registrado!');
+              this.navCtrl.navigateForward('/home');
+            }
+          );
       } else {
         this.clienteService.GetClientedeMesa(this.mesa).subscribe(cliente => {
           if (cliente != undefined) {
-            this.menus_cargados.forEach((menu) => {
-              this.guardarPedido(this.mesa, menu.id, cliente.usuario, 0, mozo);
+            this.menus_cargados.forEach((item) => {
+              this.guardarPedido(this.mesa, item.menu.id, cliente.usuario, 0, mozo);
             });
-            this.mesaService.CambiarEstado(this.mesa, EstadosMesa.EsperandoPedido);
+            this.mesaService.CambiarEstado(this.mesa, EstadosMesa.EsperandoPedido)
+              .then(
+                () => {
+                  this.errorHandler.confirmationToast('Pedido registrado!');
+                  this.navCtrl.navigateForward('/home');
+                }
+              );
           } else {
             this.errorHandler.errorToast('Error al cargar el pedido')
           }
@@ -124,10 +136,7 @@ export class CargaPedidoPage {
     this.pedidoService.Registrar(mesa, menu, cliente, es_delivery, mozo)
       .then(
         (res: any) => {
-          if (res.Estado == 'OK') {
-            this.errorHandler.confirmationToast('Pedido registrado!');
-            this.navCtrl.navigateForward('/home');
-          } else {
+          if (res.Estado != 'OK') {
             this.errorHandler.errorToast(res.Mensaje);
           }
         }

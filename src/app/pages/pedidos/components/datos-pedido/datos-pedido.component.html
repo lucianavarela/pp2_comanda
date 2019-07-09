@@ -8,14 +8,18 @@
   </ion-card-header>
 
   <ion-card-content>
-    <b *ngIf="pedido.mesa!='MES00'">Mesa:</b> {{pedido.mesa}}<br>
+    <span *ngIf="pedido.mesa!='MES00'"><b>Mesa:</b> {{pedido.mesa}}<br></span>
+    <b *ngIf="pedido.mesa=='MES00'">DELIVERY<br></b>
+    <span *ngIf="pedido.mesa=='MES00'"><b>Dirección:</b> {{pedido.direccion_delivery}}<br></span>
     <b>Estado:</b> {{pedido.estado}}<br>
     <b>Fecha:</b> {{pedido.fecha}} {{pedido.hora_inicial}}<br>
     <b>Importe:</b> ${{pedido.importe}}<br>
     <b>Hora de entrega estimada:</b> {{pedido.hora_entrega_estimada}}<br>
-    <b *ngIf="pedido.mesa=='MES00'">Dirección:</b> {{pedido.direccion_delivery}}<br>
     <ion-button *ngIf="pedido.estado=='Entregado'" expand="full" (click)="confirmarEntrega(pedido)">
       Confirmar Entrega
+    </ion-button>
+    <ion-button *ngIf="pedido.estado=='Pendiente'" expand="full" (click)="cancelarPedido(pedido)">
+      Cancelar Pedido
     </ion-button>
   </ion-card-content>
 </ion-card>

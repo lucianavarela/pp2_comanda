@@ -45,6 +45,6 @@
     </ion-col>
   </ion-row>
 
-  <ion-button *ngIf="menus_cargados.length > 0" expand="full" color="primary" id="boton" (click)="generarPedido()"
+  <ion-button *ngIf="menus_cargados.length > 0 && mesa" expand="full" color="primary" id="boton" (click)="generarPedido()"
     round>Pedir</ion-button>
 </ion-content>

@@ -68,8 +68,45 @@ export class EstadoPedidoPage {
               })
               if (this.pedidosList.length == 0) {
                 this.mesaService.CambiarEstado(this.mesa, EstadosMesa.Comiendo).then(
-                  ()=>this.atras()
+                  () => this.atras()
                 );
+              }
+            });
+        } else {
+          this.errorHandler.errorToast(res.Mensaje);
+        }
+      })
+      .catch(error => {
+        this.errorHandler.errorToast(error);
+      })
+      .finally(() => {
+        this.traerPedidos(this.mesa);
+      });
+  }
+
+  cancelarPedido(pedido: Pedido) {
+    this.pedidoService.Cancelar(pedido.codigo)
+      .then((res: any) => {
+        if (res.Estado == 'OK') {
+          this.errorHandler.confirmationToast("Pedido cancelado exitosamente.");
+          this.pedidoService.ListarPorMesa(this.mesa).subscribe(
+            (res) => {
+              this.pedidosList = res.filter(function (p) {
+                return p.estado != EstadosPedido.Finalizado && p.estado != EstadosPedido.Cancelado
+              })
+              if (this.pedidosList.length == 0) {
+                let pedidosFinalizados = res.filter(function (p) {
+                  return p.estado == EstadosPedido.Finalizado
+                });
+                if (pedidosFinalizados.length > 0) {
+                  this.mesaService.CambiarEstado(this.mesa, EstadosMesa.Comiendo).then(
+                    () => this.atras()
+                  );
+                } else {
+                  this.mesaService.CambiarEstado(this.mesa, EstadosMesa.Asignada).then(
+                    () => this.atras()
+                  );
+                }
               }
             });
         } else {

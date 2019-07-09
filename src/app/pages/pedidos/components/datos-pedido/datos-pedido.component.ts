@@ -12,6 +12,7 @@ import { ClienteService } from 'src/app/services/cliente/cliente.service';
 export class DatosPedidoComponent implements OnChanges {
 
   @Output() pedidoConfirmado: EventEmitter<Pedido>;
+  @Output() pedidoCancelado: EventEmitter<Pedido>;
   @Input() pedido: Pedido;
   foto: string;
 
@@ -34,5 +35,9 @@ export class DatosPedidoComponent implements OnChanges {
 
   confirmarEntrega(pedido: Pedido) {
     this.pedidoConfirmado.emit(pedido);
+  }
+
+  cancelarPedido(pedido: Pedido) {
+    this.pedidoCancelado.emit(pedido);
   }
 }

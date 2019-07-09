@@ -1,5 +1,4 @@
 <ion-card *ngIf="menu != null" (click)="seleccionar(menu)">
-  <ion-ripple-effect></ion-ripple-effect>
   <ion-img *ngIf="menu.foto" [src]="menu.foto"></ion-img>
   <ion-card-header class="menu-card">
     <ion-card-title>{{menu.nombre}}</ion-card-title>

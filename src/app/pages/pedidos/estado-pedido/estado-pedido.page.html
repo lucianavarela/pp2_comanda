@@ -17,7 +17,7 @@
   </ion-row>
   <ion-row size="12" *ngIf="pedidosList.length > 0">
     <app-datos-pedido *ngFor="let pedido of pedidosList" [pedido]="pedido"
-      (pedidoConfirmado)="confirmarEntrega($event, pedido)"></app-datos-pedido>
+      (pedidoConfirmado)="confirmarEntrega($event, pedido)" (pedidoCancelado)="cancelarPedido($event, pedido)"></app-datos-pedido>
   </ion-row>
 
 </ion-content>
