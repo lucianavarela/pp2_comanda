@@ -109,4 +109,13 @@ export class ClienteService {
     return this.miHttp.httpGetPL('clientes/' + id);
   }
 
+ //le paso un cliente con el id y el monto cargado
+  public CargarMonto(dataCliente: Cliente) {
+    return this.miHttp.httpPostL("clientes/monto", dataCliente);
+  }
+//le paso  el id 
+  public SacarMonto(id: string): Promise<Object> {
+    return this.miHttp.httpDeletePL('clientes/monto/' + id);
+  }
+
 }

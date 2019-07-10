@@ -27,9 +27,13 @@ export class HomeQrPage implements OnInit {
   cliente: Cliente;
   usuarioOnline: any;
   myDate = new Date();
-  hora1 = new Date('2019-06-28 12:20:00');
-  hora2 = new Date('2019-06-28 13:00:00');
+  myDate1 =  new Date().toISOString().substring(0, 10);
+ 
+  hora1 = new Date(this.myDate1 + " "+"09:00:00");
+  hora2 = new Date(this.myDate1 + " "+"13:00:00");
+
   flag: boolean = false;
+  reservaCliente: Reserva;
 
   listadoIconos: Array<any> = [
     {
@@ -78,6 +82,8 @@ export class HomeQrPage implements OnInit {
           this.volver();
         });
     } else if (qr.indexOf('MESA-') > -1) {
+      if(this.consultarReservaDelCliente (qr.replace('MESA-', '') ) ){
+      
       this.verificarReserva(qr.replace('MESA-', ''));
       if (this.flag == false) {
         this.usuarioOnline.mesa = qr.replace('MESA-', '');
@@ -100,6 +106,11 @@ export class HomeQrPage implements OnInit {
         this.errorHandler.errorToast("Esta mesa no esta libre");
         this.volver();
       }
+
+    }else{
+      this.errorHandler.errorToast("Usted tiene reservada otra mesa");
+        this.volver();
+    }
     } else if (qr.indexOf('PROPINA-') > -1) {
       if (this.usuarioOnline.tipo == 'registrado' || this.usuarioOnline.tipo == 'anonimo') {
         this.clienteService.GetCliente(this.usuarioOnline.id).subscribe(cliente => {
@@ -183,12 +194,16 @@ export class HomeQrPage implements OnInit {
       let diferencia;
       if (reservas.length > 0) {
         reservas.forEach(reserva => {
+          if(this.reservaCliente.codigo_mesa != reserva.codigo_mesa || this.reservaCliente == null ){
           let horaR = new Date(reserva.fecha.substr(0, 10) + " " + reserva.hora)
           tiempo = this.myDate.getTime() - horaR.getTime();
           diferencia = Math.floor((tiempo / 1000 / 60) << 0)
           if (diferencia < 40) {
             respuesta = true;
           }
+
+          }
+          
         });
       }
     }
@@ -231,4 +246,23 @@ export class HomeQrPage implements OnInit {
   volver() {
     this.navCtrl.navigateForward('/home');
   }
+
+  
+  consultarReservaDelCliente( mesa){
+    let respuesta = false;
+
+    this.servicioReserva.TraerCliente(this.usuarioOnline.id).
+    subscribe(  (res) => {
+      if(res){
+        this.reservaCliente = res;
+        if(this.reservaCliente.codigo_mesa == mesa && this.reservaCliente.estado == 'A'){
+            respuesta = true;
+          }      
+      }
+    })
+    return respuesta;
+  }
+
+
+
 }
