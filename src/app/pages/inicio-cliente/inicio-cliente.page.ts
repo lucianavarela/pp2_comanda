@@ -57,7 +57,7 @@ export class InicioClientePage implements OnInit {
                 this.audioService.play('login');
                 localStorage.setItem('token', response['Token']);
                 this.navCtrl.navigateForward('/home');
-              //  this.verificarReserva();
+                this.verificarReserva();
                 // this.toastService.errorToast('Bienvenido');
 
               })
@@ -107,7 +107,7 @@ export class InicioClientePage implements OnInit {
   CargarDefault(tipo: string) {
     switch (tipo) {
       case 'S':
-        this.dataLogin = new Login('belen', 'qwerty');
+        this.dataLogin = new Login('josecito1', 'qwerty');
         this.singIn();
         break;
       case 'B':

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService } from '../http/http.service';
 import { Encuesta } from '../../models/encuesta';
+import { EncuestaEmpleado } from 'src/app/models/encuestaEmpleado';
 
 @Injectable({
   providedIn: 'root'
@@ -32,4 +33,14 @@ export class EncuestaService {
   public Enviar( data : Encuesta){
     return this.miHttp.httpPostP('encuesta/registrar/', data);
   }
+
+
+  public CargarEmpleado( encuesta : EncuestaEmpleado){
+    return this.miHttp.httpPostL('encuesta/registrar/', encuesta);    
+  }
+
+  public ListarEmpleado(): Observable<EncuestaEmpleado[]> {
+    return this.miHttp.httpGetOL<EncuestaEmpleado[]>('encuesta/listar/');
+  }
+
 }

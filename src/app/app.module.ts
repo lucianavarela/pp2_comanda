@@ -29,6 +29,9 @@ import { EncuestasPage } from './pages/encuesta/encuestas/encuestas.page';
 import { ListaEsperaPage } from './pages/lista-espera/lista-espera.page';
 import { HomeQrPage } from './pages/Qr/home-qr/home-qr.page';
 import { DatosMesaPage } from './pages/datos-mesa/datos-mesa.page';
+import { EncuestaEmpleadoPage } from './pages/encuesta/encuesta-empleado/encuesta-empleado.page';
+import { EncuestaHomePage } from './pages/encuesta/encuesta-home/encuesta-home.page';
+import { LlenarEncuestaPage } from './pages/encuesta/llenar-encuesta/llenar-encuesta.page';
 
 //Servicios
 import { HttpClient, HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -114,7 +117,10 @@ export function getAccessToken() {
     HomeQrPage,
     AltaMenuPage,
     ChatPage,
-    DatosMesaPage
+    DatosMesaPage,
+    EncuestaEmpleadoPage,
+    EncuestaHomePage,
+    LlenarEncuestaPage
   ],
   imports: [
     BrowserModule,

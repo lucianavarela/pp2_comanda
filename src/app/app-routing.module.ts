@@ -29,6 +29,9 @@ import { AltaMenuPage } from './pages/abm-menu/alta-menu/alta-menu.page';
 import { SimonPage } from './pages/clientes/simon/simon.page';
 import { ChatPage } from './pages/chat/chat.page';
 import { DatosMesaPage } from './pages/datos-mesa/datos-mesa.page';
+import { EncuestaEmpleadoPage } from './pages/encuesta/encuesta-empleado/encuesta-empleado.page';
+import { EncuestaHomePage } from './pages/encuesta/encuesta-home/encuesta-home.page';
+import { LlenarEncuestaPage } from './pages/encuesta/llenar-encuesta/llenar-encuesta.page';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -68,7 +71,10 @@ const routes: Routes = [
   { path: 'home-qr',  component: HomeQrPage },
   { path: 'alta-menu', component: AltaMenuPage },
   { path: 'chat', component: ChatPage },
-  { path: 'datos-mesa', component: DatosMesaPage }
+  { path: 'datos-mesa', component: DatosMesaPage },
+  { path: 'encuesta-empleado', component: EncuestaEmpleadoPage },
+  { path: 'encuesta-home', component: EncuestaHomePage},
+  { path: 'llenar-encuesta', component: LlenarEncuestaPage }
 ];
 
 @NgModule({

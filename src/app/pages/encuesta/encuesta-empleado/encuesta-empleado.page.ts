@@ -1,32 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { MesaService } from 'src/app/services/mesa/mesa.service';
 import { NavController } from '@ionic/angular';
 import { EncuestaService } from 'src/app/services/encuesta/encuesta.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
-import { Encuesta } from 'src/app/models/encuesta';
+import { EncuestaEmpleado } from 'src/app/models/encuestaEmpleado';
 
 @Component({
-  selector: 'app-encuestas',
-  templateUrl: './encuestas.page.html',
-  styleUrls: ['./encuestas.page.scss'],
+  selector: 'app-encuesta-empleado',
+  templateUrl: './encuesta-empleado.page.html',
+  styleUrls: ['./encuesta-empleado.page.scss'],
 })
-export class EncuestasPage implements OnInit {
+export class EncuestaEmpleadoPage implements OnInit {
 
-  encuestas: Encuesta[] = [];
+  encuestas: EncuestaEmpleado[] = [];
 
-  constructor(private mesaService: MesaService,
-    private navCtrl: NavController, private miHttp : EncuestaService,
+  constructor(private navCtrl: NavController, private miHttp : EncuestaService,
     private toasterService: ToastService) { }
 
   ngOnInit() {
   }
 
-
   ionViewWillEnter() {
     this.listarEncuesta();   
   }
+
   listarEncuesta(){
-    this.miHttp.Listar().subscribe(
+    this.miHttp.ListarEmpleado().subscribe(
       (res) => {
        this.encuestas= res;
        this.orderByDate();
@@ -37,6 +35,7 @@ export class EncuestasPage implements OnInit {
   volver() {
     this.navCtrl.navigateForward('/home');
   }
+
 
   private orderByDate(){
     this.encuestas.sort((a, b)=>{

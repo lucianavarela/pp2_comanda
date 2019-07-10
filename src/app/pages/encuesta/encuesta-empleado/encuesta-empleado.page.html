@@ -1,0 +1,32 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-button (click)="volver()">
+          <ion-icon name="arrow-round-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    <ion-title>Encuestas Empleados</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+      <ion-card *ngFor="let encuesta of encuestas">
+          <ion-card-header>
+            <ion-card-subtitle>Encuesta de {{encuesta.sector}}</ion-card-subtitle>
+            <ion-card-title>{{encuesta.nombre}}</ion-card-title>
+            <ion-avatar>
+              <ion-img [src]="encuesta.foto"></ion-img>
+            </ion-avatar>
+          </ion-card-header>
+        
+          <ion-card-content>
+            <b>Puntaje:</b> {{encuesta.puntaje}}<br>
+            <b>Comentario:</b> {{encuesta.comentario}}<br>
+            <b>Fecha:</b> {{encuesta.fecha.substr(0,10)}}<br>
+                                   
+          </ion-card-content>
+
+        </ion-card>
+
+</ion-content>

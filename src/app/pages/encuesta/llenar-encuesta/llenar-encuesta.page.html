@@ -1,0 +1,58 @@
+<ion-header>
+    <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>llenarEncuesta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  padding >
+
+    <ion-row  [style.align-items]="center">
+  
+      <ion-col size="6" [style.align-items]="center">
+          <ion-label >Sector</ion-label>
+          <ion-item >
+            <ion-icon name="pin"></ion-icon>
+            <ion-label >{{ this.usuarioOnline.tipo}}</ion-label>
+          </ion-item>
+        </ion-col>
+       <ion-col size= '6' [style.align-items]="center">
+            <ion-label >Puntuación: {{encuesta.puntaje}}</ion-label>
+            <ion-range  [(ngModel)]="encuesta.puntaje"  min="1" max="10"   color="secondary">
+                <ion-label slot="start">1</ion-label>
+                <ion-label slot="end">10</ion-label>
+              </ion-range>
+  
+        </ion-col>
+      </ion-row>
+  
+      <ion-row  [style.align-items]="center">
+            <ion-col size="6" [style.align-items]="center">
+                <textarea id="mensaje" class="mensaje-container" [(ngModel)]="encuesta.comentario" rows=2 maxlength="10"  placeholder="Escribir mensaje"></textarea>
+              </ion-col>
+         </ion-row>
+
+         <ion-row [style.align-items]="center">
+            <ion-col class="botones-redondos" >
+              <ion-button color="primary" id="boton" (click)="getPicture()" round>[ Tomar Foto ]</ion-button>
+            </ion-col>
+           
+          </ion-row>
+          
+           
+    <ion-row [style.align-items]="center">
+        <ion-col class="botones-redondos">
+          <ion-button color="primary" id="boton" (click)="Enviar()" round>Enviar</ion-button>
+        </ion-col>
+        <ion-col class="botones-redondos" >
+          <ion-button color="secondary" id="boton" (click)="volver()" round>Cancel</ion-button>
+        </ion-col>
+      </ion-row>    
+           
+         
+  
+  
+  </ion-content>
+  

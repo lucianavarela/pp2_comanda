@@ -83,7 +83,7 @@ export class HomePage {
     {
       nombre: "verEncuestas",
       imagen: "assets/imgs/home/encuesta.png",
-      accion: "verEncuestas"
+      accion: "encuesta-home"
     },
     {
       nombre: "listaEspera",
@@ -104,6 +104,11 @@ export class HomePage {
       nombre: "datosMesa",
       imagen: "assets/imgs/home/mesaEsta.png",
       accion: "datos-mesa"
+    },
+    {
+      nombre: "llenarEncuesta",
+      imagen: "assets/imgs/home/encuesta.png",
+      accion: "llenar-encuesta"
     },
   ]
 
@@ -146,7 +151,7 @@ export class HomePage {
         .filter(listado => listado.nombre == "pedidos");
     } else if (this.usuarioOnline.tipo == "Cocinero" || this.usuarioOnline.tipo == "Bartender") {
       this.listadoIconos = this.listados
-        .filter(listado => listado.nombre == "pedidos" || listado.nombre == "menu");
+        .filter(listado => listado.nombre == "pedidos" || listado.nombre == "menu" || listado.nombre == "llenarEncuesta" );
     } else if (this.usuarioOnline.tipo == "Mozo") {
       this.listadoIconos = this.listados
         .filter(listado => listado.nombre == "pedidos" || listado.nombre == "clientes" || listado.nombre == "reservas" || listado.nombre == "mesas");

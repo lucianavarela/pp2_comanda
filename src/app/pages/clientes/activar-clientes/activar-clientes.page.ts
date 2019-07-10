@@ -29,6 +29,7 @@ export class ActivarClientesPage implements OnInit {
       subscribe(
         (res) => {
           this.empleados = res;
+          this.orderByDate();
         });
 
   }
@@ -63,5 +64,12 @@ export class ActivarClientesPage implements OnInit {
   volver() {
     this.navCtrl.navigateForward('/home');
   }
+
+  private orderByDate(){
+    this.empleados.sort((a, b)=>{
+      return a.fechaRegistro <=b.fechaRegistro ? -1:-1 
+    })
+  }
+
 
 }
