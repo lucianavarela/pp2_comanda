@@ -3,11 +3,11 @@ import { Pedido, EstadosPedido } from '../../../models/pedido';
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { AuthService } from '../../../services/auth/auth.service';
 import { User } from 'src/app/models/user';
-import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
 import { AuthFireService } from '../../../services/auth.service';
 import { NavController } from '@ionic/angular';
 import { EstadosMesa } from 'src/app/models/mesa';
 import { MesaService } from 'src/app/services/mesa/mesa.service';
+import { ToastService } from 'src/app/services/toast/toast.service';
 
 @Component({
   selector: 'app-toma-pedido',
@@ -23,7 +23,7 @@ export class TomaPedidoPage implements OnInit {
   mostrarCargarTiempo: boolean;
   mode: string = '';
 
-  constructor(private pedidoService: PedidoService, private errorHandler: ErrorHandlerService, private mesaService: MesaService,
+  constructor(private pedidoService: PedidoService, private errorHandler: ToastService, private mesaService: MesaService,
     private authService: AuthService, private navCtrl: NavController, private authFireService: AuthFireService) {
 
     this.usuario = this.authService.token();
@@ -83,7 +83,7 @@ export class TomaPedidoPage implements OnInit {
               return pedido.estado == EstadosPedido.ListoParaServir && pedido.es_delivery == 1;
             })
           } else {
-            this.errorHandler.mostrarMensajeError('Aún tenes entregas no finalizadas')
+            this.errorHandler.errorToast('Aún tenes entregas no finalizadas')
           }
         } else {
           this.pedidosList = pedidos.filter(function (pedido) {
@@ -103,10 +103,10 @@ export class TomaPedidoPage implements OnInit {
     if (this.mode == 'servir') {
       this.pedidoService.Servir(pedido.codigo)
         .then(response => {
-          this.errorHandler.mostrarMensajeConfimación("Pedido servido exitosamente.");
+          this.errorHandler.confirmationToast("Pedido servido exitosamente.");
         })
         .catch(error => {
-          this.errorHandler.mostrarMensajeError("Ocurrió un error.");
+          this.errorHandler.errorToast("Ocurrió un error.");
         })
         .finally(() => {
           this.actualizarListaPedidos();
@@ -115,13 +115,13 @@ export class TomaPedidoPage implements OnInit {
       this.pedidoService.CambiarEstado(pedido.codigo, EstadosPedido.Pendiente, this.usuario.id)
         .then((res: any) => {
           if (res.Estado == 'OK') {
-            this.errorHandler.mostrarMensajeConfimación("Pedido autorizado exitosamente.");
+            this.errorHandler.confirmationToast("Pedido autorizado exitosamente.");
           } else {
-            this.errorHandler.mostrarMensajeError(res.Mensaje);
+            this.errorHandler.errorToast(res.Mensaje);
           }
         })
         .catch(error => {
-          this.errorHandler.mostrarMensajeError("Ocurrió un error.");
+          this.errorHandler.errorToast("Ocurrió un error.");
         })
         .finally(() => {
           this.actualizarListaPedidos();
@@ -130,17 +130,17 @@ export class TomaPedidoPage implements OnInit {
       this.pedidoService.CambiarEstado(pedido.codigo, EstadosPedido.Entregado, this.usuario.id)
         .then((res: any) => {
           if (res.Estado == 'OK') {
-            this.errorHandler.mostrarMensajeConfimación("Pedido tomado exitosamente.");
+            this.errorHandler.confirmationToast("Pedido tomado exitosamente.");
             this.pedidoService.UpdateDelivery(pedido.codigo, this.authFireService.getCurrentUserMail())
               .then(() => {
                 this.atras();
               });
           } else {
-            this.errorHandler.mostrarMensajeError(res.Mensaje);
+            this.errorHandler.errorToast(res.Mensaje);
           }
         })
         .catch(error => {
-          this.errorHandler.mostrarMensajeError("Ocurrió un error.");
+          this.errorHandler.errorToast("Ocurrió un error.");
         });
     }
   }
@@ -152,10 +152,10 @@ export class TomaPedidoPage implements OnInit {
   public terminarPedido() {
     this.pedidoService.CambiarEstado(this.pedidoEnPreparacion.codigo, EstadosPedido.ListoParaServir)
       .then(response => {
-        this.errorHandler.mostrarMensajeConfimación("Pedido marcado como listo para servir.");
+        this.errorHandler.confirmationToast("Pedido marcado como listo para servir.");
       })
       .catch(error => {
-        this.errorHandler.mostrarMensajeError("Ocurrió un error.");
+        this.errorHandler.errorToast("Ocurrió un error.");
       })
       .finally(() => {
         this.actualizarListaPedidos();
@@ -165,10 +165,10 @@ export class TomaPedidoPage implements OnInit {
   public cargarTiempo(tiempoEstimado: number) {
     this.pedidoService.TomarPedido(this.pedidoSeleccionado.codigo, tiempoEstimado.toString())
       .then(response => {
-        this.errorHandler.mostrarMensajeConfimación("Pedido tomado exitosamente.");
+        this.errorHandler.confirmationToast("Pedido tomado exitosamente.");
       })
       .catch(error => {
-        this.errorHandler.mostrarMensajeError("Ocurrió un error.");
+        this.errorHandler.errorToast("Ocurrió un error.");
       })
       .finally(() => {
         this.actualizarListaPedidos();
@@ -178,10 +178,10 @@ export class TomaPedidoPage implements OnInit {
   public autorizarTodos() {
     this.pedidoService.AutorizarTodosLosPedidos()
       .then(response => {
-        this.errorHandler.mostrarMensajeConfimación("Pedidos autorizados exitosamente.");
+        this.errorHandler.confirmationToast("Pedidos autorizados exitosamente.");
       })
       .catch(error => {
-        this.errorHandler.mostrarMensajeError("Ocurrió un error.");
+        this.errorHandler.errorToast("Ocurrió un error.");
       })
       .finally(() => {
         this.actualizarListaPedidos();
@@ -192,7 +192,7 @@ export class TomaPedidoPage implements OnInit {
     this.pedidoService.Cancelar(pedido.codigo)
       .then((res) => {
         if (res.Estado == 'OK') {
-          this.errorHandler.mostrarMensajeConfimación("Pedido cancelado exitosamente.");
+          this.errorHandler.confirmationToast("Pedido cancelado exitosamente.");
           this.atras();
           /*this.pedidoService.ListarTodos().subscribe(
             (res) => {
@@ -215,12 +215,12 @@ export class TomaPedidoPage implements OnInit {
               }
             });*/
         } else {
-          this.errorHandler.mostrarMensajeError(res.Mensaje);
+          this.errorHandler.errorToast(res.Mensaje);
           this.atras();
         }
       })
       .catch(error => {
-        this.errorHandler.mostrarMensajeError(error);
+        this.errorHandler.errorToast(error);
       })
       .finally(() => {
         this.actualizarListaPedidos();

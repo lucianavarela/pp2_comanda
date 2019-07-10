@@ -25,6 +25,7 @@ export class DatosPedidoComponent implements OnChanges {
   ngOnChanges() {
     if (this.pedido) {
       this.clienteService.GetClienteByUsername(this.pedido.nombre_cliente).subscribe(cliente => {
+        console.log(cliente.foto)
         if (cliente.foto != 'sin_foto.png') {
           this.foto = cliente.foto;
         } else {

@@ -57,13 +57,6 @@ export class ClienteService {
       })
     );
   }
-  public GetCliente(id: number) {
-    return this.ListarTodos().pipe(
-      map(clientes => {
-        return clientes.filter((c) => { return c.id == id })[0];
-      })
-    );
-  }
 
   public GetClientedeMesa(mesa:string) {
     return this.ListarTodos().pipe(

@@ -83,15 +83,15 @@ export class HomeQrPage implements OnInit {
         this.usuarioOnline.mesa = qr.replace('MESA-', '');
         this.clienteService.CargarMesa(this.usuarioOnline).
           subscribe((data) => {
-            if(data["Estado"]=="OK"){
+            if (data["Estado"] == "OK") {
               this.errorHandler.confirmationToast(data["Mensaje"]);
               this.servicioMesa.CambiarEstado(this.usuarioOnline.mesa, EstadosMesa.Asignada);
               this.volver();
-            }else{
+            } else {
               this.errorHandler.errorToast(data["Mensaje"]);
               this.volver();
             }
-            
+
           }, (error) => {
             this.errorHandler.errorToast(error);
             this.volver();
@@ -102,61 +102,57 @@ export class HomeQrPage implements OnInit {
       }
     } else if (qr.indexOf('PROPINA-') > -1) {
       if (this.usuarioOnline.tipo == 'registrado' || this.usuarioOnline.tipo == 'anonimo') {
-        this.clienteService.GetCliente(this.usuarioOnline.id).subscribe(cliente => {
-          if (cliente.mesa) {
-            if (cliente.mesa != null) {
-              if (this.verificarMesaComiendo(cliente.mesa) || cliente.mesa == 'MES00') {
-                this.servicioMesa.CambiarEstado(cliente.mesa, EstadosMesa.Pagando)
-                  .then(
-                    () => {
-                      this.errorHandler.confirmationToast("Gracias por su propina de " + (qr.replace('PROPINA-', '') + '%!'));
-                      this.volver();
-                    }
-                  ).catch(
-                    (e) => this.errorHandler.errorToast(e)
-                  )
-              } else {
-                this.errorHandler.errorToast("Aún quedan pedidos pendientes");
-                this.volver();
-              }
+        if (this.usuarioOnline.mesa) {
+          if (this.usuarioOnline.mesa != null) {
+            if (this.verificarMesaComiendo(this.usuarioOnline.mesa) || this.usuarioOnline.mesa == 'MES00') {
+              this.servicioMesa.CambiarEstado(this.usuarioOnline.mesa, EstadosMesa.Pagando)
+                .then(
+                  () => {
+                    this.errorHandler.confirmationToast("Gracias por su propina de " + (qr.replace('PROPINA-', '') + '%!'));
+                    this.volver();
+                  }
+                ).catch(
+                  (e) => this.errorHandler.errorToast(e)
+                )
             } else {
-              this.errorHandler.errorToast("Usted no tiene pedidos activos");
+              this.errorHandler.errorToast("Aún quedan pedidos pendientes");
               this.volver();
             }
           } else {
-            this.errorHandler.errorToast("Usted no esta habilitado a dejar propina");
+            this.errorHandler.errorToast("Usted no tiene pedidos activos");
             this.volver();
-
           }
-        })
+        } else {
+          this.errorHandler.errorToast("Usted no esta habilitado a dejar propina");
+          this.volver();
+
+        }
       } else {
         this.errorHandler.errorToast("Usted no esta habilitado a dejar propina");
         this.volver();
       }
     } else {
       this.menuService.GetMenu(qr).subscribe(menu => {
-        if (menu && this.usuarioOnline.tipo == 'registrado' || menu && this.usuarioOnline.tipo == 'anonimo'  ) {
-          this.clienteService.GetCliente(this.usuarioOnline.id).subscribe(cliente => {
-            if (cliente.mesa) {
-              this.pedidoService.Registrar(cliente.mesa, menu.id, cliente.usuario, 0)
-                .then(
-                  res => {
-                    this.errorHandler.confirmationToast('Pedido registrado!');
-                    this.servicioMesa.CambiarEstado(cliente.mesa, EstadosMesa.EsperandoPedido);
-                    this.volver();
-                  }
-                )
-                .catch(
-                  (e) => {
-                    this.errorHandler.errorToast(e);
-                    this.volver();
-                  }
-                )
-            } else {
-              this.errorHandler.errorToast('Debe estar ingresado en una mesa para realizar pedidos');
-              this.volver();
-            }
-          });
+        if (menu && this.usuarioOnline.tipo == 'registrado' || menu && this.usuarioOnline.tipo == 'anonimo') {
+          if (this.usuarioOnline.mesa) {
+            this.pedidoService.Registrar(this.usuarioOnline.mesa, menu.id, this.usuarioOnline.usuario, 0)
+              .then(
+                res => {
+                  this.errorHandler.confirmationToast('Pedido registrado!');
+                  this.servicioMesa.CambiarEstado(this.usuarioOnline.mesa, EstadosMesa.EsperandoPedido);
+                  this.volver();
+                }
+              )
+              .catch(
+                (e) => {
+                  this.errorHandler.errorToast(e);
+                  this.volver();
+                }
+              )
+          } else {
+            this.errorHandler.errorToast('Debe estar ingresado en una mesa para realizar pedidos');
+            this.volver();
+          }
         } else {
           this.errorHandler.errorToast("No es un Qr valido");
           this.volver();

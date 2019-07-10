@@ -35,15 +35,13 @@ export class EstadoPedidoPage {
   ionViewWillEnter() {
     this.usuario = this.authService.token();
     if (this.usuario.tipo == 'registrado' || this.usuario.tipo == 'anonimo') {
-      this.clienteService.GetCliente(this.usuario.id).subscribe(cliente => {
-        if (cliente.mesa) {
-          this.mesa = cliente.mesa;
-          this.traerPedidos(this.mesa);
-        } else {
-          this.errorHandler.errorToast('Debe estar ingresado en una mesa para realizar pedidos');
-          this.navCtrl.navigateForward('/home');
-        }
-      });
+      if (this.usuario.mesa) {
+        this.mesa = this.usuario.mesa;
+        this.traerPedidos(this.mesa);
+      } else {
+        this.errorHandler.errorToast('Debe estar ingresado en una mesa para realizar pedidos');
+        this.navCtrl.navigateForward('/home');
+      }
     }
   }
 
