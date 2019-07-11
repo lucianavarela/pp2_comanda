@@ -36,8 +36,7 @@ export class EstadoPedidoPage {
     this.usuario = this.authService.token();
     if (this.usuario.tipo == 'registrado' || this.usuario.tipo == 'anonimo') {
       if (this.usuario.mesa) {
-        this.mesa = this.usuario.mesa;
-        this.traerPedidos(this.mesa);
+        this.traerPedidos(this.usuario.mesa);
       } else {
         this.errorHandler.errorToast('Debe estar ingresado en una mesa para realizar pedidos');
         this.navCtrl.navigateForward('/home');
@@ -72,26 +71,19 @@ export class EstadoPedidoPage {
       })
       .catch(error => {
         this.errorHandler.errorToast(error);
-      })
-      .finally(() => {
-        this.traerPedidos(this.mesa);
       });
   }
 
   cancelarPedido(pedido: Pedido) {
     this.pedidoService.Cancelar(pedido.codigo)
       .then((res: any) => {
+        this.errorHandler.confirmationToast("Pedido cancelado exitosamente.");
         if (res.Estado == 'OK') {
-          this.errorHandler.confirmationToast("Pedido cancelado exitosamente.");
-          this.atras();
-          /*this.pedidoService.ListarPorMesa(this.mesa).subscribe(
+          this.pedidoService.ListarPorMesa(this.mesa).subscribe(
             (res) => {
               this.pedidosList = res;
               if (this.pedidosList.length == 0) {
-                let pedidosFinalizados = res.filter(function (p) {
-                  return p.estado == EstadosPedido.Finalizado
-                });
-                if (pedidosFinalizados.length > 0) {
+                if (this.usuario.monto > 0) {
                   this.mesaService.CambiarEstado(this.mesa, EstadosMesa.Comiendo).then(
                     () => this.atras()
                   );
@@ -101,7 +93,7 @@ export class EstadoPedidoPage {
                   );
                 }
               }
-            });*/
+            });
         } else {
           this.errorHandler.errorToast(res.Mensaje);
           this.atras();
@@ -109,9 +101,6 @@ export class EstadoPedidoPage {
       })
       .catch(error => {
         this.errorHandler.errorToast(error);
-      })
-      .finally(() => {
-        this.traerPedidos(this.mesa);
       });
   }
 
