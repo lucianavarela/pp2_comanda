@@ -68,7 +68,7 @@ export class HomeQrPage implements OnInit {
     this.cliente.id = this.usuarioOnline.id;
     this.scanQr();
     this.cargarMesas();
-
+    this.traerReserva();
   }
 
   Accion(qr: string) {
@@ -106,7 +106,6 @@ export class HomeQrPage implements OnInit {
         this.errorHandler.errorToast("Esta mesa no esta libre");
         this.volver();
       }
-
     }else{
       this.errorHandler.errorToast("Usted tiene reservada otra mesa");
         this.volver();
@@ -248,21 +247,28 @@ export class HomeQrPage implements OnInit {
   }
 
   
-  consultarReservaDelCliente( mesa){
-    let respuesta = false;
+  consultarReservaDelCliente( mesa: string){
+    let respuesta = true;          
+    if(this.reservaCliente !== undefined){
+    if(this.reservaCliente.codigo_mesa !== mesa && this.reservaCliente.estado == 'A'){
+        respuesta = false;
+        
+        } 
+    }     
+    return respuesta;
+  }
+
+  traerReserva(){
 
     this.servicioReserva.TraerCliente(this.usuarioOnline.id).
     subscribe(  (res) => {
       if(res){
-        this.reservaCliente = res;
-        if(this.reservaCliente.codigo_mesa == mesa && this.reservaCliente.estado == 'A'){
-            respuesta = true;
-          }      
+        this.reservaCliente = res;       
+          
       }
     })
-    return respuesta;
+
   }
-
-
+  
 
 }
