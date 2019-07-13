@@ -37,7 +37,6 @@ export class TomaPedidoPage implements OnInit {
     } else if (document.URL.includes('deliveryboy')) {
       this.mode = 'deliveryboy';
     }
-
     this.actualizarListaPedidos();
   }
 
@@ -56,10 +55,11 @@ export class TomaPedidoPage implements OnInit {
   public actualizarListaPedidos() {
     this.mostrarCargarTiempo = false;
     this.pedidoService.ListarTodos().subscribe(pedidos => {
-      if (this.usuario.tipo != "Mozo" && this.mode == '') {
+     
+      if (this.usuario.tipo != "Mozo" && this.usuario.tipo != "Socio" && this.mode == '') {
         this.pedidosList = pedidos.filter((p) => {
           return p.sector == this.usuario.tipo && (p.estado == EstadosPedido.Pendiente || p.estado == EstadosPedido.EnPreparacion)
-            && p.id_mozo != 0;
+            && p.id_mozo != 0 ;
         });
         this.pedidoSeleccionado = null;
         this.pedidoEnPreparacion = null;
@@ -71,7 +71,12 @@ export class TomaPedidoPage implements OnInit {
             return;
           }
         });
-      } else {
+      } else if (this.usuario.tipo == "Socio" ) {
+        this.pedidosList = pedidos.filter(function (pedido) {
+         return pedido.estado == EstadosPedido.Pendiente && pedido.es_delivery == 1;
+        })}
+      else 
+      {
         if (this.mode == 'servir') {
           this.pedidosList = pedidos.filter(function (pedido) {
             return pedido.estado == EstadosPedido.ListoParaServir && pedido.es_delivery == 0;
@@ -87,9 +92,11 @@ export class TomaPedidoPage implements OnInit {
           } else {
             this.errorHandler.errorToast('Aún tenes entregas no finalizadas')
           }
-        } else {
+        }
+         else 
+        {
           this.pedidosList = pedidos.filter(function (pedido) {
-            return pedido.estado == EstadosPedido.Pendiente && pedido.id_mozo == 0;
+            return pedido.estado == EstadosPedido.Pendiente && pedido.id_mozo == 0 && pedido.es_delivery == 0 ;
           })
         }
       }
@@ -113,7 +120,7 @@ export class TomaPedidoPage implements OnInit {
         .finally(() => {
           this.actualizarListaPedidos();
         });
-    } else if (this.mode == 'autorizar') {
+    } else if (this.mode == 'autorizar' ) {
       this.pedidoService.CambiarEstado(pedido.codigo, EstadosPedido.Pendiente, this.usuario.id)
         .then((res: any) => {
           if (res.Estado == 'OK') {
