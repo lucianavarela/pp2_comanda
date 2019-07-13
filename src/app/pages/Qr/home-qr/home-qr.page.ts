@@ -110,7 +110,7 @@ export class HomeQrPage implements OnInit {
     } else if (qr.indexOf('PROPINA-') > -1) {
       if (this.usuarioOnline.tipo == 'registrado' || this.usuarioOnline.tipo == 'anonimo') {
         this.clienteService.TraerCliente(this.usuarioOnline.id)
-          .then((cliente: any) => {
+          .subscribe((cliente: any) => {
             if (cliente.mesa) {
               if (cliente.mesa != null) {
                 if (this.verificarMesaComiendo(cliente.mesa) || cliente.mesa == 'MES00') {

@@ -13,7 +13,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content *ngIf="!showTotal" padding>
   <div *ngIf="!this.pedidosCliente || this.pedidosCliente.length == 0">
 
     <form>
@@ -60,12 +60,6 @@
       <ion-button *ngIf="menus_cargados.length > 0" expand="full" color="primary" id="boton" (click)="generarPedido()"
         round>Pedir</ion-button>
 
-      <!--ion-col text-end>
-        <ion-button (click)="loadMap()" shape="round" fill="outline">
-          <ion-icon slot="start" name="locate"></ion-icon>
-          Donde Estoy
-        </ion-button>
-      </ion-col-->
     </form>
   </div>
 
@@ -74,7 +68,16 @@
   </app-lista-pedidos>
 
   <app-datos-pedido *ngIf="pedidoSeleccionado" [pedido]="pedidoSeleccionado"
-    (pedidoConfirmado)="confirmarEntrega($event, pedido)" (pedidoCancelado)="cancelarPedido($event, pedido)"></app-datos-pedido>
+    (pedidoConfirmado)="confirmarEntrega($event, pedido)" (pedidoCancelado)="cancelarPedido($event, pedido)">
+  </app-datos-pedido>
+</ion-content>
 
 
+<ion-content *ngIf="showTotal" padding>
+  <div class="total">
+    <p>TOTAL A PAGAR:<br /><br /><b>${{total_a_pagar}}</b></p>
+    <ion-button color="light" (click)="atras()">
+      OK
+    </ion-button>
+  </div>
 </ion-content>

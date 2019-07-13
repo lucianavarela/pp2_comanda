@@ -18,11 +18,11 @@
   </ion-toolbar>
 </ion-header>
 
-<div id="detalle_pedido" *ngIf="mostrarPedido">
-  <app-datos-pedido [pedido]="pedido">
+<div *ngIf="!showTotal && mostrarPedido" id="detalle_pedido">
+  <app-datos-pedido [pedido]="pedido" (pedidoConfirmado)="confirmarEntrega($event, pedido)">
   </app-datos-pedido>
 </div>
-<div class="body">
+<div *ngIf="!showTotal" class="body">
   <ion-content class="contenido" #contenido>
     <ion-grid class="chat">
       <ion-row *ngFor="let message of allMessages">
@@ -62,3 +62,12 @@
     </form>
   </div>
 </div>
+
+<ion-content *ngIf="showTotal" padding>
+  <div class="total">
+    <p>TOTAL A PAGAR:<br /><br /><b>${{total}}</b></p>
+    <ion-button color="light" (click)="volver()">
+      OK
+    </ion-button>
+  </div>
+</ion-content>

@@ -3,6 +3,23 @@
   margin-bottom: 1rem;
 }
 
+.total {
+  position: absolute;
+  top: 20px;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  background-color: #10dc60;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.total p {
+  margin-top: 50%;
+  font-size: 30px;
+  color: white;
+}
+
 #total_pedido {
   border-top: 1px solid gray;
   padding: 1.5rem;

@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { IonContent } from '@ionic/angular';
+import { IonContent, NavController } from '@ionic/angular';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { AuthFireService } from 'src/app/services/auth.service';
 import { TextService } from 'src/app/services/text.service';
@@ -9,6 +9,7 @@ import { Text } from '../../models/text';
 import { PedidoService } from '../../services/pedido/pedido.service';
 import { Pedido, EstadosPedido } from 'src/app/models/pedido';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 @Component({
   selector: 'app-chat',
@@ -25,6 +26,8 @@ export class ChatPage implements AfterViewInit {
   userMail: string;
   pedido: Pedido;
   mostrarPedido: boolean = false;
+  showTotal: boolean = false;
+  total: string = '';
   @ViewChild(IonContent) content: IonContent;
 
   constructor(
@@ -34,7 +37,9 @@ export class ChatPage implements AfterViewInit {
     private authFireService: AuthFireService,
     private formBuilder: FormBuilder,
     private pedidosService: PedidoService,
-    private authService: AuthService
+    private authService: AuthService,
+    private navCtrl: NavController,
+    private barcodeScanner: BarcodeScanner
   ) {
     this.form = this.formBuilder.group({
       text: new FormControl('', Validators.required)
@@ -46,6 +51,7 @@ export class ChatPage implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.showTotal = false;
   }
 
   private updateChat() {
@@ -117,9 +123,39 @@ export class ChatPage implements AfterViewInit {
   }
 
   mostrarDetalles() {
-    console.log(this.mostrarPedido)
     this.mostrarPedido = !this.mostrarPedido;
-    console.log(this.mostrarPedido)
   }
 
+  confirmarEntrega(pedido: Pedido) {
+    this.pedidosService.CambiarEstado(pedido.codigo, EstadosPedido.Finalizado)
+      .then((res: any) => {
+        if (res.Estado == 'OK') {
+          this.toastService.confirmationToast("Pedido entregado exitosamente.");
+          this.barcodeScanner.scan().then(barcodeData => {
+            if (barcodeData.text.toUpperCase().indexOf('PROPINA-') > -1) {
+              let propina = parseFloat(barcodeData.text.toUpperCase().replace('PROPINA-', ''));
+              this.toastService.confirmationToast("Gracias por su propina de " + propina + '%!');
+              let monto = parseFloat(pedido.importe);
+              monto = monto * (1 + (propina / 100));
+              this.total = monto.toFixed(2);
+              this.showTotal = true;
+            } else {
+              this.toastService.errorToast('Qr incorrecto!');
+              this.confirmarEntrega(pedido);
+            }
+          }).catch(e => {
+            this.toastService.errorToast(e);
+          });
+        } else {
+          this.toastService.errorToast(res.Mensaje);
+        }
+      })
+      .catch(error => {
+        this.toastService.errorToast(error);
+      });
+  }
+
+  volver() {
+    this.navCtrl.navigateForward('/home');
+  }
 }
