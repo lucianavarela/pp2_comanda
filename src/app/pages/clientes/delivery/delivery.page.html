@@ -17,6 +17,20 @@
   <div *ngIf="!this.pedidosCliente || this.pedidosCliente.length == 0">
 
     <form>
+      <div class="map-wrapper">
+        <div id="map_center">
+          <img src="../../assets/imgs/marcador.png" />
+        </div>
+        <div #map id="map"></div>
+      </div>
+      <div id="address">
+        <span>{{addressMessage}}</span>
+        <ion-item style="margin-bottom: 20px;" *ngIf="manualAddress">
+          <ion-label position="floating">Dirección</ion-label>
+          <ion-input [(ngModel)]="address" type="text" name="address" required></ion-input>
+        </ion-item>
+      </div>
+
       <div>
         <app-datos-menu *ngFor="let menu of menus" [menu]="menu" (menuConfirmado)="agregarMenu($event, menu)">
         </app-datos-menu>
@@ -52,20 +66,6 @@
           Donde Estoy
         </ion-button>
       </ion-col-->
-
-      <div class="map-wrapper">
-        <div id="map_center">
-          <img src="../../assets/imgs/marcador.png" />
-        </div>
-        <div #map id="map"></div>
-      </div>
-      <div id="address">
-        <span>{{addressMessage}}</span>
-        <ion-item style="margin-bottom: 20px;" *ngIf="manualAddress">
-          <ion-label position="floating">Dirección</ion-label>
-          <ion-input [(ngModel)]="address" type="text" name="address" required></ion-input>
-        </ion-item>
-      </div>
     </form>
   </div>
 

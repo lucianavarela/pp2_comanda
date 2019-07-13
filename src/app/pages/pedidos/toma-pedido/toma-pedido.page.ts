@@ -135,7 +135,7 @@ export class TomaPedidoPage implements OnInit {
             this.errorHandler.confirmationToast("Pedido tomado exitosamente.");
             this.pedidoService.UpdateDelivery(pedido.codigo, this.authFireService.getCurrentUserMail())
               .then(() => {
-                this.atras();
+                this.navCtrl.navigateForward('/chat');
               });
           } else {
             this.errorHandler.errorToast(res.Mensaje);

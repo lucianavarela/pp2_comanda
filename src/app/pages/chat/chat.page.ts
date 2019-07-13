@@ -24,6 +24,7 @@ export class ChatPage implements AfterViewInit {
   colores: string[] = ['primary', 'secondary', 'tertiary', 'success', 'danger', 'warning'];
   userMail: string;
   pedido: Pedido;
+  mostrarPedido: boolean = false;
   @ViewChild(IonContent) content: IonContent;
 
   constructor(
@@ -115,7 +116,10 @@ export class ChatPage implements AfterViewInit {
       });
   }
 
-  onLogout() {
-    this.authFireService.logout();
+  mostrarDetalles() {
+    console.log(this.mostrarPedido)
+    this.mostrarPedido = !this.mostrarPedido;
+    console.log(this.mostrarPedido)
   }
+
 }

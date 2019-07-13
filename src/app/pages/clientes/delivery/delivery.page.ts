@@ -217,18 +217,12 @@ export class DeliveryPage implements OnInit {
   cancelarPedido(pedido: Pedido) {
     this.pedidoService.Cancelar(pedido.codigo)
       .then((res: any) => {
-        if (res.Estado == 'OK') {
-          this.toastService.confirmationToast("Pedido cancelado exitosamente.");
-          this.atras();
-        } else {
-          this.toastService.errorToast(res.Mensaje);
-        }
+        this.toastService.confirmationToast("Pedido cancelado exitosamente.");
+        this.atras();
       })
       .catch(error => {
         this.toastService.errorToast(error);
-      })
-      .finally(() => {
-        this.atras();
       });
   }
+
 }

@@ -15,11 +15,15 @@
     <span *ngIf="pedido.id_mozo==0"><b>Estado:</b> Aprobacion Pendiente<br></span>
     <b>Fecha:</b> {{pedido.fecha}} {{pedido.hora_inicial}}<br>
     <b>Importe:</b> ${{pedido.importe}}<br>
-    <span *ngIf="pedido.hora_entrega_estimada"><b>Hora de entrega estimada:</b> {{pedido.hora_entrega_estimada}}<br></span>
-    <ion-button *ngIf="pedido.estado=='Entregado'" color="success" expand="full" (click)="confirmarEntrega(pedido)">
+    <span *ngIf="pedido.hora_entrega_estimada"><b>Hora de entrega estimada:</b>
+      {{pedido.hora_entrega_estimada}}<br></span>
+    <ion-button *ngIf="pedido.estado=='Entregado'&&(usuario.tipo=='anonimo'||usuario.tipo=='registrado')"
+      color="success" expand="full" (click)="confirmarEntrega(pedido)">
       Confirmar Entrega
     </ion-button>
-    <ion-button *ngIf="pedido.estado=='Pendiente'" color="danger" expand="full" (click)="cancelarPedido(pedido)">
+    <ion-button
+      *ngIf="pedido.estado=='Pendiente'&&(usuario.tipo=='Mozo'||usuario.tipo=='anonimo'||usuario.tipo=='registrado')"
+      color="danger" expand="full" (click)="cancelarPedido(pedido)">
       Cancelar Pedido
     </ion-button>
   </ion-card-content>
