@@ -36,7 +36,7 @@ export class EstadoPedidoPage {
     this.usuario = this.authService.token();
     if (this.usuario.tipo == 'registrado' || this.usuario.tipo == 'anonimo') {
       this.clienteService.TraerCliente(this.usuario.id)
-        .then((cliente: any) => {
+        .subscribe((cliente: any) => {
           this.cliente = cliente;
           if (this.usuario.mesa) {
             this.traerPedidos(this.cliente.mesa);
