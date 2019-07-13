@@ -55,11 +55,11 @@ export class TomaPedidoPage implements OnInit {
   public actualizarListaPedidos() {
     this.mostrarCargarTiempo = false;
     this.pedidoService.ListarTodos().subscribe(pedidos => {
-     
+
       if (this.usuario.tipo != "Mozo" && this.usuario.tipo != "Socio" && this.mode == '') {
         this.pedidosList = pedidos.filter((p) => {
           return p.sector == this.usuario.tipo && (p.estado == EstadosPedido.Pendiente || p.estado == EstadosPedido.EnPreparacion)
-            && p.id_mozo != 0 ;
+            && p.id_mozo != 0;
         });
         this.pedidoSeleccionado = null;
         this.pedidoEnPreparacion = null;
@@ -71,12 +71,11 @@ export class TomaPedidoPage implements OnInit {
             return;
           }
         });
-      } else if (this.usuario.tipo == "Socio" ) {
+      } else if (this.usuario.tipo == "Socio") {
         this.pedidosList = pedidos.filter(function (pedido) {
-         return pedido.estado == EstadosPedido.Pendiente && pedido.id_mozo == 0  && pedido.es_delivery == 1;
-        })}
-      else 
-      {
+          return pedido.estado == EstadosPedido.Pendiente && pedido.id_mozo == 0 && pedido.es_delivery == 1;
+        })
+      } else {
         if (this.mode == 'servir') {
           this.pedidosList = pedidos.filter(function (pedido) {
             return pedido.estado == EstadosPedido.ListoParaServir && pedido.es_delivery == 0;
@@ -93,10 +92,9 @@ export class TomaPedidoPage implements OnInit {
             this.errorHandler.errorToast('Aún tenes entregas no finalizadas')
           }
         }
-         else 
-        {
+        else {
           this.pedidosList = pedidos.filter(function (pedido) {
-            return pedido.estado == EstadosPedido.Pendiente && pedido.id_mozo == 0 && pedido.es_delivery == 0 ;
+            return pedido.estado == EstadosPedido.Pendiente && pedido.id_mozo == 0 && pedido.es_delivery == 0;
           })
         }
       }
@@ -120,8 +118,8 @@ export class TomaPedidoPage implements OnInit {
         .finally(() => {
           this.actualizarListaPedidos();
         });
-    } else if (this.mode == 'autorizar' ) {
-      this.pedidoService.CambiarEstado(pedido, EstadosPedido.Pendiente)
+    } else if (this.mode == 'autorizar') {
+      this.pedidoService.CambiarEstado(pedido, EstadosPedido.Pendiente, this.usuario.id)
         .then((res: any) => {
           if (res.Estado == 'OK') {
             this.errorHandler.confirmationToast("Pedido autorizado exitosamente.");
@@ -206,7 +204,7 @@ export class TomaPedidoPage implements OnInit {
             this.pedidosList = res;
             if (this.pedidosList.length == 0) {
               this.clienteService.GetClienteByUsername(pedido.nombre_cliente)
-                .subscribe((cliente:any) => {
+                .subscribe((cliente: any) => {
                   if (cliente.monto && (parseFloat(cliente.monto) > 0)) {
                     this.mesaService.CambiarEstado(cliente.mesa, EstadosMesa.Comiendo).then(
                       () => this.pedidoSeleccionado = null

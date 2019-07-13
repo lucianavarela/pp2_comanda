@@ -7,10 +7,12 @@
     <ion-title *ngIf="usuario.tipo=='Mozo' &&mode=='servir'">Servir Pedidos Listos</ion-title>
     <ion-title *ngIf="usuario.tipo=='Mozo'  &&mode=='autorizar'">Autorizar Pedidos</ion-title>
     <ion-title *ngIf="usuario.tipo=='Socio'  &&mode=='autorizar'">Autorizar Pedidos</ion-title>
-   
-    
+
+
     <ion-title *ngIf="mode=='delivery'">Repartir Pedidos</ion-title>
-    <ion-buttons *ngIf="usuario.tipo=='Mozo' || usuario.tipo=='Socio' &&mode=='autorizar'&&pedidosList!=null&&pedidosList.length>0" slot="end">
+    <ion-buttons
+      *ngIf="usuario.tipo=='Mozo' || usuario.tipo=='Socio' &&mode=='autorizar'&&pedidosList!=null&&pedidosList.length>0"
+      slot="end">
       <ion-button (click)="autorizarTodos()">
         <ion-icon name="checkbox-outline"></ion-icon>
       </ion-button>
@@ -20,8 +22,8 @@
 <ion-content padding>
   <app-lista-pedidos *ngIf="!mostrarCargarTiempo && pedidoEnPreparacion == null" [pedidosList]="this.pedidosList"
     (pedidoSeleccionado)="seleccionarPedido($event)" (pedidoTomado)="tomarPedido($event)"
-    (pedidoEntregado)="entregarPedido($event)" [mostrarBotonTomar]="this.usuario.tipo != 'Socio'"
-    [paraEntregar]="this.usuario.tipo == 'Mozo'"></app-lista-pedidos>
+    (pedidoEntregado)="entregarPedido($event)" [mostrarBotonTomar]="true"
+    [paraEntregar]="this.usuario.tipo == 'Mozo'||this.usuario.tipo == 'Socio'"></app-lista-pedidos>
   <app-cargar-tiempo *ngIf="mostrarCargarTiempo" [pedido]="this.pedidoSeleccionado"
     (onCancelar)="actualizarListaPedidos()" (onSubmit)="cargarTiempo($event)"></app-cargar-tiempo>
   <app-datos-pedido *ngIf="!mostrarCargarTiempo" [pedido]="pedidoSeleccionado"

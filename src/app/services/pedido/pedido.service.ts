@@ -68,11 +68,11 @@ export class PedidoService {
     return this.miHttp.httpPostP('pedido/servir/', request);
   }
 
-  public CambiarEstado(pedido: Pedido, estado: string) {
+  public CambiarEstado(pedido: Pedido, estado: string, mozo: number = null) {
     const request: Object = {
       codigo: pedido.codigo,
       estado: estado,
-      id_mozo: pedido.id_mozo// ? mozo : 0
+      id_mozo: mozo == null ? pedido.id_mozo : mozo
     };
 
     switch (estado) {
