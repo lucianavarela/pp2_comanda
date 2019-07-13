@@ -29,12 +29,19 @@ export class EncuestasPage implements OnInit {
     this.miHttp.Listar().subscribe(
       (res) => {
        this.encuestas= res;
+       this.orderByDate();
       }
     )
   }
 
   volver() {
     this.navCtrl.navigateForward('/home');
+  }
+
+  private orderByDate(){
+    this.encuestas.sort((a, b)=>{
+      return a.fecha <=b.fecha ? -1:-1 
+    })
   }
 
 }

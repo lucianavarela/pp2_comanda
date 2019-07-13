@@ -39,13 +39,13 @@ export class ToastService {
       });
   }
 
-  warningToast(message: string) {
+  warningToast(message: string, duration: number = 5000) {
     this.toastController.create({
       message: message,
       showCloseButton: true,
       color: 'warning',
       closeButtonText: 'Cerrar',
-      duration: 5000
+      duration: duration
     })
       .then(res => {
         this.vibration.vibrate(1000);

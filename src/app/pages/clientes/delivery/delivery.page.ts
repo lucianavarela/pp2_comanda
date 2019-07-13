@@ -13,6 +13,7 @@ import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@io
 import { Pedido, EstadosPedido } from 'src/app/models/pedido';
 import { ToastService } from '../../../services/toast/toast.service';
 import { AuthFireService } from '../../../services/auth.service';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 declare var google;
 
@@ -27,10 +28,10 @@ export class DeliveryPage implements OnInit {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
   address: string;
-
+  total: number = 0;
   mesas: Mesa[] = [];
   menus: Menu[] = [];
-  menus_cargados: Menu[] = [];
+  menus_cargados: any[] = [];
   usuario: User;
   mesa: string;
   cliente: string;
@@ -38,6 +39,8 @@ export class DeliveryPage implements OnInit {
   manualAddress: boolean;
   addressMessage: string;
   pedidoSeleccionado: Pedido;
+  showTotal: boolean = false;
+  total_a_pagar: string = '';
 
   constructor(
     private navCtrl: NavController,
@@ -48,7 +51,8 @@ export class DeliveryPage implements OnInit {
     private geolocation: Geolocation,
     private nativeGeocoder: NativeGeocoder,
     private toastService: ToastService,
-    private authFireService: AuthFireService
+    private authFireService: AuthFireService,
+    private barcodeScanner: BarcodeScanner
   ) {
     this.usuario = this.auth.getUserInfo();
     this.manualAddress = false;
@@ -72,7 +76,7 @@ export class DeliveryPage implements OnInit {
   }
 
   ionViewWillEnter() {
-
+    this.showTotal = false;
     this.traerMenus();
 
     if (this.usuario.tipo == 'registrado') {
@@ -88,38 +92,37 @@ export class DeliveryPage implements OnInit {
       });
   }
 
-  agregarMenu(id: number) {
-    let index = this.menus.findIndex(x => x.id == id);
-    this.menus_cargados.push(this.menus[index]);
-    this.menus_cargados = this.menus_cargados.sort((a: Menu, b: Menu) => {
-      if (a.nombre > b.nombre) {
-        return 1;
-      }
-      if (a.nombre < b.nombre) {
-        return -1;
-      }
-      return 0;
-    });
+  agregarMenu(menu: Menu) {
+    this.total += menu.precio;
+    let index = this.menus_cargados.findIndex(x => x['menu'].id == menu.id);
+    if (index > -1) {
+      this.menus_cargados[index]['cantidad']++;
+    } else {
+      this.menus_cargados.push({
+        'menu': menu,
+        'cantidad': 1
+      });
+    }
   }
 
-  eliminarMenu(id: number) {
-    let index = this.menus_cargados.findIndex(x => x.id == id);
-    this.menus_cargados.splice(index, 1);
+  eliminarMenu(menu: Menu) {
+    this.total -= menu.precio;
+    let index = this.menus_cargados.findIndex(x => x['menu'].id == menu.id);
+    if (this.menus_cargados[index]['cantidad'] > 1) {
+      this.menus_cargados[index]['cantidad']--;
+    } else {
+      this.menus_cargados.splice(index, 1);
+    }
   }
 
   generarPedido() {
-    if (this.menus_cargados.length == 0) {
-      this.toastService.errorToast("Debe seleccionar al menos un pedido.");
-      return;
-    }
-
     if (!this.address) {
       this.toastService.errorToast("Ingrese la dirección.");
       return;
     }
 
-    this.menus_cargados.forEach((menu) => {
-      this.pedidoService.Registrar("MES00", menu.id, this.cliente, 1, this.address, 0, this.authFireService.getCurrentUserMail()).then(
+    this.menus_cargados.forEach((item) => {
+      this.pedidoService.Registrar("MES00", item.menu.id, this.cliente, 1, 0, this.address, this.authFireService.getCurrentUserMail()).then(
         respuesta => {
           this.toastService.confirmationToast("Pedido realizado correctamente.");
           this.cargarListas();
@@ -197,20 +200,43 @@ export class DeliveryPage implements OnInit {
 
 
   confirmarEntrega(pedido: Pedido) {
-    this.pedidoService.CambiarEstado(pedido.codigo, EstadosPedido.Finalizado)
+    this.pedidoService.CambiarEstado(pedido, EstadosPedido.Finalizado)
       .then((res: any) => {
         if (res.Estado == 'OK') {
-          this.toastService.confirmationToast("Pedido entregado exitosamente.");
-          this.atras();
+          this.barcodeScanner.scan().then(barcodeData => {
+            if (barcodeData.text.toUpperCase().indexOf('PROPINA-') > -1) {
+              let propina = parseFloat(barcodeData.text.toUpperCase().replace('PROPINA-', ''));
+              this.toastService.confirmationToast("Gracias por su propina de " + propina + '%!');
+              let monto = parseFloat(pedido.importe);
+              monto = monto * (1 + (propina / 100));
+              this.total_a_pagar = monto.toFixed(2);
+              this.showTotal = true;
+            } else {
+              this.toastService.errorToast('Qr incorrecto!');
+              this.confirmarEntrega(pedido);
+            }
+          }).catch(e => {
+            this.toastService.errorToast(e);
+          });
         } else {
           this.toastService.errorToast(res.Mensaje);
         }
       })
       .catch(error => {
         this.toastService.errorToast(error);
-      })
-      .finally(() => {
-        this.atras();
       });
   }
+
+
+  cancelarPedido(pedido: Pedido) {
+    this.pedidoService.Cancelar(pedido.codigo)
+      .then((res: any) => {
+        this.toastService.confirmationToast("Pedido cancelado exitosamente.");
+        this.atras();
+      })
+      .catch(error => {
+        this.toastService.errorToast(error);
+      });
+  }
+
 }

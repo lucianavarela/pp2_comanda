@@ -10,14 +10,17 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-row *ngIf="pedidosList == null || pedidosList.length == 0">
-    <ion-col size="12">            
-      <ion-button color="success" expand="full">No Tiene Pedidos!!!!</ion-button>
-      </ion-col>
+  <ion-row *ngIf="pedidosList != null && pedidosList.length == 0">
+    <ion-col style="text-align: center">
+      <ion-text>
+        <h5 style="color: rgb(150, 150, 150)">SIN PEDIDOS</h5>
+      </ion-text>
+    </ion-col>
   </ion-row>
-  <ion-row size="12" *ngIf="pedidosList.length > 0">
+  <ion-row size="12" *ngIf="pedidosList != null && pedidosList.length > 0">
     <app-datos-pedido *ngFor="let pedido of pedidosList" [pedido]="pedido"
-      (pedidoConfirmado)="confirmarEntrega($event, pedido)"></app-datos-pedido>
+      (pedidoConfirmado)="confirmarEntrega($event, pedido)" (pedidoCancelado)="cancelarPedido($event, pedido)">
+    </app-datos-pedido>
   </ion-row>
 
 </ion-content>

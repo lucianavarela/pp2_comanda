@@ -3,6 +3,7 @@ export class Menu {
     precio: number;
     nombre: string;
     sector: string;
+    foto: string;
 
     icon() {
         switch (this.sector) {

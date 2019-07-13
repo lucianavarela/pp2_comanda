@@ -3,19 +3,30 @@
     <ion-card-subtitle>Pedido de {{pedido.sector}}</ion-card-subtitle>
     <ion-card-title>{{pedido.descripcion}}</ion-card-title>
     <ion-avatar>
-      <ion-img [src]="foto"></ion-img>
+      <ion-img *ngIf="foto" [src]="foto"></ion-img>
     </ion-avatar>
   </ion-card-header>
 
   <ion-card-content>
-    <b *ngIf="pedido.mesa!='MES00'">Mesa:</b> {{pedido.mesa}}<br>
-    <b>Estado:</b> {{pedido.estado}}<br>
+    <span *ngIf="pedido.mesa!='MES00'"><b>Mesa:</b> {{pedido.mesa}}<br></span>
+    <span *ngIf="pedido.nombre_cliente"><b>Cliente:</b>
+      {{pedido.nombre_cliente}}<br></span>
+    <b *ngIf="pedido.mesa=='MES00'">DELIVERY<br></b>
+    <span *ngIf="pedido.mesa=='MES00'"><b>Dirección:</b> {{pedido.direccion_delivery}}<br></span>
+    <span *ngIf="pedido.id_mozo!=0"><b>Estado:</b> {{pedido.estado}}<br></span>
+    <span *ngIf="pedido.id_mozo==0"><b>Estado:</b> Aprobacion Pendiente<br></span>
     <b>Fecha:</b> {{pedido.fecha}} {{pedido.hora_inicial}}<br>
     <b>Importe:</b> ${{pedido.importe}}<br>
-    <b>Hora de entrega estimada:</b> {{pedido.hora_entrega_estimada}}<br>
-    <b *ngIf="pedido.mesa=='MES00'">Dirección:</b> {{pedido.direccion_delivery}}<br>
-    <ion-button *ngIf="pedido.estado=='Entregado'" expand="full" (click)="confirmarEntrega(pedido)">
+    <span *ngIf="pedido.hora_entrega_estimada"><b>Hora de entrega estimada:</b>
+      {{pedido.hora_entrega_estimada}}<br></span>
+    <ion-button *ngIf="pedido.estado=='Entregado'&&(usuario.tipo=='anonimo'||usuario.tipo=='registrado')"
+      color="success" expand="full" (click)="confirmarEntrega(pedido)">
       Confirmar Entrega
+    </ion-button>
+    <ion-button
+      *ngIf="pedido.estado=='Pendiente'&&(usuario.tipo=='Mozo'||usuario.tipo=='anonimo'||usuario.tipo=='registrado')"
+      color="danger" expand="full" (click)="cancelarPedido(pedido)">
+      Cancelar Pedido
     </ion-button>
   </ion-card-content>
 </ion-card>

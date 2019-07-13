@@ -107,7 +107,7 @@ export class InicioClientePage implements OnInit {
   CargarDefault(tipo: string) {
     switch (tipo) {
       case 'S':
-        this.dataLogin = new Login('belen', 'qwerty');
+        this.dataLogin = new Login('josecito1', 'qwerty');
         this.singIn();
         break;
       case 'B':
@@ -135,8 +135,8 @@ export class InicioClientePage implements OnInit {
   private verificarReserva() {
     this.usuarioOnline = this.tokenService.token();
     if (this.usuarioOnline.tipo == "registrado") {
-      this.reservaService.TraerCliente(this.usuarioOnline.id).
-        subscribe(
+      this.reservaService.TraerCliente(this.usuarioOnline.id)
+        .subscribe(
           (res) => {
             if (res) {
               this.reserva = res;

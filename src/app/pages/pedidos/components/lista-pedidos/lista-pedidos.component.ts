@@ -23,14 +23,14 @@ export class ListaPedidosComponent implements OnInit {
     this.pedidoEntregado = new EventEmitter();
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   public verDetalle(pedido: Pedido) {
     this.pedidoSeleccionado.emit(pedido);
   }
 
   public tomarPedido(pedido: Pedido) {
-    if (pedido.estado == EstadosPedido.ListoParaServir || pedido.id_mozo == 0) {
+    if (pedido.estado == EstadosPedido.ListoParaServir || (pedido.es_delivery == 1 && pedido.id_mozo == 0)) {
       this.pedidoEntregado.emit(pedido);
     } else {
       this.pedidoTomado.emit(pedido);

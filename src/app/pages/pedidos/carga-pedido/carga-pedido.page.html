@@ -11,31 +11,40 @@
 
 <ion-content padding>
   <div>
-    <ion-chip *ngFor="let menu of menus" (click)="agregarMenu(menu.id)">
-      <ion-icon *ngIf="menu.sector=='Cervecero'" name="beer"></ion-icon>
-      <ion-icon *ngIf="menu.sector=='Cocinero'" name="restaurant"></ion-icon>
-      <ion-icon *ngIf="menu.sector=='Bartender'" name="wine"></ion-icon>
-      <ion-label>{{menu.nombre}}</ion-label>
-    </ion-chip>
+    <app-datos-menu *ngFor="let menu of menus" [menu]="menu" (menuConfirmado)="agregarMenu($event, menu)">
+    </app-datos-menu>
+
   </div>
   <div id="menus_cargados">
-    <ion-chip color="success" *ngFor="let menu of menus_cargados">
-      <ion-icon *ngIf="menu.sector=='Cervecero'" name="beer"></ion-icon>
-      <ion-icon *ngIf="menu.sector=='Cocinero'" name="restaurant"></ion-icon>
-      <ion-icon *ngIf="menu.sector=='Bartender'" name="wine"></ion-icon>
-      <ion-label>{{menu.nombre}}</ion-label>
-      <ion-icon name="close-circle" (click)="eliminarMenu(menu.id)"></ion-icon>
+    <ion-chip color="success" *ngFor="let item of menus_cargados">
+      <ion-icon *ngIf="item.menu.sector=='Cervecero'" name="beer"></ion-icon>
+      <ion-icon *ngIf="item.menu.sector=='Cocinero'" name="restaurant"></ion-icon>
+      <ion-icon *ngIf="item.menu.sector=='Bartender'" name="wine"></ion-icon>
+      <ion-label>{{item.menu.nombre}} | {{item.cantidad}}</ion-label>
+      <ion-icon name="close-circle" (click)="eliminarMenu(item.menu)"></ion-icon>
     </ion-chip>
   </div>
-  <ion-row *ngIf="usuario!=null && usuario.tipo!='registrado'">
-    <ion-item *ngIf="mesas.length > 0">
-      <ion-icon name="pin"></ion-icon>
-      <ion-select [(ngModel)]="mesa" placeholder="Mesa" style="max-width: 100%">
-        <ion-select-option *ngFor="let option of mesas" value="{{option.codigo}}">{{option.codigo}}
-        </ion-select-option>
-      </ion-select>
-    </ion-item>
+  <ion-row id="total_pedido" size="12" *ngIf="menus_cargados.length > 0">
+
+    <ion-col>
+      <ion-item lines="none">
+        <div>
+          TOTAL: <b>${{total}}</b>
+        </div>
+      </ion-item>
+    </ion-col>
+
+    <ion-col *ngIf="usuario!=null && usuario.tipo!='registrado' && usuario.tipo!='anonimo' && mesas.length > 0">
+      <ion-item lines="none">
+        <ion-icon name="pin"></ion-icon>
+        <ion-select [(ngModel)]="mesa" placeholder="Mesa" style="max-width: 100%">
+          <ion-select-option *ngFor="let option of mesas" value="{{option.codigo}}">{{option.codigo}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
   </ion-row>
 
-  <ion-button color="primary" id="boton" (click)="generarPedido()" round>Pedir</ion-button>
+  <ion-button *ngIf="menus_cargados.length > 0 && mesa" expand="full" color="primary" id="boton" (click)="generarPedido()"
+    round>Pedir</ion-button>
 </ion-content>

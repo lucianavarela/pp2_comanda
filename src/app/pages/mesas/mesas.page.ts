@@ -4,6 +4,7 @@ import { MesaService } from '../../services/mesa/mesa.service';
 import { NavController } from '@ionic/angular';
 import { Mesa, EstadosMesa } from '../../models/mesa';
 import { ToastService } from 'src/app/services/toast/toast.service';
+import { ClienteService } from 'src/app/services/cliente/cliente.service';
 
 @Component({
   selector: 'app-mesas',
@@ -16,6 +17,7 @@ export class MesasPage {
   constructor(
     public navCtrl: NavController,
     public mesaService: MesaService,
+    public clienteService: ClienteService,
     private errorHandler: ToastService) { }
 
   ionViewWillEnter() {
@@ -47,18 +49,11 @@ export class MesasPage {
     )
   }
 
-  cobrar(codigo: string) {
-    this.mesaService.Cobrar(codigo).then(
-      (res) => {
-        this.cerrar(codigo);
-      }
-    )
-  }
-
   cerrar(codigo: string) {
     this.mesaService.CambiarEstado(codigo, EstadosMesa.Cerrada).then(
       (res) => {
         this.errorHandler.confirmationToast('Mesa cerrada exitosamente');
+        this.clienteService.SacarMesa(codigo);
         this.traerMesas()
       }
     )

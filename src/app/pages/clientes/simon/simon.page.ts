@@ -30,15 +30,16 @@ export class SimonPage implements OnInit {
   nroIngreso: number;
   mensaje: string;
   secuenciaElegida: string;
-  usuarioOnline: User; 
+  usuarioOnline: User;
 
-  constructor(private smartAudioService: SmartAudioService,public navCtrl: NavController,
-    private authService: AuthService, private  clienteService: ClienteService,private toastService : ToastService,
+  constructor(private smartAudioService: SmartAudioService, public navCtrl: NavController,
+    private authService: AuthService, private clienteService: ClienteService, private toastService: ToastService,
     private vibrationService: Vibration) {
     this.reiniciar();
   }
 
   ngOnInit() {
+    this.usuarioOnline = this.authService.token();
   }
 
   private reiniciar() {
@@ -148,45 +149,37 @@ export class SimonPage implements OnInit {
     }
   }
 
-  private pasarDeNivel() {    
+  private pasarDeNivel() {
     this.secuenciaElegida = "";
     this.color = Colores.Blanco;
     this.estado = EstadosSimon.NoJugando;
-    switch(this.dificultad) {
-      case DificultadSimon.Facil:        
+    switch (this.dificultad) {
+      case DificultadSimon.Facil:
         this.mensaje = "¡PASASTE DE NIVEL!";
         this.dificultad = DificultadSimon.Medio;
         this.numeroVidas = 3;
-      break;
-      case DificultadSimon.Medio:        
+        break;
+      case DificultadSimon.Medio:
         this.mensaje = "¡PASASTE DE NIVEL!";
-        this.dificultad =  DificultadSimon.Dificil;        
-        this.numeroVidas = 3;        
-      break;
+        this.dificultad = DificultadSimon.Dificil;
+        this.numeroVidas = 3;
+        break;
       case DificultadSimon.Dificil:
         this.mensaje = "¡GANASTE UNA BEBIDA GRATIS!";
-        let cliente : Cliente = new Cliente();
-      cliente.id = this.usuarioOnline.id;
-      cliente.descuento = "simon";
-     
-     this.clienteService.CargarDescuento(cliente).
-        subscribe((data) => {
-          this.toastService.confirmationToast(data["Mensaje"]);
-          //this.volver();
-          
-        }, (error) => {
-          this.toastService.errorToast(error);
-          
-        });
-       // this.volver();
+        let cliente: Cliente = new Cliente();
+        cliente.id = this.usuarioOnline.id;
+        cliente.descuento = "simon";
+        this.toastService.confirmationToast("Te Ganaste una Bebida Gratis!");
+
+        this.volver();
         this.estado = EstadosSimon.Finalizado;
-      break;
+        break;
     }
 
   }
 
 
-  volver(){
+  volver() {
     this.navCtrl.navigateForward('/home');
   }
 

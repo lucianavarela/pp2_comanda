@@ -80,4 +80,10 @@ export class HttpService {
       .then(this.extractData)
       .catch(this.handleError);
   }
+
+  // tslint:disable-next-line:no-shadowed-variable
+  public httpGetCO<T>(url: string) {
+    return this.http.get<T>(this.urlLea + url);
+  }
+
 }

@@ -19,10 +19,11 @@ import { ClienteService } from 'src/app/services/cliente/cliente.service';
 export class CargaPedidoPage {
   mesas: Mesa[] = [];
   menus: Menu[] = [];
-  menus_cargados: Menu[] = [];
+  menus_cargados: any[] = [];
   usuario: any;
   mesa: string;
   cliente: string;
+  total: number = 0;
 
   constructor(
     private navCtrl: NavController,
@@ -37,15 +38,14 @@ export class CargaPedidoPage {
   }
 
   ionViewWillEnter() {
-    if (this.usuario.tipo == 'registrado') {
-      this.clienteService.GetCliente(this.usuario.id).subscribe(cliente => {
-        if (cliente.mesa) {
-          this.mesa = cliente.mesa;
-        } else {
-          this.errorHandler.errorToast('Debe estar ingresado en una mesa para realizar pedidos');
-          this.navCtrl.navigateForward('/home');
-        }
-      });
+    if (this.usuario.tipo == 'registrado' || this.usuario.tipo == 'anonimo') {
+      if (this.usuario.mesa) {
+        this.mesa = this.usuario.mesa;
+        this.traerMenus();
+      } else {
+        this.errorHandler.errorToast('Debe estar ingresado en una mesa para realizar pedidos');
+        this.navCtrl.navigateForward('/home');
+      }
     } else {
       this.mesaService.Listar().subscribe(
         (res) => {
@@ -70,38 +70,58 @@ export class CargaPedidoPage {
       });
   }
 
-  agregarMenu(id: number) {
-    let index = this.menus.findIndex(x => x.id == id);
-    this.menus_cargados.push(this.menus[index]);
-    this.menus_cargados = this.menus_cargados.sort((a: Menu, b: Menu) => {
-      if (a.nombre > b.nombre) {
-        return 1;
-      }
-      if (a.nombre < b.nombre) {
-        return -1;
-      }
-      return 0;
-    });
+  agregarMenu(menu: Menu) {
+    this.total += menu.precio;
+    let index = this.menus_cargados.findIndex(x => x['menu'].id == menu.id);
+    if (index > -1) {
+      this.menus_cargados[index]['cantidad']++;
+    } else {
+      this.menus_cargados.push({
+        'menu': menu,
+        'cantidad': 1
+      });
+    }
   }
 
-  eliminarMenu(id: number) {
-    let index = this.menus_cargados.findIndex(x => x.id == id);
-    this.menus_cargados.splice(index, 1);
+  eliminarMenu(menu: Menu) {
+    this.total -= menu.precio;
+    let index = this.menus_cargados.findIndex(x => x['menu'].id == menu.id);
+    if (this.menus_cargados[index]['cantidad'] > 1) {
+      this.menus_cargados[index]['cantidad']--;
+    } else {
+      this.menus_cargados.splice(index, 1);
+    }
   }
 
   generarPedido() {
     if (this.mesa != "") {
       let mozo = this.usuario.tipo == 'Mozo' ? this.usuario.id : 0;
-      if (this.cliente != "") {
-        this.menus_cargados.forEach((menu) => {
-          this.guardarPedido(this.mesa, menu.id, this.cliente, 0, mozo);
+      if (this.cliente) {
+        this.menus_cargados.forEach((item) => {
+          for (let i = 0; i < item.cantidad; i++) {
+            this.guardarPedido(this.mesa, item.menu.id, this.cliente, 0, mozo);
+          }
         });
+        this.mesaService.CambiarEstado(this.mesa, EstadosMesa.EsperandoPedido)
+          .then(
+            () => {
+              this.errorHandler.confirmationToast('Pedido registrado!');
+              this.navCtrl.navigateForward('/home');
+            }
+          );
       } else {
         this.clienteService.GetClientedeMesa(this.mesa).subscribe(cliente => {
           if (cliente != undefined) {
-            this.menus_cargados.forEach((menu) => {
-              this.guardarPedido(this.mesa, menu.id, cliente.usuario, 0, mozo);
+            this.menus_cargados.forEach((item) => {
+              this.guardarPedido(this.mesa, item.menu.id, cliente.usuario, 0, mozo);
             });
+            this.mesaService.CambiarEstado(this.mesa, EstadosMesa.EsperandoPedido)
+              .then(
+                () => {
+                  this.errorHandler.confirmationToast('Pedido registrado!');
+                  this.navCtrl.navigateForward('/home');
+                }
+              );
           } else {
             this.errorHandler.errorToast('Error al cargar el pedido')
           }
@@ -114,11 +134,7 @@ export class CargaPedidoPage {
     this.pedidoService.Registrar(mesa, menu, cliente, es_delivery, mozo)
       .then(
         (res: any) => {
-          if (res.Estado == 'OK') {
-            this.errorHandler.confirmationToast('Pedido registrado!');
-            this.mesaService.CambiarEstado(this.mesa, EstadosMesa.EsperandoPedido);
-            this.navCtrl.navigateForward('/home');
-          } else {
+          if (res.Estado != 'OK') {
             this.errorHandler.errorToast(res.Mensaje);
           }
         }
