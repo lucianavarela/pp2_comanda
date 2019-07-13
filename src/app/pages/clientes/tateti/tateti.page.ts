@@ -114,11 +114,11 @@ export class TatetiPage {
   nuevoJuego: JuegoTaTeTi;
   isEnd: boolean = false;
   thinking: boolean = false;
-  usuarioOnline: User; 
+  usuarioOnline: User;
 
 
-  constructor(public navCtrl: NavController, private errorHandler: ToastService, 
-    private authService: AuthService, private  clienteService: ClienteService) {
+  constructor(public navCtrl: NavController, private errorHandler: ToastService,
+    private authService: AuthService, private clienteService: ClienteService) {
     this.nuevoJuego = new JuegoTaTeTi();
   }
 
@@ -173,20 +173,20 @@ export class TatetiPage {
     this.isEnd = this.nuevoJuego.verificar();
     if (this.isEnd) {
       if (this.nuevoJuego.gano) {
-        let cliente : Cliente = new Cliente();
+        let cliente: Cliente = new Cliente();
         cliente.id = this.usuarioOnline.id;
         cliente.descuento = "tateti";
-       // this.errorHandler.mostrarMensajeConfimación('Ganaste 10% de descuento');
-       this.clienteService.CargarDescuento(cliente).
-          subscribe((data) => {
+        // this.errorHandler.mostrarMensajeConfimación('Ganaste 10% de descuento');
+        this.clienteService.CargarDescuento(cliente)
+          .subscribe((data) => {
             this.errorHandler.confirmationToast(data["Mensaje"]);
-          //  this.atras();
-            
+            this.atras();
+
           }, (error) => {
             this.errorHandler.errorToast(error);
-            
+
           });
-        
+
       }
     }
   }

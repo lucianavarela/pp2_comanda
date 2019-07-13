@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpService } from '../http/http.service';
 import { Mesa, EstadosMesa } from '../../models/mesa';
 import { Reserva } from 'src/app/models/reserva';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,14 @@ export class MesaService {
 
   public Listar(): Observable<Mesa[]> {
     return this.miHttp.httpGetO<Mesa[]>('mesas/listar/');
+  }
+
+  public GetMesa(codigo_mesa: string) {
+    return this.Listar().pipe(
+      map(clientes => {
+        return clientes.filter((m) => { return m.codigo == codigo_mesa })[0];
+      })
+    );
   }
 
   public Registrar(codigo: string, foto): Promise<any> {

@@ -18,7 +18,7 @@ import { ToastService } from 'src/app/services/toast/toast.service';
 export class EstadoPedidoPage {
   pedidosList: Pedido[] = null;
   mesa: string;
-  cliente: string;
+  cliente: any = null;
   usuario: any;
 
   constructor(
@@ -35,12 +35,18 @@ export class EstadoPedidoPage {
   ionViewWillEnter() {
     this.usuario = this.authService.token();
     if (this.usuario.tipo == 'registrado' || this.usuario.tipo == 'anonimo') {
-      if (this.usuario.mesa) {
-        this.traerPedidos(this.usuario.mesa);
-      } else {
-        this.errorHandler.errorToast('Debe estar ingresado en una mesa para realizar pedidos');
-        this.navCtrl.navigateForward('/home');
-      }
+      this.clienteService.TraerCliente(this.usuario.id)
+        .subscribe((cliente: any) => {
+          this.cliente = cliente;
+          if (this.usuario.mesa) {
+            this.traerPedidos(this.cliente.mesa);
+          } else {
+            this.errorHandler.errorToast('Debe estar ingresado en una mesa para realizar pedidos');
+            this.navCtrl.navigateForward('/home');
+          }
+        });
+    } else {
+      this.atras();
     }
   }
 
@@ -56,14 +62,16 @@ export class EstadoPedidoPage {
       .then((res: any) => {
         if (res.Estado == 'OK') {
           this.errorHandler.confirmationToast("Pedido confirmado exitosamente.");
-          this.pedidoService.ListarPorMesa(this.mesa).subscribe(
+          this.cliente.monto = this.cliente.monto ? parseFloat(this.cliente.monto) + parseFloat(pedido.importe) : parseFloat(pedido.importe);
+          this.clienteService.CargarMonto(this.usuario).subscribe(
             (res) => {
-              this.pedidosList = res;
-              if (this.pedidosList.length == 0) {
-                this.mesaService.CambiarEstado(this.mesa, EstadosMesa.Comiendo).then(
-                  () => this.atras()
-                );
-              }
+              this.pedidoService.ListarPorMesa(this.cliente.mesa).subscribe(
+                (res) => {
+                  this.pedidosList = res;
+                  if (this.pedidosList.length == 0) {
+                    this.mesaService.CambiarEstado(this.cliente.mesa, EstadosMesa.Comiendo);
+                  }
+                });
             });
         } else {
           this.errorHandler.errorToast(res.Mensaje);
@@ -78,26 +86,21 @@ export class EstadoPedidoPage {
     this.pedidoService.Cancelar(pedido.codigo)
       .then((res: any) => {
         this.errorHandler.confirmationToast("Pedido cancelado exitosamente.");
-        if (res.Estado == 'OK') {
-          this.pedidoService.ListarPorMesa(this.mesa).subscribe(
-            (res) => {
-              this.pedidosList = res;
-              if (this.pedidosList.length == 0) {
-                if (this.usuario.monto > 0) {
-                  this.mesaService.CambiarEstado(this.mesa, EstadosMesa.Comiendo).then(
-                    () => this.atras()
-                  );
-                } else {
-                  this.mesaService.CambiarEstado(this.mesa, EstadosMesa.Asignada).then(
-                    () => this.atras()
-                  );
-                }
+        this.pedidoService.ListarPorMesa(this.cliente.mesa).subscribe(
+          (res) => {
+            this.pedidosList = res;
+            if (this.pedidosList.length == 0) {
+              if (this.cliente.monto && this.cliente.monto > 0) {
+                this.mesaService.CambiarEstado(this.cliente.mesa, EstadosMesa.Comiendo).then(
+                  () => this.traerPedidos(this.cliente.mesa)
+                );
+              } else {
+                this.mesaService.CambiarEstado(this.cliente.mesa, EstadosMesa.Asignada).then(
+                  () => this.traerPedidos(this.cliente.mesa)
+                );
               }
-            });
-        } else {
-          this.errorHandler.errorToast(res.Mensaje);
-          this.atras();
-        }
+            }
+          });
       })
       .catch(error => {
         this.errorHandler.errorToast(error);
