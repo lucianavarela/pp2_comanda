@@ -118,7 +118,7 @@ export class HomeQrPage implements OnInit {
               .subscribe(
                 (res) => {
                   this.reservas = res;
-                  // console.log(this.reservas);             
+                  // console.log(this.reservas);
                   let tiempo;
                   let diferencia;
                   if (this.reservas.length > 0) {
@@ -155,6 +155,27 @@ export class HomeQrPage implements OnInit {
 
                       }
                     })
+                  } else {
+                    if (this.verificarMesaCerrada(this.usuarioOnline.mesa)) {
+                      this.clienteService.CargarMesa(this.usuarioOnline).
+                        subscribe((data) => {
+                          if (data["Estado"] == "OK") {
+                            this.errorHandler.confirmationToast(data["Mensaje"]);
+                            this.servicioMesa.CambiarEstado(this.usuarioOnline.mesa, EstadosMesa.Asignada);
+                            this.volver();
+                          } else {
+                            this.errorHandler.errorToast(data["Mensaje"]);
+                            this.volver();
+                          }
+
+                        }, (error) => {
+                          this.errorHandler.errorToast(error);
+                          this.volver();
+                        })
+                    } else {
+                      this.errorHandler.errorToast("Esta mesa no esta libre");
+                      this.volver();
+                    }
                   }
                 })
           }
@@ -233,7 +254,7 @@ export class HomeQrPage implements OnInit {
       this.volver();
     });
   }
-  
+
   cargarMesas() {
     this.servicioMesa.Listar().subscribe(
       (res) => {
