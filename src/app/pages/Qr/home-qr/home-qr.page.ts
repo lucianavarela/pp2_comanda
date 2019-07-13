@@ -23,21 +23,22 @@ export class HomeQrPage implements OnInit {
 
   reservas: any;
   listadoMesas: Mesa[] = [];
+  listadoReserva: any;
   mesa: any;
   cliente: Cliente;
   usuarioOnline: any;
   myDate = new Date();
   myDate1 = new Date().toISOString().substring(0, 10);
 
-  hora1 = new Date(this.myDate1 + " " + "09:00:00");
-  hora2 = new Date(this.myDate1 + " " + "13:00:00");
+  hora1 = new Date(this.myDate1 + " " + "00:00:00");
+  hora2 = new Date(this.myDate1 + " " + "04:00:00");
 
   flag: boolean = false;
   reservaCliente: Reserva;
 
   showTotal: boolean = false;
   total: string = '';
-
+  
   constructor(private errorHandler: ToastService,
     private navCtrl: NavController,
     public esperaServicio: EsperaService,
@@ -53,6 +54,7 @@ export class HomeQrPage implements OnInit {
   }
 
   ngOnInit() {
+    
   }
 
   ionViewWillEnter() {
@@ -64,6 +66,9 @@ export class HomeQrPage implements OnInit {
         this.listadoMesas = res;
         this.scanQr();
       });
+      this.traerReserva();
+      this.listarReservas();
+      console.log( this.reservaCliente);
   }
 
   Accion(qr: string) {
@@ -77,37 +82,118 @@ export class HomeQrPage implements OnInit {
           this.volver();
         });
     } else if (qr.indexOf('MESA-') > -1) {
-      if (this.consultarReservaDelCliente(qr.replace('MESA-', ''))) {
-        this.servicioReserva.Listar().subscribe(
+      this.usuarioOnline.mesa = qr.replace('MESA-', '');
+      console.log( this.reservaCliente);
+      if( this.reservaCliente != undefined ){
+        console.log(this.reservaCliente.codigo_mesa);
+        if (this.consultarReservaDelCliente( this.usuarioOnline.mesa)) {
+          if (this.verificarMesaCerrada( this.usuarioOnline.mesa)) {
+            this.clienteService.CargarMesa(this.usuarioOnline).
+               subscribe((data) => {
+                 if (data["Estado"] == "OK") {
+                   this.errorHandler.confirmationToast(data["Mensaje"]);
+                   this.servicioMesa.CambiarEstado(this.usuarioOnline.mesa, EstadosMesa.Asignada);
+                   this.servicioReserva.Baja(this.reservaCliente.id_reserva);
+                   this.volver();
+                 } else {
+                   this.errorHandler.errorToast(data["Mensaje"]);
+                   this.volver();
+                 }
+
+               }, (error) => {
+                 this.errorHandler.errorToast(error);
+                 this.volver();
+               });
+              
+           } else {
+             this.errorHandler.errorToast("Esta mesa no esta libre");
+             this.volver();
+           }
+        
+          } else {
+             this.errorHandler.errorToast("Usted tiene reservada otra mesa");
+              this.volver();
+          }
+
+      }else{        
+        this.servicioReserva.ReservaXMesa(this.usuarioOnline.mesa)
+        .subscribe(
           (res) => {
-            this.flag = this.verificarReserva(qr.replace('MESA-', ''), res);
-            if (this.flag == false && this.verificarMesaCerrada(qr.replace('MESA-', ''))) {
-              this.usuarioOnline.mesa = qr.replace('MESA-', '');
-              this.clienteService.CargarMesa(this.usuarioOnline).
-                subscribe((data) => {
-                  if (data["Estado"] == "OK") {
-                    this.errorHandler.confirmationToast(data["Mensaje"]);
-                    this.servicioMesa.CambiarEstado(this.usuarioOnline.mesa, EstadosMesa.Asignada);
-                    this.volver();
-                  } else {
-                    this.errorHandler.errorToast(data["Mensaje"]);
+             this.reservas = res;
+            // console.log(this.reservas);             
+             let tiempo;
+            let diferencia;
+            if (this.reservas.length > 0) {
+            this.reservas.forEach(reserva => {
+                let horaR = new Date(reserva.fecha.substr(0, 10) + " " + reserva.hora)
+                tiempo =   horaR.getTime() - this.myDate.getTime();
+                diferencia = Math.floor((tiempo / 1000 / 60) << 0)
+                if (diferencia < 40) {
+                  this.errorHandler.errorToast("Esta mesa esta reservada");
+                  this.volver();
+                 console.log( diferencia);
+                 }else{
+                      
+                  if (this.verificarMesaCerrada( this.usuarioOnline.mesa)) {
+                     this.clienteService.CargarMesa(this.usuarioOnline).
+                     subscribe((data) => {
+                       if (data["Estado"] == "OK") {
+                         this.errorHandler.confirmationToast(data["Mensaje"]);
+                         this.servicioMesa.CambiarEstado(this.usuarioOnline.mesa, EstadosMesa.Asignada);
+                         this.volver();
+                       } else {
+                         this.errorHandler.errorToast(data["Mensaje"]);
+                         this.volver();
+                       }
+      
+                     }, (error) => {
+                       this.errorHandler.errorToast(error);
+                       this.volver();
+                     })
+                  }else {
+                    this.errorHandler.errorToast("Esta mesa no esta libre");
                     this.volver();
                   }
 
-                }, (error) => {
-                  this.errorHandler.errorToast(error);
-                  this.volver();
-                });
-            } else {
-              this.errorHandler.errorToast("Esta mesa no esta libre");
-              this.volver();
-            }
+                 }
+                })
+              }
+            })
+                 /*else{
+
+                  /*if (this.verificarMesaCerrada( this.usuarioOnline.mesa)) {
+             
+                     this.clienteService.CargarMesa(this.usuarioOnline).
+                       subscribe((data) => {
+                         if (data["Estado"] == "OK") {
+                           this.errorHandler.confirmationToast(data["Mensaje"]);
+                           this.servicioMesa.CambiarEstado(this.usuarioOnline.mesa, EstadosMesa.Asignada);
+                           this.volver();
+                         } else {
+                           this.errorHandler.errorToast(data["Mensaje"]);
+                           this.volver();
+                         }
+        
+                       }, (error) => {
+                         this.errorHandler.errorToast(error);
+                         this.volver();
+                       })
+                      
+                   } else {
+                     this.errorHandler.errorToast("Esta mesa no esta libre");
+                     this.volver();
+                   }
+                   
+                 }           
+    
+            });
+          }
           });
-      } else {
-        this.errorHandler.errorToast("Usted tiene reservada otra mesa");
-        this.volver();
-      }
-    } else if (qr.indexOf('PROPINA-') > -1) {
+       */
+     
+      }  
+     
+    } else if(qr.indexOf('PROPINA-') > -1) {
       if (this.usuarioOnline.tipo == 'registrado' || this.usuarioOnline.tipo == 'anonimo') {
         this.clienteService.TraerCliente(this.usuarioOnline.id)
           .subscribe((cliente: any) => {
@@ -182,29 +268,34 @@ export class HomeQrPage implements OnInit {
   }
 
 
-  verificarReserva(codigo: string, listadoReservas: any) {
+  verificarReserva(codigo: string , listadoReservas: any) {
     let respuesta = false;
-    let reservas = listadoReservas.filter(function (reserva) { return reserva.codigo_mesa == codigo })
-    if (this.myDate > this.hora1 && this.hora2 < this.hora2) {
-      let tiempo;
-      let diferencia;
-      if (reservas.length > 0) {
-        reservas.forEach(reserva => {
-          if (this.reservaCliente.codigo_mesa != reserva.codigo_mesa || this.reservaCliente == null) {
+   
+    this.servicioReserva.ReservaXMesa(codigo)
+    .subscribe(
+      (res) => {
+         this.reservas = res;
+         console.log(this.reservas);
+         
+         let tiempo;
+        let diferencia;
+        if (this.reservas.length > 0) {
+        this.reservas.forEach(reserva => {
+          
             let horaR = new Date(reserva.fecha.substr(0, 10) + " " + reserva.hora)
-            tiempo = this.myDate.getTime() - horaR.getTime();
+            tiempo =   horaR.getTime() - this.myDate.getTime();
             diferencia = Math.floor((tiempo / 1000 / 60) << 0)
             if (diferencia < 40) {
               respuesta = true;
-            }
-
-          }
+             console.log( diferencia);
+            }     
 
         });
       }
-    }
+      }); 
 
     return respuesta;
+    console.log(respuesta);
   }
 
   cargarMesas() {
@@ -238,13 +329,11 @@ export class HomeQrPage implements OnInit {
 
 
   consultarReservaDelCliente(mesa: string) {
-    let respuesta = true;
-    if (this.reservaCliente !== undefined) {
-      if (this.reservaCliente.codigo_mesa !== mesa && this.reservaCliente.estado == 'A') {
-        respuesta = false;
-
+    let respuesta = false;    
+      if (this.reservaCliente.codigo_mesa == mesa && this.reservaCliente.estado == 'A') {
+        respuesta = true;
       }
-    }
+    
     return respuesta;
   }
 
@@ -254,11 +343,20 @@ export class HomeQrPage implements OnInit {
       subscribe((res) => {
         if (res) {
           this.reservaCliente = res;
-
+          console.log( this.reservaCliente);
         }
       })
 
   }
 
 
+  listarReservas(){
+    this.servicioReserva.Listar().subscribe(
+      (res) => {
+       this.listadoReserva = res;
+       console.log( this.listadoReserva);
+      });
+  }
+
 }
+
