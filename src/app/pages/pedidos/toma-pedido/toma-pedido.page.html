@@ -3,12 +3,14 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
-    <ion-title *ngIf="usuario.tipo!='Mozo'&&mode!='delivery'">Toma de Pedidos</ion-title>
-    <ion-title *ngIf="usuario.tipo=='Mozo'&&mode=='servir'">Servir Pedidos Listos</ion-title>
-    <ion-title *ngIf="usuario.tipo=='Mozo' || usuario.tipo=='Socio' &&mode=='autorizar'">Autorizar Pedidos</ion-title>
+    <ion-title *ngIf="usuario.tipo!='Mozo' && usuario.tipo!='Socio' &&mode!='delivery'">Toma de Pedidos</ion-title>
+    <ion-title *ngIf="usuario.tipo=='Mozo' &&mode=='servir'">Servir Pedidos Listos</ion-title>
+    <ion-title *ngIf="usuario.tipo=='Mozo'  &&mode=='autorizar'">Autorizar Pedidos</ion-title>
+    <ion-title *ngIf="usuario.tipo=='Socio'  &&mode=='autorizar'">Autorizar Pedidos</ion-title>
+   
     
     <ion-title *ngIf="mode=='delivery'">Repartir Pedidos</ion-title>
-    <ion-buttons *ngIf="usuario.tipo=='Mozo'&&mode=='autorizar'&&pedidosList!=null&&pedidosList.length>0" slot="end">
+    <ion-buttons *ngIf="usuario.tipo=='Mozo' || usuario.tipo=='Socio' &&mode=='autorizar'&&pedidosList!=null&&pedidosList.length>0" slot="end">
       <ion-button (click)="autorizarTodos()">
         <ion-icon name="checkbox-outline"></ion-icon>
       </ion-button>

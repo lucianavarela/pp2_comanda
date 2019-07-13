@@ -9,6 +9,8 @@
 
   <ion-card-content>
     <span *ngIf="pedido.mesa!='MES00'"><b>Mesa:</b> {{pedido.mesa}}<br></span>
+    <span *ngIf="pedido.nombre_cliente"><b>Cliente:</b>
+      {{pedido.nombre_cliente}}<br></span>
     <b *ngIf="pedido.mesa=='MES00'">DELIVERY<br></b>
     <span *ngIf="pedido.mesa=='MES00'"><b>Dirección:</b> {{pedido.direccion_delivery}}<br></span>
     <span *ngIf="pedido.id_mozo!=0"><b>Estado:</b> {{pedido.estado}}<br></span>
