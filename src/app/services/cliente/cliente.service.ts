@@ -13,38 +13,28 @@ export class ClienteService {
   constructor(public miHttp: HttpService) { }
 
   public loguear(dataLogin: Login) {
-
     return this.miHttp.httpPostL("clientes/login", dataLogin);
-
   }
 
   public alta(dataCliente: Cliente) {
-
     return this.miHttp.httpPostL("clientes/registrarCliente", dataCliente);
-
   }
 
   public listarRegistrados() {
     return this.miHttp.httpGetL("clientes/listarClientesRegistrados");
   }
 
-
-
   public listarActivaciones() {
     return this.miHttp.httpGetL("clientes/listarActivaciones");
   }
 
   public ActivarCliente(dataCliente: Cliente) {
-
     return this.miHttp.httpPostL("clientes/activarCliente", dataCliente);
-
   }
-
 
   public Activar(id: number): Promise<Object> {
     return this.miHttp.httpGetPL('clientes/activarCliente/' + id);
   }
-
 
   public Listar(): Observable<Cliente[]> {
     return this.miHttp.httpGetOL<Cliente[]>('clientes/listarActivaciones');
@@ -57,15 +47,8 @@ export class ClienteService {
       })
     );
   }
-  public GetCliente(id: number) {
-    return this.ListarTodos().pipe(
-      map(clientes => {
-        return clientes.filter((c) => { return c.id == id })[0];
-      })
-    );
-  }
 
-  public GetClientedeMesa(mesa:string) {
+  public GetClientedeMesa(mesa: string) {
     return this.ListarTodos().pipe(
       map(clientes => {
         return clientes.filter((c) => { return c.mesa == mesa })[0];
@@ -109,8 +92,9 @@ export class ClienteService {
     return this.miHttp.httpGetPL('clientes/traer/' + id);
   }
 
- //le paso un cliente con el id y el monto cargado
+  //le paso un cliente con el id y el monto cargado
   public CargarMonto(dataCliente: Cliente) {
+    console.log(dataCliente);
     return this.miHttp.httpPostL("clientes/monto", dataCliente);
   }
 //le paso  el id 

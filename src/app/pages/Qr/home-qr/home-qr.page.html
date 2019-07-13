@@ -1,5 +1,13 @@
-<div class="splash">
-    <div class="spinner">
-        <img src="/assets/imgs/logo.png">
-    </div>
+<div *ngIf="!showTotal" class="splash">
+  <div class="spinner">
+    <img src="/assets/imgs/logo.png">
+  </div>
 </div>
+<ion-content *ngIf="showTotal" padding>
+  <div *ngIf="showTotal" class="total">
+    <p>TOTAL A PAGAR:<br/><br/><b>${{total}}</b></p>
+    <ion-button color="light" (click)="volver()">
+      OK
+    </ion-button>
+  </div>
+</ion-content>

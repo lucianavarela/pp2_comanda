@@ -3,7 +3,7 @@
     <ion-card-subtitle>Pedido de {{pedido.sector}}</ion-card-subtitle>
     <ion-card-title>{{pedido.descripcion}}</ion-card-title>
     <ion-avatar>
-      <ion-img [src]="foto"></ion-img>
+      <ion-img *ngIf="foto" [src]="foto"></ion-img>
     </ion-avatar>
   </ion-card-header>
 

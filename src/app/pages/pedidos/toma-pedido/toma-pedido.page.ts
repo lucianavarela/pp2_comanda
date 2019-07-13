@@ -1,240 +1,274 @@
 import { Component, OnInit } from '@angular/core';
-import { Pedido, EstadosPedido } from '../../../models/pedido';
-import { PedidoService } from 'src/app/services/pedido/pedido.service';
-import { AuthService } from '../../../services/auth/auth.service';
-import { User } from 'src/app/models/user';
-import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
-import { AuthFireService } from '../../../services/auth.service';
 import { NavController } from '@ionic/angular';
-import { EstadosMesa } from 'src/app/models/mesa';
+import { ToastService } from 'src/app/services/toast/toast.service';
+import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { EsperaService } from 'src/app/services/espera/espera.service';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { ClienteService } from 'src/app/services/cliente/cliente.service';
+import { MenuService } from 'src/app/services/menu/menu.service';
+import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { MesaService } from 'src/app/services/mesa/mesa.service';
+import { Mesa, EstadosMesa } from 'src/app/models/mesa';
+import { Cliente } from 'src/app/models/cliente';
+import { ReservaService } from 'src/app/services/reserva/reserva.service';
+import { Reserva } from 'src/app/models/reserva';
 
 @Component({
-  selector: 'app-toma-pedido',
-  templateUrl: './toma-pedido.page.html',
-  styleUrls: ['./toma-pedido.page.scss'],
+  selector: 'app-home-qr',
+  templateUrl: './home-qr.page.html',
 })
-export class TomaPedidoPage implements OnInit {
+export class HomeQrPage implements OnInit {
 
-  pedidosList: Pedido[] = null;
-  pedidoSeleccionado: Pedido;
-  pedidoEnPreparacion: Pedido;
-  usuario: any;
-  mostrarCargarTiempo: boolean;
-  mode: string = '';
+  reservas: any;
+  listadoMesas: Mesa[] = [];
+  listadoReservas: Reserva[] = [];
+  mesa: any;
+  cliente: Cliente;
+  usuarioOnline: any;
+  myDate = new Date();
+  myDate1 =  new Date().toISOString().substring(0, 10);
+ 
+  hora1 = new Date(this.myDate1 + " "+"09:00:00");
+  hora2 = new Date(this.myDate1 + " "+"21:00:00");
 
-  constructor(private pedidoService: PedidoService, private errorHandler: ErrorHandlerService, private mesaService: MesaService,
-    private authService: AuthService, private navCtrl: NavController, private authFireService: AuthFireService) {
+  flag: boolean = false;
+  reservaCliente: Reserva;
 
-    this.usuario = this.authService.token();
+  listadoIconos: Array<any> = [
+    {
+      nombre: "Tomar Mesa",
+      accion: "mesa"
+    },
+    {
+      nombre: "Lista de espera",
+      accion: "espera"
+    },
+  ]
 
-    if (document.URL.includes('autorizar')) {
-      this.mode = 'autorizar';
-    } else if (document.URL.includes('servir')) {
-      this.mode = 'servir';
-    } else if (document.URL.includes('deliveryboy')) {
-      this.mode = 'deliveryboy';
-    }
-    this.actualizarListaPedidos();
+  constructor(private errorHandler: ToastService,
+    private navCtrl: NavController,
+    public esperaServicio: EsperaService,
+    private barcodeScanner: BarcodeScanner,
+    private clienteService: ClienteService,
+    private servicioMesa: MesaService,
+    private servicioReserva: ReservaService,
+    private menuService: MenuService,
+    private pedidoService: PedidoService,
+    private authService: AuthService) {
+    this.mesa = new Mesa();
+    this.cliente = new Cliente();
   }
 
   ngOnInit() {
   }
 
-  public listarDelivery() {
-    this.pedidoService.ListarPorDelivery(this.authFireService.getCurrentUserMail())
-      .subscribe(pedidos => {
-        this.pedidosList = pedidos.filter((p) => {
-          return p.estado != EstadosPedido.Cancelado && p.estado != EstadosPedido.Finalizado
-        });
-      })
+  ionViewWillEnter() {
+    this.usuarioOnline = this.authService.token();
+    this.cliente.id = this.usuarioOnline.id;
+    this.scanQr();
+    this.cargarMesas();
+    this.traerReserva();
   }
 
-  public actualizarListaPedidos() {
-    this.mostrarCargarTiempo = false;
-    this.pedidoService.ListarTodos().subscribe(pedidos => {
-     
-      if (this.usuario.tipo != "Mozo" && this.usuario.tipo != "Socio" && this.mode == '') {
-        this.pedidosList = pedidos.filter((p) => {
-          return p.sector == this.usuario.tipo && (p.estado == EstadosPedido.Pendiente || p.estado == EstadosPedido.EnPreparacion)
-            && p.id_mozo != 0 ;
+  Accion(qr: string) {
+    if (qr == 'LISTA DE ESPERA') {
+      this.esperaServicio.alta(this.usuarioOnline).
+        subscribe((data) => {
+          this.errorHandler.confirmationToast(data["Mensaje"]);
+          this.volver();
+        }, (error) => {
+          this.errorHandler.errorToast("Se produjo un error al carga la lista ");
+          this.volver();
         });
-        this.pedidoSeleccionado = null;
-        this.pedidoEnPreparacion = null;
-
-        this.pedidosList.forEach(pedido => {
-          if (pedido.estado == EstadosPedido.EnPreparacion && pedido.id_encargado == this.usuario.id) {
-            this.pedidoEnPreparacion = pedido;
-            this.pedidoSeleccionado = pedido;
-            return;
-          }
-        });
-      } else if (this.usuario.tipo == "Socio" ) {
-        this.pedidosList = pedidos.filter(function (pedido) {
-         return pedido.estado == EstadosPedido.Pendiente && pedido.es_delivery == 1;
-        })}
-      else 
-      {
-        if (this.mode == 'servir') {
-          this.pedidosList = pedidos.filter(function (pedido) {
-            return pedido.estado == EstadosPedido.ListoParaServir && pedido.es_delivery == 0;
-          })
-        } else if (this.mode == 'deliveryboy') {
-          let pedidos_siento_repartidos = pedidos.filter(function (pedido) {
-            return pedido.estado == EstadosPedido.Entregado && pedido.es_delivery == 1;
-          })
-          if (pedidos_siento_repartidos.length == 0) {
-            this.pedidosList = pedidos.filter(function (pedido) {
-              return pedido.estado == EstadosPedido.ListoParaServir && pedido.es_delivery == 1;
-            })
-          } else {
-            this.errorHandler.mostrarMensajeError('Aún tenes entregas no finalizadas')
-          }
-        }
-         else 
-        {
-          this.pedidosList = pedidos.filter(function (pedido) {
-            return pedido.estado == EstadosPedido.Pendiente && pedido.id_mozo == 0 && pedido.es_delivery == 0 ;
-          })
-        }
+    } else if (qr.indexOf('MESA-') > -1) {
+      if(this.consultarReservaDelCliente (qr.replace('MESA-', '') ) ){
+      
+      this.verificarReserva(qr.replace('MESA-', ''));
+      if (this.flag == false) {
+        this.usuarioOnline.mesa = qr.replace('MESA-', '');
+        this.clienteService.CargarMesa(this.usuarioOnline).
+          subscribe((data) => {
+            if(data["Estado"]=="OK"){
+              this.errorHandler.confirmationToast(data["Mensaje"]);
+              this.servicioMesa.CambiarEstado(this.usuarioOnline.mesa, EstadosMesa.Asignada);
+              this.volver();
+            }else{
+              this.errorHandler.errorToast(data["Mensaje"]);
+              this.volver();
+            }
+            
+          }, (error) => {
+            this.errorHandler.errorToast(error);
+            this.volver();
+          });
+      } else {
+        this.errorHandler.errorToast("Esta mesa no esta libre");
+        this.volver();
       }
-    });
-  }
-
-  public tomarPedido(pedido: Pedido) {
-    this.mostrarCargarTiempo = true;
-    this.seleccionarPedido(pedido);
-  }
-
-  public entregarPedido(pedido: Pedido) {
-    if (this.mode == 'servir') {
-      this.pedidoService.Servir(pedido.codigo)
-        .then(response => {
-          this.errorHandler.mostrarMensajeConfimación("Pedido servido exitosamente.");
-        })
-        .catch(error => {
-          this.errorHandler.mostrarMensajeError("Ocurrió un error.");
-        })
-        .finally(() => {
-          this.actualizarListaPedidos();
-        });
-    } else if (this.mode == 'autorizar' ) {
-      this.pedidoService.CambiarEstado(pedido.codigo, EstadosPedido.Pendiente, this.usuario.id)
-        .then((res: any) => {
-          if (res.Estado == 'OK') {
-            this.errorHandler.mostrarMensajeConfimación("Pedido autorizado exitosamente.");
+    }else{
+      this.errorHandler.errorToast("Usted tiene reservada otra mesa");
+        this.volver();
+    }
+    } else if (qr.indexOf('PROPINA-') > -1) {
+      if (this.usuarioOnline.tipo == 'registrado' || this.usuarioOnline.tipo == 'anonimo') {
+        this.clienteService.GetCliente(this.usuarioOnline.id).subscribe(cliente => {
+          if (cliente.mesa) {
+            if (cliente.mesa != null) {
+              if (this.verificarMesaComiendo(cliente.mesa) || cliente.mesa == 'MES00') {
+                this.servicioMesa.CambiarEstado(cliente.mesa, EstadosMesa.Pagando)
+                  .then(
+                    () => {
+                      this.errorHandler.confirmationToast("Gracias por su propina de " + (qr.replace('PROPINA-', '') + '%!'));
+                      this.volver();
+                    }
+                  ).catch(
+                    (e) => this.errorHandler.errorToast(e)
+                  )
+              } else {
+                this.errorHandler.errorToast("Aún quedan pedidos pendientes");
+                this.volver();
+              }
+            } else {
+              this.errorHandler.errorToast("Usted no tiene pedidos activos");
+              this.volver();
+            }
           } else {
-            this.errorHandler.mostrarMensajeError(res.Mensaje);
+            this.errorHandler.errorToast("Usted no esta habilitado a dejar propina");
+            this.volver();
+
           }
         })
-        .catch(error => {
-          this.errorHandler.mostrarMensajeError("Ocurrió un error.");
-        })
-        .finally(() => {
-          this.actualizarListaPedidos();
-        });
+      } else {
+        this.errorHandler.errorToast("Usted no esta habilitado a dejar propina");
+        this.volver();
+      }
     } else {
-      this.pedidoService.CambiarEstado(pedido.codigo, EstadosPedido.Entregado, this.usuario.id)
-        .then((res: any) => {
-          if (res.Estado == 'OK') {
-            this.errorHandler.mostrarMensajeConfimación("Pedido tomado exitosamente.");
-            this.pedidoService.UpdateDelivery(pedido.codigo, this.authFireService.getCurrentUserMail())
-              .then(() => {
-                this.atras();
-              });
-          } else {
-            this.errorHandler.mostrarMensajeError(res.Mensaje);
-          }
-        })
-        .catch(error => {
-          this.errorHandler.mostrarMensajeError("Ocurrió un error.");
-        });
+      this.menuService.GetMenu(qr).subscribe(menu => {
+        if (menu && this.usuarioOnline.tipo == 'registrado' || menu && this.usuarioOnline.tipo == 'anonimo'  ) {
+          this.clienteService.GetCliente(this.usuarioOnline.id).subscribe(cliente => {
+            if (cliente.mesa) {
+              this.pedidoService.Registrar(cliente.mesa, menu.id, cliente.usuario, 0)
+                .then(
+                  res => {
+                    this.errorHandler.confirmationToast('Pedido registrado!');
+                    this.servicioMesa.CambiarEstado(cliente.mesa, EstadosMesa.EsperandoPedido);
+                    this.volver();
+                  }
+                )
+                .catch(
+                  (e) => {
+                    this.errorHandler.errorToast(e);
+                    this.volver();
+                  }
+                )
+            } else {
+              this.errorHandler.errorToast('Debe estar ingresado en una mesa para realizar pedidos');
+              this.volver();
+            }
+          });
+        } else {
+          this.errorHandler.errorToast("No es un Qr valido");
+          this.volver();
+        }
+      });
     }
   }
 
-  public seleccionarPedido(pedido: Pedido) {
-    this.pedidoSeleccionado = pedido;
+  scanQr() {
+    this.barcodeScanner.scan().then(barcodeData => {
+      this.Accion(barcodeData.text.toUpperCase());
+    }).catch(e => {
+      this.errorHandler.errorToast(e);
+      this.volver();
+    });
   }
 
-  public terminarPedido() {
-    this.pedidoService.CambiarEstado(this.pedidoEnPreparacion.codigo, EstadosPedido.ListoParaServir)
-      .then(response => {
-        this.errorHandler.mostrarMensajeConfimación("Pedido marcado como listo para servir.");
-      })
-      .catch(error => {
-        this.errorHandler.mostrarMensajeError("Ocurrió un error.");
-      })
-      .finally(() => {
-        this.actualizarListaPedidos();
+
+  verificarReserva(codigo: string) {
+    let respuesta = false;
+    let reservas = this.listadoReservas.filter(function (reserva) { return reserva.codigo_mesa == codigo })
+    if (this.myDate > this.hora1 && this.hora2 < this.hora2) {
+      let tiempo;
+      let diferencia;
+      if (reservas.length > 0) {
+        reservas.forEach(reserva => {
+          if(this.reservaCliente.codigo_mesa !== reserva.codigo_mesa || this.reservaCliente == null ){
+          let horaR = new Date(reserva.fecha.substr(0, 10) + " " + reserva.hora)
+          tiempo = this.myDate.getTime() - horaR.getTime();
+          diferencia = Math.floor((tiempo / 1000 / 60) << 0)
+          if (diferencia < 40) {
+            respuesta = true;
+          }
+
+          }
+          
+        });
+      }
+    }
+
+    return respuesta;
+  }
+
+  cargarMesas() {
+    this.servicioMesa.Listar().subscribe(
+      (res) => {
+        this.listadoMesas = res;
       });
   }
 
-  public cargarTiempo(tiempoEstimado: number) {
-    this.pedidoService.TomarPedido(this.pedidoSeleccionado.codigo, tiempoEstimado.toString())
-      .then(response => {
-        this.errorHandler.mostrarMensajeConfimación("Pedido tomado exitosamente.");
-      })
-      .catch(error => {
-        this.errorHandler.mostrarMensajeError("Ocurrió un error.");
-      })
-      .finally(() => {
-        this.actualizarListaPedidos();
+  cargarReservas() {
+    this.servicioReserva.Listar().subscribe(
+      (res) => {
+        this.listadoReservas = res;
       });
   }
 
-  public autorizarTodos() {
-    this.pedidoService.AutorizarTodosLosPedidos()
-      .then(response => {
-        this.errorHandler.mostrarMensajeConfimación("Pedidos autorizados exitosamente.");
-      })
-      .catch(error => {
-        this.errorHandler.mostrarMensajeError("Ocurrió un error.");
-      })
-      .finally(() => {
-        this.actualizarListaPedidos();
-      });
+  verificarMesaCerrada(codigo_mesa: string) {
+    let respuesta = false;
+    let mesa = this.listadoMesas.filter(function (listado) { return listado.codigo == codigo_mesa })[0]
+    if (mesa.estado == EstadosMesa.Cerrada) {
+      respuesta = true;
+    }
+    return respuesta
   }
 
-  cancelarPedido(pedido: Pedido) {
-    this.pedidoService.Cancelar(pedido.codigo)
-      .then((res) => {
-        if (res.Estado == 'OK') {
-          this.errorHandler.mostrarMensajeConfimación("Pedido cancelado exitosamente.");
-          this.atras();
-          /*this.pedidoService.ListarTodos().subscribe(
-            (res) => {
-              this.pedidosList = res.filter((p)=>{
-                return p.mesa == pedido.mesa;
-              });
-              if (this.pedidosList.length == 0) {
-                let pedidosFinalizados = res.filter(function (p) {
-                  return p.estado == EstadosPedido.Finalizado
-                });
-                if (pedidosFinalizados.length > 0) {
-                  this.mesaService.CambiarEstado(pedido.mesa, EstadosMesa.Comiendo).then(
-                    () => this.atras()
-                  );
-                } else {
-                  this.mesaService.CambiarEstado(pedido.mesa, EstadosMesa.Asignada).then(
-                    () => this.atras()
-                  );
-                }
-              }
-            });*/
-        } else {
-          this.errorHandler.mostrarMensajeError(res.Mensaje);
-          this.atras();
-        }
-      })
-      .catch(error => {
-        this.errorHandler.mostrarMensajeError(error);
-      })
-      .finally(() => {
-        this.actualizarListaPedidos();
-      });
+  verificarMesaComiendo(codigo_mesa: string) {
+    let respuesta = false;
+    let mesa = this.listadoMesas.filter(function (listado) { return listado.codigo == codigo_mesa })[0]
+    if (mesa.estado == EstadosMesa.Comiendo) {
+      respuesta = true;
+    }
+    return respuesta
   }
 
-  atras() {
+  volver() {
     this.navCtrl.navigateForward('/home');
   }
+
+  
+  consultarReservaDelCliente( mesa: string){
+    let respuesta = true;          
+    if(this.reservaCliente !== undefined){
+    if(this.reservaCliente.codigo_mesa !== mesa && this.reservaCliente.estado == 'A'){
+        respuesta = false;
+        
+        } 
+    }     
+    return respuesta;
+  }
+
+  traerReserva(){
+
+    this.servicioReserva.TraerCliente(this.usuarioOnline.id).
+    subscribe(  (res) => {
+      if(res){
+        this.reservaCliente = res;       
+          
+      }
+    })
+
+  }
+  
+
 }

@@ -135,8 +135,8 @@ export class InicioClientePage implements OnInit {
   private verificarReserva() {
     this.usuarioOnline = this.tokenService.token();
     if (this.usuarioOnline.tipo == "registrado") {
-      this.reservaService.TraerCliente(this.usuarioOnline.id).
-        subscribe(
+      this.reservaService.TraerCliente(this.usuarioOnline.id)
+        .subscribe(
           (res) => {
             if (res) {
               this.reserva = res;
