@@ -127,7 +127,7 @@ export class ChatPage implements AfterViewInit {
   }
 
   confirmarEntrega(pedido: Pedido) {
-    this.pedidosService.CambiarEstado(pedido.codigo, EstadosPedido.Finalizado)
+    this.pedidosService.CambiarEstado(pedido, EstadosPedido.Finalizado)
       .then((res: any) => {
         if (res.Estado == 'OK') {
           this.toastService.confirmationToast("Pedido entregado exitosamente.");

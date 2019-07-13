@@ -121,7 +121,7 @@ export class TomaPedidoPage implements OnInit {
           this.actualizarListaPedidos();
         });
     } else if (this.mode == 'autorizar' ) {
-      this.pedidoService.CambiarEstado(pedido.codigo, EstadosPedido.Pendiente, this.usuario.id)
+      this.pedidoService.CambiarEstado(pedido, EstadosPedido.Pendiente)
         .then((res: any) => {
           if (res.Estado == 'OK') {
             this.errorHandler.confirmationToast("Pedido autorizado exitosamente.");
@@ -136,7 +136,7 @@ export class TomaPedidoPage implements OnInit {
           this.actualizarListaPedidos();
         });
     } else {
-      this.pedidoService.CambiarEstado(pedido.codigo, EstadosPedido.Entregado, this.usuario.id)
+      this.pedidoService.CambiarEstado(pedido, EstadosPedido.Entregado)
         .then((res: any) => {
           if (res.Estado == 'OK') {
             this.errorHandler.confirmationToast("Pedido tomado exitosamente.");
@@ -159,7 +159,7 @@ export class TomaPedidoPage implements OnInit {
   }
 
   public terminarPedido() {
-    this.pedidoService.CambiarEstado(this.pedidoEnPreparacion.codigo, EstadosPedido.ListoParaServir)
+    this.pedidoService.CambiarEstado(this.pedidoEnPreparacion, EstadosPedido.ListoParaServir)
       .then(response => {
         this.errorHandler.confirmationToast("Pedido marcado como listo para servir.");
       })

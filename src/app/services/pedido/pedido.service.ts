@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../http/http.service';
-import { Pedido } from '../../models/pedido';
+import { Pedido, EstadosPedido } from '../../models/pedido';
 import { Observable } from 'rxjs';
+import { NotificationService } from '../notification.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PedidoService {
-  constructor(public miHttp: HttpService) {
+  constructor(public miHttp: HttpService,
+    private notificationService: NotificationService) {
   }
 
   public ListarTodos(): Observable<Pedido[]> {
@@ -32,6 +34,14 @@ export class PedidoService {
       id_mozo: id_mozo,
       fire_mail_cliente: fire_mail_cliente
     };
+
+    if (es_delivery) {
+      this.notificationService.save("Se realizó un nuevo pedido de delivery.", "Socio");
+    }
+    else {
+      this.notificationService.save("Se realizó un nuevo pedido en la mesa " + idMesa, "Mozo");
+    }
+
     return this.miHttp.httpPostP('pedido/registrar/', request);
   }
 
@@ -58,12 +68,27 @@ export class PedidoService {
     return this.miHttp.httpPostP('pedido/servir/', request);
   }
 
-  public CambiarEstado(codigo: string, estado: string, mozo?: string) {
+  public CambiarEstado(pedido: Pedido, estado: string) {
     const request: Object = {
-      codigo: codigo,
+      codigo: pedido.codigo,
       estado: estado,
-      id_mozo: mozo// ? mozo : 0
+      id_mozo: pedido.id_mozo// ? mozo : 0
     };
+
+    switch (estado) {
+      case EstadosPedido.ListoParaServir:
+        this.notificationService.save("El pedido " + pedido.codigo + " de la mesa " + pedido.mesa +
+          "se encuentra listo para servir.", pedido.id_mozo.toString());
+        this.notificationService.save("Su pedido de " + pedido.descripcion + " se encuentra listo para servir.", pedido.nombre_cliente);
+        break;
+      case EstadosPedido.Entregado:
+        this.notificationService.save("Su pedido de " + pedido.descripcion + " fue entregado.", pedido.nombre_cliente);
+        break;
+      case EstadosPedido.EnPreparacion:
+        this.notificationService.save("Su pedido de " + pedido.descripcion + " se encuentra en preparación.", pedido.nombre_cliente);
+        break;
+    }
+
     return this.miHttp.httpPostP('pedido/cambiarEstado/', request);
   }
 

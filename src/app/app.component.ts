@@ -6,6 +6,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
 import { AuthService } from './services/auth/auth.service';
 import { SmartAudioService } from './services/smart-audio/smart-audio.service';
+import { NotificationService } from './services/notification.service';
+import { ToastService } from './services/toast/toast.service';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +21,8 @@ export class AppComponent {
     private router: Router,
     private authService: AuthService,
     private audioService: SmartAudioService,
+    private notificationService: NotificationService,
+    private toastService: ToastService
   ) {
     this.initializeApp();
     this.audioService.preload('inicio', 'assets/sonidos/bubbly.wav');
@@ -40,6 +44,15 @@ export class AppComponent {
           this.router.navigate(['bienvenido']);
         }
       }, 4000);
+      let esInicio = true;
+      this.notificationService.GetAllnotifications().subscribe(notifications => {
+        if (esInicio) {
+          esInicio = false;
+        }
+        else {
+          this.toastService.warningToast(notifications.pop().text, 20000);
+        }
+      })
     });
   }
 }

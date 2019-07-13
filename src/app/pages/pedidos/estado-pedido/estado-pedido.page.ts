@@ -58,7 +58,7 @@ export class EstadoPedidoPage {
   }
 
   confirmarEntrega(pedido: Pedido) {
-    this.pedidoService.CambiarEstado(pedido.codigo, EstadosPedido.Finalizado)
+    this.pedidoService.CambiarEstado(pedido, EstadosPedido.Finalizado)
       .then((res: any) => {
         if (res.Estado == 'OK') {
           this.errorHandler.confirmationToast("Pedido confirmado exitosamente.");
