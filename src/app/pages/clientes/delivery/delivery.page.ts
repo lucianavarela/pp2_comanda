@@ -13,6 +13,7 @@ import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@io
 import { Pedido, EstadosPedido } from 'src/app/models/pedido';
 import { ToastService } from '../../../services/toast/toast.service';
 import { AuthFireService } from '../../../services/auth.service';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 declare var google;
 
@@ -38,6 +39,8 @@ export class DeliveryPage implements OnInit {
   manualAddress: boolean;
   addressMessage: string;
   pedidoSeleccionado: Pedido;
+  showTotal: boolean = false;
+  total_a_pagar: string = '';
 
   constructor(
     private navCtrl: NavController,
@@ -48,7 +51,8 @@ export class DeliveryPage implements OnInit {
     private geolocation: Geolocation,
     private nativeGeocoder: NativeGeocoder,
     private toastService: ToastService,
-    private authFireService: AuthFireService
+    private authFireService: AuthFireService,
+    private barcodeScanner: BarcodeScanner
   ) {
     this.usuario = this.auth.getUserInfo();
     this.manualAddress = false;
@@ -72,7 +76,7 @@ export class DeliveryPage implements OnInit {
   }
 
   ionViewWillEnter() {
-
+    this.showTotal = false;
     this.traerMenus();
 
     if (this.usuario.tipo == 'registrado') {
@@ -199,17 +203,27 @@ export class DeliveryPage implements OnInit {
     this.pedidoService.CambiarEstado(pedido.codigo, EstadosPedido.Finalizado)
       .then((res: any) => {
         if (res.Estado == 'OK') {
-          this.toastService.confirmationToast("Pedido entregado exitosamente.");
-          this.atras();
+          this.barcodeScanner.scan().then(barcodeData => {
+            if (barcodeData.text.toUpperCase().indexOf('PROPINA-') > -1) {
+              let propina = parseFloat(barcodeData.text.toUpperCase().replace('PROPINA-', ''));
+              this.toastService.confirmationToast("Gracias por su propina de " + propina + '%!');
+              let monto = parseFloat(pedido.importe);
+              monto = monto * (1 + (propina / 100));
+              this.total_a_pagar = monto.toFixed(2);
+              this.showTotal = true;
+            } else {
+              this.toastService.errorToast('Qr incorrecto!');
+              this.confirmarEntrega(pedido);
+            }
+          }).catch(e => {
+            this.toastService.errorToast(e);
+          });
         } else {
           this.toastService.errorToast(res.Mensaje);
         }
       })
       .catch(error => {
         this.toastService.errorToast(error);
-      })
-      .finally(() => {
-        this.atras();
       });
   }
 
@@ -217,18 +231,12 @@ export class DeliveryPage implements OnInit {
   cancelarPedido(pedido: Pedido) {
     this.pedidoService.Cancelar(pedido.codigo)
       .then((res: any) => {
-        if (res.Estado == 'OK') {
-          this.toastService.confirmationToast("Pedido cancelado exitosamente.");
-          this.atras();
-        } else {
-          this.toastService.errorToast(res.Mensaje);
-        }
+        this.toastService.confirmationToast("Pedido cancelado exitosamente.");
+        this.atras();
       })
       .catch(error => {
         this.toastService.errorToast(error);
-      })
-      .finally(() => {
-        this.atras();
       });
   }
+
 }

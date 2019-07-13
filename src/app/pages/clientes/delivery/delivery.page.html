@@ -13,10 +13,24 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content *ngIf="!showTotal" padding>
   <div *ngIf="!this.pedidosCliente || this.pedidosCliente.length == 0">
 
     <form>
+      <div class="map-wrapper">
+        <div id="map_center">
+          <img src="../../assets/imgs/marcador.png" />
+        </div>
+        <div #map id="map"></div>
+      </div>
+      <div id="address">
+        <span>{{addressMessage}}</span>
+        <ion-item style="margin-bottom: 20px;" *ngIf="manualAddress">
+          <ion-label position="floating">Dirección</ion-label>
+          <ion-input [(ngModel)]="address" type="text" name="address" required></ion-input>
+        </ion-item>
+      </div>
+
       <div>
         <app-datos-menu *ngFor="let menu of menus" [menu]="menu" (menuConfirmado)="agregarMenu($event, menu)">
         </app-datos-menu>
@@ -46,26 +60,6 @@
       <ion-button *ngIf="menus_cargados.length > 0" expand="full" color="primary" id="boton" (click)="generarPedido()"
         round>Pedir</ion-button>
 
-      <!--ion-col text-end>
-        <ion-button (click)="loadMap()" shape="round" fill="outline">
-          <ion-icon slot="start" name="locate"></ion-icon>
-          Donde Estoy
-        </ion-button>
-      </ion-col-->
-
-      <div class="map-wrapper">
-        <div id="map_center">
-          <img src="../../assets/imgs/marcador.png" />
-        </div>
-        <div #map id="map"></div>
-      </div>
-      <div id="address">
-        <span>{{addressMessage}}</span>
-        <ion-item style="margin-bottom: 20px;" *ngIf="manualAddress">
-          <ion-label position="floating">Dirección</ion-label>
-          <ion-input [(ngModel)]="address" type="text" name="address" required></ion-input>
-        </ion-item>
-      </div>
     </form>
   </div>
 
@@ -74,7 +68,16 @@
   </app-lista-pedidos>
 
   <app-datos-pedido *ngIf="pedidoSeleccionado" [pedido]="pedidoSeleccionado"
-    (pedidoConfirmado)="confirmarEntrega($event, pedido)" (pedidoCancelado)="cancelarPedido($event, pedido)"></app-datos-pedido>
+    (pedidoConfirmado)="confirmarEntrega($event, pedido)" (pedidoCancelado)="cancelarPedido($event, pedido)">
+  </app-datos-pedido>
+</ion-content>
 
 
+<ion-content *ngIf="showTotal" padding>
+  <div class="total">
+    <p>TOTAL A PAGAR:<br /><br /><b>${{total_a_pagar}}</b></p>
+    <ion-button color="light" (click)="atras()">
+      OK
+    </ion-button>
+  </div>
 </ion-content>

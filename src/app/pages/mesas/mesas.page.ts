@@ -49,15 +49,6 @@ export class MesasPage {
     )
   }
 
-  cobrar(codigo: string) {
-    this.mesaService.Cobrar(codigo).then(
-      (res) => {
-        this.cerrar(codigo);
-        this.clienteService.SacarMesa(codigo);
-      }
-    )
-  }
-
   cerrar(codigo: string) {
     this.mesaService.CambiarEstado(codigo, EstadosMesa.Cerrada).then(
       (res) => {

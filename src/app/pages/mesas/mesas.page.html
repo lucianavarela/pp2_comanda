@@ -27,7 +27,7 @@
               <ion-label>{{mesa.estado}}</ion-label>
             </ion-col>
             <ion-col *ngIf="mesa.estado=='Con clientes comiendo'" size="2">
-              <ion-button color="warning" (click)="cobrar(mesa.codigo)">
+              <ion-button color="warning" (click)="cerrar(mesa.codigo)">
                 <ion-icon name="cash"></ion-icon>
               </ion-button>
             </ion-col>
