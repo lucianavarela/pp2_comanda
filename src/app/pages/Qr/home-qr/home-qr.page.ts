@@ -27,10 +27,10 @@ export class HomeQrPage implements OnInit {
   cliente: Cliente;
   usuarioOnline: any;
   myDate = new Date();
-  myDate1 =  new Date().toISOString().substring(0, 10);
- 
-  hora1 = new Date(this.myDate1 + " "+"09:00:00");
-  hora2 = new Date(this.myDate1 + " "+"21:00:00");
+  myDate1 = new Date().toISOString().substring(0, 10);
+
+  hora1 = new Date(this.myDate1 + " " + "09:00:00");
+  hora2 = new Date(this.myDate1 + " " + "13:00:00");
 
   flag: boolean = false;
   reservaCliente: Reserva;
@@ -110,7 +110,7 @@ export class HomeQrPage implements OnInit {
     } else if (qr.indexOf('PROPINA-') > -1) {
       if (this.usuarioOnline.tipo == 'registrado' || this.usuarioOnline.tipo == 'anonimo') {
         this.clienteService.TraerCliente(this.usuarioOnline.id)
-          .subscribe((cliente: any) => {
+          .then((cliente: any) => {
             if (cliente.mesa) {
               if (cliente.mesa != null) {
                 if (this.verificarMesaComiendo(cliente.mesa) || cliente.mesa == 'MES00') {
@@ -190,13 +190,13 @@ export class HomeQrPage implements OnInit {
       let diferencia;
       if (reservas.length > 0) {
         reservas.forEach(reserva => {
-          if(this.reservaCliente.codigo_mesa !== reserva.codigo_mesa || this.reservaCliente == null ){
-          let horaR = new Date(reserva.fecha.substr(0, 10) + " " + reserva.hora)
-          tiempo = this.myDate.getTime() - horaR.getTime();
-          diferencia = Math.floor((tiempo / 1000 / 60) << 0)
-          if (diferencia < 40) {
-            respuesta = true;
-          }
+          if (this.reservaCliente.codigo_mesa != reserva.codigo_mesa || this.reservaCliente == null) {
+            let horaR = new Date(reserva.fecha.substr(0, 10) + " " + reserva.hora)
+            tiempo = this.myDate.getTime() - horaR.getTime();
+            diferencia = Math.floor((tiempo / 1000 / 60) << 0)
+            if (diferencia < 40) {
+              respuesta = true;
+            }
 
           }
 
