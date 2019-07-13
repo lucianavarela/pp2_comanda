@@ -106,7 +106,7 @@ export class ClienteService {
   }
 
   public TraerCliente(id: string): Promise<Object> {
-    return this.miHttp.httpGetPL('clientes/' + id);
+    return this.miHttp.httpGetPL('clientes/traer/' + id);
   }
 
  //le paso un cliente con el id y el monto cargado
@@ -114,7 +114,7 @@ export class ClienteService {
     return this.miHttp.httpPostL("clientes/monto", dataCliente);
   }
 //le paso  el id 
-  public SacarMonto(id: string): Promise<Object> {
+  public SacarMonto(id: number): Promise<Object> {
     return this.miHttp.httpDeletePL('clientes/monto/' + id);
   }
 

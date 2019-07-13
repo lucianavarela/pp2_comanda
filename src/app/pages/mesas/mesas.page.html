@@ -31,9 +31,9 @@
                 <ion-icon name="cash"></ion-icon>
               </ion-button>
             </ion-col>
-            <ion-col *ngIf="mesa.estado=='Con clientes pagando'" size="2">
+            <ion-col *ngIf="mesa.estado=='Con clientes pagando' || mesa.estado=='Asignada'"   size="2">
               <ion-button color="success" (click)="cerrar(mesa.codigo)">
-                <ion-icon name="checkmark"></ion-icon>
+                <ion-icon name="close"></ion-icon>
               </ion-button>
             </ion-col>
             <ion-col *ngIf="mesa.estado=='Cerrada'" size="2">

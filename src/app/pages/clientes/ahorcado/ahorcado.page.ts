@@ -31,6 +31,7 @@ export class AhorcadoPage implements OnInit {
     private authService: AuthService, private  clienteService: ClienteService) { }
 
   ngOnInit() {
+    this.usuarioOnline = this.authService.token();
   }
 
 

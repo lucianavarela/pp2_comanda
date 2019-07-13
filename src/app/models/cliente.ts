@@ -14,4 +14,5 @@ export class Cliente {
     public mesa : string;
     public usuario : string;
     public descuento : string;
+    public monto : number;
 }

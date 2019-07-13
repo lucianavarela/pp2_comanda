@@ -39,6 +39,7 @@ export class SimonPage implements OnInit {
   }
 
   ngOnInit() {
+    this.usuarioOnline = this.authService.token();
   }
 
   private reiniciar() {
