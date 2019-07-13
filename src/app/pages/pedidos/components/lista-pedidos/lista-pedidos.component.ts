@@ -30,7 +30,7 @@ export class ListaPedidosComponent implements OnInit {
   }
 
   public tomarPedido(pedido: Pedido) {
-    if (pedido.estado == EstadosPedido.ListoParaServir || (pedido.es_delivery == 1 && pedido.id_mozo == 0)) {
+    if (pedido.estado == EstadosPedido.ListoParaServir || (pedido.es_delivery == 1 && pedido.id_mozo == 0) || (pedido.es_delivery == 0 && EstadosPedido.Pendiente)) {
       this.pedidoEntregado.emit(pedido);
     } else {
       this.pedidoTomado.emit(pedido);

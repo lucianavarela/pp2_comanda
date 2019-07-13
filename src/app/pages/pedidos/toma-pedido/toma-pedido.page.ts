@@ -91,8 +91,7 @@ export class TomaPedidoPage implements OnInit {
           } else {
             this.errorHandler.errorToast('Aún tenes entregas no finalizadas')
           }
-        }
-        else {
+        } else {
           this.pedidosList = pedidos.filter(function (pedido) {
             return pedido.estado == EstadosPedido.Pendiente && pedido.id_mozo == 0 && pedido.es_delivery == 0;
           })
